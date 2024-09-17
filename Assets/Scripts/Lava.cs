@@ -20,9 +20,14 @@ public class Lava : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            print("Collision");
             collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
         }
+
+        //if (collision.collider.CompareTag("Enemy"))
+        //{
+        //    print("Collision");
+        //    Destroy(collision.collider.gameObject);
+        //}
     }
 
 }
