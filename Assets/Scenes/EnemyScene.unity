@@ -369,6 +369,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1418163381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1418163383}
+  - component: {fileID: 1418163382}
+  m_Layer: 0
+  m_Name: GamePadsAssignation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1418163382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418163381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 8516785317691533686, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
+--- !u!4 &1418163383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418163381}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645259975 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
@@ -382,6 +427,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_ImplicitCom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_CenterOfMass.y
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -443,6 +504,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 283635268358963526, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1113642333549338642, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
@@ -501,3 +566,4 @@ SceneRoots:
   - {fileID: 256748780}
   - {fileID: 1649620695}
   - {fileID: 144860517287393473}
+  - {fileID: 1418163383}
