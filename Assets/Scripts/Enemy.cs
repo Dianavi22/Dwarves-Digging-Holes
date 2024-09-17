@@ -7,10 +7,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject primaryTarget;
 
     [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float lifePoint = 3f;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
     [SerializeField] bool canChangeFocus;
-    [SerializeField] bool grabbable;
     [SerializeField] private LayerMask groundLayer;
 
     private Vector3 mvtVelocity;
