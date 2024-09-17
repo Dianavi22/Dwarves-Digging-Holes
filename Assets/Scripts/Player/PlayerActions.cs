@@ -1,22 +1,23 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
-    [SerializeField] private Transform objectSlot; // Emplacement où placer l'objet tenu
-    [SerializeField] private float throwForce = 500f; // Force de lancer
-    [SerializeField] private float pickupRange = 0.1f; // Portée pour ramasser un objet
+    [SerializeField] private Transform objectSlot;
+    [SerializeField] private float throwForce = 500f;
 
-    private GameObject heldObject; // Référence à l'objet en cours de manipulation
-    private bool isHoldingObject = false; // Booléen pour savoir si un objet est tenu
+    [SerializeField] private GameObject currentHeldObject;
 
-    public bool carried = false;
+    private GameObject heldObject;
+    private bool isHoldingObject = false;
 
-    // Appelé lorsque le bouton de ramassage/lancer est pressé
+    void Start()
+    {
+    }
+
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+        if (context.phase == InputActionPhase.Started)
         {
             if (isHoldingObject)
             {
@@ -29,109 +30,75 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    // Tente de ramasser un objet à portée
     private void TryPickUpObject()
     {
-        // Détection des objets à portée autour du joueur
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-
+        Collider[] hitColliders = UnityEngine.Physics.OverlapSphere(transform.position, 1f);
         foreach (var hitCollider in hitColliders)
         {
-            // Vérifie que l'objet est étiqueté comme "Throwable" ou "Player"
-            if ((hitCollider.CompareTag("Throwable") || hitCollider.CompareTag("Player")) && !hitCollider.gameObject.Equals(gameObject))
+            if (hitCollider.CompareTag("Throwable") || hitCollider.CompareTag("Player"))
             {
                 heldObject = hitCollider.gameObject;
-
                 if (heldObject != null)
                 {
-                    SetObjectState(heldObject, false);
-                    heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                    isHoldingObject = true;
-                    Debug.Log("CATCH");
-                    break;
+                    Renderer objRenderer = heldObject.GetComponent<Renderer>();
+                    if (objRenderer != null)
+                    {
+                        objRenderer.enabled = false;
+                    }
 
+                    Collider objCollider = heldObject.GetComponent<Collider>();
+                    if (objCollider != null)
+                    {
+                        objCollider.enabled = false;
+                    }
+
+                    Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.isKinematic = true;
+                    }
+
+                    heldObject.transform.SetParent(objectSlot);
+                    heldObject.transform.localPosition = Vector3.zero;
+                    heldObject.transform.localRotation = Quaternion.identity;
+
+                    currentHeldObject = heldObject;
+                    isHoldingObject = true;
+                    print("CATCH");
+                    return;
                 }
             }
         }
     }
 
-    private void SetObjectState(GameObject obj, bool state, bool forced = false)
-    {
-        if (obj.TryGetComponent<Renderer>(out var objRenderer))
-        {
-            objRenderer.enabled = state;
-        }
-
-        if (obj.TryGetComponent<Collider>(out var objCollider))
-        {
-            objCollider.enabled = state;
-        }
-
-        if (obj.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.isKinematic = !state;
-
-            if(state && !forced)
-            {
-                float radians = 35f * Mathf.Deg2Rad;
-                Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
-                float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
-                rb.AddForce(throwDirection * force, ForceMode.Impulse);
-            }
-
-            if(forced)
-            {
-                rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
-            }
-        }
-
-        if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
-        {
-            objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
-            if (state)
-            {
-                DOVirtual.DelayedCall(1f, () =>
-                {
-                    objPlayerMovements.carried = !state;
-                });
-            }
-            else
-            {
-                objPlayerMovements.carried = !state;
-            }
-        }
-
-        if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
-        {
-            objPlayerActions.carried = !state;
-        }
-
-        heldObject.transform.SetParent(state ? null : objectSlot);
-    }
-
-    private void ForceDetachPlayer()
-    {
-        ThrowObject(true);
-    }
-
-
-
-    private void ThrowObject(bool forced = false)
+    private void ThrowObject()
     {
         if (heldObject != null)
         {
-            SetObjectState(heldObject, true, forced);
+            Renderer objRenderer = heldObject.GetComponent<Renderer>();
+            if (objRenderer != null)
+            {
+                objRenderer.enabled = true;
+            }
+
+            Collider objCollider = heldObject.GetComponent<Collider>();
+            if (objCollider != null)
+            {
+                objCollider.enabled = true;
+            }
+
+            Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.AddForce(transform.forward * throwForce);
+            }
+
+            heldObject.transform.SetParent(null);
+            currentHeldObject = null; 
             heldObject = null;
             isHoldingObject = false;
+            print("YET");
         }
-    }
-
-
-
-    // Visualiser la portée de ramassage dans l'éditeur
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
     }
 }
