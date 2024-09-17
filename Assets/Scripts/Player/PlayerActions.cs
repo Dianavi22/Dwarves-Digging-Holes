@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
-    [SerializeField] private Transform objectSlot;
+    [SerializeField] public Transform objectSlot;
     [SerializeField] private float throwForce = 500f;
 
-    [SerializeField] private GameObject currentHeldObject;
+    [SerializeField] public GameObject currentHeldObject;
 
-    private GameObject heldObject;
-    private bool isHoldingObject = false;
+    public GameObject heldObject;
+    public bool isHoldingObject = false;
 
     void Start()
     {

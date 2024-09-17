@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private GameManager _gameManager;
     void Start()
     {
-        
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -20,8 +20,18 @@ public class Lava : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            print("Collision");
             collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+        }
+
+        //if (collision.collider.CompareTag("Enemy"))
+        //{
+        //    print("Collision");
+        //    Destroy(collision.collider.gameObject);
+        //}
+
+        if (collision.collider.GetComponent<GoldChariot>())
+        {
+            _gameManager.GameOver();
         }
     }
 
