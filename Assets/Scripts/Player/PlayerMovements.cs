@@ -78,7 +78,7 @@ public class PlayerMovements : MonoBehaviour
 
     private void FlipFacingDirection()
     {
-        transform.DOFlip();
+        transform.Rotate(0f, 180f, 0f);
     }
 
     #region EVENTS
