@@ -58,11 +58,10 @@ Shader "Custom/Lava"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float3 lightDir = normalize(float3(0.5, 1, 0.5)); // Direction de la lumière
+                float3 lightDir = normalize(float3(0.5, 1, 0.5));
                 float diff = max(dot(i.normal, lightDir), 0.0);
                 float4 texColor = tex2D(_MainTex, i.uv);
                 
-                // Application d'une couleur de base avec un ombrage cartoon
                 float3 shadedColor = texColor.rgb * _LightColor.rgb * (diff * _Shading + 0.2);
                 
                 return fixed4(shadedColor, texColor.a);
