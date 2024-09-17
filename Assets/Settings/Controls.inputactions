@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BaseAction",
+                    "type": "Button",
+                    "id": "126b0062-f216-4c32-b236-dd252a495df6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -447,6 +456,17 @@
                     "processors": "",
                     "groups": "Player1;Gamepad",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84cf8e8d-746f-42d9-ad9c-2a5a874aeb11",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1;Gamepad",
+                    "action": "BaseAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
