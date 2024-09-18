@@ -12,7 +12,7 @@ public class PlayerBuild : MonoBehaviour
     [SerializeField] private GameObject _beerPrefab;
     void Start()
     {
-        _playerActions = this.GetComponent<PlayerActions>();
+        _playerActions = GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -54,9 +54,7 @@ public class PlayerBuild : MonoBehaviour
 
     private void PrepareBeer()
     {
-        _playerActions.currentHeldObject = _beerPrefab;
-        _playerActions.isHoldingObject = true;
-        _playerActions.heldObject = Instantiate(_beerPrefab, _playerActions.objectSlot);
+        _playerActions.PickupObject(Instantiate(_beerPrefab, _playerActions.objectSlot));
     }
 
 }

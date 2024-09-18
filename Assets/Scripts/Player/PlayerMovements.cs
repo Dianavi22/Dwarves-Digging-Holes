@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovements : MonoBehaviour
@@ -24,6 +25,8 @@ public class PlayerMovements : MonoBehaviour
     public bool flip = false;
     public bool _isGrounded = false;
     public float gravityScale = 1f;
+    public bool carried = false;
+    public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
 
@@ -37,7 +40,8 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            _rb.velocity = new Vector3(_horizontal * _speed, _rb.velocity.y, 0f);
+                _rb.velocity = new Vector3( _horizontal * _speed, _rb.velocity.y, 0f);
+            
         }
 
         // Flip
@@ -85,6 +89,10 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if(carried)
+        {
+            forceDetachFunction?.Invoke();
+        }
         // When jump is pressed
         if (context.phase == InputActionPhase.Performed && _isGrounded)
         {
@@ -113,8 +121,7 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnDash()
     {
-        Debug.Log("coucou");
-        if (!_isDashing && !_isDashingCooldown)
+        if (!_isDashing && !_isDashingCooldown && !carried)
         {
             _isDashing = true;
             _isDashingCooldown = true;
