@@ -148,6 +148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rock3DModel: {fileID: 1675747860940770585}
+  positions: 000000005a000000b40000000e010000
+  rocksMaterials:
+  - {fileID: 2100000, guid: a8e405085f51c15458e005029c415cf0, type: 2}
+  - {fileID: 2100000, guid: 8b1e64b28ab9cf941a964d7bb8a510fb, type: 2}
+  - {fileID: 2100000, guid: 099db5ea446b0364da88607b63ebc2e1, type: 2}
+  - {fileID: 2100000, guid: bf8df1528d088014fbfaef06cba84901, type: 2}
+  - {fileID: 2100000, guid: 900b23f0e57da56468ea8c5ee387cb79, type: 2}
 --- !u!1 &5815697713690995316
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Projet_Nains
       objectReference: {fileID: 0}
+    - target: {fileID: 6378358387506287701, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8e405085f51c15458e005029c415cf0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -7623479399575375555, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
