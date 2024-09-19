@@ -1,8 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using DG.Tweening;
-using Unity.VisualScripting;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -200,7 +198,14 @@ public class PlayerActions : MonoBehaviour
                 objBeer.breakable = !state;
             }
         } else if (obj.TryGetComponent<Pickaxe>(out var pickaxe)) {
-            pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
+            if(!state) {
+                pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
+            }
+            else {
+                StopAnimation();
+                CancelInvoke(nameof(TestMine));
+            }
+
         }
 
         obj.transform.SetParent(state ? null : objectSlot);

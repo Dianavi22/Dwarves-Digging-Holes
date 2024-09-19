@@ -17,7 +17,7 @@ public class PushChariot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isPushed = _isTriggerActive && Gamepad.current.leftTrigger.isPressed;
+        bool isPushed = _isTriggerActive;
         if (isPushed)
             _rb.AddForce(pushForce, 0, 0);
     }

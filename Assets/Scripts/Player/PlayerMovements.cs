@@ -73,7 +73,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Grounded
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
         if (!_isGrounded)
         {
             playerVelocity.y = -2f;
