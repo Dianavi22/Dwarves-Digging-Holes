@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickaxe : MonoBehaviour
@@ -7,13 +9,33 @@ public class Pickaxe : MonoBehaviour
     [SerializeField]
     private int _healthPoint = 20;
 
-    public void Hit(GameObject hit) {
+    public Action throwOnDestroy;
+
+    public void Hit(GameObject hit)
+    {
         Debug.Log($"Hit {hit.name}");
 
         //^ Currently, it breaks whatever it touch
         //if(hit.TryGetComponent<Rock>(out rock)){}
         _healthPoint -= 1;
+        if (_healthPoint <= 0)
+        {
+            Break();
+        }
         Debug.Log(_healthPoint);
+    }
+
+    public void Break()
+    {
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        throwOnDestroy?.Invoke();
     }
 
 }

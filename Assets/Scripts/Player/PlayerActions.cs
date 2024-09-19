@@ -199,6 +199,8 @@ public class PlayerActions : MonoBehaviour
                 objBeer.throwOnDestroy = EmptyHands;
                 objBeer.breakable = !state;
             }
+        } else if (obj.TryGetComponent<Pickaxe>(out var pickaxe)) {
+            pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
         }
 
         obj.transform.SetParent(state ? null : objectSlot);
