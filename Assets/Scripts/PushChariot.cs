@@ -9,9 +9,12 @@ public class PushChariot : MonoBehaviour
     private bool _isTriggerActive;
     private Rigidbody _rb;
 
+    private Platform _script;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _script = GetComponent<Platform>();
     }
 
     // Update is called once per frame
@@ -25,8 +28,10 @@ public class PushChariot : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        {   
             _isTriggerActive = true;
+            _script.enabled = false;
+            other.GetComponent<Platform>().enabled = false;
         }
     }
 
@@ -35,6 +40,8 @@ public class PushChariot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = false;
+            _script.enabled = true;
+            other.GetComponent<Platform>().enabled = true;
         }
     }
 }
