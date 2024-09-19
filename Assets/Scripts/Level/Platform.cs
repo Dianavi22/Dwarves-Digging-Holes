@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    [HideInInspector]
     public float movementSpeed = 3f;
     
     private void Update()
