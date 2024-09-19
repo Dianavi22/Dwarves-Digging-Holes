@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
     [SerializeField] bool canChangeFocus;
-    [SerializeField] private LayerMask groundLayer;
 
     private Vector3 mvtVelocity;
     private Rigidbody _rb;
@@ -37,7 +36,7 @@ public class Enemy : MonoBehaviour
         _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
 
         // Grounded
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (!isGrounded)
         {
             mvtVelocity.y = -2f;
