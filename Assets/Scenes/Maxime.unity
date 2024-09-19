@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 184080653}
   - component: {fileID: 184080657}
   m_Layer: 0
-  m_Name: BlocSpawner
+  m_Name: BlockSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,9 +154,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabList:
-  - {fileID: 4176649569683192531, guid: 59e48fb99ec522142806d7fa6bec73f3, type: 3}
+  - {fileID: 4392431218995717033, guid: ee6e5a103279fa34e9a4e576b03a72da, type: 3}
+  - {fileID: 8040244235202483511, guid: 7d1fdce96e3c68e45aa30222928fd272, type: 3}
+  - {fileID: 3794582845298295115, guid: cc5ea00376eba954db9687b85e1cada3, type: 3}
   spawnDistance: 10
   despawnTime: 20
+  platformSpeed: 2
   triggerTag: BlocTrigger
 --- !u!65 &184080655
 BoxCollider:
@@ -577,6 +580,7 @@ MonoBehaviour:
   - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
   spawnDistance: 40
   despawnTime: 6
+  platformSpeed: 3
   triggerTag: PlatformTrigger
 --- !u!54 &859681941
 Rigidbody:
@@ -651,7 +655,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4176649569683192531, guid: 59e48fb99ec522142806d7fa6bec73f3, type: 3}
       propertyPath: m_Name
-      value: Bloc1
+      value: Block1
       objectReference: {fileID: 0}
     - target: {fileID: 8867278104024340958, guid: 59e48fb99ec522142806d7fa6bec73f3, type: 3}
       propertyPath: m_LocalPosition.x

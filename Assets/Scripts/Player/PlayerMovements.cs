@@ -12,10 +12,8 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 100f;
-    [SerializeField] private LayerMask groundLayer;
 
     private float _horizontal = 0f;
-    private bool _isJumping = false;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
@@ -26,6 +24,8 @@ public class PlayerMovements : MonoBehaviour
     public bool _isGrounded = false;
     public float gravityScale = 1f;
     public bool carried = false;
+
+    public bool canStopcarried = false;
     public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
@@ -37,10 +37,18 @@ public class PlayerMovements : MonoBehaviour
 
     void Update()
     {
+
         // Move
         if (!_isDashing)
         {
+            if( _horizontal == 0 && !_isDashingCooldown && carried)
+            {
+                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0f);
+            }
+            else
+            {
                 _rb.velocity = new Vector3( _horizontal * _speed, _rb.velocity.y, 0f);
+            }
             
         }
 
@@ -65,12 +73,15 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Grounded
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
         if (!_isGrounded)
         {
             playerVelocity.y = -2f;
             playerVelocity.y += gravityValue * Time.deltaTime;
             _rb.AddForce(playerVelocity * Time.deltaTime);
+        }
+        else if(_isGrounded && carried && canStopcarried){
+            carried = false;
         }
     }
 
