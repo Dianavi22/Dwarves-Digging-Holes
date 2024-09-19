@@ -69,13 +69,16 @@ public class PlayerActions : MonoBehaviour
 
         if (obj.TryGetComponent<Collider>(out var objCollider))
         {
-            objCollider.enabled = state;
+            if(!objCollider.isTrigger) {
+                objCollider.enabled = state;
+            }
         }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = !state;
 
+            rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
             if (state && !forced)
             {
                 float radians = 45f * Mathf.Deg2Rad;
@@ -110,12 +113,15 @@ public class PlayerActions : MonoBehaviour
         // Beer
         if(obj.TryGetComponent<Beer>(out var objBeer)) {
             if(state) {
+                objBeer.throwOnDestroy = null;
+                objBeer.breakable = !state;
                 DOVirtual.DelayedCall(0.5f, () => {
                     objBeer.breakable = state;
                 });
             }
             else {
-                objBeer.breakable = state;
+                objBeer.throwOnDestroy = EmptyHands;
+                objBeer.breakable = !state;
             }
         }
         
@@ -127,6 +133,11 @@ public class PlayerActions : MonoBehaviour
         ThrowObject(true);
     }
 
+    private void EmptyHands() {
+        heldObject = null;
+        isHoldingObject = false;
+    }
+
 
 
     private void ThrowObject(bool forced = false)
@@ -134,8 +145,7 @@ public class PlayerActions : MonoBehaviour
         if (heldObject != null)
         {
             SetObjectState(heldObject, true, forced);
-            heldObject = null;
-            isHoldingObject = false;
+            EmptyHands();
         }
     }
 

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-
-    private GameManager _gameManager;
     void Start()
     {
-        _gameManager = FindObjectOfType<GameManager>();
+
     }
 
     void Update()
@@ -31,7 +29,7 @@ public class Lava : MonoBehaviour
 
         if (collision.collider.GetComponent<GoldChariot>())
         {
-            _gameManager.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
 
