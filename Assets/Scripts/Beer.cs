@@ -2,35 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Beer : MonoBehaviour
 {
 
     public bool breakable = false;
+    public Action throwOnDestroy;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throwOnDestroy?.Invoke();
     }
 
     /// <summary>
-    /// OnCollisionEnter is called when this collider/rigidbody has begun
-    /// touching another rigidbody/collider.
+    /// OnTriggerEnter is called when the Collider other enters the trigger.
     /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionEnter(Collision other)
+    /// <param name="other">The other Collider involved in this collision.</param>
+    void OnTriggerEnter(Collider other)
     {
-        if(!breakable) {
+        if (!breakable)
+        {
             return;
         }
-        
+
+
         /*
         * A voir qu'est ce qui pourrait briser la bière
         */
@@ -38,18 +37,21 @@ public class Beer : MonoBehaviour
         //     BreakBeer();
         // }
 
-            if(other.gameObject.CompareTag("Player")) {
-                // TODO: Faire l'effet de la bière ?
-                Debug.Log("Effect");
-                BreakBeer();
+        if (other.gameObject.CompareTag("Player"))
+        {
+            // TODO: Faire l'effet de la bière ?
+            Debug.Log("Effect");
+            BreakBeer();
 
-            }
-            else {
-                BreakBeer();
-            }
+        }
+        else
+        {
+            BreakBeer();
+        }
     }
 
-    void BreakBeer() {
+    void BreakBeer()
+    {
         /*
         TODO: Play Animation
         */
