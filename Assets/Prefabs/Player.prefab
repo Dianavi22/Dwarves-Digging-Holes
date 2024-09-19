@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 4549420252155512744}
   - component: {fileID: 7568293103426823972}
   - component: {fileID: 7915928224177872676}
+  - component: {fileID: -7351509734925420349}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -363,9 +364,6 @@ MonoBehaviour:
   _jumpForce: 11
   fallMultiplier: 3.5
   lowJumpMultiplier: 5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
   flip: 1
   _isGrounded: 0
   gravityScale: 500
@@ -629,3 +627,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e1a9e3b79f8d049a9eb954828e6158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7351509734925420349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8516785317691533686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545c1b988d4c9ed49bb28d27edbb82fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1
