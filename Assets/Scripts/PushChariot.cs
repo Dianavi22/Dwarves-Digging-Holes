@@ -18,10 +18,8 @@ public class PushChariot : MonoBehaviour
     void Update()
     {
         bool isPushed = _isTriggerActive && Gamepad.current.leftTrigger.isPressed;
-        if (isPushed){
-            Debug.Log("Pushed");
+        if (isPushed)
             _rb.AddForce(pushForce, 0, 0);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
