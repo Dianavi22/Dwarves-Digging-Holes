@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class PlayerActions : MonoBehaviour
 
             if (state && !forced)
             {
-                float radians = 35f * Mathf.Deg2Rad;
+                float radians = 45f * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
@@ -85,7 +86,7 @@ public class PlayerActions : MonoBehaviour
 
             if (forced)
             {
-                rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
+                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
             }
         }
 
@@ -93,26 +94,29 @@ public class PlayerActions : MonoBehaviour
         if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
         {
             objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
-            if (state)
-            {
-                DOVirtual.DelayedCall(1f, () =>
-                {
-                    objPlayerMovements.carried = !state;
-                });
-            }
-            else
+            if (!state)
             {
                 objPlayerMovements.carried = !state;
             }
-        if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
-        {
-            objPlayerActions.carried = !state;
-        }
+            else {
+                DOVirtual.DelayedCall(0.25f, () => {objPlayerMovements.canStopcarried = true;});
+            }
+            if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
+            {
+                objPlayerActions.carried = !state;
+            }
         }
 
         // Beer
         if(obj.TryGetComponent<Beer>(out var objBeer)) {
-            objBeer.breakable = state;
+            if(state) {
+                DOVirtual.DelayedCall(0.5f, () => {
+                    objBeer.breakable = state;
+                });
+            }
+            else {
+                objBeer.breakable = state;
+            }
         }
         
         heldObject.transform.SetParent(state ? null : objectSlot);
