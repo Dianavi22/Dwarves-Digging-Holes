@@ -15,14 +15,16 @@ public class Pickaxe : MonoBehaviour
     {
         Debug.Log($"Hit {hit.name}");
 
-        //^ Currently, it breaks whatever it touch
-        //if(hit.TryGetComponent<Rock>(out rock)){}
-        _healthPoint -= 1;
-        if (_healthPoint <= 0)
+        if (hit.TryGetComponent<Rock>(out var rock))
         {
-            Break();
+            rock.Hit();
+            _healthPoint -= 1;
+            if (_healthPoint <= 0)
+            {
+                Break();
+            }
+            Debug.Log(_healthPoint);
         }
-        Debug.Log(_healthPoint);
     }
 
     public void Break()
