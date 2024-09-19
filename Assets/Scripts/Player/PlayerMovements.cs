@@ -12,7 +12,6 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 100f;
-    [SerializeField] private LayerMask groundLayer;
 
     private float _horizontal = 0f;
     private bool _isDashingCooldown = false;
@@ -74,7 +73,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Grounded
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f, groundLayer);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
         if (!_isGrounded)
         {
             playerVelocity.y = -2f;
