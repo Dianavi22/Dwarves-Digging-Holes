@@ -12,6 +12,8 @@ public class PlayerActions : MonoBehaviour
     private GameObject heldObject;
     private bool isHoldingObject = false;
     private Tween rotationTween;
+
+    private Pickaxe pickaxe1;
     public bool carried = false;
     public Transform objectSlot;
     public GameObject pivot;
@@ -41,6 +43,7 @@ public class PlayerActions : MonoBehaviour
             // TODO: Action avec autre chose
             return;
         }
+        // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
             if (context.performed) // the key has been pressed
@@ -48,6 +51,7 @@ public class PlayerActions : MonoBehaviour
                 //* Animation ONLY
                 StartAnimation();
                 InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+                pickaxe1 = pickaxe;
             }
             if (context.canceled) //the key has been released
             {
@@ -84,8 +88,7 @@ public class PlayerActions : MonoBehaviour
         // Perform the actual raycast
         if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hit, 1.4f))
         {
-            // If the raycast hits something, log it
-            Debug.Log($"Hit {hit.collider.name} at {hit.point}");
+            pickaxe1.Hit(hit.collider.gameObject);
         }
     }
 

@@ -4,24 +4,16 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField]
+    private int _healthPoint = 20;
+
+    public void Hit(GameObject hit) {
+        Debug.Log($"Hit {hit.name}");
+
+        //^ Currently, it breaks whatever it touch
+        //if(hit.TryGetComponent<Rock>(out rock)){}
+        _healthPoint -= 1;
+        Debug.Log(_healthPoint);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    /// <summary>
-    /// OnTriggerEnter is called when the Collider other enters the trigger.
-    /// </summary>
-    /// <param name="other">The other Collider involved in this collision.</param>
-    void OnTriggerEnter(Collider other)
-    {
-        // TODO: mine
-    }
 }
