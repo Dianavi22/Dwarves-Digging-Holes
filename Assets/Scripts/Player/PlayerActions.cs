@@ -89,6 +89,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
+        // Player
         if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
         {
             objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
@@ -103,13 +104,17 @@ public class PlayerActions : MonoBehaviour
             {
                 objPlayerMovements.carried = !state;
             }
-        }
-
         if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
         {
             objPlayerActions.carried = !state;
         }
+        }
 
+        // Beer
+        if(obj.TryGetComponent<Beer>(out var objBeer)) {
+            objBeer.breakable = state;
+        }
+        
         heldObject.transform.SetParent(state ? null : objectSlot);
     }
 
