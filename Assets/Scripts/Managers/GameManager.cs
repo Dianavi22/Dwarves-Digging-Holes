@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public PlatformSpawner platformSpawner;
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        GameStarted();
     }
 
     void Update()
@@ -29,7 +30,12 @@ public class GameManager : MonoBehaviour
 
     private void GameStarted()
     {
+        Invoke("InitPlatformSpawner", 3f);
+    }
 
+    private void InitPlatformSpawner()
+    {
+        platformSpawner.SpawnPlatform();
     }
 
     public void GameOver()
