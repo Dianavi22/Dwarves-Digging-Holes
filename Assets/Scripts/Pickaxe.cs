@@ -1,18 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickaxe : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private int _healthPoint = 20;
+
+    public Action throwOnDestroy;
+
+    public void Hit(GameObject hit)
     {
-        
+        Debug.Log($"Hit {hit.name}");
+
+        //^ Currently, it breaks whatever it touch
+        //if(hit.TryGetComponent<Rock>(out rock)){}
+        _healthPoint -= 1;
+        if (_healthPoint <= 0)
+        {
+            Break();
+        }
+        Debug.Log(_healthPoint);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Break()
     {
-        
+        Destroy(gameObject);
     }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        throwOnDestroy?.Invoke();
+    }
+
 }
