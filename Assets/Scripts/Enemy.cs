@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] GameObject primaryTarget;
+    [SerializeField] Target primaryTarget;
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Transform currentTarget = primaryTarget.transform;
+        Transform currentTarget = TargetManager.Instance.GetGameObject(primaryTarget).transform;
         float direction = Mathf.Sign(currentTarget.position.x - transform.position.x);
         float offset = 1f;
         if (currentTarget.position.x-offset < transform.position.x && currentTarget.position.x+offset > transform.position.x) 
