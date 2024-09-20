@@ -29,7 +29,9 @@ Transform:
   m_LocalPosition: {x: 0.026910126, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8156393794710159155}
+  - {fileID: 6346335656574641610}
   m_Father: {fileID: 5218718760467251739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6328824175629501861
@@ -112,11 +114,11 @@ Transform:
   m_GameObject: {fileID: 3547031786423217347}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21008988, y: 0.057, z: -0.01}
+  m_LocalPosition: {x: -0.237, y: 0.057, z: -0.01}
   m_LocalScale: {x: 0.61109, y: 0.61109, z: 0.61109}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5218718760467251739}
+  m_Father: {fileID: 1788393512460230314}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6923949542968727513
 MeshFilter:
@@ -233,7 +235,7 @@ GameObject:
   - component: {fileID: 2710158631091760519}
   - component: {fileID: 3946503249486991468}
   m_Layer: 3
-  m_Name: GFX
+  m_Name: Cube2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,11 +250,11 @@ Transform:
   m_GameObject: {fileID: 8061781688131647265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.026910126, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5218718760467251739}
+  m_Father: {fileID: 1788393512460230314}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2710158631091760519
 MeshFilter:
@@ -537,18 +539,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7568293103426823972}
-        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
-        m_MethodName: OnHeal
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_ActionId: 126b0062-f216-4c32-b236-dd252a495df6
     m_ActionName: Player/BaseAction[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
   - m_PersistentCalls:
@@ -646,6 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   currentHealth: 3
+  _playerGFX: {fileID: 294205051610316351}
 --- !u!114 &7915928224177872676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,9 +692,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6346335656574641610}
   - {fileID: 1788393512460230314}
-  - {fileID: 8156393794710159155}
   m_Father: {fileID: 8765590584797458301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5029681413016546371

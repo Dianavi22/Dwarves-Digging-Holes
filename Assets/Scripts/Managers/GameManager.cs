@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        else if (Instance != this) // If there is already an instance and it's not `this` instance
-            Destroy(gameObject); // Destroy the GameObject, this component is attached to
+        else if (Instance != this) 
+            Destroy(gameObject);
     }
 
 
