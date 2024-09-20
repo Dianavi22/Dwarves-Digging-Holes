@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,11 @@ public class PlayerActions : MonoBehaviour
     public Transform objectSlot;
     public GameObject pivot;
 
+    [SerializeField] private Transform _scale;
+    private bool isTaunt = false;
+
+    
+
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
@@ -30,6 +36,21 @@ public class PlayerActions : MonoBehaviour
             else
             {
                 TryPickUpObject();
+            }
+        }
+    }
+
+    public void OnTaunt(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && !carried)
+        {
+            if (!isTaunt)
+            {
+                StartCoroutine(Taunt());
+            }
+            else
+            {
+                return;
             }
         }
     }
@@ -229,5 +250,27 @@ public class PlayerActions : MonoBehaviour
             SetObjectState(heldObject, true, forced);
             EmptyHands();
         }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I)){
+            if (!isTaunt)
+            {
+                StartCoroutine(Taunt());
+
+            }
+        }
+    }
+
+  
+
+    private IEnumerator Taunt()
+    {
+        isTaunt = true;
+        _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y - 0.3f, _scale.localScale.z);
+        yield return new WaitForSeconds(0.2f);
+        _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y + 0.3f, _scale.localScale.z);
+        isTaunt = false;
     }
 }

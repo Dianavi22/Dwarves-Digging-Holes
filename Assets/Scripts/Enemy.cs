@@ -34,7 +34,6 @@ public class Enemy : MonoBehaviour
         bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
         // Grounded
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        Debug.Log(hitWall);
         if (hitWall && isGrounded)
         {
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
