@@ -6,7 +6,6 @@ using TMPro;
 
 public class PlayerInformationManager : MonoBehaviour
 {
-
     public Image lifeBar;
     public Image cartsFatigueBar;
     public Image miningFatigueBar;
@@ -28,6 +27,13 @@ public class PlayerInformationManager : MonoBehaviour
     private float ratioCartsFatigue;
     private float ratioMiningFatigue;
 
+
+
+    public Image imagePlayer;
+    public Image imageIcon;
+    public Sprite beerSprite;
+    public Sprite pickaxeSprite;
+    public Sprite chariotSprite;
 
 
 
@@ -69,7 +75,7 @@ public class PlayerInformationManager : MonoBehaviour
         if (currentLife > maxLife)
         {
             currentLife = maxLife;
-            // * Alive !
+            // * Too much Alive !
         }
 
         if (currentCartsFatigue < 0)
@@ -150,6 +156,36 @@ public class PlayerInformationManager : MonoBehaviour
         miningFatigueBar.fillAmount = currentMiningFatigue / maxMiningFatigue;
         
     }
-    
+
+
+
+
+    public void UpdateImageIcon(Sprite iconSprite)
+    {
+        imageIcon.enabled = true;  
+        imageIcon.sprite = iconSprite; 
+    }
+
+    public void ImageIconBeer()
+    {
+        UpdateImageIcon(beerSprite);
+    }
+
+    public void ImageIconPickaxe()
+    {
+        UpdateImageIcon(pickaxeSprite);
+    }
+
+    public void ImageIconChariot()
+    {   
+        UpdateImageIcon(chariotSprite);
+    }
+
+    public void DisableImageIcon()
+    {
+        imageIcon.enabled = false;
+    }
+
+
 
 }
