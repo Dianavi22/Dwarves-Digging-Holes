@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
         if (currentTarget.position.x - offset < transform.position.x && currentTarget.position.x + offset > transform.position.x)
             direction = 0f;
 
+        // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
         if (!hitWall) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
 
     }

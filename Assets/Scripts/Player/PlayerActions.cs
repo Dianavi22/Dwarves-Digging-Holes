@@ -97,11 +97,11 @@ public class PlayerActions : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
         foreach (var hitCollider in hitColliders)
         {
-            GameObject parentGameobject = hitCollider.gameObject.transform.parent.gameObject;
+            Transform parentGameobject = hitCollider.gameObject.transform.parent;
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if ((parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
+            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
             {
-                heldObject = parentGameobject;
+                heldObject = parentGameobject.gameObject;
 
                 if (heldObject != null)
                 {
