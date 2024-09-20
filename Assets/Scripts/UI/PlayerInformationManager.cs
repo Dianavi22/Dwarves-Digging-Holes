@@ -46,118 +46,66 @@ public class PlayerInformationManager : MonoBehaviour
 
     void Update()
     {
+        UpdateBar(currentLife, maxLife, lifeBar, lifeText, 1f);
+        UpdateBar(currentCartsFatigue, maxCartsFatigue, cartsFatigueBar, cartsFatigueText, 0.05f * maxCartsFatigue);
+        UpdateBar(currentMiningFatigue, maxMiningFatigue, miningFatigueBar, miningFatigueText, 0.05f * maxMiningFatigue);
 
-        ratioLife = currentLife / maxLife;
-        lifeBar.fillAmount = Mathf.MoveTowards(lifeBar.fillAmount, ratioLife, Time.deltaTime);
-        lifeText.text = "" + (int)currentLife;
+        currentLife = Mathf.Clamp(currentLife, 0, maxLife);
+        currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
+        currentMiningFatigue = Mathf.Clamp(currentMiningFatigue, 0, maxMiningFatigue);
 
+    }
 
-        if (currentCartsFatigue < maxCartsFatigue){currentCartsFatigue = Mathf.MoveTowards(currentCartsFatigue, maxCartsFatigue, Time.deltaTime * 0.05f * maxCartsFatigue);}
-        ratioCartsFatigue = currentCartsFatigue / maxCartsFatigue;
-        cartsFatigueBar.fillAmount = ratioCartsFatigue;
-        cartsFatigueText.text = "" + (int)currentCartsFatigue;
-
-
-
-        if (currentMiningFatigue < maxMiningFatigue){currentMiningFatigue = Mathf.MoveTowards(currentMiningFatigue, maxMiningFatigue, Time.deltaTime * 0.05f * maxMiningFatigue);}
-        ratioMiningFatigue = currentMiningFatigue / maxMiningFatigue;
-        miningFatigueBar.fillAmount = ratioMiningFatigue;
-        miningFatigueText.text = "" + (int)currentMiningFatigue;
-
-
-
-        if (currentLife <= 0)
-        {
-            currentLife = 0;
-            // ! Dead !
-        }
-
-        if (currentLife > maxLife)
-        {
-            currentLife = maxLife;
-            // * Too much Alive !
-        }
-
-        if (currentCartsFatigue < 0)
-        {
-            currentCartsFatigue = 0;
-            // ^ no Carts Fatigue
-        }
-
-        if (currentMiningFatigue < 0)
-        {
-            currentMiningFatigue = 0;
-            // ^ no Mining Fatigue
-        }
-
+    private void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text, float smoothFactor)
+    {
+        float ratio = currentValue / maxValue;
+        bar.fillAmount = Mathf.MoveTowards(bar.fillAmount, ratio, Time.deltaTime * smoothFactor);
+        text.text = ((int)currentValue).ToString();
     }
 
     public void Damage(float damage)
     {
-        currentLife -= damage;
+        currentLife = Mathf.Clamp(currentLife - damage, 0, maxLife);
     }
 
-    public void Health (float health)
+    public void Health(float health)
     {
-        currentLife += health;
+        currentLife = Mathf.Clamp(currentLife + health, 0, maxLife);
     }
 
-
-    public void ReduceCartsFatigue(float reduceCartsFatigue)
+    private void AdjustFatigue(ref float currentFatigue, float maxFatigue, float amount, bool isIncreasing, Image fatigueBar)
     {
-        if (reduceCartsFatigue <= currentCartsFatigue)
+        if (isIncreasing)
         {
-            currentCartsFatigue -= reduceCartsFatigue;
-            cartsFatigueBar.fillAmount -= reduceCartsFatigue / maxCartsFatigue;
+            currentFatigue += amount;
+            if (currentFatigue > maxFatigue) currentFatigue = maxFatigue;
         }
         else
         {
-            // * Not enough Cards Fatigue !
+            if (amount <= currentFatigue) currentFatigue -= amount;
         }
-        
+        fatigueBar.fillAmount = currentFatigue / maxFatigue;
     }
 
-    public void ReduceMiningFatigue(float reduceMiningFatigue)
+    public void ReduceCartsFatigue(float amount)
     {
-        if (reduceMiningFatigue <= currentMiningFatigue)
-        {
-            currentMiningFatigue -= reduceMiningFatigue;
-            miningFatigueBar.fillAmount -= reduceMiningFatigue / maxMiningFatigue;
-        }
-        else
-        {
-            // * Not enough Mining Fatigue !
-        }
-        
+        AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, false, cartsFatigueBar);
     }
 
-    public void IncreaseCartsFatigue(float increaseCartsFatigue)
+    public void IncreaseCartsFatigue(float amount)
     {
-        currentCartsFatigue += increaseCartsFatigue;
-
-        if(currentCartsFatigue > maxCartsFatigue)
-        {
-            currentCartsFatigue = maxCartsFatigue;
-        }
-
-        cartsFatigueBar.fillAmount = currentCartsFatigue / maxCartsFatigue;
-        
+        AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, true, cartsFatigueBar);
     }
 
-    public void IncreaseMiningFatigue(float increaseMiningFatigue)
+    public void ReduceMiningFatigue(float amount)
     {
-        currentMiningFatigue += increaseMiningFatigue;
-
-        if(currentMiningFatigue > maxMiningFatigue)
-        {
-            currentMiningFatigue = maxMiningFatigue;
-        }
-
-        miningFatigueBar.fillAmount = currentMiningFatigue / maxMiningFatigue;
-        
+        AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, false, miningFatigueBar);
     }
 
-
+    public void IncreaseMiningFatigue(float amount)
+    {
+        AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, true, miningFatigueBar);
+    }
 
 
     public void UpdateImageIcon(Sprite iconSprite)
@@ -185,7 +133,5 @@ public class PlayerInformationManager : MonoBehaviour
     {
         imageIcon.enabled = false;
     }
-
-
 
 }
