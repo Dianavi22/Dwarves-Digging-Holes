@@ -6,7 +6,6 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     [SerializeField] float speedModifier = 1;
-    private float movementSpeed;
     private Rigidbody _rb;
 
     private void Awake()
@@ -16,12 +15,12 @@ public class Platform : MonoBehaviour
 
     private void Start()
     {
-        movementSpeed = GameManager.Instance.scrollingSpeed;
     }
 
     private void Update()
     {
         Physics.SyncTransforms();
-        _rb.MovePosition(new Vector3(transform.position.x - Time.deltaTime * movementSpeed * speedModifier, transform.position.y, transform.position.z));
+        float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.scrollingSpeed * speedModifier;
+        _rb.MovePosition(new Vector3(movementSpeed, transform.position.y, transform.position.z));
     }
 }

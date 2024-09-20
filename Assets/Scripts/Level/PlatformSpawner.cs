@@ -5,16 +5,20 @@ public class PlatformSpawner : MonoBehaviour
 {
     public GameObject[] prefabList;
     public float despawnTime = 6f;
-    public string triggerTag;
+    public string plateformTrigger;
     public Transform spawnPoint;
+    [SerializeField] bool destroyOnTriggerExit = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(triggerTag))
-        {
+        if (other.CompareTag(plateformTrigger))
             SpawnPlatform();
-            Destroy(other.transform.parent.gameObject, despawnTime);
-        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(plateformTrigger) && destroyOnTriggerExit)
+            Destroy(other.transform.parent.gameObject);
     }
 
     public void SpawnPlatform()
