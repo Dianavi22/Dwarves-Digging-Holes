@@ -112,13 +112,12 @@ public class PlayerActions : MonoBehaviour
     }
 
     // Tente de ramasser un objet � port�e
-    private void TryPickUpObject()
+    public void TryPickUpObject()
     {
         // D�tection des objets � port�e autour du joueur
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-        foreach (var hitCollider in hitColliders)
-        {
-            Transform parentGameobject = hitCollider.gameObject.transform.parent;
+        foreach (var hitCollider in hitColliders) {
+            GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
             if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
             {
@@ -150,84 +149,92 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
-        if (obj.TryGetComponent<Renderer>(out var objRenderer))
+        foreach (Transform child in obj.transform)
         {
-            objRenderer.enabled = state;
-        }
+            GameObject childGameObject = child.gameObject;
 
-        if (obj.TryGetComponent<Collider>(out var objCollider))
-        {
-            if (!objCollider.isTrigger)
+            if (childGameObject.TryGetComponent<Renderer>(out var objRenderer))
             {
-                objCollider.enabled = state;
-            }
-        }
-
-        if (obj.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.isKinematic = !state;
-
-            rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
-            if (state && !forced)
-            {
-                float radians = 45f * Mathf.Deg2Rad;
-                Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
-                float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
-                rb.AddForce(throwDirection * force, ForceMode.Impulse);
+                objRenderer.enabled = state;
             }
 
-            if (forced)
+            if (childGameObject.TryGetComponent<Collider>(out var objCollider))
             {
-                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
-            }
-        }
-
-        // Player
-        if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
-        {
-            objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
-            if (!state)
-            {
-                objPlayerMovements.carried = !state;
-            }
-            else
-            {
-                DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
-            }
-            if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
-            {
-                objPlayerActions.carried = !state;
-            }
-        }
-
-        // Beer
-        if (obj.TryGetComponent<Beer>(out var objBeer))
-        {
-            if (state)
-            {
-                objBeer.throwOnDestroy = null;
-                objBeer.breakable = !state;
-                DOVirtual.DelayedCall(0.5f, () =>
+                if (!objCollider.isTrigger)
                 {
-                    objBeer.breakable = state;
-                });
+                    objCollider.enabled = state;
+                }
             }
-            else
+
+            if (obj.TryGetComponent<Rigidbody>(out var rb))
             {
-                objBeer.throwOnDestroy = EmptyHands;
-                objBeer.breakable = !state;
-            }
-        } else if (obj.TryGetComponent<Pickaxe>(out var pickaxe)) {
-            if(!state) {
-                pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
-            }
-            else {
-                StopAnimation();
-                CancelInvoke(nameof(TestMine));
+                rb.isKinematic = !state;
+
+                rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
+                if (state && !forced)
+                {
+                    float radians = 45f * Mathf.Deg2Rad;
+                    Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
+                    float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
+                    rb.AddForce(throwDirection * force, ForceMode.Impulse);
+                }
+
+                if (forced)
+                {
+                    rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
+                }
             }
 
+            // Player
+            if (childGameObject.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
+            {
+                objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
+                if (!state)
+                {
+                    objPlayerMovements.carried = !state;
+                }
+                else
+                {
+                    DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
+                }
+                if (childGameObject.TryGetComponent<PlayerActions>(out var objPlayerActions))
+                {
+                    objPlayerActions.carried = !state;
+                }
+            }
+
+            // Beer
+            if (childGameObject.TryGetComponent<Beer>(out var objBeer))
+            {
+                if (state)
+                {
+                    objBeer.throwOnDestroy = null;
+                    objBeer.breakable = !state;
+                    DOVirtual.DelayedCall(0.5f, () =>
+                    {
+                        objBeer.breakable = state;
+                    });
+                }
+                else
+                {
+                    objBeer.throwOnDestroy = EmptyHands;
+                    objBeer.breakable = !state;
+                }
+            }
+            else if (childGameObject.TryGetComponent<Pickaxe>(out var pickaxe))
+            {
+                if (!state)
+                {
+                    pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
+                }
+                else
+                {
+                    StopAnimation();
+                    CancelInvoke(nameof(TestMine));
+                }
+
+            }
         }
-
         obj.transform.SetParent(state ? null : objectSlot);
     }
 
