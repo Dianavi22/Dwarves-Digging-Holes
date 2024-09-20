@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3856615807335879476}
   - component: {fileID: 5240119379322174540}
   - component: {fileID: 8110452125874359559}
+  - component: {fileID: -4643059896975039049}
   m_Layer: 0
   m_Name: RockWithGold
   m_TagString: Untagged
@@ -96,6 +97,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _haveGold: 1
+--- !u!114 &-4643059896975039049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365725604392612219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca89b6b446021e4469726a87c48c27f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rock3DModel: {fileID: 0}
+  positions: 000000005a000000b40000000e010000
+  rocksMaterials:
+  - {fileID: 2100000, guid: a8e405085f51c15458e005029c415cf0, type: 2}
+  - {fileID: 2100000, guid: 8b1e64b28ab9cf941a964d7bb8a510fb, type: 2}
+  - {fileID: 2100000, guid: 099db5ea446b0364da88607b63ebc2e1, type: 2}
+  - {fileID: 2100000, guid: bf8df1528d088014fbfaef06cba84901, type: 2}
+  - {fileID: 2100000, guid: 900b23f0e57da56468ea8c5ee387cb79, type: 2}
+  _isGoldRock: 1
 --- !u!1 &7212093183657113754
 GameObject:
   m_ObjectHideFlags: 0
