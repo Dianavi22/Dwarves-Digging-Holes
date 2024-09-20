@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
+    public int goldCount;
     
+    public void addGold()
+    {
+        goldCount++;
+    }
 }
