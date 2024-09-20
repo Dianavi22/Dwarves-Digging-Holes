@@ -20,18 +20,21 @@ public class PushChariot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isPushed = _isTriggerActive;
-        if (isPushed)
+        if (_isTriggerActive)
             _rb.AddForce(pushForce, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {   
-            _isTriggerActive = true;
-            _script.enabled = false;
-            other.GetComponent<Platform>().enabled = false;
+        if (other.CompareTag("Player") && other.name == "TauntHitBox")
+        {
+            if (!other.transform.parent.GetComponent<PlayerActions>().isHoldingObject)
+            {
+                _script.enabled = false;
+                var platformScript = other.GetComponent<Platform>();
+                if (platformScript) platformScript.enabled = false;
+                _isTriggerActive = true;
+            }
         }
     }
 
@@ -41,7 +44,8 @@ public class PushChariot : MonoBehaviour
         {
             _isTriggerActive = false;
             _script.enabled = true;
-            other.GetComponent<Platform>().enabled = true;
+            var platformScript = other.GetComponent<Platform>();
+            if (platformScript) platformScript.enabled = true;
         }
     }
 }
