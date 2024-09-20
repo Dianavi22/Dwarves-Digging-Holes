@@ -40,6 +40,21 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    public void OnTaunt(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && !carried)
+        {
+            if (!isTaunt)
+            {
+                StartCoroutine(Taunt());
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
     public void OnBaseAction(InputAction.CallbackContext context)
     {
         if (heldObject == null)
@@ -258,7 +273,5 @@ public class PlayerActions : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y + 0.3f, _scale.localScale.z);
         isTaunt = false;
-
-
     }
 }
