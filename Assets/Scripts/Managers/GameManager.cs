@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public PlatformSpawner platformSpawner;
 
     public static GameManager Instance; // A static reference to the GameManager instance
+    [SerializeField] private GameObject _GameOverCanvas;
 
     void Awake()
     {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private void GameStarted()
     {
+        _GameOverCanvas.SetActive(false);
+        Time.timeScale = 1.0f;
         Invoke("InitPlatformSpawner", 3f);
     }
 
@@ -42,7 +46,13 @@ public class GameManager : MonoBehaviour
     {
         print("GameOver");
         Time.timeScale = 0;
+        _GameOverCanvas.SetActive(true);
 
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }
