@@ -35,8 +35,12 @@ public class Lava : MonoBehaviour
         }
          if (collision.collider.CompareTag("Enemy"))
         {
-           
                 Destroy(collision.collider.gameObject.GetComponentInParent<Enemy>().gameObject);
+        }
+        if (collision.collider.CompareTag("Pickaxe"))
+        {
+            print("PICKAXE IN A FUCKING LAVA");
+            Destroy(collision.collider.gameObject);
 
         }
 

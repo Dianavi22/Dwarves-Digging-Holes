@@ -262,16 +262,16 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I)){
-            if (!isTaunt)
-            {
-                StartCoroutine(Taunt());
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.I)){
+    //        if (!isTaunt)
+    //        {
+    //            StartCoroutine(Taunt());
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
   
 
