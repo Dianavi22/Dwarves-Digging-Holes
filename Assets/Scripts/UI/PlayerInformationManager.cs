@@ -160,4 +160,20 @@ public class PlayerInformationManager : MonoBehaviour
         imageIcon.enabled = false;
     }
 
+
+
+
+
+    // ^ Functions for test buttons. Bool doesn't work with buttons. So I return a void.
+
+    public void ReduceCartsFatigueButtom(float amount)
+    {
+        ReduceCartsFatigue(amount);
+    }
+
+    public void ReduceMiningbutton(float amount)
+    {
+        ReduceMiningFatigue(amount);
+    }
+
 }
