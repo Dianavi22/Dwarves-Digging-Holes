@@ -119,7 +119,7 @@ public class PlayerActions : MonoBehaviour
         foreach (var hitCollider in hitColliders) {
             GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
+            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
             {
                 heldObject = parentGameobject.gameObject;
 
@@ -149,20 +149,25 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
-        foreach (Transform child in obj.transform)
-        {
-            GameObject childGameObject = child.gameObject;
 
-            if (childGameObject.TryGetComponent<Renderer>(out var objRenderer))
+            if (obj.TryGetComponent<Renderer>(out var objRenderer))
             {
                 objRenderer.enabled = state;
             }
 
-            if (childGameObject.TryGetComponent<Collider>(out var objCollider))
+            if (obj.TryGetComponent<Collider>(out var objCollider))
             {
                 if (!objCollider.isTrigger)
                 {
                     objCollider.enabled = state;
+                }
+            }
+            else
+            {
+                Collider InChild = obj.GetComponentInChildren<Collider>();
+                if (InChild != null)
+                {
+                    InChild.enabled = state;
                 }
             }
 
@@ -186,7 +191,7 @@ public class PlayerActions : MonoBehaviour
             }
 
             // Player
-            if (childGameObject.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
+            if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
             {
                 objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
                 if (!state)
@@ -197,14 +202,14 @@ public class PlayerActions : MonoBehaviour
                 {
                     DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
                 }
-                if (childGameObject.TryGetComponent<PlayerActions>(out var objPlayerActions))
+                if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
                 {
                     objPlayerActions.carried = !state;
                 }
             }
 
             // Beer
-            if (childGameObject.TryGetComponent<Beer>(out var objBeer))
+            if (obj.TryGetComponent<Beer>(out var objBeer))
             {
                 if (state)
                 {
@@ -221,7 +226,7 @@ public class PlayerActions : MonoBehaviour
                     objBeer.breakable = !state;
                 }
             }
-            else if (childGameObject.TryGetComponent<Pickaxe>(out var pickaxe))
+            else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
             {
                 if (!state)
                 {
@@ -232,8 +237,6 @@ public class PlayerActions : MonoBehaviour
                     StopAnimation();
                     CancelInvoke(nameof(TestMine));
                 }
-
-            }
         }
         obj.transform.SetParent(state ? null : objectSlot);
     }

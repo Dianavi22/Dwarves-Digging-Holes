@@ -21,22 +21,15 @@ public class PlayerInformationManager : MonoBehaviour
     public float regenSpeedCartsFatigue = 0.05f;
     public float regenSpeedMiningFatigue = 0.05f;
 
-
     private float currentLife;
     private float currentCartsFatigue;
     private float currentMiningFatigue;
-
-
-
-
-
 
     public Image imagePlayer;
     public Image imageIcon;
     public Sprite beerSprite;
     public Sprite pickaxeSprite;
     public Sprite chariotSprite;
-
 
 
     void Start()
@@ -55,7 +48,6 @@ public class PlayerInformationManager : MonoBehaviour
         currentLife = Mathf.Clamp(currentLife, 0, maxLife);
         currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
         currentMiningFatigue = Mathf.Clamp(currentMiningFatigue, 0, maxMiningFatigue);
-
     }
 
     private void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text, float smoothFactor)
@@ -100,45 +92,45 @@ public class PlayerInformationManager : MonoBehaviour
         currentLife = Mathf.Clamp(currentLife + health, 0, maxLife);
     }
 
-    private bool AdjustFatigue(ref float currentFatigue, float maxFatigue, float amount, bool isIncreasing, Image fatigueBar)
+    private bool ReduceFatigue(ref float currentFatigue, float maxFatigue, float amount, Image fatigueBar)
     {
-        if (isIncreasing)
+        if (amount <= currentFatigue)
         {
-            if (currentCartsFatigue < maxFatigue)
-            {
-                currentFatigue += amount;
-                if (currentFatigue > maxFatigue) currentFatigue = maxFatigue;
-                fatigueBar.fillAmount = currentFatigue / maxFatigue;
-                return true;
-            }
-            return false;
-        }
-        else
-        {
-            if (amount <= currentFatigue) currentFatigue -= amount;
+            currentFatigue -= amount;
             fatigueBar.fillAmount = currentFatigue / maxFatigue;
             return true;
         }
+        return false;
+    }
+    private void IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount, Image fatigueBar)
+    {
+        currentFatigue += amount;
+        if (currentFatigue > maxFatigue)
+        {
+            currentFatigue = maxFatigue;
+        }
+
+        fatigueBar.fillAmount = currentFatigue / maxFatigue;
     }
 
     public bool ReduceCartsFatigue(float amount)
     {
-        return AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, false, cartsFatigueBar);
+        return ReduceFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, cartsFatigueBar);
     }
 
-    public bool IncreaseCartsFatigue(float amount)
+    public void IncreaseCartsFatigue(float amount)
     {
-        return AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, true, cartsFatigueBar);
+        IncreaseFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, cartsFatigueBar);
     }
 
     public bool ReduceMiningFatigue(float amount)
     {
-        return AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, false, miningFatigueBar);
+        return ReduceFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, miningFatigueBar);
     }
 
-    public bool IncreaseMiningFatigue(float amount)
+    public void IncreaseMiningFatigue(float amount)
     {
-        return AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, true, miningFatigueBar);
+        IncreaseFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, miningFatigueBar);
     }
 
 
@@ -166,6 +158,22 @@ public class PlayerInformationManager : MonoBehaviour
     public void DisableImageIcon()
     {
         imageIcon.enabled = false;
+    }
+
+
+
+
+
+    // ^ Functions for test buttons. Bool doesn't work with buttons. So I return a void.
+
+    public void ReduceCartsFatigueButtom(float amount)
+    {
+        ReduceCartsFatigue(amount);
+    }
+
+    public void ReduceMiningbutton(float amount)
+    {
+        ReduceMiningFatigue(amount);
     }
 
 }
