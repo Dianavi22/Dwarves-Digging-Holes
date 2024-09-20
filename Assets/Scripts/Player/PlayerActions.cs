@@ -9,7 +9,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float pickupRange = 0.1f;
 
     private GameObject heldObject;
-    private bool isHoldingObject = false;
+    public bool isHoldingObject = false;
     private Tween rotationTween;
 
     private Pickaxe pickaxe1;
