@@ -150,17 +150,6 @@ public class PlayerInformationManager : MonoBehaviour
         miningFatigueBar.fillAmount = currentMiningFatigue / maxMiningFatigue;
         
     }
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 }

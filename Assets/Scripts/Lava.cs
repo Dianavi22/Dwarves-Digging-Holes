@@ -23,10 +23,10 @@ public class Lava : MonoBehaviour
             collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
         }
 
-        if (collision.collider.gameObject.GetComponent<Enemy>())
+        if (collision.collider.CompareTag("Enemy"))
         {
-            print("Collision");
-            Destroy(collision.collider.gameObject);
+            var enemy = collision.collider.transform.parent.GetComponent<Enemy>();
+            Destroy(enemy.gameObject);
         }
 
         if (collision.collider.CompareTag("Rock"))

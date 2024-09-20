@@ -8,12 +8,16 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
+    [SerializeField] float jumpForce = 1f;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
     [SerializeField] bool canChangeFocus;
 
+    [SerializeField] GameObject raycastDetectHitWall;
+
     private Vector3 mvtVelocity;
     private Rigidbody _rb;
+    private bool flip = false;
 
     private readonly float gravityValue = -9.81f;
 
@@ -26,22 +30,45 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Transform currentTarget = TargetManager.Instance.GetGameObject(primaryTarget).transform;
-        float direction = Mathf.Sign(currentTarget.position.x - transform.position.x);
-        float offset = 1f;
-        if (currentTarget.position.x-offset < transform.position.x && currentTarget.position.x+offset > transform.position.x) 
-            direction = 0f;
-
-        //Debug.Log(direction);
-        _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
-
+        // Can jump part
+        bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
         // Grounded
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        if (!isGrounded)
+        Debug.Log(hitWall);
+        if (hitWall && isGrounded)
+        {
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        else
         {
             mvtVelocity.y = -2f;
             mvtVelocity.y += gravityValue * Time.deltaTime;
             _rb.AddForce(mvtVelocity * Time.deltaTime);
         }
+
+        Transform currentTarget = TargetManager.Instance.GetGameObject(primaryTarget).transform;
+        float direction = Mathf.Sign(currentTarget.position.x - transform.position.x);
+
+        if (direction == -1f && flip || direction == 1f && !flip)
+        {
+            flip = !flip;
+            FlipFacingDirection();
+        }
+
+        float offset = 1f;
+        if (currentTarget.position.x - offset < transform.position.x && currentTarget.position.x + offset > transform.position.x)
+            direction = 0f;
+
+        if (!hitWall) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
+
+    }
+    private void FlipFacingDirection()
+    {
+        transform.Rotate(0f, 180f, 0f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-1.1f,0));
     }
 }
