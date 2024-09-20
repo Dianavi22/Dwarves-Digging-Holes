@@ -47,8 +47,8 @@ public class PlayerInformationManager : MonoBehaviour
     void Update()
     {
         UpdateBar(currentLife, maxLife, lifeBar, lifeText, 1f);
-        UpdateBar(currentCartsFatigue, maxCartsFatigue, cartsFatigueBar, cartsFatigueText, 0.05f * maxCartsFatigue);
-        UpdateBar(currentMiningFatigue, maxMiningFatigue, miningFatigueBar, miningFatigueText, 0.05f * maxMiningFatigue);
+        UpdateFatigue(ref currentCartsFatigue, maxCartsFatigue, cartsFatigueBar, cartsFatigueText, 0.05f);
+        UpdateFatigue(ref currentMiningFatigue, maxMiningFatigue, miningFatigueBar, miningFatigueText, 0.05f);
 
         currentLife = Mathf.Clamp(currentLife, 0, maxLife);
         currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
@@ -61,6 +61,16 @@ public class PlayerInformationManager : MonoBehaviour
         float ratio = currentValue / maxValue;
         bar.fillAmount = Mathf.MoveTowards(bar.fillAmount, ratio, Time.deltaTime * smoothFactor);
         text.text = ((int)currentValue).ToString();
+    }
+
+        private void UpdateFatigue(ref float currentFatigue, float maxFatigue, Image fatigueBar, TMP_Text fatigueText, float regenSpeed)
+    {
+        if (currentFatigue < maxFatigue)
+        {
+            currentFatigue = Mathf.MoveTowards(currentFatigue, maxFatigue, Time.deltaTime * regenSpeed * maxFatigue);
+        }
+
+        UpdateBar(currentFatigue, maxFatigue, fatigueBar, fatigueText, regenSpeed);
     }
 
     public void Damage(float damage)
