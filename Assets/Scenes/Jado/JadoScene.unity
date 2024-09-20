@@ -605,7 +605,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_TagString
+      value: EndingCondition
       objectReference: {fileID: 0}
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalPosition.x
@@ -829,6 +833,18 @@ PrefabInstance:
     - target: {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
       propertyPath: m_Name
       value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+      propertyPath: m_TagString
+      value: Undestroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378774186059492302, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+      propertyPath: m_TagString
+      value: Undestroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186681089761964813, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+      propertyPath: m_TagString
+      value: Undestroy
       objectReference: {fileID: 0}
     - target: {fileID: 9218764961472335629, guid: c951eb26a83121a46aae20802bf64644, type: 3}
       propertyPath: m_LocalPosition.x
