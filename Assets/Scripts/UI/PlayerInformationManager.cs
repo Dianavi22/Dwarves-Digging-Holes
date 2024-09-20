@@ -6,6 +6,9 @@ using TMPro;
 
 public class PlayerInformationManager : MonoBehaviour
 {
+    public Image imagePlayer;
+    public Image imageIcon;
+
 
     public Image lifeBar;
     public Image cartsFatigueBar;
@@ -69,7 +72,7 @@ public class PlayerInformationManager : MonoBehaviour
         if (currentLife > maxLife)
         {
             currentLife = maxLife;
-            // * Alive !
+            // * Too much Alive !
         }
 
         if (currentCartsFatigue < 0)
@@ -150,6 +153,6 @@ public class PlayerInformationManager : MonoBehaviour
         miningFatigueBar.fillAmount = currentMiningFatigue / maxMiningFatigue;
         
     }
-    
+
 
 }
