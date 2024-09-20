@@ -116,19 +116,18 @@ public class PlayerActions : MonoBehaviour
     {
         // D�tection des objets � port�e autour du joueur
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-
         foreach (var hitCollider in hitColliders)
         {
+            Transform parentGameobject = hitCollider.gameObject.transform.parent;
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if ((hitCollider.CompareTag("Throwable") || hitCollider.CompareTag("Player")) && !hitCollider.gameObject.Equals(gameObject))
+            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
             {
-                heldObject = hitCollider.gameObject;
+                heldObject = parentGameobject.gameObject;
 
                 if (heldObject != null)
                 {
                     PickupObject(heldObject);
                     break;
-
                 }
             }
         }
