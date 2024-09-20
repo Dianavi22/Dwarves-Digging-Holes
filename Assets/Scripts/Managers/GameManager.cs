@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public PlatformSpawner platformSpawner;
+    public float scrollingSpeed;
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
