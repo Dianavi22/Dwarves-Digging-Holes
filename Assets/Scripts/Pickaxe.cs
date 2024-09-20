@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class Pickaxe : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class Pickaxe : MonoBehaviour
     private int _healthPoint = 20;
 
     public Action throwOnDestroy;
+
+    public Action respawnOnDestroy;
 
     public void Hit(GameObject hit)
     {
@@ -26,7 +30,7 @@ public class Pickaxe : MonoBehaviour
             Debug.Log(_healthPoint);
         }
     }
-
+     
     public void Break()
     {
         Destroy(gameObject);
@@ -38,6 +42,7 @@ public class Pickaxe : MonoBehaviour
     void OnDestroy()
     {
         throwOnDestroy?.Invoke();
+        DOVirtual.DelayedCall(1f, () => { respawnOnDestroy?.Invoke(); });
     }
 
 }

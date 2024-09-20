@@ -18,14 +18,16 @@ public class PlayerInformationManager : MonoBehaviour
     public float maxCartsFatigue;
     public float maxMiningFatigue;
 
+    public float regenSpeedCartsFatigue = 0.05f;
+    public float regenSpeedMiningFatigue = 0.05f;
+
 
     private float currentLife;
     private float currentCartsFatigue;
     private float currentMiningFatigue;
 
-    private float ratioLife;
-    private float ratioCartsFatigue;
-    private float ratioMiningFatigue;
+
+
 
 
 
@@ -47,8 +49,8 @@ public class PlayerInformationManager : MonoBehaviour
     void Update()
     {
         UpdateBar(currentLife, maxLife, lifeBar, lifeText, 1f);
-        UpdateFatigue(ref currentCartsFatigue, maxCartsFatigue, cartsFatigueBar, cartsFatigueText, 0.05f);
-        UpdateFatigue(ref currentMiningFatigue, maxMiningFatigue, miningFatigueBar, miningFatigueText, 0.05f);
+        UpdateFatigue(ref currentCartsFatigue, maxCartsFatigue, cartsFatigueBar, cartsFatigueText, regenSpeedCartsFatigue);
+        UpdateFatigue(ref currentMiningFatigue, maxMiningFatigue, miningFatigueBar, miningFatigueText, regenSpeedMiningFatigue);
 
         currentLife = Mathf.Clamp(currentLife, 0, maxLife);
         currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
@@ -73,9 +75,24 @@ public class PlayerInformationManager : MonoBehaviour
         UpdateBar(currentFatigue, maxFatigue, fatigueBar, fatigueText, regenSpeed);
     }
 
+        public void CheckPlayerLife()
+    {
+        if (currentLife == 0)
+        {
+            Debug.Log("The player is dead.");
+            PlayerDeath();
+        }
+    }
+
+    void PlayerDeath()
+    {
+        Debug.Log("Execution of player death actions.");
+    }
+
     public void Damage(float damage)
     {
         currentLife = Mathf.Clamp(currentLife - damage, 0, maxLife);
+        CheckPlayerLife(); 
     }
 
     public void Health(float health)
@@ -83,38 +100,45 @@ public class PlayerInformationManager : MonoBehaviour
         currentLife = Mathf.Clamp(currentLife + health, 0, maxLife);
     }
 
-    private void AdjustFatigue(ref float currentFatigue, float maxFatigue, float amount, bool isIncreasing, Image fatigueBar)
+    private bool AdjustFatigue(ref float currentFatigue, float maxFatigue, float amount, bool isIncreasing, Image fatigueBar)
     {
         if (isIncreasing)
         {
-            currentFatigue += amount;
-            if (currentFatigue > maxFatigue) currentFatigue = maxFatigue;
+            if (currentCartsFatigue < maxFatigue)
+            {
+                currentFatigue += amount;
+                if (currentFatigue > maxFatigue) currentFatigue = maxFatigue;
+                fatigueBar.fillAmount = currentFatigue / maxFatigue;
+                return true;
+            }
+            return false;
         }
         else
         {
             if (amount <= currentFatigue) currentFatigue -= amount;
+            fatigueBar.fillAmount = currentFatigue / maxFatigue;
+            return true;
         }
-        fatigueBar.fillAmount = currentFatigue / maxFatigue;
     }
 
-    public void ReduceCartsFatigue(float amount)
+    public bool ReduceCartsFatigue(float amount)
     {
-        AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, false, cartsFatigueBar);
+        return AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, false, cartsFatigueBar);
     }
 
-    public void IncreaseCartsFatigue(float amount)
+    public bool IncreaseCartsFatigue(float amount)
     {
-        AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, true, cartsFatigueBar);
+        return AdjustFatigue(ref currentCartsFatigue, maxCartsFatigue, amount, true, cartsFatigueBar);
     }
 
-    public void ReduceMiningFatigue(float amount)
+    public bool ReduceMiningFatigue(float amount)
     {
-        AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, false, miningFatigueBar);
+        return AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, false, miningFatigueBar);
     }
 
-    public void IncreaseMiningFatigue(float amount)
+    public bool IncreaseMiningFatigue(float amount)
     {
-        AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, true, miningFatigueBar);
+        return AdjustFatigue(ref currentMiningFatigue, maxMiningFatigue, amount, true, miningFatigueBar);
     }
 
 
