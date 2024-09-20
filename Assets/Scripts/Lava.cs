@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-
     private GameManager _gameManager;
     void Start()
     {
@@ -13,31 +12,34 @@ public class Lava : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+       
+
         if (collision.collider.CompareTag("Player"))
         {
             collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
         }
-
-        if (collision.collider.CompareTag("Enemy"))
+         if (collision.collider.CompareTag("EndingCondition"))
         {
-            var enemy = collision.collider.transform.parent.GetComponent<Enemy>();
-            Destroy(enemy.gameObject);
+            _gameManager.GameOver();
         }
 
         if (collision.collider.CompareTag("Rock"))
         {
             Destroy(collision.collider.gameObject);
+
+        }
+         if (collision.collider.CompareTag("Enemy"))
+        {
+           
+                Destroy(collision.collider.gameObject.GetComponentInParent<Enemy>().gameObject);
+
         }
 
-        if (collision.collider.GetComponent<GoldChariot>())
-        {
-            _gameManager.GameOver();
-        }
     }
 
 }

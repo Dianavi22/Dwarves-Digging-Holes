@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        print("GameOver");
         Time.timeScale = 0;
+
     }
 
 }
