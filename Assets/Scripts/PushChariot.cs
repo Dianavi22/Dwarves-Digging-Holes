@@ -28,10 +28,12 @@ public class PushChariot : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {   
+        {
+            Debug.Log("Collide PushChariot");
             _isTriggerActive = true;
             _script.enabled = false;
-            other.GetComponent<Platform>().enabled = false;
+            var platformScript = other.GetComponent<Platform>();
+            if (platformScript) platformScript.enabled = false;
         }
     }
 
@@ -41,7 +43,8 @@ public class PushChariot : MonoBehaviour
         {
             _isTriggerActive = false;
             _script.enabled = true;
-            other.GetComponent<Platform>().enabled = true;
+            var platformScript = other.GetComponent<Platform>();
+            if (platformScript) platformScript.enabled = true;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
-    private int _healthPoint = 5;
+    public int _healthPoint = 5;
 
     [SerializeField]
     private bool _haveGold;
