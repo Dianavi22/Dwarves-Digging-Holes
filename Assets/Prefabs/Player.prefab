@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8955737698536627431}
   m_Layer: 0
   m_Name: Pivot
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -592,6 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 15
   pickupRange: 1
+  isHoldingObject: 0
   carried: 0
   objectSlot: {fileID: 3412405687064983370}
   pivot: {fileID: 3808914129422552221}
@@ -634,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _respawnPoint: {fileID: 0}
   _maxHealth: 3
   currentHealth: 3
   _playerGFX: {fileID: 294205051610316351}
@@ -672,6 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5218718760467251739}
   - component: {fileID: 5029681413016546371}
+  - component: {fileID: 3629669328427167213}
   m_Layer: 0
   m_Name: TauntHitBox
   m_TagString: Player
@@ -702,7 +705,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8939581255806326872}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 420c700d6385fc249a74203a2e15d179, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -716,3 +719,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5900077, z: 1}
   m_Center: {x: 0, y: -0.29500395, z: 0}
+--- !u!114 &3629669328427167213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8939581255806326872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e1a9e3b79f8d049a9eb954828e6158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
