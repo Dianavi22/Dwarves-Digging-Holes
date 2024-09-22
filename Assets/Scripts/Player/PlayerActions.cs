@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
+
+
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
 
@@ -20,7 +22,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
-    
 
 
     #region EVENTS 
@@ -133,6 +134,8 @@ public class PlayerActions : MonoBehaviour
     }
 
     #endregion
+
+    
     public void PickupObject(GameObject heldObject)
     {
         SetObjectState(heldObject, false);

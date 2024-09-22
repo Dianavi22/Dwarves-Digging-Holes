@@ -323,6 +323,8 @@ GameObject:
   - component: {fileID: 7568293103426823972}
   - component: {fileID: 7915928224177872676}
   - component: {fileID: -7351509734925420349}
+  - component: {fileID: 7467916203998543311}
+  - component: {fileID: 7358293992737870010}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -559,8 +561,8 @@ MonoBehaviour:
     m_ActionName: Player/Taunt[/XInputControllerWindows/dpad/down,/Keyboard/i]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 7358293992737870010}
+        m_TargetAssemblyTypeName: PlayerUIInput, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
@@ -664,6 +666,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1
+--- !u!114 &7467916203998543311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8516785317691533686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835ef92084b6c104c94c308a0d779722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7358293992737870010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8516785317691533686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9197527417c218242bb6bae08de9a635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8939581255806326872
 GameObject:
   m_ObjectHideFlags: 0
