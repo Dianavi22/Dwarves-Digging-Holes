@@ -24,12 +24,19 @@ public class PlayerActions : MonoBehaviour
 
 
     private UIPauseManager _uiManager;
+    public bool GrabThrowJustPressed { get; private set; }
+    public bool BaseActionJustPressed { get; private set; }
+    public bool TauntJustPressed { get; private set; }
+
 
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
+
+        GrabThrowJustPressed = UserInput.instance.GrabThrowJustPressed;
+
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
@@ -45,6 +52,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
+        TauntJustPressed = UserInput.instance.TauntJustPressed;
+
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (!isTaunt)
@@ -60,6 +69,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
+        BaseActionJustPressed = UserInput.instance.BaseActionJustPressed;
+
         if (heldObject == null)
         {
             // TODO: Action avec autre chose
