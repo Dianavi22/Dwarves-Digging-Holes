@@ -85,12 +85,15 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage()
     {
         _isAlive = false;
-        DeathPlayer();
+        print("HERE");
+
+        StartCoroutine(DeathPlayer());
     }
 
     private IEnumerator DeathPlayer()
     {
-      //  _playerGFX.SetActive(false);
+
+        _playerGFX.SetActive(false);
         yield return new WaitForSeconds(5);
         PlayerRespawn();
     }
@@ -98,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerRespawn()
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-       // _playerGFX.SetActive(true);
+        _playerGFX.SetActive(true);
         _isAlive = true;
     }
 }

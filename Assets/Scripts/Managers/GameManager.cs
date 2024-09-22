@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,24 +11,14 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
-    [SerializeField] private GameObject _PauseCanvas;
-    private bool _isPaused = false;
-
-
-    public void OnPause(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            Pause();
-        }
-    }
+  
     void Awake()
     {
         if (Instance == null) // If there is no instance already
         {
             Instance = this;
         }
-        else if (Instance != this) 
+        else if (Instance != this)
             Destroy(gameObject);
     }
 
@@ -40,13 +31,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-                Pause();
-        }
+       
     }
 
-        private void GameStarted()
+    private void GameStarted()
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
@@ -65,32 +53,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void RetryGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 
-    public void MainMenu()
-    {
-        print("Main Menu");
-    }
-
-    public void Pause()
-    {
-        if (!_isPaused)
-        {
-            Time.timeScale = 0;
-            _PauseCanvas.SetActive(true);
-            _isPaused = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            _PauseCanvas.SetActive(false);
-            _isPaused = false;
-
-
-        }
-    }
 
 }

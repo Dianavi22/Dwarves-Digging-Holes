@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
+
+
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
 
@@ -20,14 +22,22 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
-    
+
+    private UIPauseManager _uiManager;
+    public bool GrabThrowJustPressed { get; private set; }
+    public bool BaseActionJustPressed { get; private set; }
+    public bool TauntJustPressed { get; private set; }
+
 
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+
+        GrabThrowJustPressed = UserInput.instance.GrabThrowJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
             {
@@ -42,7 +52,9 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+        TauntJustPressed = UserInput.instance.TauntJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (!isTaunt)
             {
@@ -57,6 +69,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
+        BaseActionJustPressed = UserInput.instance.BaseActionJustPressed;
+
         if (heldObject == null)
         {
             // TODO: Action avec autre chose
@@ -65,18 +79,22 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (context.performed) // the key has been pressed
+            if (!_uiManager.isPaused)
             {
-                //* Animation ONLY
-                StartAnimation();
-                InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
-                pickaxe1 = pickaxe;
+                if (context.performed) // the key has been pressed
+                {
+                    //* Animation ONLY
+                    StartAnimation();
+                    InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+                    pickaxe1 = pickaxe;
+                }
+                if (context.canceled) //the key has been released
+                {
+                    StopAnimation();
+                    CancelInvoke(nameof(TestMine));
+                }
             }
-            if (context.canceled) //the key has been released
-            {
-                StopAnimation();
-                CancelInvoke(nameof(TestMine));
-            }
+
         }
     }
 
@@ -114,25 +132,37 @@ public class PlayerActions : MonoBehaviour
     // Tente de ramasser un objet � port�e
     public void TryPickUpObject()
     {
-        // D�tection des objets � port�e autour du joueur
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-        foreach (var hitCollider in hitColliders) {
-            GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-            // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
-            {
-                heldObject = parentGameobject.gameObject;
 
-                if (heldObject != null)
+        if (!_uiManager.isPaused)
+        {
+            // D�tection des objets � port�e autour du joueur
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
+                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
                 {
-                    PickupObject(heldObject);
-                    break;
+                    heldObject = parentGameobject.gameObject;
+
+                    if (heldObject != null)
+                    {
+                        PickupObject(heldObject);
+                        break;
+                    }
                 }
             }
         }
+
     }
 
     #endregion
+
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIPauseManager>();
+    }
+
     public void PickupObject(GameObject heldObject)
     {
         SetObjectState(heldObject, false);
@@ -150,93 +180,93 @@ public class PlayerActions : MonoBehaviour
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
 
-            if (obj.TryGetComponent<Renderer>(out var objRenderer))
+        if (obj.TryGetComponent<Renderer>(out var objRenderer))
+        {
+            objRenderer.enabled = state;
+        }
+
+        if (obj.TryGetComponent<Collider>(out var objCollider))
+        {
+            if (!objCollider.isTrigger)
             {
-                objRenderer.enabled = state;
+                objCollider.enabled = state;
+            }
+        }
+        else
+        {
+            Collider InChild = obj.GetComponentInChildren<Collider>();
+            if (InChild != null)
+            {
+                InChild.enabled = state;
+            }
+        }
+
+        if (obj.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = !state;
+
+            rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
+            if (state && !forced)
+            {
+                float radians = 45f * Mathf.Deg2Rad;
+                Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
+                float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
+                rb.AddForce(throwDirection * force, ForceMode.Impulse);
             }
 
-            if (obj.TryGetComponent<Collider>(out var objCollider))
+            if (forced)
             {
-                if (!objCollider.isTrigger)
-                {
-                    objCollider.enabled = state;
-                }
+                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
+            }
+        }
+
+        // Player
+        if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
+        {
+            objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
+            if (!state)
+            {
+                objPlayerMovements.carried = !state;
             }
             else
             {
-                Collider InChild = obj.GetComponentInChildren<Collider>();
-                if (InChild != null)
-                {
-                    InChild.enabled = state;
-                }
+                DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
             }
-
-            if (obj.TryGetComponent<Rigidbody>(out var rb))
+            if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
             {
-                rb.isKinematic = !state;
-
-                rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
-                if (state && !forced)
-                {
-                    float radians = 45f * Mathf.Deg2Rad;
-                    Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
-                    float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
-                    rb.AddForce(throwDirection * force, ForceMode.Impulse);
-                }
-
-                if (forced)
-                {
-                    rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
-                }
+                objPlayerActions.carried = !state;
             }
+        }
 
-            // Player
-            if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
+        // Beer
+        if (obj.TryGetComponent<Beer>(out var objBeer))
+        {
+            if (state)
             {
-                objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
-                if (!state)
+                objBeer.throwOnDestroy = null;
+                objBeer.breakable = !state;
+                DOVirtual.DelayedCall(0.5f, () =>
                 {
-                    objPlayerMovements.carried = !state;
-                }
-                else
-                {
-                    DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
-                }
-                if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
-                {
-                    objPlayerActions.carried = !state;
-                }
+                    objBeer.breakable = state;
+                });
             }
-
-            // Beer
-            if (obj.TryGetComponent<Beer>(out var objBeer))
+            else
             {
-                if (state)
-                {
-                    objBeer.throwOnDestroy = null;
-                    objBeer.breakable = !state;
-                    DOVirtual.DelayedCall(0.5f, () =>
-                    {
-                        objBeer.breakable = state;
-                    });
-                }
-                else
-                {
-                    objBeer.throwOnDestroy = EmptyHands;
-                    objBeer.breakable = !state;
-                }
+                objBeer.throwOnDestroy = EmptyHands;
+                objBeer.breakable = !state;
             }
-            else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        }
+        else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        {
+            if (!state)
             {
-                if (!state)
-                {
-                    pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
-                }
-                else
-                {
-                    StopAnimation();
-                    CancelInvoke(nameof(TestMine));
-                }
+                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
+            }
+            else
+            {
+                StopAnimation();
+                CancelInvoke(nameof(TestMine));
+            }
         }
         obj.transform.SetParent(state ? null : objectSlot);
     }
@@ -273,7 +303,7 @@ public class PlayerActions : MonoBehaviour
     //    }
     //}
 
-  
+
 
     private IEnumerator Taunt()
     {
