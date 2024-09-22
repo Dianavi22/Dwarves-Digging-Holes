@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,14 +12,15 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
     [SerializeField] private GameObject _PauseCanvas;
-    private bool _isPaused = false;
+    public bool isPaused = false;
 
+    [SerializeField] private EventSystem _eventSystem;
 
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
-            Pause();
+            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
         }
     }
     void Awake()
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        else if (Instance != this) 
+        else if (Instance != this)
             Destroy(gameObject);
     }
 
@@ -42,11 +44,11 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-                Pause();
+            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
         }
     }
 
-        private void GameStarted()
+    private void GameStarted()
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
@@ -75,19 +77,25 @@ public class GameManager : MonoBehaviour
         print("Main Menu");
     }
 
-    public void Pause()
+    public void Pause(GameObject _currentPlayer)
     {
-        if (!_isPaused)
+        if (!isPaused)
         {
             Time.timeScale = 0;
             _PauseCanvas.SetActive(true);
-            _isPaused = true;
+            _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
+            _eventSystem.firstSelectedGameObject = _currentPlayer;
+            isPaused = true;
         }
         else
         {
             Time.timeScale = 1;
             _PauseCanvas.SetActive(false);
-            _isPaused = false;
+            _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
+
+            _eventSystem.firstSelectedGameObject = null;
+
+            isPaused = false;
 
 
         }

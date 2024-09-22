@@ -9,7 +9,7 @@ public class PlayerUIInput : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        _gameManager.Pause();
+        _gameManager.Pause(this.gameObject);
     }
 
     void Awake()
