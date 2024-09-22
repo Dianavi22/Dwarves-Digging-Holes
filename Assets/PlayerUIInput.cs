@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerUIInput : MonoBehaviour
 {
-    private GameManager _gameManager;
+    private UIPauseManager _gameManager;
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -14,7 +14,7 @@ public class PlayerUIInput : MonoBehaviour
 
     void Awake()
     {
-        _gameManager = FindObjectOfType<GameManager>();
+        _gameManager = FindObjectOfType<UIPauseManager>();
     }
 
     void Start()

@@ -11,18 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
-    [SerializeField] private GameObject _PauseCanvas;
-    public bool isPaused = false;
-
-    [SerializeField] private EventSystem _eventSystem;
-
-    public void OnPause(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
-        {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
-        }
-    }
+  
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -42,10 +31,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
-        }
+       
     }
 
     private void GameStarted()
@@ -67,38 +53,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void RetryGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 
-    public void MainMenu()
-    {
-        print("Main Menu");
-    }
-
-    public void Pause(GameObject _currentPlayer)
-    {
-        if (!isPaused)
-        {
-            Time.timeScale = 0;
-            _PauseCanvas.SetActive(true);
-            _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
-            _eventSystem.firstSelectedGameObject = _currentPlayer;
-            isPaused = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            _PauseCanvas.SetActive(false);
-            _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
-
-            _eventSystem.firstSelectedGameObject = null;
-
-            isPaused = false;
-
-
-        }
-    }
 
 }

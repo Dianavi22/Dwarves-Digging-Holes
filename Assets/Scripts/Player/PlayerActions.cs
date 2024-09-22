@@ -23,14 +23,14 @@ public class PlayerActions : MonoBehaviour
     private bool isTaunt = false;
 
 
-    private GameManager _gameManager;
+    private UIPauseManager _uiManager;
 
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !_gameManager.isPaused)
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
             {
@@ -45,7 +45,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !_gameManager.isPaused)
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (!isTaunt)
             {
@@ -68,7 +68,7 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (!_gameManager.isPaused)
+            if (!_uiManager.isPaused)
             {
                 if (context.performed) // the key has been pressed
                 {
@@ -122,7 +122,7 @@ public class PlayerActions : MonoBehaviour
     public void TryPickUpObject()
     {
 
-        if (!_gameManager.isPaused)
+        if (!_uiManager.isPaused)
         {
             // D�tection des objets � port�e autour du joueur
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
@@ -149,7 +149,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Awake()
     {
-        _gameManager = FindObjectOfType<GameManager>();
+        _uiManager = FindObjectOfType<UIPauseManager>();
     }
 
     public void PickupObject(GameObject heldObject)
