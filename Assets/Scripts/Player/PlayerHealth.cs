@@ -16,10 +16,11 @@ public class PlayerHealth : MonoBehaviour
 
     private bool _isAlive = true;
     [SerializeField] GameObject _playerGFX;
+    
 
     void Start()
     {
-        _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
+        _respawnPoint = FindObjectOfType<HitBoxRespawn>().gameObject.transform;
 
     }
 
@@ -85,12 +86,16 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage()
     {
         _isAlive = false;
-        DeathPlayer();
+        StartCoroutine(DeathPlayer());
     }
 
     private IEnumerator DeathPlayer()
     {
-      //  _playerGFX.SetActive(false);
+
+        _playerGFX.SetActive(false);
+        this.GetComponent<PlayerMovements>().enabled = false;
+        this.GetComponent<PlayerActions>().enabled = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
         yield return new WaitForSeconds(5);
         PlayerRespawn();
     }
@@ -98,7 +103,19 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerRespawn()
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-       // _playerGFX.SetActive(true);
+        _playerGFX.SetActive(true);
+        this.GetComponent<PlayerMovements>().enabled = true;
+        this.GetComponent<PlayerActions>().enabled = true;
+
         _isAlive = true;
+        StartCoroutine(Invincibility());
+    }
+
+    private IEnumerator Invincibility()
+    {
+        yield return new WaitForSeconds(4);
+        this.GetComponent<Rigidbody>().useGravity = true;
+
+
     }
 }

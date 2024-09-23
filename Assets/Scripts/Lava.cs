@@ -21,7 +21,8 @@ public class Lava : MonoBehaviour
 
         if (collision.collider.CompareTag("Player"))
         {
-            collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+          collision.collider.gameObject.GetComponentInParent<Dwarf>().gameObject.GetComponentInParent<PlayerHealth>().TakeDamage();
+
         }
          if (collision.collider.CompareTag("EndingCondition"))
         {

@@ -13,6 +13,11 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 100f;
 
+    [SerializeField] private Transform _leftRay;
+
+    [SerializeField] private Transform _rightRay;
+
+
     private float _horizontal = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
@@ -29,6 +34,10 @@ public class PlayerMovements : MonoBehaviour
     public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
+
+    public bool JumpJustPressed { get; private set; }
+    public bool DashJustPressed { get; private set; }
+
 
     private void Awake()
     {
@@ -73,7 +82,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Grounded
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
+        _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
         if (!_isGrounded)
         {
             playerVelocity.y = -2f;
@@ -100,6 +109,7 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        JumpJustPressed = UserInput.instance.JumpJustPressed;
         if(carried)
         {
             forceDetachFunction?.Invoke();
@@ -107,6 +117,7 @@ public class PlayerMovements : MonoBehaviour
         // When jump is pressed
         if (context.phase == InputActionPhase.Performed && _isGrounded)
         {
+
             if (_isGrounded && !_isDashing)
             {
                 _jumpButtonHeld = true;
@@ -132,6 +143,8 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnDash()
     {
+        DashJustPressed = UserInput.instance.JumpJustPressed;
+
         if (!_isDashing && !_isDashingCooldown && !carried)
         {
             _isDashing = true;
