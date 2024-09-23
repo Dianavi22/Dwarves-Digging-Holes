@@ -9,6 +9,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
+    [SerializeField] private GameObject forward;
+
 
     private GameObject heldObject;
     public bool isHoldingObject = false;
@@ -145,6 +147,7 @@ public class PlayerActions : MonoBehaviour
     {
         Vector3 rayDirection;
         Color rayColor = Color.red;
+        float distance = 1.4f;
 
         switch (vertical)
         {
@@ -154,6 +157,7 @@ public class PlayerActions : MonoBehaviour
 
             case 0: // BASE case
                 rayDirection = -transform.right;
+                distance = 1.2f;
                 break;
 
             case -1: // DOWN case
@@ -166,10 +170,11 @@ public class PlayerActions : MonoBehaviour
         }
 
         // Draw the debug ray in the scene view
-        Debug.DrawRay(transform.position, rayDirection * 1.4f, rayColor);
+        Debug.DrawRay(forward.transform.position, rayDirection * distance, rayColor);
 
         // Perform the raycast
-        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, 1.4f))
+        // ! You can hit further forward
+        if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
             pickaxe1.Hit(hit.collider.gameObject);
         }
