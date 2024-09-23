@@ -1,12 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private Transform _respawnPoint;
+    private Transform _respawnPoint;
     #region Old Heal system
-    [SerializeField] [HideInInspector] private int _maxHealth = 3;
+    [SerializeField][HideInInspector] private int _maxHealth = 3;
     [SerializeField][HideInInspector] public int currentHealth;
     private PlayerHealth allyToHeal;
     private bool canHeal = false;
@@ -14,13 +15,15 @@ public class PlayerHealth : MonoBehaviour
     private float requiredHoldTime = 3f;
     #endregion
 
-    private bool _isAlive = true;
+    public bool isAlive = true;
+    private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
     void Start()
     {
-        _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
-
+        // Todo use TargetManager to find the GoldChariot
+        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
+        // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
     }
 
     #region Old heal system
@@ -56,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
         ally.currentHealth = Mathf.Min(ally.currentHealth + 1, ally._maxHealth);
     }
 
-    
+
 
     //private void OnCollisionEnter(Collision collision)
     //{
@@ -80,28 +83,64 @@ public class PlayerHealth : MonoBehaviour
     //}
     #endregion
 
-
+    private void Update()
+    {
+        if (!isAlive && _isReadyToSpawn && _respawnPoint.GetComponent<HitBoxRespawn>().isReadyToRespawn)
+        {
+            PlayerRespawn();
+        }
+    }
 
     public void TakeDamage()
     {
-        _isAlive = false;
-        print("HERE");
-
+        isAlive = false;
         StartCoroutine(DeathPlayer());
     }
 
     private IEnumerator DeathPlayer()
     {
-
+        _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
-        yield return new WaitForSeconds(5);
-        PlayerRespawn();
+        this.GetComponent<PlayerMovements>().enabled = false;
+        this.GetComponent<PlayerActions>().enabled = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>() && this.GetComponent<PlayerActions>().heldObject != null)
+        {
+            Destroy(this.GetComponent<PlayerActions>().heldObject.gameObject);
+            this.GetComponent<PlayerActions>().heldObject = null;
+
+        };
+        if (this.GetComponent<PlayerActions>().heldObject == gameObject.GetComponent<PlayerMovements>())
+        {
+            this.GetComponent<PlayerActions>().heldObject.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            this.GetComponent<PlayerActions>().heldObject = null;
+        };
+        yield return new WaitForSeconds(2);
+
+        _isReadyToSpawn = true;
     }
+
 
     private void PlayerRespawn()
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
+
+
+        isAlive = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         _playerGFX.SetActive(true);
-        _isAlive = true;
+
+        StartCoroutine(Invincibility());
+    }
+
+    private IEnumerator Invincibility()
+    {
+        yield return new WaitForSeconds(0.1f);
+        this.GetComponent<PlayerMovements>().enabled = true;
+        this.GetComponent<PlayerActions>().enabled = true;
     }
 }

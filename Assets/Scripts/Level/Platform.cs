@@ -5,10 +5,22 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public float movementSpeed = 3f;
-    
-    private void Update()
+    [SerializeField] float speedModifier = 1;
+    private Rigidbody _rb;
+
+    private void Awake()
     {
-        transform.position -= new Vector3(movementSpeed, 0f, 0f) * Time.deltaTime;
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+    }
+
+    private void FixedUpdate()
+    {
+        Physics.SyncTransforms();
+        float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.scrollingSpeed * speedModifier;
+        _rb.MovePosition(new Vector3(movementSpeed, transform.position.y, transform.position.z));
     }
 }

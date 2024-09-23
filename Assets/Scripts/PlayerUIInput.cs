@@ -16,14 +16,4 @@ public class PlayerUIInput : MonoBehaviour
     {
         _gameManager = FindObjectOfType<UIPauseManager>();
     }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 }
