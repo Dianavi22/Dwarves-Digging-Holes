@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
+
+
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
 
     private GameObject heldObject;
-    private bool isHoldingObject = false;
+    public bool isHoldingObject = false;
     private Tween rotationTween;
 
     private Pickaxe pickaxe1;
@@ -20,14 +22,22 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
-    
+
+    private UIPauseManager _uiManager;
+    public bool GrabThrowJustPressed { get; private set; }
+    public bool BaseActionJustPressed { get; private set; }
+    public bool TauntJustPressed { get; private set; }
+
 
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+
+        GrabThrowJustPressed = UserInput.instance.GrabThrowJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
             {
@@ -42,7 +52,9 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+        TauntJustPressed = UserInput.instance.TauntJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (!isTaunt)
             {
@@ -57,6 +69,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
+        BaseActionJustPressed = UserInput.instance.BaseActionJustPressed;
+
         if (heldObject == null)
         {
             // TODO: Action avec autre chose
@@ -65,18 +79,22 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (context.performed) // the key has been pressed
+            if (!_uiManager.isPaused)
             {
-                //* Animation ONLY
-                StartAnimation();
-                InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
-                pickaxe1 = pickaxe;
+                if (context.performed) // the key has been pressed
+                {
+                    //* Animation ONLY
+                    StartAnimation();
+                    InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+                    pickaxe1 = pickaxe;
+                }
+                if (context.canceled) //the key has been released
+                {
+                    StopAnimation();
+                    CancelInvoke(nameof(TestMine));
+                }
             }
-            if (context.canceled) //the key has been released
-            {
-                StopAnimation();
-                CancelInvoke(nameof(TestMine));
-            }
+
         }
     }
 
@@ -112,28 +130,39 @@ public class PlayerActions : MonoBehaviour
     }
 
     // Tente de ramasser un objet � port�e
-    private void TryPickUpObject()
+    public void TryPickUpObject()
     {
-        // D�tection des objets � port�e autour du joueur
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-        foreach (var hitCollider in hitColliders)
-        {
-            Transform parentGameobject = hitCollider.gameObject.transform.parent;
-            // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.gameObject.Equals(gameObject))
-            {
-                heldObject = parentGameobject.gameObject;
 
-                if (heldObject != null)
+        if (!_uiManager.isPaused)
+        {
+            // D�tection des objets � port�e autour du joueur
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
+                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
                 {
-                    PickupObject(heldObject);
-                    break;
+                    heldObject = parentGameobject.gameObject;
+
+                    if (heldObject != null)
+                    {
+                        PickupObject(heldObject);
+                        break;
+                    }
                 }
             }
         }
+
     }
 
     #endregion
+
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIPauseManager>();
+    }
+
     public void PickupObject(GameObject heldObject)
     {
         SetObjectState(heldObject, false);
@@ -150,6 +179,7 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
+
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
             objRenderer.enabled = state;
@@ -160,6 +190,14 @@ public class PlayerActions : MonoBehaviour
             if (!objCollider.isTrigger)
             {
                 objCollider.enabled = state;
+            }
+        }
+        else
+        {
+            Collider InChild = obj.GetComponentInChildren<Collider>();
+            if (InChild != null)
+            {
+                InChild.enabled = state;
             }
         }
 
@@ -217,17 +255,19 @@ public class PlayerActions : MonoBehaviour
                 objBeer.throwOnDestroy = EmptyHands;
                 objBeer.breakable = !state;
             }
-        } else if (obj.TryGetComponent<Pickaxe>(out var pickaxe)) {
-            if(!state) {
-                pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
+        }
+        else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        {
+            if (!state)
+            {
+                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
             }
-            else {
+            else
+            {
                 StopAnimation();
                 CancelInvoke(nameof(TestMine));
             }
-
         }
-
         obj.transform.SetParent(state ? null : objectSlot);
     }
 
@@ -252,18 +292,18 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I)){
-            if (!isTaunt)
-            {
-                StartCoroutine(Taunt());
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.I)){
+    //        if (!isTaunt)
+    //        {
+    //            StartCoroutine(Taunt());
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
-  
+
 
     private IEnumerator Taunt()
     {

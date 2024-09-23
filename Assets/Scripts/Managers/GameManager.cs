@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,16 +11,19 @@ public class GameManager : MonoBehaviour
     public float scrollingSpeed;
 
     public static GameManager Instance; // A static reference to the GameManager instance
-
+    [SerializeField] private GameObject _GameOverCanvas;
+  
     void Awake()
     {
         if (Instance == null) // If there is no instance already
         {
             Instance = this;
         }
-        else if (Instance != this) // If there is already an instance and it's not `this` instance
-            Destroy(gameObject); // Destroy the GameObject, this component is attached to
+        else if (Instance != this)
+            Destroy(gameObject);
     }
+
+
 
     void Start()
     {
@@ -26,11 +32,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+       
     }
 
     private void GameStarted()
     {
+        _GameOverCanvas.SetActive(false);
+        Time.timeScale = 1.0f;
         Invoke("InitPlatformSpawner", 3f);
     }
 
@@ -42,6 +50,10 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
+        _GameOverCanvas.SetActive(true);
+
     }
+
+
 
 }
