@@ -17,7 +17,7 @@ public class Platform : MonoBehaviour
     {
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Physics.SyncTransforms();
         float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.scrollingSpeed * speedModifier;
