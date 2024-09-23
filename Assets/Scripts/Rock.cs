@@ -13,7 +13,7 @@ public class Rock : MonoBehaviour
 
     private void Awake()
     {
-        if (_haveGold) _goldChariot = GameObject.Find("GoldChariot").GetComponent<GoldChariot>();
+        if (_haveGold) _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
     }
 
     public void Hit()

@@ -13,16 +13,10 @@ public class SetRock : MonoBehaviour
     
     void Start()
     {
-
         if (!_isGoldRock)
         {
             _meshRenderer.material = rocksMaterials[Random.Range(0, rocksMaterials.Count - 1)];
             _gfx.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, positions[Random.Range(0, positions.Count-1)]));
         }
-    }
-
-    void Update()
-    {
-        
     }
 }

@@ -394,7 +394,6 @@ GameObject:
   - component: {fileID: 4955242667168942981}
   - component: {fileID: 4549420252155512744}
   - component: {fileID: 7568293103426823972}
-  - component: {fileID: 7915928224177872676}
   - component: {fileID: 7467916203998543311}
   - component: {fileID: 7358293992737870010}
   m_Layer: 3
@@ -670,6 +669,7 @@ MonoBehaviour:
   throwForce: 15
   pickupRange: 1
   forward: {fileID: 2417238011257084485}
+  heldObject: {fileID: 0}
   isHoldingObject: 0
   carried: 0
   objectSlot: {fileID: 3412405687064983370}
@@ -714,23 +714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnPoint: {fileID: 0}
   _maxHealth: 3
   currentHealth: 3
   isAlive: 1
   _playerGFX: {fileID: 294205051610316351}
---- !u!114 &7915928224177872676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8516785317691533686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e1a9e3b79f8d049a9eb954828e6158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,7 +752,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5218718760467251739}
   - component: {fileID: 5029681413016546371}
-  - component: {fileID: 3629669328427167213}
   m_Layer: 0
   m_Name: TauntHitBox
   m_TagString: Player
@@ -811,15 +797,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5900077, z: 1}
   m_Center: {x: 0, y: -0.29500395, z: 0}
---- !u!114 &3629669328427167213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8939581255806326872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e1a9e3b79f8d049a9eb954828e6158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

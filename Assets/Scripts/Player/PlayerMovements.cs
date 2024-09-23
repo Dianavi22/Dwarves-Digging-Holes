@@ -56,15 +56,10 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            if( _horizontal == 0 && !_isDashingCooldown && carried)
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0f);
-            }
-            else
-            {
-                _rb.velocity = new Vector3( _horizontal * _speed, _rb.velocity.y, 0f);
-            }
-            
+            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried 
+                ? _rb.velocity.x 
+                : _horizontal * _speed;
+            _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);            
         }
 
         // Flip
