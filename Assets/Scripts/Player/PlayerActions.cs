@@ -10,7 +10,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
 
-    private GameObject heldObject;
+    public GameObject heldObject;
     public bool isHoldingObject = false;
     private Tween rotationTween;
 
