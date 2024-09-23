@@ -1111,12 +1111,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6520031413446712008}
         m_TargetAssemblyTypeName: PlayerInformationManager, Assembly-CSharp
-        m_MethodName: Damage
-        m_Mode: 4
+        m_MethodName: damage
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 11
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1244,12 +1244,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6520031413446712008}
         m_TargetAssemblyTypeName: PlayerInformationManager, Assembly-CSharp
-        m_MethodName: Health
-        m_Mode: 4
+        m_MethodName: health
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3552,16 +3552,13 @@ MonoBehaviour:
   lifeText: {fileID: 4274181422615475196}
   cartsFatigueText: {fileID: 1930033996238057547}
   miningFatigueText: {fileID: 8732731976092239365}
-  maxLife: 100
-  maxCartsFatigue: 60
-  maxMiningFatigue: 60
-  regenSpeedCartsFatigue: 0.05
-  regenSpeedMiningFatigue: 0.05
   imagePlayer: {fileID: 2196374614738774913}
   imageIcon: {fileID: 5917093976281617993}
   beerSprite: {fileID: 21300000, guid: db2ede49f0f3eff42b18ea6f893baed8, type: 3}
   pickaxeSprite: {fileID: 21300000, guid: 5c00a764fc488754fb032e9aef1c07e1, type: 3}
   chariotSprite: {fileID: 21300000, guid: 7d795631848d70e409e0c74cb6f1ba19, type: 3}
+  playerHealth: {fileID: 0}
+  playerFatigue: {fileID: 0}
 --- !u!1 &8335807307137661973
 GameObject:
   m_ObjectHideFlags: 0

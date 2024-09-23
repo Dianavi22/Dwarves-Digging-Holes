@@ -8,7 +8,15 @@ public class GamePadsController : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
 
+    [SerializeField]
+    private GameObject canvas;
+
+    [SerializeField]
+    private GameObject[] uiObjects;
+
     public bool debug;
+
+    private int index = 0;
 
     void Start()
     {
@@ -16,16 +24,40 @@ public class GamePadsController : MonoBehaviour
         //Debug.Log($"Number of gamepads: {gamepads.Count}");
 
         if(debug) {
-            PlayerInput playerInput = Instantiate(playerPrefab, transform.parent).GetComponent<PlayerInput>();
+
+
+            GameObject player = Instantiate(playerPrefab, transform.parent);
+            PlayerInput playerInput = player.GetComponent<PlayerInput>();
+
+            GameObject ui = Instantiate(uiObjects[index], canvas.transform);
+            PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+            uiInfo.playerHealth = player.GetComponent<PlayerHealth>();
+
+            PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
+            uiInfo.playerFatigue = player.GetComponent<PlayerFatigue>();
+
+            //uiInfo.Initialize(playerHealth, playerFatigue);
+            
             playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+
             return;
         }
         foreach ( Gamepad gamepad in gamepads )
-        {
+        {   
             //Debug.Log(gamepad.displayName);
-            PlayerInput playerInput = Instantiate(playerPrefab, transform.parent).GetComponent<PlayerInput>();
+            GameObject player = Instantiate(playerPrefab, transform.parent);
+            PlayerInput playerInput = player.GetComponent<PlayerInput>();
+
+            GameObject ui = Instantiate(uiObjects[index], canvas.transform);
+            PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+            uiInfo.playerHealth = player.GetComponent<PlayerHealth>();
+            PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
+
+            //uiInfo.Initialize(playerHealth, playerFatigue);
+
             playerInput.SwitchCurrentControlScheme("Gamepad", gamepad);
 
+            index++;
         }
     }
 }

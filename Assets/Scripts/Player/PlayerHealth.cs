@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth = 3;
+    [SerializeField] public int _maxHealth = 30;
     [SerializeField] public int currentHealth;
 
     private PlayerHealth allyToHeal;
@@ -13,9 +13,16 @@ public class PlayerHealth : MonoBehaviour
     private float healHoldTime = 0f;
     private float requiredHoldTime = 3f;
 
+    public PlayerInformationManager playerInformationManager;
+
     void Start()
     {
         currentHealth = _maxHealth;
+    }
+
+    void Update()
+    {
+
     }
 
     public void OnHeal(InputAction.CallbackContext context)
@@ -75,4 +82,57 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Max(currentHealth - 1, 0);
     }
+
+
+    // & Feature added at the same time as the UI by Tristan for proper testing, we may not need it.
+
+    public void CheckPlayerLife()
+    {
+        if (currentHealth == 0)
+        {
+            Debug.Log("The player is dead.");
+            PlayerDeath();
+        }
+    }
+
+    void PlayerDeath()
+    {
+        Debug.Log("Execution of player death actions.");
+    }
+
+    public void Damage(int damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
+        CheckPlayerLife(); 
+        Debug.Log("The player is Damage  = " + currentHealth);
+    }
+
+    public void Health(int health)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
+        Debug.Log("The player is Health  = " + currentHealth);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
