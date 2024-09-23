@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     #endregion
 
     public bool isAlive = true;
+    private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
 
@@ -81,7 +83,13 @@ public class PlayerHealth : MonoBehaviour
     //}
     #endregion
 
-
+    private void Update()
+    {
+        if (!isAlive && _isReadyToSpawn && _respawnPoint.GetComponent<HitBoxRespawn>().isReadyToRespawn)
+        {
+            PlayerRespawn();
+        }
+    }
 
     public void TakeDamage()
     {
@@ -91,13 +99,13 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator DeathPlayer()
     {
-
+        _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
         this.GetComponent<PlayerMovements>().enabled = false;
         this.GetComponent<PlayerActions>().enabled = false;
         this.GetComponent<Rigidbody>().useGravity = false;
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>() &&  this.GetComponent<PlayerActions>().heldObject != null)
+        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>() && this.GetComponent<PlayerActions>().heldObject != null)
         {
             Destroy(this.GetComponent<PlayerActions>().heldObject.gameObject);
             this.GetComponent<PlayerActions>().heldObject = null;
@@ -109,8 +117,10 @@ public class PlayerHealth : MonoBehaviour
             this.GetComponent<PlayerActions>().heldObject = null;
         };
         yield return new WaitForSeconds(2);
-        PlayerRespawn();
+
+        _isReadyToSpawn = true;
     }
+
 
     private void PlayerRespawn()
     {
