@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float scrollingSpeed;
+    public float scrollingSpeed; // Is used in Platform script
     [SerializeField] private PlatformSpawner blockSpawner;
 
     [SerializeField] private GameObject _GameOverCanvas;
