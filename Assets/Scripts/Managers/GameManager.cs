@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public PlatformSpawner blockSpawner;
+    [SerializeField] private PlatformSpawner blockSpawner;
 
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameStarted();
+
     }
 
     void Update()
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
+        blockSpawner = GameObject.Find("BlockSpawner").GetComponent<PlatformSpawner>();
         Invoke("InitPlatformSpawner", 3f);
     }
 
