@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,36 +16,32 @@ public class Lava : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-       
-
-        if (collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-          collision.collider.gameObject.GetComponentInParent<Dwarf>().gameObject.GetComponentInParent<PlayerHealth>().TakeDamage();
+            other.gameObject.GetComponentInParent<Dwarf>().gameObject.GetComponentInParent<PlayerHealth>().TakeDamage();
 
         }
-         if (collision.collider.CompareTag("EndingCondition"))
+        if (other.CompareTag("EndingCondition"))
         {
             _gameManager.GameOver();
         }
 
-        if (collision.collider.CompareTag("Rock"))
+        if (other.CompareTag("Rock"))
         {
-            Destroy(collision.collider.gameObject);
+            Destroy(other.gameObject);
 
         }
-         if (collision.collider.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-                Destroy(collision.collider.gameObject.GetComponentInParent<Enemy>().gameObject);
+            Destroy(other.gameObject.GetComponentInParent<Enemy>().gameObject);
         }
-        if (collision.collider.CompareTag("Pickaxe"))
+        if (other.CompareTag("Pickaxe"))
         {
             print("PICKAXE IN A FUCKING LAVA");
-            Destroy(collision.collider.gameObject);
+            Destroy(other.gameObject);
 
         }
-
     }
-
 }
