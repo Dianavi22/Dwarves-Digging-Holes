@@ -125,7 +125,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator Invincibility()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         this.GetComponent<PlayerMovements>().enabled = true;
         this.GetComponent<PlayerActions>().enabled = true;
     }
