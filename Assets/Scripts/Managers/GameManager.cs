@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
+    //[SerializeField] private EventSystem _eventSystem;
+    [SerializeField] GameObject _retryButton;
   
     void Awake()
     {
@@ -50,6 +52,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
+
 
     }
 
