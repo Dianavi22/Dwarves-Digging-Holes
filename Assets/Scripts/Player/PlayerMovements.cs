@@ -19,13 +19,18 @@ public class PlayerMovements : MonoBehaviour
 
 
     private float _horizontal = 0f;
+    private float _vertical = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
     private Vector3 playerVelocity;
     private Rigidbody _rb;
 
+    private PlayerActions _playerActions;
+
     public bool flip = false;
+
+    public bool flip_vertical = false;
     public bool _isGrounded = false;
     public float gravityScale = 1f;
     public bool carried = false;
@@ -42,6 +47,7 @@ public class PlayerMovements : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _playerActions = GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -66,6 +72,11 @@ public class PlayerMovements : MonoBehaviour
         {
             flip = !flip;
             FlipFacingDirection();
+        }
+
+        if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
+        {
+            FlipHoldObject();
         }
 
         // Faster falling
@@ -102,7 +113,36 @@ public class PlayerMovements : MonoBehaviour
 
     private void FlipFacingDirection()
     {
-        transform.Rotate(0f, 180f, 0f);
+        if (!flip)
+        {
+            // Player faces left
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            // Player faces right
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void FlipHoldObject()
+    {
+        float targetZRotation = 0f;
+        float targetYRotation = flip ? 0 : 180;
+
+        if (_vertical > 0)
+        {
+            targetZRotation = -35f;
+        }
+        else if (_vertical < 0)
+        {
+            targetZRotation = 35f;
+        }
+        _playerActions.StopAnimation();
+        _playerActions.CancelInvoke();
+        _playerActions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
+        _playerActions.vertical = _vertical;
+        flip_vertical = _vertical != 0;
     }
 
     #region EVENTS
@@ -138,7 +178,9 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _horizontal = context.ReadValue<Vector2>().x;
+        Vector2 vector = context.ReadValue<Vector2>();
+        _horizontal = vector.x;
+        _vertical = vector.y < 0 ? -1 : (vector.y > 0 ? 1 : 0);
     }
 
     public void OnDash()

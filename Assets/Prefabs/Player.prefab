@@ -80,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 2417238011257084485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0, z: 0}
+  m_LocalPosition: {x: -0.333, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -468,6 +468,7 @@ MonoBehaviour:
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
   flip: 1
+  flip_vertical: 0
   _isGrounded: 0
   gravityScale: 500
   carried: 0
@@ -668,10 +669,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 15
   pickupRange: 1
+  forward: {fileID: 2417238011257084485}
   isHoldingObject: 0
   carried: 0
   objectSlot: {fileID: 3412405687064983370}
   pivot: {fileID: 3808914129422552221}
+  vertical: 0
   _scale: {fileID: 5218718760467251739}
 --- !u!143 &4549420252155512744
 CharacterController:
@@ -714,6 +717,7 @@ MonoBehaviour:
   _respawnPoint: {fileID: 0}
   _maxHealth: 3
   currentHealth: 3
+  isAlive: 1
   _playerGFX: {fileID: 294205051610316351}
 --- !u!114 &7915928224177872676
 MonoBehaviour:

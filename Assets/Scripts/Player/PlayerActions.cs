@@ -9,6 +9,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
+    [SerializeField] private GameObject forward;
+
 
     public GameObject heldObject;
     public bool isHoldingObject = false;
@@ -19,6 +21,8 @@ public class PlayerActions : MonoBehaviour
     public Transform objectSlot;
     public GameObject pivot;
 
+    public float vertical;
+
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
@@ -28,6 +32,11 @@ public class PlayerActions : MonoBehaviour
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
+
+    public void PrepareAction() {
+        StartAnimation();
+        InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+    }
 
 
     #region EVENTS 
@@ -83,9 +92,7 @@ public class PlayerActions : MonoBehaviour
             {
                 if (context.performed) // the key has been pressed
                 {
-                    //* Animation ONLY
-                    StartAnimation();
-                    InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+                    PrepareAction();
                     pickaxe1 = pickaxe;
                 }
                 if (context.canceled) //the key has been released
@@ -101,7 +108,26 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, 40), 0.2f, RotateMode.FastBeyond360)
+        // Determine the target tween angle based on the current pivot angle
+        float targetAngle;
+        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
+        {
+            targetAngle = -75f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
+        {
+            targetAngle = 40f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
+        {
+            targetAngle = 75f;
+        }
+        else
+        {
+            // Default to 40 if pivot is not exactly -35, 0, or 35
+            targetAngle = 40f;
+        }
+        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
             .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Yoyo);
     }
@@ -119,14 +145,40 @@ public class PlayerActions : MonoBehaviour
 
     private void TestMine()
     {
-        // Draw the ray in the Scene view
-        Debug.DrawRay(transform.position, -transform.right * 1.4f, Color.red);
+        Vector3 rayDirection;
+        Color rayColor = Color.red;
+        float distance = 1.4f;
 
-        // Perform the actual raycast
-        if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hit, 1.4f))
+        switch (vertical)
+        {
+            case 1: // UP case
+                rayDirection = transform.up;
+                break;
+
+            case 0: // BASE case
+                rayDirection = -transform.right;
+                distance = 1.2f;
+                break;
+
+            case -1: // DOWN case
+                rayDirection = -transform.up;
+                break;
+
+            default:
+                // If the pivot angle is not relevant, exit early
+                return;
+        }
+
+        // Draw the debug ray in the scene view
+        Debug.DrawRay(forward.transform.position, rayDirection * distance, rayColor);
+
+        // Perform the raycast
+        // ! You can hit further forward
+        if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
             pickaxe1.Hit(hit.collider.gameObject);
         }
+
     }
 
     // Tente de ramasser un objet � port�e
@@ -212,7 +264,13 @@ public class PlayerActions : MonoBehaviour
             rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
             if (state && !forced)
             {
-                float radians = 45f * Mathf.Deg2Rad;
+                float pivotAngle = Mathf.Clamp(pivot.transform.localEulerAngles.z, -45f, 45f);
+                if (pivotAngle > 180) pivotAngle -= 360;
+
+                pivotAngle = Mathf.Clamp(pivotAngle, -35f, 35f);
+
+                float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
+                float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
