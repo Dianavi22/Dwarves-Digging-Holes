@@ -101,7 +101,26 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, 40), 0.2f, RotateMode.FastBeyond360)
+        // Determine the target tween angle based on the current pivot angle
+        float targetAngle;
+        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
+        {
+            targetAngle = -75f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
+        {
+            targetAngle = 40f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
+        {
+            targetAngle = 75f;
+        }
+        else
+        {
+            // Default to 40 if pivot is not exactly -35, 0, or 35
+            targetAngle = 40f;
+        }
+        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
             .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Yoyo);
     }
@@ -212,7 +231,13 @@ public class PlayerActions : MonoBehaviour
             rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
             if (state && !forced)
             {
-                float radians = 45f * Mathf.Deg2Rad;
+                float pivotAngle = Mathf.Clamp(pivot.transform.localEulerAngles.z, -45f, 45f);
+                if (pivotAngle > 180) pivotAngle -= 360;
+
+                pivotAngle = Mathf.Clamp(pivotAngle, -35f, 35f);
+
+                float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
+                float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
