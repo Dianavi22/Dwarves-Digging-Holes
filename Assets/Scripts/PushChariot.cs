@@ -23,7 +23,8 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.name == "GFX" && !other.transform.parent.GetComponent<PlayerActions>().isHoldingObject)
+        Debug.Log("other " + other);
+        if (other.CompareTag("Player") && other.name == "GFX" && !other.transform.root.GetComponent<PlayerActions>().isHoldingObject)
         {
             _isTriggerActive = true; 
         }
