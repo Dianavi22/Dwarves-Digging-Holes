@@ -1,8 +1,3 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,24 +5,25 @@ public class PlatformSpawner : MonoBehaviour
 {
     public GameObject[] prefabList;
     public float despawnTime = 6f;
-    public float platformSpeed = 3f;
-    public string triggerTag;
+    public string plateformTrigger;
     public Transform spawnPoint;
+    [SerializeField] bool destroyOnTriggerExit = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(triggerTag))
-        {
+        if (other.CompareTag(plateformTrigger))
             SpawnPlatform();
-            Destroy(other.transform.root.gameObject, despawnTime);
-        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(plateformTrigger) && destroyOnTriggerExit)
+            Destroy(other.transform.parent.gameObject);
     }
 
     public void SpawnPlatform()
     {
         int randIndex = Random.Range(0, prefabList.Length);
-        var instance = Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
-        var platformScript = instance.GetComponent<Platform>();
-        if (platformScript) platformScript.movementSpeed = platformSpeed;
+        Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
     }
 }

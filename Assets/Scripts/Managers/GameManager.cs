@@ -7,13 +7,14 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    public float scrollingSpeed; // Is used in Platform script
     [SerializeField] private PlatformSpawner blockSpawner;
 
-    public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
-    //[SerializeField] private EventSystem _eventSystem;
     [SerializeField] GameObject _retryButton;
   
+    public static GameManager Instance; // A static reference to the GameManager instance
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -24,12 +25,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-
-
     void Start()
     {
         GameStarted();
-
     }
 
     void Update()
@@ -55,10 +53,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_retryButton);
-
-
     }
-
-
-
 }

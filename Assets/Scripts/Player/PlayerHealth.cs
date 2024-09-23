@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private Transform _respawnPoint;
+    private Transform _respawnPoint;
     #region Old Heal system
     [SerializeField][HideInInspector] private int _maxHealth = 3;
     [SerializeField][HideInInspector] public int currentHealth;
@@ -19,11 +19,11 @@ public class PlayerHealth : MonoBehaviour
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
-
     void Start()
     {
-        _respawnPoint = FindObjectOfType<HitBoxRespawn>().gameObject.transform;
-
+        // Todo use TargetManager to find the GoldChariot
+        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
+        // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
     }
 
     #region Old heal system

@@ -5,8 +5,8 @@ using UnityEngine;
 public class SetRock : MonoBehaviour
 {
 
-    [SerializeField]  List<int> positions = new List<int>();
-    [SerializeField] List<Material> rocksMaterials = new List<Material>();
+    [SerializeField] List<int> positions;
+    [SerializeField] List<Material> rocksMaterials;
     [SerializeField] bool _isGoldRock;
     [SerializeField] GameObject _gfx;
     [SerializeField] MeshRenderer _meshRenderer;

@@ -9,12 +9,9 @@ public class PushChariot : MonoBehaviour
     private bool _isTriggerActive;
     private Rigidbody _rb;
 
-    private Platform _script;
-
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _script = GetComponent<Platform>();
     }
 
     // Update is called once per frame
@@ -26,15 +23,10 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.name == "GFX")
+        Debug.Log("other " + other);
+        if (other.CompareTag("Player") && other.name == "GFX" && !other.transform.root.GetComponent<PlayerActions>().isHoldingObject)
         {
-            if (!other.transform.parent.parent.GetComponent<PlayerActions>().isHoldingObject)
-            {
-                _script.enabled = false;
-                var platformScript = other.transform.parent.parent.GetComponent<Platform>();
-                if (platformScript) platformScript.enabled = false;
-                _isTriggerActive = true;
-            }
+            _isTriggerActive = true; 
         }
     }
 
@@ -43,9 +35,6 @@ public class PushChariot : MonoBehaviour
         if (other.CompareTag("Player") && other.name == "GFX")
         {
             _isTriggerActive = false;
-            _script.enabled = true;
-            var platformScript = other.transform.parent.parent.GetComponent<Platform>();
-            if (platformScript) platformScript.enabled = true;
         }
     }
 }
