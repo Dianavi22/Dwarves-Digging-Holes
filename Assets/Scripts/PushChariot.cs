@@ -26,12 +26,12 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.name == "TauntHitBox")
+        if (other.CompareTag("Player") && other.name == "GFX")
         {
-            if (!other.transform.parent.GetComponent<PlayerActions>().isHoldingObject)
+            if (!other.transform.parent.parent.GetComponent<PlayerActions>().isHoldingObject)
             {
                 _script.enabled = false;
-                var platformScript = other.GetComponent<Platform>();
+                var platformScript = other.transform.parent.parent.GetComponent<Platform>();
                 if (platformScript) platformScript.enabled = false;
                 _isTriggerActive = true;
             }
@@ -40,11 +40,11 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.name == "GFX")
         {
             _isTriggerActive = false;
             _script.enabled = true;
-            var platformScript = other.GetComponent<Platform>();
+            var platformScript = other.transform.parent.parent.GetComponent<Platform>();
             if (platformScript) platformScript.enabled = true;
         }
     }
