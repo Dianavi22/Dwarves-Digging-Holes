@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private float requiredHoldTime = 3f;
     #endregion
 
-    private bool _isAlive = true;
+    public bool isAlive = true;
     [SerializeField] GameObject _playerGFX;
     
 
@@ -85,7 +85,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage()
     {
-        _isAlive = false;
+        isAlive = false;
         StartCoroutine(DeathPlayer());
     }
 
@@ -104,18 +104,18 @@ public class PlayerHealth : MonoBehaviour
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
         _playerGFX.SetActive(true);
-        this.GetComponent<PlayerMovements>().enabled = true;
-        this.GetComponent<PlayerActions>().enabled = true;
+      
 
-        _isAlive = true;
+        isAlive = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
+
         StartCoroutine(Invincibility());
     }
 
     private IEnumerator Invincibility()
     {
-        yield return new WaitForSeconds(4);
-        this.GetComponent<Rigidbody>().useGravity = true;
-
-
+        yield return new WaitForSeconds(1);
+        this.GetComponent<PlayerMovements>().enabled = true;
+        this.GetComponent<PlayerActions>().enabled = true;
     }
 }
