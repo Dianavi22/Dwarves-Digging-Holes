@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private Transform _respawnPoint;
     #region Old Heal system
-    [SerializeField] [HideInInspector] private int _maxHealth = 3;
+    [SerializeField][HideInInspector] private int _maxHealth = 3;
     [SerializeField][HideInInspector] public int currentHealth;
     private PlayerHealth allyToHeal;
     private bool canHeal = false;
@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private float requiredHoldTime = 3f;
     #endregion
 
-    private bool _isAlive = true;
+    public bool isAlive = true;
     [SerializeField] GameObject _playerGFX;
 
     void Start()
@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
         ally.currentHealth = Mathf.Min(ally.currentHealth + 1, ally._maxHealth);
     }
 
-    
+
 
     //private void OnCollisionEnter(Collision collision)
     //{
@@ -84,7 +84,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage()
     {
-        _isAlive = false;
+        isAlive = false;
         StartCoroutine(DeathPlayer());
     }
 
@@ -95,6 +95,17 @@ public class PlayerHealth : MonoBehaviour
         this.GetComponent<PlayerMovements>().enabled = false;
         this.GetComponent<PlayerActions>().enabled = false;
         this.GetComponent<Rigidbody>().useGravity = false;
+        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>())
+        {
+            Destroy(this.GetComponent<PlayerActions>().heldObject.gameObject);
+            this.GetComponent<PlayerActions>().heldObject = null;
+
+        };
+        if (this.GetComponent<PlayerActions>().heldObject == gameObject.GetComponent<PlayerMovements>())
+        {
+            this.GetComponent<PlayerActions>().heldObject.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            this.GetComponent<PlayerActions>().heldObject = null;
+        };
         yield return new WaitForSeconds(5);
         PlayerRespawn();
     }
@@ -103,18 +114,18 @@ public class PlayerHealth : MonoBehaviour
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
         _playerGFX.SetActive(true);
-        this.GetComponent<PlayerMovements>().enabled = true;
-        this.GetComponent<PlayerActions>().enabled = true;
 
-        _isAlive = true;
+
+        isAlive = true;
+        this.GetComponent<Rigidbody>().useGravity = true;
+
         StartCoroutine(Invincibility());
     }
 
     private IEnumerator Invincibility()
     {
-        yield return new WaitForSeconds(4);
-        this.GetComponent<Rigidbody>().useGravity = true;
-
-
+        yield return new WaitForSeconds(3);
+        this.GetComponent<PlayerMovements>().enabled = true;
+        this.GetComponent<PlayerActions>().enabled = true;
     }
 }
