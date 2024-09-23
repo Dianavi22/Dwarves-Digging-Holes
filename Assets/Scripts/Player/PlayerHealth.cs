@@ -21,7 +21,6 @@ public class PlayerHealth : MonoBehaviour
     {
         // Todo use TargetManager to find the GoldChariot
         _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
-
     }
 
     #region Old heal system
@@ -86,8 +85,6 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage()
     {
         _isAlive = false;
-        print("HERE");
-
         StartCoroutine(DeathPlayer());
     }
 
@@ -95,6 +92,9 @@ public class PlayerHealth : MonoBehaviour
     {
 
         _playerGFX.SetActive(false);
+        this.GetComponent<PlayerMovements>().enabled = false;
+        this.GetComponent<PlayerActions>().enabled = false;
+        this.GetComponent<Rigidbody>().useGravity = false;
         yield return new WaitForSeconds(5);
         PlayerRespawn();
     }
@@ -103,6 +103,18 @@ public class PlayerHealth : MonoBehaviour
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
         _playerGFX.SetActive(true);
+        this.GetComponent<PlayerMovements>().enabled = true;
+        this.GetComponent<PlayerActions>().enabled = true;
+
         _isAlive = true;
+        StartCoroutine(Invincibility());
+    }
+
+    private IEnumerator Invincibility()
+    {
+        yield return new WaitForSeconds(4);
+        this.GetComponent<Rigidbody>().useGravity = true;
+
+
     }
 }

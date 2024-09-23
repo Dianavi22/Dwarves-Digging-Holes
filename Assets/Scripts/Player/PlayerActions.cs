@@ -161,6 +161,10 @@ public class PlayerActions : MonoBehaviour
     private void Awake()
     {
         _uiManager = FindObjectOfType<UIPauseManager>();
+        if (!_uiManager)
+        {
+            Debug.Log("ERROR: _uiManager not found");
+        }
     }
 
     public void PickupObject(GameObject heldObject)

@@ -7,12 +7,14 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public PlatformSpawner platformSpawner;
-    public float scrollingSpeed;
+    [SerializeField] private float scrollingSpeed;
+    [SerializeField] private PlatformSpawner blockSpawner;
 
-    public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private GameObject _GameOverCanvas;
+    [SerializeField] GameObject _retryButton;
   
+    public static GameManager Instance; // A static reference to the GameManager instance
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -22,8 +24,6 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
     }
-
-
 
     void Start()
     {
@@ -39,21 +39,19 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
+        blockSpawner = GameObject.Find("BlockSpawner").GetComponent<PlatformSpawner>();
         Invoke("InitPlatformSpawner", 3f);
     }
 
     private void InitPlatformSpawner()
     {
-        platformSpawner.SpawnPlatform();
+        blockSpawner.SpawnPlatform();
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
-
+        EventSystem.current.SetSelectedGameObject(_retryButton);
     }
-
-
-
 }

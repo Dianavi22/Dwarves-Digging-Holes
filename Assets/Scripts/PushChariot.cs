@@ -23,7 +23,7 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.name == "TauntHitBox" && !other.transform.parent.GetComponent<PlayerActions>().isHoldingObject)
+        if (other.CompareTag("Player") && other.name == "GFX" && !other.transform.parent.GetComponent<PlayerActions>().isHoldingObject)
         {
             _isTriggerActive = true; 
         }
@@ -31,7 +31,7 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.name == "GFX")
         {
             _isTriggerActive = false;
         }
