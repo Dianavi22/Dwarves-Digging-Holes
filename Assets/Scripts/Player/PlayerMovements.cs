@@ -138,8 +138,10 @@ public class PlayerMovements : MonoBehaviour
         {
             targetZRotation = 35f;
         }
+        _playerActions.StopAnimation();
+        _playerActions.CancelInvoke();
         _playerActions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
-
+        _playerActions.vertical = _vertical;
         flip_vertical = _vertical != 0;
     }
 
@@ -178,7 +180,7 @@ public class PlayerMovements : MonoBehaviour
     {
         Vector2 vector = context.ReadValue<Vector2>();
         _horizontal = vector.x;
-        _vertical = vector.y;
+        _vertical = vector.y < 0 ? -1 : (vector.y > 0 ? 1 : 0);
     }
 
     public void OnDash()

@@ -19,6 +19,8 @@ public class PlayerActions : MonoBehaviour
     public Transform objectSlot;
     public GameObject pivot;
 
+    public float vertical;
+
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
@@ -28,6 +30,11 @@ public class PlayerActions : MonoBehaviour
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
+
+    public void PrepareAction() {
+        StartAnimation();
+        InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+    }
 
 
     #region EVENTS 
@@ -83,9 +90,7 @@ public class PlayerActions : MonoBehaviour
             {
                 if (context.performed) // the key has been pressed
                 {
-                    //* Animation ONLY
-                    StartAnimation();
-                    InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+                    PrepareAction();
                     pickaxe1 = pickaxe;
                 }
                 if (context.canceled) //the key has been released
@@ -138,14 +143,37 @@ public class PlayerActions : MonoBehaviour
 
     private void TestMine()
     {
-        // Draw the ray in the Scene view
-        Debug.DrawRay(transform.position, -transform.right * 1.4f, Color.red);
+        Vector3 rayDirection;
+        Color rayColor = Color.red;
 
-        // Perform the actual raycast
-        if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hit, 1.4f))
+        switch (vertical)
+        {
+            case 1: // UP case
+                rayDirection = transform.up;
+                break;
+
+            case 0: // BASE case
+                rayDirection = -transform.right;
+                break;
+
+            case -1: // DOWN case
+                rayDirection = -transform.up;
+                break;
+
+            default:
+                // If the pivot angle is not relevant, exit early
+                return;
+        }
+
+        // Draw the debug ray in the scene view
+        Debug.DrawRay(transform.position, rayDirection * 1.4f, rayColor);
+
+        // Perform the raycast
+        if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, 1.4f))
         {
             pickaxe1.Hit(hit.collider.gameObject);
         }
+
     }
 
     // Tente de ramasser un objet � port�e
