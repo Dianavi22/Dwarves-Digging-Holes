@@ -96,7 +96,8 @@ public class PlayerHealth : MonoBehaviour
         this.GetComponent<PlayerMovements>().enabled = false;
         this.GetComponent<PlayerActions>().enabled = false;
         this.GetComponent<Rigidbody>().useGravity = false;
-        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>())
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>() &&  this.GetComponent<PlayerActions>().heldObject != null)
         {
             Destroy(this.GetComponent<PlayerActions>().heldObject.gameObject);
             this.GetComponent<PlayerActions>().heldObject = null;
@@ -107,25 +108,28 @@ public class PlayerHealth : MonoBehaviour
             this.GetComponent<PlayerActions>().heldObject.gameObject.GetComponent<PlayerHealth>().TakeDamage();
             this.GetComponent<PlayerActions>().heldObject = null;
         };
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         PlayerRespawn();
     }
 
     private void PlayerRespawn()
     {
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-        _playerGFX.SetActive(true);
 
 
         isAlive = true;
         this.GetComponent<Rigidbody>().useGravity = true;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        _playerGFX.SetActive(true);
 
         StartCoroutine(Invincibility());
     }
 
     private IEnumerator Invincibility()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.1f);
         this.GetComponent<PlayerMovements>().enabled = true;
         this.GetComponent<PlayerActions>().enabled = true;
     }
