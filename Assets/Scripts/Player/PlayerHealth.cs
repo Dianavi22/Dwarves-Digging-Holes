@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        // Todo use TargetManager to find the GoldChariot
         _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
 
     }
