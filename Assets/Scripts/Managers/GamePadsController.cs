@@ -16,6 +16,9 @@ public class GamePadsController : MonoBehaviour
 
     public bool debug;
 
+    [SerializeField, Range(1, 4)] 
+    private int debugPlayerCount = 1;
+
     private int index = 0;
 
     void Start()
@@ -25,39 +28,54 @@ public class GamePadsController : MonoBehaviour
 
         if(debug) {
 
+           debugPlayerCount = Mathf.Clamp(debugPlayerCount, 1, 4);
 
-            GameObject player = Instantiate(playerPrefab, transform.parent);
-            PlayerInput playerInput = player.GetComponent<PlayerInput>();
-
-            GameObject ui = Instantiate(uiObjects[index], canvas.transform);
-            PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-            uiInfo.playerHealth = player.GetComponent<PlayerHealth>();
-
-            PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
-            uiInfo.playerFatigue = player.GetComponent<PlayerFatigue>();
-
-            //uiInfo.Initialize(playerHealth, playerFatigue);
-            
-            playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+            for(int i = 0; i < debugPlayerCount; i++)
+            {
+                InstantiateDebugPlayer(i);
+            }
 
             return;
         }
         foreach ( Gamepad gamepad in gamepads )
         {   
-            //Debug.Log(gamepad.displayName);
-            GameObject player = Instantiate(playerPrefab, transform.parent);
-            PlayerInput playerInput = player.GetComponent<PlayerInput>();
+            InstantiatePlayerUI("Gamepad", gamepad);
 
-            GameObject ui = Instantiate(uiObjects[index], canvas.transform);
-            PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-            uiInfo.playerHealth = player.GetComponent<PlayerHealth>();
-            PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
-
-            //uiInfo.Initialize(playerHealth, playerFatigue);
-
-            playerInput.SwitchCurrentControlScheme("Gamepad", gamepad);
-
-            index++;
         }
     }
+
+    private void InstantiateDebugPlayer(int playerNumber)
+    {
+        GameObject player = Instantiate(playerPrefab, transform.parent);
+        PlayerInput playerInput = player.GetComponent<PlayerInput>();
+
+        GameObject ui = Instantiate(uiObjects[index], canvas.transform);
+        PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
+        uiInfo.Initialize(playerHealth, playerFatigue);
+
+        playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+
+        index++;
+    }
+
+    private void InstantiatePlayerUI(string controlScheme, InputDevice device)
+    {
+        GameObject player = Instantiate(playerPrefab, transform.parent);
+        PlayerInput playerInput = player.GetComponent<PlayerInput>();
+
+        GameObject ui = Instantiate(uiObjects[index], canvas.transform);
+        PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
+        uiInfo.Initialize(playerHealth, playerFatigue);
+
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
+
+        index++;
+    }
+
 }

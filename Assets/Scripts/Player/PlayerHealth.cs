@@ -1,9 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class HealthChangedEvent : UnityEvent<int, int> { }
 
 public class PlayerHealth : MonoBehaviour
 {
+    public HealthChangedEvent onHealthChanged;
+
     [SerializeField] public int _maxHealth = 30;
     [SerializeField] public int currentHealth;
 
@@ -18,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = _maxHealth;
+
+        onHealthChanged.Invoke(currentHealth, _maxHealth);
     }
 
     void Update()
@@ -104,12 +112,14 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
         CheckPlayerLife(); 
+        onHealthChanged.Invoke(currentHealth, _maxHealth); 
         Debug.Log("The player is Damage  = " + currentHealth);
     }
 
     public void Health(int health)
     {
         currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
+        onHealthChanged.Invoke(currentHealth, _maxHealth); 
         Debug.Log("The player is Health  = " + currentHealth);
     }
 

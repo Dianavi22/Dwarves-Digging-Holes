@@ -24,22 +24,73 @@ public class PlayerInformationManager : MonoBehaviour
     public PlayerFatigue playerFatigue;
 
 
-    void Start()
+    public void Initialize(PlayerHealth health, PlayerFatigue fatigue)
     {
+        playerHealth = health;
+        playerFatigue = fatigue;
 
+        if (playerHealth != null)
+        {
+            playerHealth.onHealthChanged.AddListener(UpdateLifeUI);
+
+            UpdateLifeUI(playerHealth.currentHealth, playerHealth._maxHealth);
+        }
+
+        if (playerFatigue != null)
+        {
+            playerFatigue.onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
+            playerFatigue.onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
+
+            UpdateCartsFatigueUI(playerFatigue.currentCartsFatigue, playerFatigue.maxCartsFatigue);
+            UpdateMiningFatigueUI(playerFatigue.currentMiningFatigue, playerFatigue.maxMiningFatigue);
+        }
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        UpdateBar(playerHealth.currentHealth, playerHealth._maxHealth, lifeBar, lifeText);
-        UpdateBar(playerFatigue.currentCartsFatigue, playerFatigue.maxCartsFatigue, cartsFatigueBar, cartsFatigueText);
-        UpdateBar(playerFatigue.currentMiningFatigue, playerFatigue.maxMiningFatigue, miningFatigueBar, miningFatigueText);
+        if (playerHealth != null)
+        {
+            playerHealth.onHealthChanged.RemoveListener(UpdateLifeUI);
+        }
+
+        if (playerFatigue != null)
+        {
+            playerFatigue.onCartsFatigueChanged.RemoveListener(UpdateCartsFatigueUI);
+            playerFatigue.onMiningFatigueChanged.RemoveListener(UpdateMiningFatigueUI);
+        }
     }
+
+    public void UpdateLifeUI(int currentHealth, int maxHealth)
+    {
+        if (lifeBar != null)
+        {
+        UpdateBar(currentHealth, maxHealth, lifeBar, lifeText);
+
+        }
+    }
+
+    public void UpdateCartsFatigueUI(float currentFatigue, float maxFatigue)
+    {
+        if (cartsFatigueBar != null)
+        {
+        UpdateBar(currentFatigue, maxFatigue, cartsFatigueBar, cartsFatigueText);
+
+        }
+    }
+
+    public void UpdateMiningFatigueUI(float currentFatigue, float maxFatigue)
+    {
+        if (miningFatigueBar != null)
+        {
+            UpdateBar(currentFatigue, maxFatigue, miningFatigueBar, miningFatigueText);
+        }
+    }
+
 
     public void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
     {
         float ratio = currentValue / maxValue;
-        bar.fillAmount = Mathf.MoveTowards(bar.fillAmount, ratio, Time.deltaTime);
+        bar.fillAmount = Mathf.MoveTowards(bar.fillAmount, ratio, Time.deltaTime * maxValue);
         text.text = ((int)currentValue).ToString();
     }
 

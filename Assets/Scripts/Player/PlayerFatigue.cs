@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class FatigueChangedEvent : UnityEvent<float, float> { }
 
 public class PlayerFatigue : MonoBehaviour
 {
+    public FatigueChangedEvent onCartsFatigueChanged;
+    public FatigueChangedEvent onMiningFatigueChanged;
+
     public float maxCartsFatigue = 60;
     public float maxMiningFatigue = 60;
 
@@ -18,6 +25,9 @@ public class PlayerFatigue : MonoBehaviour
     {
         currentCartsFatigue = maxCartsFatigue;
         currentMiningFatigue = maxMiningFatigue;  
+
+        onCartsFatigueChanged.Invoke(currentCartsFatigue, maxCartsFatigue);
+        onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
     }
 
     void Update()
@@ -27,6 +37,9 @@ public class PlayerFatigue : MonoBehaviour
 
         currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
         currentMiningFatigue = Mathf.Clamp(currentMiningFatigue, 0, maxMiningFatigue);
+    
+        onCartsFatigueChanged.Invoke(currentCartsFatigue, maxCartsFatigue);
+        onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
     }
 
 
@@ -47,6 +60,18 @@ public class PlayerFatigue : MonoBehaviour
         }
         return false;
     }
+
+    private void ReduceFatigueOverTime(ref float currentFatigue, float maxFatigue, float reductionRatePerSecond)
+    {
+        if (currentFatigue > 0)
+        {
+            currentFatigue -= reductionRatePerSecond * Time.deltaTime;
+
+            currentFatigue = Mathf.Max(currentFatigue, 0);
+        }
+    }
+
+
     private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
     {
         currentFatigue += amount;
@@ -63,6 +88,8 @@ public class PlayerFatigue : MonoBehaviour
     {
         return ReduceFatigue(ref currentCartsFatigue, maxCartsFatigue, amount);
     }
+
+    public
 
     public void IncreaseCartsFatigue(float amount)
     {
