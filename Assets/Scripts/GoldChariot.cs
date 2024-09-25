@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int goldCount;
+    
+    public void addGold()
     {
-        
+        goldCount++;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }

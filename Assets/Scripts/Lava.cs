@@ -1,43 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-
-    private GameManager _gameManager;
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        _gameManager = FindObjectOfType<GameManager>();
-    }
-
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Player"))
+        if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
         {
-            collision.collider.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            playerHealth.TakeDamage();
         }
 
-        if (collision.collider.gameObject.GetComponent<Enemy>())
+        if (other.CompareTag("EndingCondition"))
         {
-            print("Collision");
-            Destroy(collision.collider.gameObject);
+            GameManager.Instance.GameOver();
         }
 
-        if (collision.collider.CompareTag("Rock"))
+        /*
+         * Todo: Need to unify this condition
+         * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
+         */
+
+        if (Utils.TryGetParentComponent<Rock>(other, out var rock))
         {
-            Destroy(collision.collider.gameObject);
+            Destroy(rock.gameObject);
         }
 
-        if (collision.collider.GetComponent<GoldChariot>())
+        if (Utils.TryGetParentComponent<Enemy>(other, out var enemy))
         {
-            _gameManager.GameOver();
+            Destroy(enemy.gameObject);
+        }
+
+        if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
+        {
+            print("PICKAXE IN A FUCKING LAVA");
+            Destroy(pickaxe.gameObject);
         }
     }
-
 }

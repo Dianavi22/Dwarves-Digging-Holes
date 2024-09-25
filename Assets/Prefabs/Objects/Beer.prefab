@@ -10,10 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668817032387228999}
   - component: {fileID: 323798129164296221}
-  - component: {fileID: 7923522397263606566}
   - component: {fileID: 8786481120838878291}
-  - component: {fileID: 3784650601091793042}
-  - component: {fileID: 8265050754947988550}
   m_Layer: 0
   m_Name: Beer
   m_TagString: Throwable
@@ -53,25 +50,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.15, y: 0.15, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7923522397263606566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4049863055026370259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194be53c9c0734d608c4d1b6d68a6019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakable: 0
+  m_Size: {x: 0.15000002, y: 0.15000002, z: 0.19715516}
+  m_Center: {x: 0, y: 0, z: 0.015423222}
 --- !u!54 &8786481120838878291
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -95,44 +79,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 88
   m_CollisionDetection: 0
---- !u!65 &3784650601091793042
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4049863055026370259}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.15, y: 0.15, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8265050754947988550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4049863055026370259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194be53c9c0734d608c4d1b6d68a6019, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakable: 0
 --- !u!1 &5482488961143232562
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5674832395383322150}
+  - component: {fileID: 669789926195162694}
   m_Layer: 0
   m_Name: GFX
   m_TagString: Throwable
@@ -164,6 +115,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1668817032387228999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &669789926195162694
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5482488961143232562}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.15, z: 0.2090056}
+  m_Center: {x: 0, y: 0, z: 0.0021409988}
 --- !u!1 &5954945095539615274
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +147,6 @@ GameObject:
   - component: {fileID: 6147224011913798024}
   - component: {fileID: 1382779631608634437}
   - component: {fileID: 563038947737756259}
-  - component: {fileID: 958372720130078897}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Throwable
@@ -248,24 +219,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &958372720130078897
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5954945095539615274}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

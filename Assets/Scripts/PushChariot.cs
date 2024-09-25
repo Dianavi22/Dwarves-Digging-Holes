@@ -17,22 +17,21 @@ public class PushChariot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isPushed = _isTriggerActive && Gamepad.current.leftTrigger.isPressed;
-        if (isPushed)
+        if (_isTriggerActive)
             _rb.AddForce(pushForce, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+    {        
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
         {
-            _isTriggerActive = true;
+            _isTriggerActive = true; 
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
         {
             _isTriggerActive = false;
         }

@@ -1,16 +1,19 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using DG.Tweening;
-using Unity.VisualScripting;
 
 public class PlayerActions : MonoBehaviour
 {
+
+
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
+    [SerializeField] private GameObject forward;
 
-    private GameObject heldObject;
-    private bool isHoldingObject = false;
+
+    public GameObject heldObject;
+    public bool isHoldingObject = false;
     private Tween rotationTween;
 
     private Pickaxe pickaxe1;
@@ -18,12 +21,32 @@ public class PlayerActions : MonoBehaviour
     public Transform objectSlot;
     public GameObject pivot;
 
+    public float vertical;
+
+    [SerializeField] private Transform _scale;
+    private bool isTaunt = false;
+
+
+    private UIPauseManager _uiManager;
+    public bool GrabThrowJustPressed { get; private set; }
+    public bool BaseActionJustPressed { get; private set; }
+    public bool TauntJustPressed { get; private set; }
+
+
+    public void PrepareAction() {
+        StartAnimation();
+        InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+    }
+
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried)
+
+        GrabThrowJustPressed = UserInput.instance.GrabThrowJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
             {
@@ -36,8 +59,27 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    public void OnTaunt(InputAction.CallbackContext context)
+    {
+        TauntJustPressed = UserInput.instance.TauntJustPressed;
+
+        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
+        {
+            if (!isTaunt)
+            {
+                StartCoroutine(Taunt());
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
     public void OnBaseAction(InputAction.CallbackContext context)
     {
+        BaseActionJustPressed = UserInput.instance.BaseActionJustPressed;
+
         if (heldObject == null)
         {
             // TODO: Action avec autre chose
@@ -46,25 +88,46 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (context.performed) // the key has been pressed
+            if (!_uiManager.isPaused)
             {
-                //* Animation ONLY
-                StartAnimation();
-                InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
-                pickaxe1 = pickaxe;
+                if (context.performed) // the key has been pressed
+                {
+                    PrepareAction();
+                    pickaxe1 = pickaxe;
+                }
+                if (context.canceled) //the key has been released
+                {
+                    StopAnimation();
+                    CancelInvoke(nameof(TestMine));
+                }
             }
-            if (context.canceled) //the key has been released
-            {
-                StopAnimation();
-                CancelInvoke(nameof(TestMine));
-            }
+
         }
     }
 
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, 40), 0.2f, RotateMode.FastBeyond360)
+        // Determine the target tween angle based on the current pivot angle
+        float targetAngle;
+        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
+        {
+            targetAngle = -75f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
+        {
+            targetAngle = 40f;
+        }
+        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
+        {
+            targetAngle = 75f;
+        }
+        else
+        {
+            // Default to 40 if pivot is not exactly -35, 0, or 35
+            targetAngle = 40f;
+        }
+        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
             .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Yoyo);
     }
@@ -82,40 +145,80 @@ public class PlayerActions : MonoBehaviour
 
     private void TestMine()
     {
-        // Draw the ray in the Scene view
-        Debug.DrawRay(transform.position, -transform.right * 1.4f, Color.red);
+        Vector3 rayDirection;
+        Color rayColor = Color.red;
+        float distance = 1.4f;
 
-        // Perform the actual raycast
-        if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hit, 1.4f))
+        switch (vertical)
+        {
+            case 1: // UP case
+                rayDirection = transform.up;
+                break;
+
+            case 0: // BASE case
+                rayDirection = -transform.right;
+                distance = 1.2f;
+                break;
+
+            case -1: // DOWN case
+                rayDirection = -transform.up;
+                break;
+
+            default:
+                // If the pivot angle is not relevant, exit early
+                return;
+        }
+
+        // Draw the debug ray in the scene view
+        Debug.DrawRay(forward.transform.position, rayDirection * distance, rayColor);
+
+        // Perform the raycast
+        // ! You can hit further forward
+        if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
             pickaxe1.Hit(hit.collider.gameObject);
         }
+
     }
 
     // Tente de ramasser un objet � port�e
-    private void TryPickUpObject()
+    public void TryPickUpObject()
     {
-        // D�tection des objets � port�e autour du joueur
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
 
-        foreach (var hitCollider in hitColliders)
+        if (!_uiManager.isPaused)
         {
-            // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if ((hitCollider.CompareTag("Throwable") || hitCollider.CompareTag("Player")) && !hitCollider.gameObject.Equals(gameObject))
+            // D�tection des objets � port�e autour du joueur
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
+            foreach (var hitCollider in hitColliders)
             {
-                heldObject = hitCollider.gameObject;
-
-                if (heldObject != null)
+                GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
+                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
                 {
-                    PickupObject(heldObject);
-                    break;
+                    heldObject = parentGameobject.gameObject;
 
+                    if (heldObject != null)
+                    {
+                        PickupObject(heldObject);
+                        break;
+                    }
                 }
             }
         }
+
     }
 
     #endregion
+
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIPauseManager>();
+        if (!_uiManager)
+        {
+            Debug.Log("ERROR: _uiManager not found");
+        }
+    }
+
     public void PickupObject(GameObject heldObject)
     {
         SetObjectState(heldObject, false);
@@ -132,6 +235,7 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
+
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
             objRenderer.enabled = state;
@@ -144,6 +248,14 @@ public class PlayerActions : MonoBehaviour
                 objCollider.enabled = state;
             }
         }
+        else
+        {
+            Collider InChild = obj.GetComponentInChildren<Collider>();
+            if (InChild != null)
+            {
+                InChild.enabled = state;
+            }
+        }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
@@ -152,7 +264,13 @@ public class PlayerActions : MonoBehaviour
             rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
             if (state && !forced)
             {
-                float radians = 45f * Mathf.Deg2Rad;
+                float pivotAngle = Mathf.Clamp(pivot.transform.localEulerAngles.z, -45f, 45f);
+                if (pivotAngle > 180) pivotAngle -= 360;
+
+                pivotAngle = Mathf.Clamp(pivotAngle, -35f, 35f);
+
+                float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
+                float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
@@ -199,10 +317,19 @@ public class PlayerActions : MonoBehaviour
                 objBeer.throwOnDestroy = EmptyHands;
                 objBeer.breakable = !state;
             }
-        } else if (obj.TryGetComponent<Pickaxe>(out var pickaxe)) {
-            pickaxe.throwOnDestroy = () => {EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine));};
         }
-
+        else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        {
+            if (!state)
+            {
+                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
+            }
+            else
+            {
+                StopAnimation();
+                CancelInvoke(nameof(TestMine));
+            }
+        }
         obj.transform.SetParent(state ? null : objectSlot);
     }
 
@@ -225,5 +352,27 @@ public class PlayerActions : MonoBehaviour
             SetObjectState(heldObject, true, forced);
             EmptyHands();
         }
+    }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.I)){
+    //        if (!isTaunt)
+    //        {
+    //            StartCoroutine(Taunt());
+
+    //        }
+    //    }
+    //}
+
+
+
+    private IEnumerator Taunt()
+    {
+        isTaunt = true;
+        _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y - 0.3f, _scale.localScale.z);
+        yield return new WaitForSeconds(0.2f);
+        _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y + 0.3f, _scale.localScale.z);
+        isTaunt = false;
     }
 }

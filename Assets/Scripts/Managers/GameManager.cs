@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public PlatformSpawner platformSpawner;
+    public float scrollingSpeed; // Is used in Platform script
+    [SerializeField] private PlatformSpawner blockSpawner;
 
+    [SerializeField] private GameObject _GameOverCanvas;
+    [SerializeField] GameObject _retryButton;
+  
     public static GameManager Instance; // A static reference to the GameManager instance
 
     void Awake()
@@ -14,8 +21,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        else if (Instance != this) // If there is already an instance and it's not `this` instance
-            Destroy(gameObject); // Destroy the GameObject, this component is attached to
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     void Start()
@@ -25,22 +32,26 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+       
     }
 
     private void GameStarted()
     {
+        _GameOverCanvas.SetActive(false);
+        Time.timeScale = 1.0f;
+        blockSpawner = GameObject.Find("BlockSpawner").GetComponent<PlatformSpawner>();
         Invoke("InitPlatformSpawner", 3f);
     }
 
     private void InitPlatformSpawner()
     {
-        platformSpawner.SpawnPlatform();
+        blockSpawner.SpawnPlatform();
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
+        _GameOverCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
     }
-
 }

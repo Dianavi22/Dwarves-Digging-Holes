@@ -1,13 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
-    private int _healthPoint = 5;
+    public int _healthPoint = 5;
 
     [SerializeField]
     private bool _haveGold;
+    private GoldChariot _goldChariot;
+
+    private void Awake()
+    {
+        if (_haveGold) _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
+    }
 
     public void Hit()
     {
@@ -24,6 +31,7 @@ public class Rock : MonoBehaviour
         if (_haveGold)
         {
             Debug.Log("GOLD");
+            _goldChariot.addGold();
         }
 
         Destroy(gameObject);

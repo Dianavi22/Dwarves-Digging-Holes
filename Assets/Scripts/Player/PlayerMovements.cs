@@ -12,15 +12,29 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 100f;
+    [SerializeField] private float verticalDeadZone = 0.5f;
+    [SerializeField] private float horizontalDeadZone = 0.5f;
+
+
+
+    [SerializeField] private Transform _leftRay;
+
+    [SerializeField] private Transform _rightRay;
+
 
     private float _horizontal = 0f;
+    private float _vertical = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
     private Vector3 playerVelocity;
     private Rigidbody _rb;
 
+    private PlayerActions _playerActions;
+
     public bool flip = false;
+
+    public bool flip_vertical = false;
     public bool _isGrounded = false;
     public float gravityScale = 1f;
     public bool carried = false;
@@ -30,9 +44,14 @@ public class PlayerMovements : MonoBehaviour
 
     private readonly float gravityValue = -9.81f;
 
+    public bool JumpJustPressed { get; private set; }
+    public bool DashJustPressed { get; private set; }
+
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _playerActions = GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -41,15 +60,10 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            if( _horizontal == 0 && !_isDashingCooldown && carried)
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0f);
-            }
-            else
-            {
-                _rb.velocity = new Vector3( _horizontal * _speed, _rb.velocity.y, 0f);
-            }
-            
+            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried 
+                ? _rb.velocity.x 
+                : _horizontal * _speed;
+            _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);            
         }
 
         // Flip
@@ -57,6 +71,11 @@ public class PlayerMovements : MonoBehaviour
         {
             flip = !flip;
             FlipFacingDirection();
+        }
+
+        if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
+        {
+            FlipHoldObject();
         }
 
         // Faster falling
@@ -73,7 +92,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Grounded
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+        _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
         if (!_isGrounded)
         {
             playerVelocity.y = -2f;
@@ -93,13 +112,43 @@ public class PlayerMovements : MonoBehaviour
 
     private void FlipFacingDirection()
     {
-        transform.Rotate(0f, 180f, 0f);
+        if (!flip)
+        {
+            // Player faces left
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            // Player faces right
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void FlipHoldObject()
+    {
+        float targetZRotation = 0f;
+        float targetYRotation = flip ? 0 : 180;
+
+        if (_vertical > 0)
+        {
+            targetZRotation = -35f;
+        }
+        else if (_vertical < 0)
+        {
+            targetZRotation = 35f;
+        }
+        _playerActions.StopAnimation();
+        _playerActions.CancelInvoke();
+        _playerActions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
+        _playerActions.vertical = _vertical;
+        flip_vertical = _vertical != 0;
     }
 
     #region EVENTS
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        JumpJustPressed = UserInput.instance.JumpJustPressed;
         if(carried)
         {
             forceDetachFunction?.Invoke();
@@ -107,6 +156,7 @@ public class PlayerMovements : MonoBehaviour
         // When jump is pressed
         if (context.phase == InputActionPhase.Performed && _isGrounded)
         {
+
             if (_isGrounded && !_isDashing)
             {
                 _jumpButtonHeld = true;
@@ -127,11 +177,15 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _horizontal = context.ReadValue<Vector2>().x;
+        Vector2 vector = context.ReadValue<Vector2>();
+        _horizontal = Mathf.Abs(vector.x) > horizontalDeadZone ? vector.x : 0;
+        _vertical = Mathf.Abs(vector.y) > verticalDeadZone ? Mathf.RoundToInt(vector.y) : 0;
     }
 
     public void OnDash()
     {
+        DashJustPressed = UserInput.instance.JumpJustPressed;
+
         if (!_isDashing && !_isDashingCooldown && !carried)
         {
             _isDashing = true;
