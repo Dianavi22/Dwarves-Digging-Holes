@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
@@ -16,25 +14,33 @@ public static class Utils
         }
     }
 
-    public static T GetParentComponent<T>(GameObject _gameObject)
+    public static T GetGameObjectComponent<T>(GameObject _gameObject)
     {
-        return _gameObject.transform.root.GetComponent<T>();
+        TryGetParentComponent(_gameObject, out T _out);
+        return _out;
     }
     public static bool TryGetParentComponent<T>(GameObject _gameObject, out T _out)
     {
-        bool t = _gameObject.transform.root.TryGetComponent(out T _out2);
-        _out = _out2;
-        return t;
+        if (_gameObject.TryGetComponent(out T _out2))
+        {
+            _out = _out2;
+            return true;
+        }
+        else if (_gameObject.transform.parent != null)
+            return TryGetParentComponent(_gameObject.transform.parent.gameObject, out _out);
+        else {
+            _out = default;
+            return false;
+        }
     }
 
     public static T GetParentComponent<T>(Collider _gameObject)
     {
-        return _gameObject.transform.root.GetComponent<T>();
+        TryGetParentComponent(_gameObject, out T _out);
+        return _out;
     }
     public static bool TryGetParentComponent<T>(Collider _gameObject, out T _out)
     {
-        bool t = _gameObject.transform.root.TryGetComponent(out T _out2);
-        _out = _out2;
-        return t;
+        return TryGetParentComponent(_gameObject.gameObject, out _out);
     }
 }

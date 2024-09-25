@@ -17,8 +17,6 @@ public class Pickaxe : MonoBehaviour
 
     public void Hit(GameObject hit)
     {
-        Debug.Log($"Hit {hit.name}");
-
         if (Utils.TryGetParentComponent<Rock>(hit, out var rock))
         {
             rock.Hit();
