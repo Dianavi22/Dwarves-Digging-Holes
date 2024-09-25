@@ -33,7 +33,7 @@ public class Forge : MonoBehaviour
     }
 
     public void BuildPickaxe() {
-        createdPickaxe = Instantiate(pickaxe, transform);
+        createdPickaxe = Instantiate(pickaxe, transform.position, Quaternion.identity);
         GameManager.Instance.Pickaxe = createdPickaxe;
         player.TryPickUpObject();
     }
