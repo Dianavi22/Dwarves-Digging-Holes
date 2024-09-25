@@ -179,7 +179,7 @@ public class PlayerMovements : MonoBehaviour
     {
         Vector2 vector = context.ReadValue<Vector2>();
         _horizontal = Mathf.Abs(vector.x) > horizontalDeadZone ? vector.x : 0;
-        _vertical = Mathf.Abs(vector.y) > verticalDeadZone ? vector.y : 0;
+        _vertical = Mathf.Abs(vector.y) > verticalDeadZone ? Mathf.RoundToInt(vector.y) : 0;
     }
 
     public void OnDash()
