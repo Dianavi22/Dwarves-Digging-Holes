@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public HealthChangedEvent onHealthChanged;
 
-    [SerializeField] public int _maxHealth = 30;
+    [SerializeField] public int _maxHealth = 10;
     [SerializeField] public int currentHealth;
 
     private PlayerHealth allyToHeal;
@@ -89,10 +89,17 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage()
     {
         currentHealth = Mathf.Max(currentHealth - 1, 0);
+        CheckPlayerLife(); 
+        InvokeOnHealthChanged(); 
     }
 
 
     // & Feature added at the same time as the UI by Tristan for proper testing, we may not need it.
+
+    private void InvokeOnHealthChanged()
+    {
+        onHealthChanged.Invoke(currentHealth, _maxHealth);
+    }
 
     public void CheckPlayerLife()
     {
@@ -112,37 +119,15 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
         CheckPlayerLife(); 
-        onHealthChanged.Invoke(currentHealth, _maxHealth); 
+        InvokeOnHealthChanged(); 
         Debug.Log("The player is Damage  = " + currentHealth);
     }
 
     public void Health(int health)
     {
         currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
-        onHealthChanged.Invoke(currentHealth, _maxHealth); 
+        InvokeOnHealthChanged(); 
         Debug.Log("The player is Health  = " + currentHealth);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

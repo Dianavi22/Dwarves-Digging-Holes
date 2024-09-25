@@ -86,7 +86,6 @@ public class PlayerInformationManager : MonoBehaviour
         }
     }
 
-
     public void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
     {
         float ratio = currentValue / maxValue;
@@ -95,6 +94,12 @@ public class PlayerInformationManager : MonoBehaviour
     }
 
 
+
+
+
+
+
+    // ^ Functions for test buttons.
     public void damage(int amount)
     {
         playerHealth.Damage(amount);
@@ -104,19 +109,9 @@ public class PlayerInformationManager : MonoBehaviour
         playerHealth.Health(amount);
     }
 
-    public bool ReduceCartsFatigue(float amount)
-    {
-        return playerFatigue.ReduceCartsFatigue(amount);
-    }
-
     public void IncreaseCartsFatigue(float amount)
     {
         playerFatigue.IncreaseCartsFatigue(amount);
-    }
-
-    public bool ReduceMiningFatigue(float amount)
-    {
-        return playerFatigue.ReduceMiningFatigue(amount);
     }
 
     public void IncreaseMiningFatigue(float amount)
@@ -124,7 +119,19 @@ public class PlayerInformationManager : MonoBehaviour
         playerFatigue.IncreaseMiningFatigue(amount);
     }
 
+    public void ReduceCartsFatigueButtom(float amount)
+    {
+        playerFatigue.ReduceCartsFatigue(amount);
+    }
 
+    public void ReduceMiningbutton(float amount)
+    {
+        playerFatigue.ReduceMiningFatigue(amount);
+    }
+
+
+    
+    // ^ Functions for test buttons ICONS.
     public void UpdateImageIcon(Sprite iconSprite)
     {
         imageIcon.enabled = true;  
@@ -149,22 +156,6 @@ public class PlayerInformationManager : MonoBehaviour
     public void DisableImageIcon()
     {
         imageIcon.enabled = false;
-    }
-
-
-
-
-
-    // ^ Functions for test buttons. Bool doesn't work with buttons. So I return a void.
-
-    public void ReduceCartsFatigueButtom(float amount)
-    {
-        ReduceCartsFatigue(amount);
-    }
-
-    public void ReduceMiningbutton(float amount)
-    {
-        ReduceMiningFatigue(amount);
     }
 
 }

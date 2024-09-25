@@ -20,7 +20,14 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
 
-    
+
+    private PlayerFatigue playerFatigue;
+
+        void Start()
+    {
+        playerFatigue = GetComponent<PlayerFatigue>();
+    }
+
 
 
     #region EVENTS 
@@ -107,7 +114,13 @@ public class PlayerActions : MonoBehaviour
         // Perform the actual raycast
         if (Physics.Raycast(transform.position, -transform.right, out RaycastHit hit, 1.4f))
         {
-            pickaxe1.Hit(hit.collider.gameObject);
+            if (playerFatigue.ReduceMiningFatigue(10)){
+                pickaxe1.Hit(hit.collider.gameObject);
+                Debug.Log("Minage effectué !");
+            }
+        //playerFatigue.ReduceMiningFatigueOverTime();
+        //pickaxe1.Hit(hit.collider.gameObject);
+        //Debug.Log("Minage effectué !");
         }
     }
 

@@ -17,8 +17,17 @@ public class PlayerFatigue : MonoBehaviour
     public float regenSpeedCartsFatigue = 0.05f;
     public float regenSpeedMiningFatigue = 0.05f;
 
+    public float reduceSpeedCartsFatigue = 0.05f;
+    public float reduceSpeedMiningFatigue = 0.5f;
+
     public float currentCartsFatigue;
     public float currentMiningFatigue;
+    private float regenDelayCartsFatigue = 0f;
+    private float regenDelayMiningFatigue = 0f;
+
+    [SerializeField] private float regenDelayCartsFatigueMax = 2f;
+    [SerializeField] private float regenDelayMiningFatiMax = 2f;
+
 
 
     void Start()
@@ -26,30 +35,156 @@ public class PlayerFatigue : MonoBehaviour
         currentCartsFatigue = maxCartsFatigue;
         currentMiningFatigue = maxMiningFatigue;  
 
-        onCartsFatigueChanged.Invoke(currentCartsFatigue, maxCartsFatigue);
-        onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
+        InvokeOnCartsFatigueChanged();
+        InvokeOnMiningFatigueChanged();
     }
 
     void Update()
     {
-        UpdateFatigue(ref currentCartsFatigue, maxCartsFatigue, regenSpeedCartsFatigue);
-        UpdateFatigue(ref currentMiningFatigue, maxMiningFatigue, regenSpeedMiningFatigue);
+        RegenCartsFatigueOverTime();
+        RegenMiningFatigueOverTime();
 
-        currentCartsFatigue = Mathf.Clamp(currentCartsFatigue, 0, maxCartsFatigue);
-        currentMiningFatigue = Mathf.Clamp(currentMiningFatigue, 0, maxMiningFatigue);
-    
+        //ReduceCartsFatigueOverTime();
+        //ReduceMiningFatigueOverTime();
+        //ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue);
+        //InvokeOnMiningFatigueChanged();
+    }
+
+    private void InvokeOnCartsFatigueChanged()
+    {
         onCartsFatigueChanged.Invoke(currentCartsFatigue, maxCartsFatigue);
+    }
+    private void InvokeOnMiningFatigueChanged()
+    {
         onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
     }
 
 
-    private void UpdateFatigue(ref float currentFatigue, float maxFatigue, float regenSpeed)
+    // * Regeneration fatigue over time
+
+    private void RegenerationFatigueOverTime(ref float currentFatigue, float maxFatigue, float regenSpeed)
     {
         if (currentFatigue < maxFatigue)
         {
             currentFatigue = Mathf.MoveTowards(currentFatigue, maxFatigue, Time.deltaTime * regenSpeed * maxFatigue);
+            //currentFatigue = Mathf.Clamp(currentFatigue + regenSpeed * Time.deltaTime, 0, maxFatigue);
         }
     }
+    private void RegenCartsFatigueOverTime()
+    {
+        if (regenDelayCartsFatigue > 0)
+        {
+            regenDelayCartsFatigue -= Time.deltaTime;
+        }
+        else
+        {
+            RegenerationFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, regenSpeedCartsFatigue);
+            InvokeOnCartsFatigueChanged();
+        }
+    }
+
+    private void RegenMiningFatigueOverTime()
+    {
+        if (regenDelayMiningFatigue > 0)
+        {
+            regenDelayMiningFatigue -= Time.deltaTime;
+        }
+        else
+        {
+            RegenerationFatigueOverTime(ref currentMiningFatigue, maxMiningFatigue, regenSpeedMiningFatigue);
+            InvokeOnMiningFatigueChanged();
+        }
+    }
+
+    private void ResetDelayRegenCartsFatigue()
+    {
+        regenDelayCartsFatigue = regenDelayCartsFatigueMax;
+    }
+
+    private void ResetDelayRegenMiningFatigue()
+    {
+        regenDelayMiningFatigue = regenDelayMiningFatiMax;
+    }
+
+
+    // * Reduce Fatigue OverTime
+
+    private bool ReduceFatigueOverTime(ref float currentFatigue, float maxFatigue, float reductionRatePerSecond)
+    {
+        if (currentFatigue > 0)
+        {
+            currentFatigue = Mathf.Clamp(currentFatigue - reductionRatePerSecond * Time.deltaTime, 0, maxFatigue);
+            Debug.Log("ReduceFatigueOverTime activé");
+
+            return true;
+        }
+        Debug.Log("ReduceFatigueOverTime désactiver");
+        return false;
+    }
+
+    public bool ReduceCartsFatigueOverTime()
+    {
+        if (ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue))
+        {
+            InvokeOnCartsFatigueChanged();
+            ResetDelayRegenCartsFatigue();
+            Debug.Log("ReduceCartsFatigueOverTime activé");
+            return true;
+        }
+        Debug.Log("ReduceCartsFatigueOverTime désactivé");
+        return false;
+    }
+
+    public bool ReduceMiningFatigueOverTime()
+    {
+        if (ReduceFatigueOverTime(ref currentMiningFatigue, maxMiningFatigue, reduceSpeedMiningFatigue))
+        {
+            RegenMiningFatigueOverTime();
+            ResetDelayRegenMiningFatigue();
+            Debug.Log("ReduceFatigueOverTime activé");
+            return true;
+        }
+        Debug.Log("ReduceFatigueOverTime désactivé");
+        return false;
+    }
+
+
+    // * Increases fatigue instantly
+
+    private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
+    {
+        currentFatigue += amount;
+        if (currentFatigue > maxFatigue)
+        {
+            currentFatigue = maxFatigue;
+            return true;
+        }
+        return true;
+    }
+
+    public bool IncreaseCartsFatigue(float amount)
+    {
+        if (IncreaseFatigue(ref currentCartsFatigue, maxCartsFatigue, amount))
+        {
+            InvokeOnCartsFatigueChanged();
+            return true;
+        }
+        return false;
+    }
+
+    public bool IncreaseMiningFatigue(float amount)
+    {
+
+        if (IncreaseFatigue(ref currentMiningFatigue, maxMiningFatigue, amount))
+        {
+            InvokeOnMiningFatigueChanged();
+            return true;
+        }
+        return false;
+    }
+
+
+    // * Reduces fatigue instantly
 
     private bool ReduceFatigue(ref float currentFatigue, float maxFatigue, float amount)
     {
@@ -61,52 +196,27 @@ public class PlayerFatigue : MonoBehaviour
         return false;
     }
 
-    private void ReduceFatigueOverTime(ref float currentFatigue, float maxFatigue, float reductionRatePerSecond)
+    public bool ReduceCartsFatigue(float amount)
     {
-        if (currentFatigue > 0)
+        if (ReduceFatigue(ref currentCartsFatigue, maxCartsFatigue, amount))
         {
-            currentFatigue -= reductionRatePerSecond * Time.deltaTime;
-
-            currentFatigue = Mathf.Max(currentFatigue, 0);
-        }
-    }
-
-
-    private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
-    {
-        currentFatigue += amount;
-        if (currentFatigue > maxFatigue)
-        {
-            currentFatigue = maxFatigue;
+            InvokeOnCartsFatigueChanged();
+            ResetDelayRegenCartsFatigue();
             return true;
         }
         return false;
     }
 
-
-    public bool ReduceCartsFatigue(float amount)
-    {
-        return ReduceFatigue(ref currentCartsFatigue, maxCartsFatigue, amount);
-    }
-
-    public
-
-    public void IncreaseCartsFatigue(float amount)
-    {
-        IncreaseFatigue(ref currentCartsFatigue, maxCartsFatigue, amount);
-    }
-
     public bool ReduceMiningFatigue(float amount)
-    {
-        return ReduceFatigue(ref currentMiningFatigue, maxMiningFatigue, amount);
+    { 
+        if (ReduceFatigue(ref currentMiningFatigue, maxMiningFatigue, amount))
+        {
+            InvokeOnMiningFatigueChanged();
+            ResetDelayRegenMiningFatigue();
+            return true;
+        }
+        return false;
     }
-
-    public void IncreaseMiningFatigue(float amount)
-    {
-        IncreaseFatigue(ref currentMiningFatigue, maxMiningFatigue, amount);
-    }
-
-
 
 
 }
