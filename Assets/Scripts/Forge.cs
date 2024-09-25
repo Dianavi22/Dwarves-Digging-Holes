@@ -4,14 +4,14 @@ using UnityEngine;
 public class Forge : MonoBehaviour
 {
     [SerializeField]
-    private GameObject pickaxe;
+    private GameObject pickaxePrefab;
 
     private PlayerActions player;
     private GameObject createdPickaxe;
 
     private void Start()
     {
-        createdPickaxe = GameManager.Instance.Pickaxe;
+        createdPickaxe = GameManager.Instance.PickaxeInstance;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,8 +33,8 @@ public class Forge : MonoBehaviour
     }
 
     public void BuildPickaxe() {
-        createdPickaxe = Instantiate(pickaxe, transform.position, Quaternion.identity);
-        GameManager.Instance.Pickaxe = createdPickaxe;
+        createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
+        GameManager.Instance.PickaxeInstance = createdPickaxe;
         player.TryPickUpObject();
     }
 }
