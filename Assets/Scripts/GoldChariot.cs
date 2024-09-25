@@ -6,10 +6,13 @@ public class GoldChariot : MonoBehaviour
 {
     public int goldCount;
     
-    public void addGold()
+    public void addGold(int value)
     {
-        goldCount++;
+        goldCount += value;
     }
-
-  
+    
+    public void removeGold(int value)
+    {
+        goldCount -= value;
+    }
 }

@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    public bool debugMode;
     public float scrollingSpeed; // Is used in Platform script
     [SerializeField] private PlatformSpawner blockSpawner;
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
+        
         GameStarted();
     }
 
@@ -50,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (debugMode) return;
+        
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_retryButton);

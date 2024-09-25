@@ -31,7 +31,7 @@ public class Rock : MonoBehaviour
         if (_haveGold)
         {
             Debug.Log("GOLD");
-            _goldChariot.addGold();
+            _goldChariot.addGold(1);
         }
 
         Destroy(gameObject);

@@ -1,23 +1,23 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
 {
     public GameObject[] prefabList;
-    public float despawnTime = 6f;
-    public string plateformTrigger;
+    public string platformTrigger;
     public Transform spawnPoint;
     [SerializeField] bool destroyOnTriggerExit = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(plateformTrigger))
+        if (other.CompareTag(platformTrigger))
             SpawnPlatform();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(plateformTrigger) && destroyOnTriggerExit)
+        if (other.CompareTag(platformTrigger) && destroyOnTriggerExit)
             Destroy(other.transform.parent.gameObject);
     }
 
