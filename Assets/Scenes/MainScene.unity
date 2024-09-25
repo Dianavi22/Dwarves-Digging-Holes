@@ -425,8 +425,7 @@ MonoBehaviour:
   - {fileID: 4392431218995717033, guid: ee6e5a103279fa34e9a4e576b03a72da, type: 3}
   - {fileID: 8040244235202483511, guid: 7d1fdce96e3c68e45aa30222928fd272, type: 3}
   - {fileID: 3794582845298295115, guid: cc5ea00376eba954db9687b85e1cada3, type: 3}
-  despawnTime: 50
-  plateformTrigger: BlocTrigger
+  platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 0
 --- !u!65 &184080655
@@ -459,8 +458,8 @@ Transform:
   m_GameObject: {fileID: 184080652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19, y: 3.5, z: 0}
-  m_LocalScale: {x: 1, y: 6.9755087, z: 7.6314}
+  m_LocalPosition: {x: 19, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 751059649}
@@ -620,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 751059648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -0.566, z: 0}
+  m_LocalPosition: {x: 10, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -659,8 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
-  despawnTime: 6
-  plateformTrigger: PlatformTrigger
+  platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
 --- !u!54 &859681941
@@ -720,8 +718,8 @@ Transform:
   m_GameObject: {fileID: 859681939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 10, z: 1}
+  m_LocalPosition: {x: -25, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 867522671}
@@ -752,7 +750,7 @@ Transform:
   m_GameObject: {fileID: 867522670}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 150, y: -0.1, z: 0}
+  m_LocalPosition: {x: 75, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1123,7 +1121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9218764961472335629, guid: c951eb26a83121a46aae20802bf64644, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 9218764961472335629, guid: c951eb26a83121a46aae20802bf64644, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1253,13 +1251,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _retryButton
       value: 
       objectReference: {fileID: 1366857849}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: blockSpawner
       value: 
-      objectReference: {fileID: 184080653}
+      objectReference: {fileID: 0}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: scrollingSpeed
       value: 1
@@ -1353,8 +1355,8 @@ SceneRoots:
   - {fileID: 1143502662}
   - {fileID: 184080656}
   - {fileID: 859681943}
-  - {fileID: 79244604896038318}
   - {fileID: 2092299539}
+  - {fileID: 79244604896038318}
   - {fileID: 5436758355274485485}
   - {fileID: 1393171042}
   - {fileID: 6259909}

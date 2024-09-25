@@ -27,6 +27,11 @@ public class Pickaxe : MonoBehaviour
             }
             Debug.Log(_healthPoint);
         }
+        else if(Utils.TryGetParentComponent<PlayerActions>(hit.transform.parent.gameObject, out var hitPlayerActions))
+        {
+            hitPlayerActions.ForceDetach();
+            hitPlayerActions.Hit();
+        }
     }
      
     public void Break()

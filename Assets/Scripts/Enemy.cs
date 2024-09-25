@@ -87,20 +87,20 @@ public class Enemy : MonoBehaviour
     private IEnumerator HitChariot()
     {
         _InCD = true;
-        _goldChariot.goldCount--;
+        _goldChariot.removeGold(1);
         yield return new WaitForSeconds(1);
         _InCD = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.collider.gameObject.GetComponentInParent<GoldChariot>().name == "GoldChariot")
+        if (Utils.TryGetParentComponent<GoldChariot>(collision.collider, out var goldChariot) && goldChariot.gameObject.name == "GoldChariot")
         {
-            _goldChariot = collision.collider.GetComponentInParent<GoldChariot>();
+            _goldChariot = goldChariot;
             _isTouchingChariot = true;
         }
     }
+    
     private void OnCollisionExit(Collision collision) { 
     
         _isTouchingChariot = false;

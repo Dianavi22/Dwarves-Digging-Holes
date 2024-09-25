@@ -17,6 +17,9 @@ public class PlayerActions : MonoBehaviour
     private Tween rotationTween;
 
     private Pickaxe pickaxe1;
+    private Rigidbody _rb;
+    private bool _isHit = false;
+
     public bool carried = false;
     public Transform objectSlot;
     public GameObject pivot;
@@ -32,10 +35,28 @@ public class PlayerActions : MonoBehaviour
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
+    private void Start()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
 
     public void PrepareAction() {
         StartAnimation();
-        InvokeRepeating(nameof(TestMine), 0.5f, 0.5f);
+        InvokeRepeating(nameof(TestMine), 0f, 0.5f);
+    }
+
+    public void Hit()
+    {
+        if(!_isHit)
+        {
+            _isHit = true;
+            _rb.constraints = RigidbodyConstraints.FreezeAll;
+
+            DOVirtual.DelayedCall(1f, () => {
+                _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+                _isHit = false;
+            });
+        }
     }
 
 
@@ -88,7 +109,7 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (!_uiManager.isPaused)
+            if (true)
             {
                 if (context.performed) // the key has been pressed
                 {
@@ -285,7 +306,7 @@ public class PlayerActions : MonoBehaviour
         // Player
         if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
         {
-            objPlayerMovements.forceDetachFunction = ForceDetachPlayer;
+            objPlayerMovements.forceDetachFunction = ForceDetach;
             if (!state)
             {
                 objPlayerMovements.carried = !state;
@@ -333,7 +354,7 @@ public class PlayerActions : MonoBehaviour
         obj.transform.SetParent(state ? null : objectSlot);
     }
 
-    private void ForceDetachPlayer()
+    public void ForceDetach()
     {
         ThrowObject(true);
     }
