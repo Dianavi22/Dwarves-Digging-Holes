@@ -12,6 +12,10 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 100f;
+    [SerializeField] private float verticalDeadZone = 0.5f;
+    [SerializeField] private float horizontalDeadZone = 0.5f;
+
+
 
     [SerializeField] private Transform _leftRay;
 
@@ -174,8 +178,8 @@ public class PlayerMovements : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 vector = context.ReadValue<Vector2>();
-        _horizontal = vector.x;
-        _vertical = vector.y < 0 ? -1 : (vector.y > 0 ? 1 : 0);
+        _horizontal = Mathf.Abs(vector.x) > horizontalDeadZone ? vector.x : 0;
+        _vertical = Mathf.Abs(vector.y) > verticalDeadZone ? vector.y : 0;
     }
 
     public void OnDash()
