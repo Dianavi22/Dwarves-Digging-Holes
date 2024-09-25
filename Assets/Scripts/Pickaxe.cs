@@ -19,7 +19,7 @@ public class Pickaxe : MonoBehaviour
     {
         Debug.Log($"Hit {hit.name}");
 
-        if (hit.TryGetComponent<Rock>(out var rock))
+        if (Utils.TryGetParentComponent<Rock>(hit, out var rock))
         {
             rock.Hit();
             _healthPoint -= 1;

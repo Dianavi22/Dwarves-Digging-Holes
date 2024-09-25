@@ -22,9 +22,8 @@ public class PushChariot : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("other " + other);
-        if (other.CompareTag("Player") && other.name == "GFX" && !other.transform.root.GetComponent<PlayerActions>().isHoldingObject)
+    {        
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
         {
             _isTriggerActive = true; 
         }
@@ -32,7 +31,7 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && other.name == "GFX")
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
         {
             _isTriggerActive = false;
         }

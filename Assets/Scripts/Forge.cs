@@ -5,26 +5,21 @@ public class Forge : MonoBehaviour
     [SerializeField]
     private GameObject pickaxe;
 
-    private Collider player = null;
-
+    private PlayerActions player = null;
     private GameObject createdPickaxe = null;
 
     private void OnTriggerEnter(Collider other)
     {
-        GameObject collider = Utils.GetCollisionGameObject(other);
-
-        if (collider.CompareTag("Player") && player == null)
+        if (createdPickaxe == null && player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var _object))
         {
-            player = other;
+            player = _object;
             Invoke(nameof(BuildPickaxe), 1f);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        GameObject collider = Utils.GetCollisionGameObject(other);
-
-        if (collider.CompareTag("Player") && player != null)
+        if (player != null && Utils.TryGetParentComponent<PlayerActions>(other, out var _object))
         {
             player = null;
             CancelInvoke();
@@ -32,10 +27,7 @@ public class Forge : MonoBehaviour
     }
 
     public void BuildPickaxe() {
-        if(createdPickaxe == null)
-        {
-            createdPickaxe = Instantiate(pickaxe, transform);
-            player.gameObject.GetComponentInParent<PlayerActions>().TryPickUpObject();
-        }
+        createdPickaxe = Instantiate(pickaxe, transform);
+        player.TryPickUpObject();
     }
 }

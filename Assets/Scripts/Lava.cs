@@ -4,9 +4,9 @@ public class Lava : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
         {
-            other.gameObject.transform.root.GetComponent<PlayerHealth>().TakeDamage();
+            playerHealth.TakeDamage();
         }
 
         if (other.CompareTag("EndingCondition"))
@@ -14,20 +14,25 @@ public class Lava : MonoBehaviour
             GameManager.Instance.GameOver();
         }
 
-        if (other.CompareTag("Rock"))
+        /*
+         * Todo: Need to unify this condition
+         * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
+         */
+
+        if (Utils.TryGetParentComponent<Rock>(other, out var rock))
         {
-            Destroy(other.gameObject);
+            Destroy(rock.gameObject);
         }
 
-        if (other.CompareTag("Enemy"))
+        if (Utils.TryGetParentComponent<Enemy>(other, out var enemy))
         {
-            Destroy(other.gameObject.GetComponentInParent<Enemy>().gameObject);
+            Destroy(enemy.gameObject);
         }
 
-        if (other.CompareTag("Pickaxe"))
+        if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
         {
             print("PICKAXE IN A FUCKING LAVA");
-            Destroy(other.gameObject);
+            Destroy(pickaxe.gameObject);
         }
     }
 }
