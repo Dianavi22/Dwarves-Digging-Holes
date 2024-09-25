@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputManagerEntry;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Enemy : MonoBehaviour
     private bool flip = false;
 
     private readonly float gravityValue = -9.81f;
+
+    private GoldChariot _goldChariot;
+    private bool _isTouchingChariot = false;
+    private bool _InCD = false;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +66,13 @@ public class Enemy : MonoBehaviour
         // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
         if (!hitWall) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
 
+        //lost Gold function
+        if (_isTouchingChariot && !_InCD)
+        {
+            StartCoroutine(HitChariot());
+        }
+
+
     }
     private void FlipFacingDirection()
     {
@@ -71,4 +83,27 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-1.1f,0));
     }
+
+    private IEnumerator HitChariot()
+    {
+        _InCD = true;
+        _goldChariot.goldCount--;
+        yield return new WaitForSeconds(1);
+        _InCD = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.collider.gameObject.GetComponentInParent<GoldChariot>().name == "GoldChariot")
+        {
+            _goldChariot = collision.collider.GetComponentInParent<GoldChariot>();
+            _isTouchingChariot = true;
+        }
+    }
+    private void OnCollisionExit(Collision collision) { 
+    
+        _isTouchingChariot = false;
+    }
+
 }
