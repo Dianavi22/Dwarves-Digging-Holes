@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _retryButton;
   
     public static GameManager Instance; // A static reference to the GameManager instance
+    [SerializeField] private  GoldChariot _goldChariot;
 
     void Awake()
     {
@@ -35,7 +36,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-       
+        if (_goldChariot.goldCount <= 0)
+        {
+            GameOver();
+        }
     }
 
     private void GameStarted()
@@ -58,5 +62,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_retryButton);
+        Time.timeScale = 0;
     }
 }
