@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Forge : MonoBehaviour
@@ -5,8 +6,13 @@ public class Forge : MonoBehaviour
     [SerializeField]
     private GameObject pickaxe;
 
-    private PlayerActions player = null;
-    private GameObject createdPickaxe = null;
+    private PlayerActions player;
+    private GameObject createdPickaxe;
+
+    private void Start()
+    {
+        createdPickaxe = GameManager.Instance.Pickaxe;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +34,7 @@ public class Forge : MonoBehaviour
 
     public void BuildPickaxe() {
         createdPickaxe = Instantiate(pickaxe, transform);
+        GameManager.Instance.Pickaxe = createdPickaxe;
         player.TryPickUpObject();
     }
 }

@@ -32,6 +32,7 @@ public class Lava : MonoBehaviour
         if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
         {
             print("PICKAXE IN A FUCKING LAVA");
+            GameManager.Instance.Pickaxe = null;
             Destroy(pickaxe.gameObject);
         }
     }

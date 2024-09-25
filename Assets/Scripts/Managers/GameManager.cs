@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; // A static reference to the GameManager instance
     [SerializeField] private  GoldChariot _goldChariot;
 
+    public GameObject Pickaxe;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
             Destroy(gameObject);
+
+        Pickaxe = GameObject.Find("Pickaxe");
     }
 
     void Start()
