@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public GameObject PickaxeInstance;
+
+    [SerializeField] TMP_Text _textGameOverCondition;
+    [SerializeField] string _goblinDeathCondition;
+    [SerializeField] string _lavaDeathCondition;
 
     void Awake()
     {
@@ -43,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         if (_goldChariot.goldCount <= 0)
         {
-            GameOver();
+            GameOver(0);
         }
     }
 
@@ -60,8 +65,16 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
-    public void GameOver()
+    public void GameOver(int index)
     {
+        if (index == 0)
+        {
+            _textGameOverCondition.text = _goblinDeathCondition;
+        }
+        if (index == 1)
+        {
+            _textGameOverCondition.text = _lavaDeathCondition;
+        }
         if (debugMode) return;
         
         Time.timeScale = 0;
