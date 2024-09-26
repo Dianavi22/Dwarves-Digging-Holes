@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
-    [SerializeField] float jumpForce = 1f;
+    [SerializeField] float jumpForce = 0.5f;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
     public bool hasFocus = true;
@@ -77,6 +77,15 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(HitChariot());
         }
+        if (isGrabbed)
+        {
+            _rb.mass = 1f;
+        }
+        else {
+            _rb.mass = 10f;
+
+        }
+
 
 
     }
