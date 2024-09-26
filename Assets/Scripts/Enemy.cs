@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] float jumpForce = 1f;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
-    [SerializeField] bool canChangeFocus;
+    public bool hasFocus = true;
+    public bool isGrabbed;
 
     [SerializeField] GameObject raycastDetectHitWall;
 
@@ -64,8 +65,11 @@ public class Enemy : MonoBehaviour
             direction = 0f;
 
         // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
-        if (!hitWall) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
+        if (!hitWall && hasFocus) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
 
+        // TODO faire condition isGrabbed
+        if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
+        
         //lost Gold function
         if (_isTouchingChariot && !_InCD)
         {

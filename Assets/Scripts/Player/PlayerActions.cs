@@ -250,6 +250,12 @@ public class PlayerActions : MonoBehaviour
 
     public void PickupObject(GameObject heldObject)
     {
+        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
+        {
+            enemy.hasFocus = false;
+            enemy.isGrabbed = true;
+        }
+        
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         isHoldingObject = true;
@@ -378,6 +384,10 @@ public class PlayerActions : MonoBehaviour
     {
         if (heldObject != null)
         {
+            if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
+            {
+                enemy.isGrabbed = false;
+            }
             SetObjectState(heldObject, true, forced);
             EmptyHands();
         }

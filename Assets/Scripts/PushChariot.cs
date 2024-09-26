@@ -30,27 +30,19 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_playerActions == null)
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
         {
-            if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
-            {
-                _playerActions = player;
-                _isTriggerActive = true;
-                _playerFatigue = player.playerFatigue;
-            }
+            _isTriggerActive = true;
+            _playerFatigue = player.playerFatigue;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (_playerActions != null)
+        if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
         {
-            if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
-            {
-                _playerActions = null;
-                _isTriggerActive = false;
-                _playerFatigue = null;
-            }
+            _isTriggerActive = false;
+            _playerFatigue = null;
         }
     }
 }
