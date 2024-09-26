@@ -221,10 +221,14 @@ public class PlayerActions : MonoBehaviour
             foreach (var hitCollider in hitColliders)
             {
                 GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
+                if (parentGameobject.CompareTag("Player"))
                 {
-                    heldObject = parentGameobject.gameObject;
+                    parentGameobject = parentGameobject.transform.root.gameObject;
+                }
+                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
+                {
+                    heldObject = parentGameobject;
 
                     if (heldObject != null)
                     {
@@ -270,7 +274,7 @@ public class PlayerActions : MonoBehaviour
             objRenderer.enabled = state;
         }
 
-        if (obj.TryGetComponent<Collider>(out var objCollider))
+        if (obj.TryGetComponent<Collider>(out var objCollider) && objCollider.name != "Player")
         {
             if (!objCollider.isTrigger)
             {
@@ -279,10 +283,18 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            Collider InChild = obj.GetComponentInChildren<Collider>();
-            if (InChild != null)
+            if (obj.name == "Player")
             {
-                InChild.enabled = state;
+                Collider playerCol = objCollider.transform.GetChild(0).GetComponentInChildren<Collider>();
+                playerCol.enabled = state;
+            }
+            else
+            {
+                Collider InChild = obj.GetComponentInChildren<Collider>();
+                if (InChild != null)
+                {
+                    InChild.enabled = state;
+                }
             }
         }
 
@@ -302,6 +314,7 @@ public class PlayerActions : MonoBehaviour
                 float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
+                rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
             }
 

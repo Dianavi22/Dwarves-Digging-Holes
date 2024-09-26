@@ -101,6 +101,7 @@ public class PlayerMovements : MonoBehaviour
         }
         else if(_isGrounded && carried && canStopcarried){
             carried = false;
+            canStopcarried = false;
         }
     }
 
