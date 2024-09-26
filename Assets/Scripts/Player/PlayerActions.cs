@@ -28,6 +28,7 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
+    private PlayerFatigue playerFatigue;
 
 
     private UIPauseManager _uiManager;
@@ -37,6 +38,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
+        playerFatigue = GetComponent<PlayerFatigue>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -197,7 +199,13 @@ public class PlayerActions : MonoBehaviour
         // ! You can hit further forward
         if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
-            pickaxe1.Hit(hit.collider.gameObject);
+            if (playerFatigue.ReduceMiningFatigue(10)){
+                pickaxe1.Hit(hit.collider.gameObject);
+                Debug.Log("Minage effectué !");
+            }
+        //playerFatigue.ReduceMiningFatigueOverTime();
+        //pickaxe1.Hit(hit.collider.gameObject);
+        //Debug.Log("Minage effectué !");
         }
 
     }

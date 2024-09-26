@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class HealthChangedEvent : UnityEvent<int, int> { }
 
 public class PlayerHealth : MonoBehaviour
 {
+    public HealthChangedEvent onHealthChanged;
     private Transform _respawnPoint;
     #region Old Heal system
-    [SerializeField][HideInInspector] private int _maxHealth = 3;
+    [SerializeField][HideInInspector] private int _maxHealth = 10;
     [SerializeField][HideInInspector] public int currentHealth;
     private PlayerHealth allyToHeal;
     private bool canHeal = false;
@@ -19,11 +24,16 @@ public class PlayerHealth : MonoBehaviour
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
+    public PlayerInformationManager playerInformationManager;
+
     void Start()
     {
         // Todo use TargetManager to find the GoldChariot
         _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
         // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
+        currentHealth = _maxHealth;
+
+        onHealthChanged.Invoke(currentHealth, _maxHealth);
     }
 
     #region Old heal system
@@ -142,5 +152,42 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         this.GetComponent<PlayerMovements>().enabled = true;
         this.GetComponent<PlayerActions>().enabled = true;
+    }
+
+
+    // & Feature added at the same time as the UI by Tristan for proper testing, we may not need it.
+
+    private void InvokeOnHealthChanged()
+    {
+        onHealthChanged.Invoke(currentHealth, _maxHealth);
+    }
+
+    public void CheckPlayerLife()
+    {
+        if (currentHealth == 0)
+        {
+            Debug.Log("The player is dead.");
+            PlayerDeath();
+        }
+    }
+
+    void PlayerDeath()
+    {
+        Debug.Log("Execution of player death actions.");
+    }
+
+    public void Damage(int damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
+        CheckPlayerLife(); 
+        InvokeOnHealthChanged(); 
+        Debug.Log("The player is Damage  = " + currentHealth);
+    }
+
+    public void Health(int health)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
+        InvokeOnHealthChanged(); 
+        Debug.Log("The player is Health  = " + currentHealth);
     }
 }
