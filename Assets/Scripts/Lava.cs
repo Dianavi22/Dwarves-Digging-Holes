@@ -11,8 +11,7 @@ public class Lava : MonoBehaviour
 
         if (other.CompareTag("EndingCondition"))
         {
-            Debug.Log("GAME OVER CHARIOT IN LAVA");
-            GameManager.Instance.GameOver();
+            GameManager.Instance.GameOver(1);
         }
 
         /*
@@ -32,7 +31,6 @@ public class Lava : MonoBehaviour
 
         if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
         {
-            print("PICKAXE IN A FUCKING LAVA");
             GameManager.Instance.PickaxeInstance = null;
             Destroy(pickaxe.gameObject);
         }

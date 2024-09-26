@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
-    [SerializeField] float jumpForce = 1f;
+    [SerializeField] float jumpForce = 0.5f;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
     public bool hasFocus = true;
@@ -26,6 +26,8 @@ public class Enemy : MonoBehaviour
     private GoldChariot _goldChariot;
     private bool _isTouchingChariot = false;
     private bool _InCD = false;
+
+   [SerializeField] private ParticleSystem _goldOutChariot;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +77,15 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(HitChariot());
         }
+        if (isGrabbed)
+        {
+            _rb.mass = 1f;
+        }
+        else {
+            _rb.mass = 10f;
+
+        }
+
 
 
     }
@@ -102,12 +113,20 @@ public class Enemy : MonoBehaviour
         {
             _goldChariot = goldChariot;
             _isTouchingChariot = true;
+            _goldOutChariot = _goldChariot.GetComponentInChildren<ParticleSystem>();
+            _goldOutChariot.Play();
         }
     }
     
     private void OnCollisionExit(Collision collision) { 
     
         _isTouchingChariot = false;
+        if (_goldOutChariot != null)
+        {
+            _goldOutChariot.Stop();
+            _goldOutChariot = null;
+
+        }
     }
 
 }
