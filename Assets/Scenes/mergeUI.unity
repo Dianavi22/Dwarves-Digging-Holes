@@ -333,6 +333,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+--- !u!1 &125992426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685434124202464165, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+  m_PrefabInstance: {fileID: 125992425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &184080652
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,11 +959,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
---- !u!1 &1507898232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1685434124202464165, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
-  m_PrefabInstance: {fileID: 125992425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1630702525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,10 +1125,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4704200829397560391, guid: ca010f42802032740bb0777686d78f5c, type: 3}
-      propertyPath: m_Constraints
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 9051181917165350834, guid: ca010f42802032740bb0777686d78f5c, type: 3}
       propertyPath: pickaxePrefab
       value: 
@@ -1249,7 +1245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8516785317691533686, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
-  canvas: {fileID: 1507898232}
+  canvas: {fileID: 125992426}
   uiObjects:
   - {fileID: 8325982029632982444, guid: 7d44554d7e905024ebb41e8bc2bf053c, type: 3}
   - {fileID: 1891106824667603586, guid: b98501577510de04f8c1e3882e3e0614, type: 3}
@@ -1422,7 +1418,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _goldChariot

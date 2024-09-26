@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 7568293103426823972}
   - component: {fileID: 7467916203998543311}
   - component: {fileID: 7358293992737870010}
+  - component: {fileID: 3847963404825759604}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -464,6 +465,8 @@ MonoBehaviour:
   _jumpForce: 11
   fallMultiplier: 3.5
   lowJumpMultiplier: 5
+  verticalDeadZone: 0.5
+  horizontalDeadZone: 0.5
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
   flip: 1
@@ -676,6 +679,7 @@ MonoBehaviour:
   pivot: {fileID: 3808914129422552221}
   vertical: 0
   _scale: {fileID: 5218718760467251739}
+  playerFatigue: {fileID: 0}
 --- !u!143 &4549420252155512744
 CharacterController:
   m_ObjectHideFlags: 0
@@ -714,6 +718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
   _maxHealth: 3
   currentHealth: 3
   isAlive: 1
@@ -742,6 +749,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9197527417c218242bb6bae08de9a635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3847963404825759604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8516785317691533686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783f9632cd1a5a042ab77a686390e79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCartsFatigueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onMiningFatigueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  maxCartsFatigue: 100
+  maxMiningFatigue: 500
+  regenSpeedCartsFatigue: 0.05
+  regenSpeedMiningFatigue: 0.05
+  reduceSpeedCartsFatigue: 0.05
+  reduceSpeedMiningFatigue: 0.5
+  currentCartsFatigue: 0
+  currentMiningFatigue: 0
+  regenDelayCartsFatigueMax: 2
+  regenDelayMiningFatiMax: 2
 --- !u!1 &8939581255806326872
 GameObject:
   m_ObjectHideFlags: 0

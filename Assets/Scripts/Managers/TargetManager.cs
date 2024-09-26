@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Target
 {
     GoldChariot,
+    BeerChariot,
     RespawnPoint
 }
 
@@ -12,6 +13,7 @@ public class TargetManager : MonoBehaviour
 {
     //[SerializeField] private GameObject player;
     [SerializeField] private GameObject goldChariot;
+    [SerializeField] private GameObject beerChariot;
     [SerializeField] private GameObject respawnPoint;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
@@ -34,6 +36,7 @@ public class TargetManager : MonoBehaviour
         {
             //Target.Player => player,
             Target.GoldChariot => goldChariot,
+            Target.BeerChariot => beerChariot,
             Target.RespawnPoint => respawnPoint,
             _ => null,
         };

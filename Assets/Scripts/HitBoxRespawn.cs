@@ -15,16 +15,23 @@ public class HitBoxRespawn : MonoBehaviour
        
         var colliders = Physics.OverlapSphere(new Vector3(this.transform.position.x, this.transform.position.y, 0), 1);
 
-        foreach (var collider in colliders)
+        if (colliders.Length != 0)
         {
-            if (!collider.isTrigger)
+            foreach (var collider in colliders)
             {
-                isReadyToRespawn = false;
+                if (!collider.isTrigger)
+                {
+                    isReadyToRespawn = false;
+                }
+                else
+                {
+                    isReadyToRespawn = true;
+                }
             }
-            else
-            {
-                isReadyToRespawn = true;
-            }
+        }
+        else
+        {
+            isReadyToRespawn = true;
         }
     }
 
