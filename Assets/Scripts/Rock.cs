@@ -20,6 +20,7 @@ public class Rock : MonoBehaviour
     private void Awake()
     {
         if (_haveGold) _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
+       
         _rockCollider = this.GetComponentInChildren<Collider>();
     
     }

@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     private bool _isTouchingChariot = false;
     private bool _InCD = false;
 
+   [SerializeField] private ParticleSystem _goldOutChariot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,12 +104,20 @@ public class Enemy : MonoBehaviour
         {
             _goldChariot = goldChariot;
             _isTouchingChariot = true;
+            _goldOutChariot = _goldChariot.GetComponentInChildren<ParticleSystem>();
+            _goldOutChariot.Play();
         }
     }
     
     private void OnCollisionExit(Collision collision) { 
     
         _isTouchingChariot = false;
+        if (_goldOutChariot != null)
+        {
+            _goldOutChariot.Stop();
+            _goldOutChariot = null;
+
+        }
     }
 
 }
