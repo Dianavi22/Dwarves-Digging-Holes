@@ -12,6 +12,7 @@ public class Rock : MonoBehaviour
     private bool _haveGold;
     private GoldChariot _goldChariot;
     [SerializeField] ParticleSystem _rockHitPart;
+    [SerializeField] ParticleSystem _rockGoldPart;
 
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
@@ -31,6 +32,10 @@ public class Rock : MonoBehaviour
         {
             _rockHitPart.Play();
 
+        }
+        else
+        {
+            _rockGoldPart.Play();
         }
 
         if (_healthPoint <= 0)

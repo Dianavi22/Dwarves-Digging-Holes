@@ -73,6 +73,7 @@ MonoBehaviour:
   _healthPoint: 2
   _haveGold: 0
   _rockHitPart: {fileID: 625839940477463354}
+  _rockGoldPart: {fileID: 0}
   _gfx: {fileID: 5815697713690995316}
 --- !u!1 &5815697713690995316
 GameObject:
@@ -209,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3565025670256012897, guid: 12dca421432b78a46863869e3c292555, type: 3}
       propertyPath: m_Name
-      value: HitRock_Part
+      value: HitRock_PART
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
