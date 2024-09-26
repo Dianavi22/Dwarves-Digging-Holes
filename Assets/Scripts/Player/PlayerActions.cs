@@ -28,7 +28,7 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
-    private PlayerFatigue playerFatigue;
+    public PlayerFatigue playerFatigue;
 
 
     private UIPauseManager _uiManager;

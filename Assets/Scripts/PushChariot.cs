@@ -8,6 +8,9 @@ public class PushChariot : MonoBehaviour
     [SerializeField] float pushForce = 150;
     private bool _isTriggerActive;
     private Rigidbody _rb, _beerChariotRb;
+    private PlayerActions _playerActions;
+    private PlayerFatigue _playerFatigue;
+    private bool _isCartPushing, _hasFatigue;
 
     void Start()
     {
@@ -18,7 +21,7 @@ public class PushChariot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isTriggerActive)
+        if (_isTriggerActive && _playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
         {
             _rb.AddForce(pushForce, 0, 0);
             _beerChariotRb.AddForce(pushForce, 0, 0);
@@ -26,18 +29,28 @@ public class PushChariot : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {        
-        if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
+    {
+        if (_playerActions == null)
         {
-            _isTriggerActive = true; 
+            if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
+            {
+                _playerActions = player;
+                _isTriggerActive = true;
+                _playerFatigue = player.playerFatigue;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
+        if (_playerActions != null)
         {
-            _isTriggerActive = false;
+            if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
+            {
+                _playerActions = null;
+                _isTriggerActive = false;
+                _playerFatigue = null;
+            }
         }
     }
 }

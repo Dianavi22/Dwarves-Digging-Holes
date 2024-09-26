@@ -679,6 +679,7 @@ MonoBehaviour:
   pivot: {fileID: 3808914129422552221}
   vertical: 0
   _scale: {fileID: 5218718760467251739}
+  playerFatigue: {fileID: 0}
 --- !u!143 &4549420252155512744
 CharacterController:
   m_ObjectHideFlags: 0
@@ -766,8 +767,8 @@ MonoBehaviour:
   onMiningFatigueChanged:
     m_PersistentCalls:
       m_Calls: []
-  maxCartsFatigue: 60
-  maxMiningFatigue: 60
+  maxCartsFatigue: 100
+  maxMiningFatigue: 500
   regenSpeedCartsFatigue: 0.05
   regenSpeedMiningFatigue: 0.05
   reduceSpeedCartsFatigue: 0.05
