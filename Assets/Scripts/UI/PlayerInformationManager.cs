@@ -32,8 +32,6 @@ public class PlayerInformationManager : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.onHealthChanged.AddListener(UpdateLifeUI);
-
-            UpdateLifeUI(playerHealth.currentHealth, playerHealth._maxHealth);
         }
 
         if (playerFatigue != null)

@@ -24,8 +24,6 @@ public class PlayerHealth : MonoBehaviour
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
-    public PlayerInformationManager playerInformationManager;
-
     void Start()
     {
         // Todo use TargetManager to find the GoldChariot
