@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         if (_goldChariot.goldCount <= 0)
         {
+            Debug.Log("GAME OVER GOLD = 0");
             GameOver();
         }
     }

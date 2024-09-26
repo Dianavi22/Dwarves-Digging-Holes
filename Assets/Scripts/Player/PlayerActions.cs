@@ -28,7 +28,7 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private Transform _scale;
     private bool isTaunt = false;
-    private PlayerFatigue playerFatigue;
+    public PlayerFatigue playerFatigue;
 
 
     private UIPauseManager _uiManager;
@@ -254,6 +254,12 @@ public class PlayerActions : MonoBehaviour
 
     public void PickupObject(GameObject heldObject)
     {
+        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
+        {
+            enemy.hasFocus = false;
+            enemy.isGrabbed = true;
+        }
+        
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         isHoldingObject = true;
@@ -391,6 +397,10 @@ public class PlayerActions : MonoBehaviour
     {
         if (heldObject != null)
         {
+            if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
+            {
+                enemy.isGrabbed = false;
+            }
             SetObjectState(heldObject, true, forced);
             EmptyHands();
         }

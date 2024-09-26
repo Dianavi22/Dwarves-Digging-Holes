@@ -11,6 +11,7 @@ public class Lava : MonoBehaviour
 
         if (other.CompareTag("EndingCondition"))
         {
+            Debug.Log("GAME OVER CHARIOT IN LAVA");
             GameManager.Instance.GameOver();
         }
 
