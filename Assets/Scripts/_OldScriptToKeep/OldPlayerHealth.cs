@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class HealthChangedEvent : UnityEvent<int, int> { }
 
-public class PlayerHealth : MonoBehaviour
+#region Old heal script
+
+#if false
+
+
+
+
+[System.Serializable]
+public class OldHealthChangedEvent : UnityEvent<int, int> { }
+
+public class OldPlayerHealth : MonoBehaviour
 {
     public HealthChangedEvent onHealthChanged;
     private Transform _respawnPoint;
@@ -151,4 +159,46 @@ public class PlayerHealth : MonoBehaviour
         this.GetComponent<PlayerMovements>().enabled = true;
         this.GetComponent<PlayerActions>().enabled = true;
     }
+
+
+    // & Feature added at the same time as the UI by Tristan for proper testing, we may not need it.
+
+    private void InvokeOnHealthChanged()
+    {
+        onHealthChanged.Invoke(currentHealth, _maxHealth);
+    }
+
+    public void CheckPlayerLife()
+    {
+        if (currentHealth == 0)
+        {
+            Debug.Log("The player is dead.");
+            PlayerDeath();
+        }
+    }
+
+    void PlayerDeath()
+    {
+        Debug.Log("Execution of player death actions.");
+    }
+
+    public void Damage(int damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
+        CheckPlayerLife(); 
+        InvokeOnHealthChanged(); 
+        Debug.Log("The player is Damage  = " + currentHealth);
+    }
+
+    public void Health(int health)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
+        InvokeOnHealthChanged(); 
+        Debug.Log("The player is Health  = " + currentHealth);
+    }
 }
+
+
+#endif
+
+#endregion
