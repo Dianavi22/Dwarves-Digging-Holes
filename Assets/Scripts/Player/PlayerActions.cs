@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,19 +43,21 @@ public class PlayerActions : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void PrepareAction() {
+    public void PrepareAction()
+    {
         StartAnimation();
         InvokeRepeating(nameof(TestMine), 0f, 0.5f);
     }
 
     public void Hit()
     {
-        if(!_isHit)
+        if (!_isHit)
         {
             _isHit = true;
             _rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            DOVirtual.DelayedCall(1f, () => {
+            DOVirtual.DelayedCall(1f, () =>
+            {
                 _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
                 _isHit = false;
             });
@@ -199,13 +202,14 @@ public class PlayerActions : MonoBehaviour
         // ! You can hit further forward
         if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
-            if (playerFatigue.ReduceMiningFatigue(10)){
+            if (playerFatigue.ReduceMiningFatigue(10))
+            {
                 pickaxe1.Hit(hit.collider.gameObject);
                 Debug.Log("Minage effectué !");
             }
-        //playerFatigue.ReduceMiningFatigueOverTime();
-        //pickaxe1.Hit(hit.collider.gameObject);
-        //Debug.Log("Minage effectué !");
+            //playerFatigue.ReduceMiningFatigueOverTime();
+            //pickaxe1.Hit(hit.collider.gameObject);
+            //Debug.Log("Minage effectué !");
         }
 
     }
@@ -259,7 +263,7 @@ public class PlayerActions : MonoBehaviour
             enemy.hasFocus = false;
             enemy.isGrabbed = true;
         }
-        
+
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         isHoldingObject = true;
@@ -278,31 +282,24 @@ public class PlayerActions : MonoBehaviour
         {
             objRenderer.enabled = state;
         }
-
-        if (obj.TryGetComponent<Collider>(out var objCollider) && objCollider.name != "Player")
+        if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
-            if (!objCollider.isTrigger)
+            if (Utils.TryGetChildComponent<Collider>(obj, out var objChildCollider, 1))
             {
-                objCollider.enabled = state;
+                objChildCollider.enabled = state;
             }
         }
         else
         {
-            // TODO Changer le nom PlayerCLONE VOILA LIUBIN TES CONTENT CHANGE CA SI TU VEUX
-            if (obj.name == "Player" || obj.name == "Player(Clone)")
+            if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider))
             {
-                Collider playerCol = obj.transform.GetComponentInChildren<Collider>();
-                playerCol.enabled = state;
-            }
-            else
-            {
-                Collider InChild = obj.GetComponentInChildren<Collider>();
-                if (InChild != null)
+                if (!objCollider.isTrigger)
                 {
-                    InChild.enabled = state;
+                    objCollider.enabled = state;
                 }
             }
         }
+
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {

@@ -78,7 +78,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Faster falling
-        if (_rb.velocity.y < 1 && !_isDashing && !carried)
+        if (_rb.velocity.y < 1 && !_isDashing)
         {
             _rb.velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
