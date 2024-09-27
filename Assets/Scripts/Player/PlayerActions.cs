@@ -274,7 +274,6 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
-
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
             objRenderer.enabled = state;
@@ -289,9 +288,10 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            if (obj.name == "Player")
+            // TODO Changer le nom PlayerCLONE VOILA LIUBIN TES CONTENT CHANGE CA SI TU VEUX
+            if (obj.name == "Player" || obj.name == "Player(Clone)")
             {
-                Collider playerCol = objCollider.transform.GetChild(0).GetComponentInChildren<Collider>();
+                Collider playerCol = obj.transform.GetComponentInChildren<Collider>();
                 playerCol.enabled = state;
             }
             else
