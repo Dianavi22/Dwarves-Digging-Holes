@@ -30,6 +30,8 @@ public class PlayerActions : MonoBehaviour
     private bool isTaunt = false;
     public PlayerFatigue playerFatigue;
 
+    [SerializeField] ParticleSystem _HurtPart;
+
 
     private UIPauseManager _uiManager;
     public bool GrabThrowJustPressed { get; private set; }
@@ -51,6 +53,7 @@ public class PlayerActions : MonoBehaviour
     {
         if(!_isHit)
         {
+            _HurtPart.Play();
             _isHit = true;
             _rb.constraints = RigidbodyConstraints.FreezeAll;
 
