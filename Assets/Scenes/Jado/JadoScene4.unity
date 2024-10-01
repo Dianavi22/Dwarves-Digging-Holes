@@ -1116,10 +1116,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: goldCount
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -1132,6 +1128,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5162782008846118221, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 691050779}
     - target: {fileID: 5742115732590643284, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -1480,6 +1480,7 @@ MonoBehaviour:
   uiObjects: []
   debug: 0
   debugPlayerCount: 1
+  _playerMAT: []
 --- !u!4 &2092299539
 Transform:
   m_ObjectHideFlags: 0

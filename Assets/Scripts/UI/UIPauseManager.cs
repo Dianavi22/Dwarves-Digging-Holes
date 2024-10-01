@@ -46,7 +46,8 @@ public class UIPauseManager : MonoBehaviour
 
     public void MainMenu()
     {
-        print("Main Menu");
+        SceneManager.LoadScene(0);
+
     }
 
     public void Pause(GameObject _currentPlayer)
@@ -78,4 +79,11 @@ public class UIPauseManager : MonoBehaviour
         _inputCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_rebindJump);
     }
+
+    public void CloseInputMenu()
+    {
+        _inputCanvas.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
+    }
+
 }
