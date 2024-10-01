@@ -403,6 +403,7 @@ public class PlayerActions : MonoBehaviour
             if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
             {
                 enemy.isGrabbed = false;
+                enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
             }
             SetObjectState(heldObject, true, forced);
             EmptyHands();
