@@ -2,12 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] AudioMixer audioMixer;
     Resolution[] resolutions;
-    [SerializeField] Dropdown resolutionDropDown;
+    [SerializeField] TMP_Dropdown resolutionDropDown;
+    [SerializeField] private GameObject SettingsWindow;
+    [SerializeField] private EventSystem _eventSystem;
+    [SerializeField] private GameObject _settingsButtonMM;
 
     private void Start()
     {
@@ -48,5 +53,13 @@ public class SettingsMenu : MonoBehaviour
     public void SetSound(float volume) // Changer le volume du son
     {
         audioMixer.SetFloat("sound", volume);
+    }
+
+    public void CloseSettings()
+    {
+        SettingsWindow.SetActive(false);
+        _eventSystem.firstSelectedGameObject = _settingsButtonMM;
+
+
     }
 }
