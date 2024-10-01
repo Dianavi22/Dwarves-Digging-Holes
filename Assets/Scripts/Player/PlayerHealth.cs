@@ -11,6 +11,10 @@ public class PlayerHealth : MonoBehaviour
 {
     public HealthChangedEvent onHealthChanged;
     private Transform _respawnPoint;
+    private PlayerActions _playerActions;
+    private PlayerMovements _playerMovements;
+    private Rigidbody _rb;
+
     #region Old Heal system
     [SerializeField][HideInInspector] private int _maxHealth = 10;
     [SerializeField][HideInInspector] public int currentHealth;
@@ -26,12 +30,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        _playerActions = GetComponent<PlayerActions>();
+        _playerMovements = GetComponent<PlayerMovements>();
+        _rb = GetComponent<Rigidbody>();
+
         // Todo use TargetManager to find the GoldChariot
         _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
         // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
         currentHealth = _maxHealth;
 
         onHealthChanged.Invoke(currentHealth, _maxHealth);
+
     }
 
     #region Old heal system
@@ -109,21 +118,17 @@ public class PlayerHealth : MonoBehaviour
     {
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
-        this.GetComponent<PlayerMovements>().enabled = false;
-        this.GetComponent<PlayerActions>().enabled = false;
-        this.GetComponent<Rigidbody>().useGravity = false;
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-        if (this.GetComponent<PlayerActions>().heldObject != gameObject.GetComponent<PlayerMovements>() && this.GetComponent<PlayerActions>().heldObject != null)
-        {
-            Destroy(this.GetComponent<PlayerActions>().heldObject.gameObject);
-            this.GetComponent<PlayerActions>().heldObject = null;
 
-        };
-        if (this.GetComponent<PlayerActions>().heldObject == gameObject.GetComponent<PlayerMovements>())
+        _playerMovements.enabled = false;
+        _playerActions.enabled = false;
+        _rb.useGravity = false;
+        _rb.constraints = RigidbodyConstraints.FreezePositionX;
+
+
+        if (_playerActions.heldObject != null)
         {
-            this.GetComponent<PlayerActions>().heldObject.gameObject.GetComponent<PlayerHealth>().TakeDamage();
-            this.GetComponent<PlayerActions>().heldObject = null;
-        };
+            _playerActions.ForceDetach();
+        }
         yield return new WaitForSeconds(2);
 
         _isReadyToSpawn = true;
@@ -132,14 +137,15 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlayerRespawn()
     {
+
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
 
 
         isAlive = true;
-        this.GetComponent<Rigidbody>().useGravity = true;
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        _rb.useGravity = true;
+        _rb.constraints = RigidbodyConstraints.None;
+        _rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        _rb.constraints = RigidbodyConstraints.FreezeRotation;
         _playerGFX.SetActive(true);
 
         StartCoroutine(Invincibility());
@@ -148,7 +154,7 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator Invincibility()
     {
         yield return new WaitForSeconds(0.1f);
-        this.GetComponent<PlayerMovements>().enabled = true;
-        this.GetComponent<PlayerActions>().enabled = true;
+        _playerMovements.enabled = true;
+        _playerActions.enabled = true;
     }
 }
