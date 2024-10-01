@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
+    [SerializeField] Collider _lavaCollider;
+    private void Start()
+    {
+        _lavaCollider.enabled = false;
+        Invoke("CooldownLava", 4);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
@@ -34,5 +40,10 @@ public class Lava : MonoBehaviour
             GameManager.Instance.PickaxeInstance = null;
             Destroy(pickaxe.gameObject);
         }
+    }
+
+    private void CooldownLava()
+    {
+        _lavaCollider.enabled = true;
     }
 }

@@ -44,6 +44,9 @@ public class PlayerMovements : MonoBehaviour
 
     private readonly float gravityValue = -9.81f;
 
+
+    [SerializeField] ParticleSystem _DashPart;
+
     public bool JumpJustPressed { get; private set; }
     public bool DashJustPressed { get; private set; }
 
@@ -63,7 +66,7 @@ public class PlayerMovements : MonoBehaviour
             float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried 
                 ? _rb.velocity.x 
                 : _horizontal * _speed;
-            _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);            
+            _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);
         }
 
         // Flip
@@ -190,7 +193,7 @@ public class PlayerMovements : MonoBehaviour
         {
             _isDashing = true;
             _isDashingCooldown = true;
-
+            _DashPart.Play();
             Vector3 dashDirection = new(flip ? -1 : 1, 0, 0);
             _rb.velocity = new Vector3(dashDirection.x * _dashForce, _rb.velocity.y, 0f);
 
@@ -198,6 +201,8 @@ public class PlayerMovements : MonoBehaviour
             {
                 _isDashing = false;
                 Invoke(nameof(EndDashCoolDown), 0.75f);
+                _DashPart.Stop();
+
             });
         }
     }
