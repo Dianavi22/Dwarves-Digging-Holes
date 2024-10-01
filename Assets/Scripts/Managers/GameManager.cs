@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int index)
     {
+        if (debugMode) return;
+        
         isGameOver = true;
 
         if (index == 0)
@@ -79,7 +81,6 @@ public class GameManager : MonoBehaviour
         {
             _textGameOverCondition.text = _lavaDeathCondition;
         }
-        if (debugMode) return;
         
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
