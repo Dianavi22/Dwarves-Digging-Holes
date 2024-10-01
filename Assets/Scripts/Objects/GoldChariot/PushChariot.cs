@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class PushChariot : MonoBehaviour
 {
     [SerializeField] float pushForce = 150;
     private bool _isTriggerActive;
-    private Rigidbody _rb, _beerChariotRb;
+    private Rigidbody _rb;
     private PlayerActions _playerActions;
     private PlayerFatigue _playerFatigue;
     private bool _isCartPushing, _hasFatigue;
@@ -15,7 +16,6 @@ public class PushChariot : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _beerChariotRb = TargetManager.Instance.GetGameObject(Target.BeerChariot).GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,7 +24,6 @@ public class PushChariot : MonoBehaviour
         if (_isTriggerActive && _playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
         {
             _rb.AddForce(pushForce, 0, 0);
-            _beerChariotRb.AddForce(pushForce, 0, 0);
         }
     }
 
