@@ -44,7 +44,7 @@ public static class Utils
         return TryGetParentComponent(_gameObject.gameObject, out _out);
     }
 
-        public static bool TryGetChildComponent<T>(GameObject _gameObject, out T _out, int index)
+    public static bool TryGetChildComponent<T>(GameObject _gameObject, out T _out, int index)
     {
         if (_gameObject.TryGetComponent(out T _out2))
         {
