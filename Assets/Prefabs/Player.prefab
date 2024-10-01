@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8163606434354634121}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8955737698536627431}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7078662823813228998}
   - component: {fileID: 1158227546563844114}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SliperyHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2036966665453352247}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761011337336026328}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Raycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +819,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5218718760467251739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TauntHitBox
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -852,6 +852,10 @@ PrefabInstance:
     - target: {fileID: 3574213199057251885, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
       propertyPath: m_Name
       value: Hurt_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574213199057251885, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4888754176829173431, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -919,6 +923,10 @@ PrefabInstance:
     - target: {fileID: 2074782130776040886, guid: 5f7c9ff1ee882a94a99bcffa1f5f95df, type: 3}
       propertyPath: m_Name
       value: Dash_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074782130776040886, guid: 5f7c9ff1ee882a94a99bcffa1f5f95df, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8391741337139440330, guid: 5f7c9ff1ee882a94a99bcffa1f5f95df, type: 3}
       propertyPath: m_LocalScale.y
