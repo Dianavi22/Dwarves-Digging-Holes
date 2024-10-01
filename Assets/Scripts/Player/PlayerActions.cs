@@ -32,6 +32,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] ParticleSystem _HurtPart;
 
+    private GameManager _gameManager;
+
 
     private UIPauseManager _uiManager;
     public bool GrabThrowJustPressed { get; private set; }
@@ -42,6 +44,7 @@ public class PlayerActions : MonoBehaviour
     {
         playerFatigue = GetComponent<PlayerFatigue>();
         _rb = GetComponent<Rigidbody>();
+        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void PrepareAction() {
@@ -385,7 +388,7 @@ public class PlayerActions : MonoBehaviour
 
     private void ThrowObject(bool forced = false)
     {
-        if (heldObject != null)
+        if (heldObject != null && !_gameManager.isGameOver)
         {
             if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
             {
@@ -396,16 +399,19 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.I)){
-    //        if (!isTaunt)
-    //        {
-    //            StartCoroutine(Taunt());
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    if (!isTaunt)
+        //    {
+        //        StartCoroutine(Taunt());
 
-    //        }
-    //    }
-    //}
+        //    }
+        //}
+
+       
+    }
 
 
 

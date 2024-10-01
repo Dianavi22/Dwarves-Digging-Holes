@@ -44,6 +44,8 @@ public class PlayerMovements : MonoBehaviour
 
     private readonly float gravityValue = -9.81f;
 
+    private GameManager _gameManager;
+
 
     [SerializeField] ParticleSystem _DashPart;
 
@@ -55,6 +57,7 @@ public class PlayerMovements : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _playerActions = GetComponent<PlayerActions>();
+        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
@@ -63,8 +66,8 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried 
-                ? _rb.velocity.x 
+            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried
+                ? _rb.velocity.x
                 : _horizontal * _speed;
             _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);
         }
@@ -102,7 +105,8 @@ public class PlayerMovements : MonoBehaviour
             playerVelocity.y += gravityValue * Time.deltaTime;
             _rb.AddForce(playerVelocity * Time.deltaTime);
         }
-        else if(_isGrounded && carried && canStopcarried){
+        else if (_isGrounded && carried && canStopcarried)
+        {
             carried = false;
         }
     }
@@ -115,16 +119,20 @@ public class PlayerMovements : MonoBehaviour
 
     private void FlipFacingDirection()
     {
-        if (!flip)
+        if (!_gameManager.isGameOver)
         {
-            // Player faces left
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            if (!flip)
+            {
+                // Player faces left
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
+                // Player faces right
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
-        else
-        {
-            // Player faces right
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+
     }
 
     private void FlipHoldObject()
@@ -152,7 +160,7 @@ public class PlayerMovements : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         JumpJustPressed = UserInput.instance.JumpJustPressed;
-        if(carried)
+        if (carried)
         {
             forceDetachFunction?.Invoke();
         }
