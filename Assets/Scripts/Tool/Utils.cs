@@ -43,4 +43,19 @@ public static class Utils
     {
         return TryGetParentComponent(_gameObject.gameObject, out _out);
     }
+
+        public static bool TryGetChildComponent<T>(GameObject _gameObject, out T _out, int index)
+    {
+        if (_gameObject.TryGetComponent(out T _out2))
+        {
+            _out = _out2;
+            return true;
+        }
+        else if (_gameObject.transform.childCount >= index - 1)
+            return TryGetChildComponent(_gameObject.transform.GetChild(index).gameObject, out _out, index);
+        else {
+            _out = default;
+            return false;
+        }
+    }
 }
