@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovements : MonoBehaviour
 {
     [Header("Values")]
@@ -108,6 +107,7 @@ public class PlayerMovements : MonoBehaviour
         else if (_isGrounded && carried && canStopcarried)
         {
             carried = false;
+            canStopcarried = false;
         }
     }
 
