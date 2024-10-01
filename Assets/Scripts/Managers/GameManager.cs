@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] string _goblinDeathCondition;
     [SerializeField] string _lavaDeathCondition;
 
+    public bool isGameOver = false;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -67,6 +69,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int index)
     {
+        isGameOver = true;
+
         if (index == 0)
         {
             _textGameOverCondition.text = _goblinDeathCondition;
