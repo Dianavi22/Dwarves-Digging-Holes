@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,20 +48,22 @@ public class PlayerActions : MonoBehaviour
         _gameManager = FindAnyObjectByType<GameManager>();
     }
 
-    public void PrepareAction() {
+    public void PrepareAction()
+    {
         StartAnimation();
         InvokeRepeating(nameof(TestMine), 0f, 0.5f);
     }
 
     public void Hit()
     {
-        if(!_isHit)
+        if (!_isHit)
         {
             _HurtPart.Play();
             _isHit = true;
             _rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            DOVirtual.DelayedCall(1f, () => {
+            DOVirtual.DelayedCall(1f, () =>
+            {
                 _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
                 _isHit = false;
             });
@@ -205,13 +208,14 @@ public class PlayerActions : MonoBehaviour
         // ! You can hit further forward
         if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
-            if (playerFatigue.ReduceMiningFatigue(10)){
+            if (playerFatigue.ReduceMiningFatigue(10))
+            {
                 pickaxe1.Hit(hit.collider.gameObject);
                 Debug.Log("Minage effectué !");
             }
-        //playerFatigue.ReduceMiningFatigueOverTime();
-        //pickaxe1.Hit(hit.collider.gameObject);
-        //Debug.Log("Minage effectué !");
+            //playerFatigue.ReduceMiningFatigueOverTime();
+            //pickaxe1.Hit(hit.collider.gameObject);
+            //Debug.Log("Minage effectué !");
         }
 
     }
@@ -227,10 +231,14 @@ public class PlayerActions : MonoBehaviour
             foreach (var hitCollider in hitColliders)
             {
                 GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject) && parentGameobject.name != "TauntHitBox")
+                if (parentGameobject.CompareTag("Player"))
                 {
-                    heldObject = parentGameobject.gameObject;
+                    parentGameobject = parentGameobject.transform.root.gameObject;
+                }
+                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
+                {
+                    heldObject = parentGameobject;
 
                     if (heldObject != null)
                     {
@@ -261,7 +269,7 @@ public class PlayerActions : MonoBehaviour
             enemy.hasFocus = false;
             enemy.isGrabbed = true;
         }
-        
+
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         isHoldingObject = true;
@@ -276,27 +284,28 @@ public class PlayerActions : MonoBehaviour
     /// <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
-
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
             objRenderer.enabled = state;
         }
-
-        if (obj.TryGetComponent<Collider>(out var objCollider))
+        if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
-            if (!objCollider.isTrigger)
+            if (Utils.TryGetChildComponent<Collider>(obj, out var objChildCollider, 1))
             {
-                objCollider.enabled = state;
+                objChildCollider.enabled = state;
             }
         }
         else
         {
-            Collider InChild = obj.GetComponentInChildren<Collider>();
-            if (InChild != null)
+            if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider))
             {
-                InChild.enabled = state;
+                if (!objCollider.isTrigger)
+                {
+                    objCollider.enabled = state;
+                }
             }
         }
+
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
@@ -314,6 +323,7 @@ public class PlayerActions : MonoBehaviour
                 float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
+                rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
             }
 
