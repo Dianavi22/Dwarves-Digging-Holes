@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
@@ -10,15 +11,33 @@ public class Rock : MonoBehaviour
     [SerializeField]
     private bool _haveGold;
     private GoldChariot _goldChariot;
+    [SerializeField] ParticleSystem _rockHitPart;
+    [SerializeField] ParticleSystem _rockGoldPart;
+
+    private Collider _rockCollider;
+    [SerializeField] private GameObject _gfx;
 
     private void Awake()
     {
         if (_haveGold) _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
+       
+        _rockCollider = this.GetComponentInChildren<Collider>();
+    
     }
 
     public void Hit()
     {
         _healthPoint -= 1;
+
+        if (!_haveGold)
+        {
+            _rockHitPart.Play();
+
+        }
+        else
+        {
+            _rockGoldPart.Play();
+        }
 
         if (_healthPoint <= 0)
         {
@@ -34,6 +53,15 @@ public class Rock : MonoBehaviour
             _goldChariot.addGold(1);
         }
 
-        Destroy(gameObject);
+        _gfx.SetActive(false);
+        _rockCollider.enabled = false;
+        Invoke("DestroyGameObject", 1f);
     }
+    private void DestroyGameObject()
+    {
+        Destroy(gameObject);
+
+    }
+
+
 }

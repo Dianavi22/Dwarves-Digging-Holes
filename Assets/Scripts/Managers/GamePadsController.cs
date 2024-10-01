@@ -21,6 +21,8 @@ public class GamePadsController : MonoBehaviour
 
     private int index = 0;
 
+    [SerializeField] List<Material> _playerMAT = new List<Material>();
+
     void Start()
     {
         var gamepads = Gamepad.all;
@@ -72,9 +74,10 @@ public class GamePadsController : MonoBehaviour
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
         uiInfo.Initialize(playerHealth, playerFatigue);
-
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
+        // Warning : Accessibility GetComponentInChilden()
+       // player.GetComponentInChildren<MeshRenderer>().material = _playerMAT[index];
         index++;
     }
 

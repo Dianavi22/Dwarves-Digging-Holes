@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerInformationManager : MonoBehaviour
+public class OldPlayerInformationManager : MonoBehaviour
 {
+    public Image lifeBar;
     public Image cartsFatigueBar;
     public Image miningFatigueBar;
 
+    public TMP_Text lifeText;
     public TMP_Text cartsFatigueText;
     public TMP_Text miningFatigueText;
 
@@ -18,12 +20,19 @@ public class PlayerInformationManager : MonoBehaviour
     public Sprite pickaxeSprite;
     public Sprite chariotSprite;
 
+    public PlayerHealth playerHealth;
     public PlayerFatigue playerFatigue;
 
 
     public void Initialize(PlayerHealth health, PlayerFatigue fatigue)
     {
+        playerHealth = health;
         playerFatigue = fatigue;
+
+        if (playerHealth != null)
+        {
+            playerHealth.onHealthChanged.AddListener(UpdateLifeUI);
+        }
 
         if (playerFatigue != null)
         {
@@ -37,6 +46,11 @@ public class PlayerInformationManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (playerHealth != null)
+        {
+            playerHealth.onHealthChanged.RemoveListener(UpdateLifeUI);
+        }
+
         if (playerFatigue != null)
         {
             playerFatigue.onCartsFatigueChanged.RemoveListener(UpdateCartsFatigueUI);
@@ -44,6 +58,14 @@ public class PlayerInformationManager : MonoBehaviour
         }
     }
 
+    public void UpdateLifeUI(int currentHealth, int maxHealth)
+    {
+        if (lifeBar != null)
+        {
+        UpdateBar(currentHealth, maxHealth, lifeBar, lifeText);
+
+        }
+    }
 
     public void UpdateCartsFatigueUI(float currentFatigue, float maxFatigue)
     {
@@ -73,11 +95,17 @@ public class PlayerInformationManager : MonoBehaviour
 
 
 
-    
 
- 
 
-    // ^ Functions for test buttons. Its functions do not harm anyone. Please keep them ! :3
+    // ^ Functions for test buttons.
+    public void damage(int amount)
+    {
+        //playerHealth.Damage(amount);
+    }
+    public void health(int amount)
+    {
+        //playerHealth.Health(amount);
+    }
 
     public void IncreaseCartsFatigue(float amount)
     {
@@ -98,7 +126,8 @@ public class PlayerInformationManager : MonoBehaviour
     {
         playerFatigue.ReduceMiningFatigue(amount);
     }
-    
+
+
     
     // ^ Functions for test buttons ICONS.
     public void UpdateImageIcon(Sprite iconSprite)
