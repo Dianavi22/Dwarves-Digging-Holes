@@ -5,6 +5,8 @@ public class GoldChariot : MonoBehaviour
 {
     private int _goldCount = 10;
     [SerializeField] private TMP_Text _goldCountText;
+    [SerializeField] private ParticleSystem _lostGoldPart;
+
 
     public int GoldCount
     {
@@ -13,6 +15,17 @@ public class GoldChariot : MonoBehaviour
         {
             _goldCount = value;
             UpdateText();
+        }
+    }
+
+
+
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (Utils.TryGetParentComponent<Enemy>(collision.collider, out var enemy))
+        {
+            _lostGoldPart.Stop();
         }
     }
 
