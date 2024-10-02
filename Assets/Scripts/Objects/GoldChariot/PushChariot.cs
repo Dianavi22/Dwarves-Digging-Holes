@@ -1,29 +1,25 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PushChariot : MonoBehaviour
 {
-    [SerializeField] float pushForce = 150;
+    [SerializeField] private float pushForce = 150;
     private bool _isTriggerActive;
     private Rigidbody _rb;
-    private PlayerActions _playerActions;
     private PlayerFatigue _playerFatigue;
-    private bool _isCartPushing, _hasFatigue;
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        if (_isTriggerActive && _playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
+
+        if (!_isTriggerActive || _playerFatigue == null) return;
+
+        if (_playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
         {
-            _rb.AddForce(pushForce, 0, 0);
+            _rb.AddForce(pushForce, 0, 0, ForceMode.Impulse);
         }
     }
 

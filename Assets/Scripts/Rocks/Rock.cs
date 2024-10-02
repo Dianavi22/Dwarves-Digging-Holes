@@ -50,7 +50,7 @@ public class Rock : MonoBehaviour
         if (_haveGold)
         {
             Debug.Log("GOLD");
-            _goldChariot.addGold(1);
+            _goldChariot.GoldCount += 1;
         }
 
         _gfx.SetActive(false);

@@ -1,25 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
-    public int goldCount;
-    [SerializeField] private TMP_Text _goldCoundText;
+    private int _goldCount = 1;
+    [SerializeField] private TMP_Text _goldCountText;
 
-    private void Update()
+    public int GoldCount
     {
-        _goldCoundText.text = goldCount.ToString();
+        get => _goldCount;
+        set
+        {
+            _goldCount = value;
+            UpdateText();
+        }
     }
 
-    public void addGold(int value)
+
+    private void UpdateText()
     {
-        goldCount += value;
+        _goldCountText.text = _goldCount.ToString();
     }
-    
-    public void removeGold(int value)
+
+
+    void Start()
     {
-        goldCount -= value;
+        UpdateText();
     }
 }
