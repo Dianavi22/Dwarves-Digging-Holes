@@ -139,7 +139,7 @@ public class PlayerHealth : MonoBehaviour
     {
 
         this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         isAlive = true;
         _rb.useGravity = true;
