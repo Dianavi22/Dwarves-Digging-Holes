@@ -275,12 +275,12 @@ public class PlayerActions : MonoBehaviour
         isHoldingObject = true;
     }
 
-    /// <summary>
-    /// Set In State as carried
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="state"></param>
-    /// <param name="forced"></param>
+    // <summary>
+    // Set In State as carried
+    // </summary>
+    // <param name="obj"></param>
+    // <param name="state"></param>
+    // <param name="forced"></param>
     private void SetObjectState(GameObject obj, bool state, bool forced = false)
     {
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
@@ -289,9 +289,10 @@ public class PlayerActions : MonoBehaviour
         }
         if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
-            if (Utils.TryGetChildComponent<Collider>(obj, out var objChildCollider, 1))
+            Collider[] colliders = obj.GetComponentsInChildren<Collider>();
+            for (int i = 0; i < colliders.Length;i++)
             {
-                objChildCollider.enabled = state;
+                colliders[i].enabled = state;
             }
         }
         else
