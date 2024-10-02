@@ -273,7 +273,6 @@ public class PlayerActions : MonoBehaviour
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         isHoldingObject = true;
-        Debug.Log("CATCH");
     }
 
     /// <summary>
