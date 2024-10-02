@@ -231,9 +231,11 @@ public class PlayerActions : MonoBehaviour
             foreach (var hitCollider in hitColliders)
             {
                 GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-                if (parentGameobject.CompareTag("Player"))
+
+                if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
                 {
-                    parentGameobject = parentGameobject.transform.root.gameObject;
+                    if (player.isHoldingObject) continue;
+                    parentGameobject = player.gameObject;
                 }
                 // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
                 if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
