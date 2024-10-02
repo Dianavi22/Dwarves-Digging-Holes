@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator HitChariot()
     {
         _InCD = true;
-        _goldChariot.removeGold(1);
+        _goldChariot.GoldCount -= 1;
         yield return new WaitForSeconds(1);
         _InCD = false;
     }

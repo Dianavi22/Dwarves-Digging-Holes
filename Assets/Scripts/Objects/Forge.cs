@@ -6,35 +6,36 @@ public class Forge : MonoBehaviour
     [SerializeField]
     private GameObject pickaxePrefab;
 
-    private PlayerActions player;
-    private GameObject createdPickaxe;
+    private PlayerActions _player;
+    private GameObject _createdPickaxe;
 
     private void Start()
     {
-        createdPickaxe = GameManager.Instance.PickaxeInstance;
+        _createdPickaxe = GameManager.Instance.PickaxeInstance;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (createdPickaxe == null && player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var _object))
+        if (_createdPickaxe == null && _player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var playerActions))
         {
-            player = _object;
+            _player = playerActions;
             Invoke(nameof(BuildPickaxe), 1f);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (player != null && Utils.TryGetParentComponent<PlayerActions>(other, out var _object))
+        if (_player != null && Utils.TryGetParentComponent<PlayerActions>(other, out _))
         {
-            player = null;
+            _player = null;
             CancelInvoke();
         }
     }
 
-    public void BuildPickaxe() {
-        createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
-        GameManager.Instance.PickaxeInstance = createdPickaxe;
-        player.TryPickUpObject();
+    public void BuildPickaxe()
+    {
+        _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
+        GameManager.Instance.PickaxeInstance = _createdPickaxe;
+        _player.TryPickUpObject();
     }
 }
