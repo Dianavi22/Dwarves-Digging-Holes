@@ -810,11 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e49306a12886c49a1f9789daef1609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &995559461 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-  m_PrefabInstance: {fileID: 1393171042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1143502660
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +904,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!198 &1153789461 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4159188239862836962, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+  m_PrefabInstance: {fileID: 1393171042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366857849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3466602016402688194, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -930,6 +930,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6136916227646394314, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _lostGoldPart
+      value: 
+      objectReference: {fileID: 1153789461}
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.8

@@ -123,7 +123,6 @@ public class Enemy : MonoBehaviour
         _isTouchingChariot = false;
         if (_goldOutChariot != null)
         {
-            _goldOutChariot.Stop();
             _goldOutChariot = null;
 
         }

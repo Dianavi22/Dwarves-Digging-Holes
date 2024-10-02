@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
-    private int _goldCount = 1;
+    private int _goldCount = 10;
     [SerializeField] private TMP_Text _goldCountText;
 
     public int GoldCount

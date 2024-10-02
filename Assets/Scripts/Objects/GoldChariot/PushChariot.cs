@@ -7,6 +7,8 @@ public class PushChariot : MonoBehaviour
     private Rigidbody _rb;
     private PlayerFatigue _playerFatigue;
 
+    [SerializeField] private ParticleSystem _lostGoldPart;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -38,6 +40,15 @@ public class PushChariot : MonoBehaviour
         {
             _isTriggerActive = false;
             _playerFatigue = null;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (Utils.TryGetParentComponent<Enemy>(collision.collider, out var enemy))
+        {
+            print("FUCK");
+            _lostGoldPart.Stop();
         }
     }
 }
