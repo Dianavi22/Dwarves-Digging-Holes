@@ -17,7 +17,7 @@ public class Lava : MonoBehaviour
 
         if (other.CompareTag("EndingCondition"))
         {
-            GameManager.Instance.GameOver(1);
+            GameManager.Instance.GameOver(DeathMessage.Lava);
         }
 
         /*
@@ -37,7 +37,7 @@ public class Lava : MonoBehaviour
 
         if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
         {
-            GameManager.Instance.PickaxeInstance = null;
+            GameManager.Instance.PickaxeInstanceList.Remove(pickaxe.gameObject);
             Destroy(pickaxe.gameObject);
         }
     }

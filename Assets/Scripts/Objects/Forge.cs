@@ -7,16 +7,16 @@ public class Forge : MonoBehaviour
     private GameObject pickaxePrefab;
 
     private PlayerActions _player;
-    private GameObject _createdPickaxe;
+    private GameManager _gameManager;
 
-    private void Start()
+    private void Awake()
     {
-        _createdPickaxe = GameManager.Instance.PickaxeInstance;
+        _gameManager = GameManager.Instance;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_createdPickaxe == null && _player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var playerActions))
+        if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var playerActions))
         {
             _player = playerActions;
             Invoke(nameof(BuildPickaxe), 1f);
@@ -34,8 +34,8 @@ public class Forge : MonoBehaviour
 
     public void BuildPickaxe()
     {
-        _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
-        GameManager.Instance.PickaxeInstance = _createdPickaxe;
+        var _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
+        _gameManager.PickaxeInstanceList.Add(_createdPickaxe);
         _player.TryPickUpObject();
     }
 }

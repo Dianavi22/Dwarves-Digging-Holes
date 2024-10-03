@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class UserInput : MonoBehaviour
 {
-
     public static UserInput instance;
 
     public bool JumpJustPressed { get; private set; }
@@ -33,11 +32,6 @@ public class UserInput : MonoBehaviour
 
         _playerInput = GetComponent<PlayerInput>();
         SetupInputActions();
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()
