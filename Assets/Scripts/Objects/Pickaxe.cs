@@ -43,6 +43,7 @@ public class Pickaxe : MonoBehaviour
 
     private void DestroyPickaxe()
     {
+        GameManager.Instance.PickaxeInstanceList.Remove(gameObject);
         Destroy(gameObject);
     }
 
