@@ -211,7 +211,6 @@ public class PlayerActions : MonoBehaviour
             if (playerFatigue.ReduceMiningFatigue(10))
             {
                 pickaxe1.Hit(hit.collider.gameObject);
-                Debug.Log("Minage effectué !");
             }
             //playerFatigue.ReduceMiningFatigueOverTime();
             //pickaxe1.Hit(hit.collider.gameObject);
