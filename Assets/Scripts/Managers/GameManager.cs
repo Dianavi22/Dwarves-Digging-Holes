@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -23,8 +19,6 @@ public class GameManager : MonoBehaviour
     public int MaxNbPickaxe = 1;
 
     [SerializeField] TMP_Text _textGameOverCondition;
-    [SerializeField] string _goblinDeathCondition;
-    [SerializeField] string _lavaDeathCondition;
 
     public bool isGameOver = false;
 
@@ -52,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         if (_goldChariot.GoldCount <= 0)
         {
-            GameOver(0);
+            GameOver(DeathMessage.NoGold);
         }
     }
 
@@ -60,7 +54,6 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
-        blockSpawner = GameObject.Find("BlockSpawner").GetComponent<PlatformSpawner>();
         Invoke("InitPlatformSpawner", 3f);
     }
 
@@ -69,21 +62,11 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
-    public void GameOver(int index)
+    public void GameOver(DeathMessage deathMessage)
     {
         if (debugMode) return;
-        
-        isGameOver = true;
+        _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
 
-        if (index == 0)
-        {
-            _textGameOverCondition.text = _goblinDeathCondition;
-        }
-        if (index == 1)
-        {
-            _textGameOverCondition.text = _lavaDeathCondition;
-        }
-        
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_retryButton);
