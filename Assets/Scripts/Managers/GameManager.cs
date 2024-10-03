@@ -52,6 +52,10 @@ public class GameManager : MonoBehaviour
         {
             GameOver(0);
         }
+        if(debugMode && Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void GameStarted()
