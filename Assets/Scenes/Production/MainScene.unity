@@ -336,6 +336,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RetryGame
       objectReference: {fileID: 0}
+    - target: {fileID: 8799903666014570148, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1880652949}
+    - target: {fileID: 8799903666014570148, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2068043591241119582, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -1200,7 +1208,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
   m_PrefabInstance: {fileID: 6746278764115178908}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746278764115178909}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e2576845893c5642a7bc67b0f0bead9, type: 3}
@@ -1558,7 +1566,7 @@ PrefabInstance:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: blockSpawner
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 184080653}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: scrollingSpeed
       value: 0.8
@@ -1658,30 +1666,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7294959219649338377, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6746278764115178910}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
---- !u!1 &6746278764115178909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7294959219649338377, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
-  m_PrefabInstance: {fileID: 6746278764115178908}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6746278764115178910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746278764115178909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4134aa9030bac42a921d9028bc50e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goblinDeathCondition: No Gold
-  _lavaDeathCondition: Chariot in Lava
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -42,7 +42,6 @@ public class GamePadsController : MonoBehaviour
         foreach ( Gamepad gamepad in gamepads )
         {   
             InstantiatePlayerUI("Gamepad", gamepad);
-
         }
     }
 

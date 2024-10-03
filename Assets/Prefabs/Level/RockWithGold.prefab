@@ -32,8 +32,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 631071121865981103}
   - {fileID: 8333511986689547530}
+  - {fileID: 631071121865981103}
   - {fileID: 3491127282237006348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,8 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPoint: 3
   _haveGold: 1
-  _rockHitPart: {fileID: 0}
-  _rockGoldPart: {fileID: 5794320412826678627}
+  _hitRockParticule: {fileID: 5794320412826678627}
   _gfx: {fileID: 7212093183657113754}
 --- !u!114 &-4643059896975039049
 MonoBehaviour:
@@ -100,9 +99,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 099db5ea446b0364da88607b63ebc2e1, type: 2}
   - {fileID: 2100000, guid: bf8df1528d088014fbfaef06cba84901, type: 2}
   - {fileID: 2100000, guid: 900b23f0e57da56468ea8c5ee387cb79, type: 2}
-  _isGoldRock: 1
   _gfx: {fileID: 7212093183657113754}
-  _meshRenderer: {fileID: 0}
+  _meshRenderer: {fileID: 3986819178745378556}
 --- !u!1 &4081046395422051196
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +278,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+--- !u!23 &3986819178745378556 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7291579849549134007, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+  m_PrefabInstance: {fileID: 5937120717497732683}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6191986229872814496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee48d77d9417108408ca281c54d9a127, type: 3}

@@ -29,7 +29,6 @@ public class StringManager : MonoBehaviour
     {
         return target switch
         {
-            //Target.Player => player,
             DeathMessage.NoGold => _goblinDeathCondition,
             DeathMessage.Lava => _lavaDeathCondition,
             _ => null,

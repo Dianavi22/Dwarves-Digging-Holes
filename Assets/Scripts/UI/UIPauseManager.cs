@@ -11,7 +11,6 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _PauseCanvas;
     [HideInInspector] public bool isPaused = false;
 
-    [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _retryButton;
     [SerializeField] private GameObject _rebindJump;
 
@@ -24,13 +23,7 @@ public class UIPauseManager : MonoBehaviour
             Pause(FindFirstObjectByType<PlayerActions>().gameObject);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -47,31 +40,19 @@ public class UIPauseManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
-
     }
 
     public void Pause(GameObject _currentPlayer)
     {
+        Time.timeScale = isPaused ? 0 : 1;
+        _PauseCanvas.SetActive(!isPaused);
+        _currentPlayer.GetComponent<PlayerMovements>().enabled = isPaused;
+        isPaused = !isPaused;
+
         if (!isPaused)
-        {
-            Time.timeScale = 0;
-            _PauseCanvas.SetActive(true);
-            _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
             EventSystem.current.SetSelectedGameObject(_retryButton);
-            isPaused = true;
-        }
         else
-        {
-            Time.timeScale = 1;
             _inputCanvas.SetActive(false);
-            _PauseCanvas.SetActive(false);
-            _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
-
-
-            isPaused = false;
-
-
-        }
     }
 
     public void OpenInputCanvas()
