@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
-    private int _goldCount = 10;
+    [SerializeField] private int _goldCount;
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
     public int goblinOnTheChariot;
