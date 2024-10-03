@@ -5,6 +5,8 @@ public class GoldChariot : MonoBehaviour
 {
     [SerializeField] private int _goldCount;
     [SerializeField] private TMP_Text _goldCountText;
+    [SerializeField] private ParticleSystem _lostGoldPart;
+    public int goblinOnTheChariot;
 
     public int GoldCount
     {
@@ -14,6 +16,14 @@ public class GoldChariot : MonoBehaviour
             _goldCount = value;
             UpdateText();
         }
+    }
+
+   
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 
 

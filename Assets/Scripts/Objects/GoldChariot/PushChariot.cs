@@ -8,6 +8,7 @@ public class PushChariot : MonoBehaviour
     private bool _isTriggerActive;
     private PlayerFatigue _playerFatigue;
 
+
     private void FixedUpdate()
     {
         if (!_isTriggerActive || _playerFatigue == null) return;
@@ -35,4 +36,5 @@ public class PushChariot : MonoBehaviour
             _playerFatigue = null;
         }
     }
+
 }

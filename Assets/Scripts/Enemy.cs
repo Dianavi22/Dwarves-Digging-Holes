@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
 
    [SerializeField] private ParticleSystem _goldOutChariot;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,9 +74,11 @@ public class Enemy : MonoBehaviour
         if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
         
         //lost Gold function
-        if (_isTouchingChariot && !_InCD)
+        if (_isTouchingChariot && !_InCD && !isGrabbed)
         {
             StartCoroutine(HitChariot());
+            _goldOutChariot = _goldChariot.GetComponentInChildren<ParticleSystem>();
+            _goldOutChariot.Play();
         }
         if (isGrabbed)
         {
@@ -101,20 +104,21 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator HitChariot()
     {
-        _InCD = true;
-        _goldChariot.GoldCount -= 1;
-        yield return new WaitForSeconds(1);
-        _InCD = false;
+            _InCD = true;
+            _goldChariot.GoldCount -= 1;
+            yield return new WaitForSeconds(1);
+            _InCD = false;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (Utils.TryGetParentComponent<GoldChariot>(collision.collider, out var goldChariot) && goldChariot.gameObject.name == "GoldChariot")
         {
+            print("Collision");
             _goldChariot = goldChariot;
             _isTouchingChariot = true;
-            _goldOutChariot = _goldChariot.GetComponentInChildren<ParticleSystem>();
-            _goldOutChariot.Play();
+           
         }
     }
     
@@ -123,10 +127,12 @@ public class Enemy : MonoBehaviour
         _isTouchingChariot = false;
         if (_goldOutChariot != null)
         {
-            _goldOutChariot.Stop();
+          _goldOutChariot.Stop();
             _goldOutChariot = null;
 
+
         }
+
     }
 
 }

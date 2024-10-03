@@ -75,7 +75,6 @@ public class GamePadsController : MonoBehaviour
         uiInfo.Initialize(playerHealth, playerFatigue);
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        // Warning : Accessibility GetComponentInChilden()
         if(Utils.TryGetChildComponent<MeshRenderer>(player, out var mat, 1))
         {
             mat.material = _playerMAT[index];

@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
         {
             GameOver(DeathMessage.NoGold);
         }
+        if(debugMode && Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void GameStarted()
