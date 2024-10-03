@@ -6,12 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
-
-
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
     [SerializeField] private GameObject forward;
-
+    [SerializeField] private Transform _scale;
+    [SerializeField] ParticleSystem _HurtPart;
 
     public GameObject heldObject;
     public bool isHoldingObject = false;
@@ -27,25 +26,27 @@ public class PlayerActions : MonoBehaviour
 
     public float vertical;
 
-    [SerializeField] private Transform _scale;
     private bool isTaunt = false;
     public PlayerFatigue playerFatigue;
-
-    [SerializeField] ParticleSystem _HurtPart;
-
-    private GameManager _gameManager;
-
 
     private UIPauseManager _uiManager;
     public bool GrabThrowJustPressed { get; private set; }
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
+    private void Awake()
+    {
+        _uiManager = FindObjectOfType<UIPauseManager>();
+        if (!_uiManager)
+        {
+            Debug.Log("ERROR: _uiManager not found");
+        }
+    }
+
     private void Start()
     {
         playerFatigue = GetComponent<PlayerFatigue>();
         _rb = GetComponent<Rigidbody>();
-        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void PrepareAction()
@@ -56,18 +57,17 @@ public class PlayerActions : MonoBehaviour
 
     public void Hit()
     {
-        if (!_isHit)
-        {
-            _HurtPart.Play();
-            _isHit = true;
-            _rb.constraints = RigidbodyConstraints.FreezeAll;
+        if (_isHit) return;
 
-            DOVirtual.DelayedCall(1f, () =>
-            {
-                _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
-                _isHit = false;
-            });
-        }
+        _HurtPart.Play();
+        _isHit = true;
+        _rb.constraints = RigidbodyConstraints.FreezeAll;
+
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            _isHit = false;
+        });
     }
 
 
@@ -81,13 +81,9 @@ public class PlayerActions : MonoBehaviour
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
-            {
                 ThrowObject();
-            }
             else
-            {
                 TryPickUpObject();
-            }
         }
     }
 
@@ -97,14 +93,9 @@ public class PlayerActions : MonoBehaviour
 
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
-            if (!isTaunt)
-            {
-                StartCoroutine(Taunt());
-            }
-            else
-            {
-                return;
-            }
+            if (isTaunt) return;
+
+            StartCoroutine(Taunt());
         }
     }
 
@@ -120,20 +111,17 @@ public class PlayerActions : MonoBehaviour
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (true)
+            if (_uiManager.isPaused) return;
+            if (context.performed) // the key has been pressed
             {
-                if (context.performed) // the key has been pressed
-                {
-                    PrepareAction();
-                    pickaxe1 = pickaxe;
-                }
-                if (context.canceled) //the key has been released
-                {
-                    StopAnimation();
-                    CancelInvoke(nameof(TestMine));
-                }
+                PrepareAction();
+                pickaxe1 = pickaxe;
             }
-
+            if (context.canceled) //the key has been released
+            {
+                StopAnimation();
+                CancelInvoke(nameof(TestMine));
+            }
         }
     }
 
@@ -212,9 +200,6 @@ public class PlayerActions : MonoBehaviour
             {
                 pickaxe1.Hit(hit.collider.gameObject);
             }
-            //playerFatigue.ReduceMiningFatigueOverTime();
-            //pickaxe1.Hit(hit.collider.gameObject);
-            //Debug.Log("Minage effectué !");
         }
 
     }
@@ -222,46 +207,34 @@ public class PlayerActions : MonoBehaviour
     // Tente de ramasser un objet � port�e
     public void TryPickUpObject()
     {
+        if (_uiManager.isPaused) return;
 
-        if (!_uiManager.isPaused)
+        // D�tection des objets � port�e autour du joueur
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
+        foreach (var hitCollider in hitColliders)
         {
-            // D�tection des objets � port�e autour du joueur
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-            foreach (var hitCollider in hitColliders)
+            GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
+
+            if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
             {
-                GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
+                if (player.isHoldingObject) continue;
+                parentGameobject = player.gameObject;
+            }
+            // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
+            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
+            {
+                heldObject = parentGameobject;
 
-                if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
+                if (heldObject != null)
                 {
-                    if (player.isHoldingObject) continue;
-                    parentGameobject = player.gameObject;
-                }
-                // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-                if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
-                {
-                    heldObject = parentGameobject;
-
-                    if (heldObject != null)
-                    {
-                        PickupObject(heldObject);
-                        break;
-                    }
+                    PickupObject(heldObject);
+                    break;
                 }
             }
         }
-
     }
 
     #endregion
-
-    private void Awake()
-    {
-        _uiManager = FindObjectOfType<UIPauseManager>();
-        if (!_uiManager)
-        {
-            Debug.Log("ERROR: _uiManager not found");
-        }
-    }
 
     public void PickupObject(GameObject heldObject)
     {
@@ -298,15 +271,11 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider))
+            if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider) && !objCollider.isTrigger)
             {
-                if (!objCollider.isTrigger)
-                {
-                    objCollider.enabled = state;
-                }
+                objCollider.enabled = state;
             }
         }
-
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
@@ -399,33 +368,16 @@ public class PlayerActions : MonoBehaviour
 
     private void ThrowObject(bool forced = false)
     {
-        if (heldObject != null && !_gameManager.isGameOver)
+        if (heldObject == null || GameManager.Instance.isGameOver) return;
+
+        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
         {
-            if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
-            {
-                enemy.isGrabbed = false;
-                enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
-            }
-            SetObjectState(heldObject, true, forced);
-            EmptyHands();
+            enemy.isGrabbed = false;
+            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
         }
+        SetObjectState(heldObject, true, forced);
+        EmptyHands();
     }
-
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    if (!isTaunt)
-        //    {
-        //        StartCoroutine(Taunt());
-
-        //    }
-        //}
-
-       
-    }
-
-
 
     private IEnumerator Taunt()
     {

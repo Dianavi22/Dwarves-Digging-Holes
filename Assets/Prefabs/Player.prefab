@@ -80,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 2417238011257084485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.333, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,8 +499,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6624982064915490801}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026910126, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -721,7 +721,6 @@ Transform:
   - {fileID: 1788393512460230314}
   - {fileID: 9039094971936459561}
   - {fileID: 52450541604605964}
-  - {fileID: 5218718760467251739}
   - {fileID: 8955737698536627431}
   - {fileID: 2381619269048957974}
   m_Father: {fileID: 0}
@@ -770,17 +769,16 @@ MonoBehaviour:
   _jumpForce: 11
   fallMultiplier: 3.5
   lowJumpMultiplier: 5
-  verticalDeadZone: 0.5
-  horizontalDeadZone: 0.5
+  _deadZoneSpace: {x: 0.5, y: 0.5}
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
+  _DashPart: {fileID: 6319271055205663220}
   flip: 1
   flip_vertical: 0
   _isGrounded: 0
   gravityScale: 500
   carried: 0
   canStopcarried: 0
-  _DashPart: {fileID: 6319271055205663220}
 --- !u!114 &2117048352203454760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,15 +976,15 @@ MonoBehaviour:
   throwForce: 15
   pickupRange: 1
   forward: {fileID: 2417238011257084485}
+  _scale: {fileID: 1788393512460230314}
+  _HurtPart: {fileID: 8534331348445387762}
   heldObject: {fileID: 0}
   isHoldingObject: 0
   carried: 0
   objectSlot: {fileID: 3412405687064983370}
   pivot: {fileID: 3808914129422552221}
   vertical: 0
-  _scale: {fileID: 5218718760467251739}
   playerFatigue: {fileID: 0}
-  _HurtPart: {fileID: 8534331348445387762}
 --- !u!114 &7568293103426823972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,37 +1056,6 @@ MonoBehaviour:
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
   regenDelayMiningFatiMax: 2
---- !u!1 &8939581255806326872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5218718760467251739}
-  m_Layer: 3
-  m_Name: TauntHitBox
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5218718760467251739
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8939581255806326872}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8765590584797458301}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4515149971071624606
 PrefabInstance:
   m_ObjectHideFlags: 0
