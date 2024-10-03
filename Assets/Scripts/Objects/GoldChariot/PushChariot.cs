@@ -15,7 +15,6 @@ public class PushChariot : MonoBehaviour
         if (_playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
         {
             chariotRigidbody.AddForce(pushForce, 0, 0, ForceMode.Impulse);
-            Debug.Log(chariotRigidbody.velocity);
         }
     }
 
