@@ -77,7 +77,10 @@ public class GamePadsController : MonoBehaviour
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
         // Warning : Accessibility GetComponentInChilden()
-       // player.GetComponentInChildren<MeshRenderer>().material = _playerMAT[index];
+        if(Utils.TryGetChildComponent<MeshRenderer>(player, out var mat, 1))
+        {
+            mat.material = _playerMAT[index];
+        }
         index++;
     }
 

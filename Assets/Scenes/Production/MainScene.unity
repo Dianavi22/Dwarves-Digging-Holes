@@ -917,6 +917,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _goldCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -1245,7 +1249,11 @@ MonoBehaviour:
   - {fileID: 2938528163977328098, guid: e6fcf545246ba68428a12eff3e487344, type: 3}
   debug: 0
   debugPlayerCount: 1
-  _playerMAT: []
+  _playerMAT:
+  - {fileID: 2100000, guid: 77cd56b789b239d4fb3566f6ba23f894, type: 2}
+  - {fileID: 2100000, guid: 45ed354a04401394b92cbba829f941ea, type: 2}
+  - {fileID: 2100000, guid: 6000f2f7410230343a0110898894d92b, type: 2}
+  - {fileID: 2100000, guid: 29dd0a0715457274ba1b14b4316b8f84, type: 2}
 --- !u!4 &2092299539
 Transform:
   m_ObjectHideFlags: 0
