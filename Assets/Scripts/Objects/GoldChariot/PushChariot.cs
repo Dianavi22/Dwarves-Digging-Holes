@@ -3,7 +3,8 @@ using UnityEngine;
 public class PushChariot : MonoBehaviour
 {
     [SerializeField] private float pushForce = 150;
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody chariotRigidbody;
+
     private bool _isTriggerActive;
     private PlayerFatigue _playerFatigue;
 
@@ -13,7 +14,8 @@ public class PushChariot : MonoBehaviour
 
         if (_playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
         {
-            rb.AddForce(pushForce, 0, 0, ForceMode.Impulse);
+            chariotRigidbody.AddForce(pushForce, 0, 0, ForceMode.Impulse);
+            Debug.Log(chariotRigidbody.velocity);
         }
     }
 
