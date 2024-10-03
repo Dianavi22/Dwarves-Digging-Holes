@@ -104,13 +104,10 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator HitChariot()
     {
-       
             _InCD = true;
             _goldChariot.GoldCount -= 1;
             yield return new WaitForSeconds(1);
             _InCD = false;
-        
-       
     }
 
 
@@ -118,7 +115,7 @@ public class Enemy : MonoBehaviour
     {
         if (Utils.TryGetParentComponent<GoldChariot>(collision.collider, out var goldChariot) && goldChariot.gameObject.name == "GoldChariot")
         {
-            print("IM ON A FUCKING CHARIOT");
+            print("Collision");
             _goldChariot = goldChariot;
             _isTouchingChariot = true;
            
@@ -133,7 +130,9 @@ public class Enemy : MonoBehaviour
           _goldOutChariot.Stop();
             _goldOutChariot = null;
 
+
         }
+
     }
 
 }
