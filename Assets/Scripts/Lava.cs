@@ -17,7 +17,7 @@ public class Lava : MonoBehaviour
 
         if (other.CompareTag("EndingCondition"))
         {
-            GameManager.Instance.GameOver(1);
+            GameManager.Instance.GameOver(DeathMessage.Lava);
         }
 
         /*
