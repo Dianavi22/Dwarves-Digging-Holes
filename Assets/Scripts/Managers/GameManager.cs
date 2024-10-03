@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private  GoldChariot _goldChariot;
 
     [HideInInspector]
-    public GameObject PickaxeInstance;
+    public List<GameObject> PickaxeInstanceList;
+    public int MaxNbPickaxe = 1;
 
     [SerializeField] TMP_Text _textGameOverCondition;
     [SerializeField] string _goblinDeathCondition;
@@ -36,7 +37,8 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        PickaxeInstance = GameObject.Find("Pickaxe");
+        foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>()) 
+            PickaxeInstanceList.Add(pickaxe.gameObject);
     }
 
     void Start()
