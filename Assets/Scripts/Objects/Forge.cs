@@ -9,7 +9,7 @@ public class Forge : MonoBehaviour
     private PlayerActions _player;
     private GameManager _gameManager;
 
-    private void Awake()
+    private void Start()
     {
         _gameManager = GameManager.Instance;
     }
