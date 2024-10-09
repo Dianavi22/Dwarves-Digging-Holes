@@ -189,7 +189,6 @@ public class PlayerMovements : MonoBehaviour
         {
             _isDashing = false;
             Invoke(nameof(EndDashCoolDown), 0.75f);
-            _DashPart.Stop();
         });
     }
     #endregion

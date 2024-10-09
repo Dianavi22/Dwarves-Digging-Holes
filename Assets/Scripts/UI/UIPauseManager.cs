@@ -43,12 +43,21 @@ public class UIPauseManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    private void SetCurrentGamePade()
+    {
+        
+    }
+
     public void Pause(GameObject _currentPlayer)
     {
         if (!_gameManager.isGameOver)
         {
             if (!isPaused)
             {
+                //Set current gamepad on Pause
+                PlayerInput device = _currentPlayer.GetComponent<PlayerInput>();
+                device.devices[0].MakeCurrent();
+
                 Time.timeScale = 0;
                 _PauseCanvas.SetActive(true);
                 _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
