@@ -15,6 +15,7 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _rebindJump;
 
     [SerializeField] private GameObject _inputCanvas;
+    [SerializeField] private GameManager _gameManager;
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -44,15 +45,26 @@ public class UIPauseManager : MonoBehaviour
 
     public void Pause(GameObject _currentPlayer)
     {
-        Time.timeScale = isPaused ? 0 : 1;
-        _PauseCanvas.SetActive(!isPaused);
-        _currentPlayer.GetComponent<PlayerMovements>().enabled = isPaused;
-        isPaused = !isPaused;
+        if (!_gameManager.isGameOver)
+        {
+            if (!isPaused)
+            {
+                Time.timeScale = 0;
+                _PauseCanvas.SetActive(true);
+                _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
+                EventSystem.current.SetSelectedGameObject(_retryButton);
+                isPaused = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                _inputCanvas.SetActive(false);
+                _PauseCanvas.SetActive(false);
+                _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
 
-        if (!isPaused)
-            EventSystem.current.SetSelectedGameObject(_retryButton);
-        else
-            _inputCanvas.SetActive(false);
+                isPaused = false;
+            }
+        }
     }
 
     public void OpenInputCanvas()

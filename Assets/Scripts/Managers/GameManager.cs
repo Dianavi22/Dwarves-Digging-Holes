@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         if (debugMode) return;
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
-
+        isGameOver = true;
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_retryButton);
