@@ -176,17 +176,17 @@ public class PlayerMovements : MonoBehaviour
     public void OnDash()
     {
         DashJustPressed = UserInput.instance.JumpJustPressed;
-
+        print("DASH");
         if (_isDashing || _isDashingCooldown || carried) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
-        _DashPart.Play();
         Vector3 dashDirection = new(flip ? -1 : 1, 0, 0);
         _rb.velocity = new Vector3(dashDirection.x * _dashForce, _rb.velocity.y, 0f);
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
+            _DashPart.Play();
             _isDashing = false;
             Invoke(nameof(EndDashCoolDown), 0.75f);
         });
