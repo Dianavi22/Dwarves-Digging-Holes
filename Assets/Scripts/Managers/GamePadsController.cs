@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GamePadsController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject playerPrefab;
+    private List<GameObject> playerPrefab = new List<GameObject>();
 
     [SerializeField]
     private GameObject canvas;
@@ -47,7 +48,8 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        GameObject player = Instantiate(playerPrefab, transform.parent);
+       ;
+        GameObject player = Instantiate(playerPrefab[index], transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         GameObject ui = Instantiate(uiObjects[index], canvas.transform);
@@ -64,7 +66,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device)
     {
-        GameObject player = Instantiate(playerPrefab, transform.parent);
+        GameObject player = Instantiate(playerPrefab[index], transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         GameObject ui = Instantiate(uiObjects[index], canvas.transform);
@@ -75,11 +77,9 @@ public class GamePadsController : MonoBehaviour
         uiInfo.Initialize(playerHealth, playerFatigue);
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        if(Utils.TryGetChildComponent<SkinnedMeshRenderer>(player, out var mat, 3))
+        if (Utils.TryGetChildComponent<MeshRenderer>(player, out var mat, 2))
         {
-            print(mat.material.name);
             mat.material = _playerMAT[index];
-
         }
         index++;
     }
