@@ -75,9 +75,11 @@ public class GamePadsController : MonoBehaviour
         uiInfo.Initialize(playerHealth, playerFatigue);
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        if(Utils.TryGetChildComponent<MeshRenderer>(player, out var mat, 1))
+        if(Utils.TryGetChildComponent<SkinnedMeshRenderer>(player, out var mat, 3))
         {
+            print(mat.material.name);
             mat.material = _playerMAT[index];
+
         }
         index++;
     }
