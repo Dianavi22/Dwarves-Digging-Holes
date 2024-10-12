@@ -995,6 +995,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_Constraints
+      value: 124
+      objectReference: {fileID: 0}
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _goldCount
       value: 10
@@ -1515,6 +1519,46 @@ PrefabInstance:
     - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Path
+      value: event:/SFX/Lava/Constant lava sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Path
+      value: event:/SFX/Lava/Object thrown into lava
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data1
+      value: 1895020149
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data2
+      value: 1225686260
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data3
+      value: -1201794420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data4
+      value: 1575285054
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data1
+      value: 2014613190
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data2
+      value: 1340100124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data3
+      value: -628569689
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data4
+      value: 1919475445
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4692784183656238104, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
