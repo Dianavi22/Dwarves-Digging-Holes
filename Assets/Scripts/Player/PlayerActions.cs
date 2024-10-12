@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
     [SerializeField] ParticleSystem _HurtPart;
+    [SerializeField] private EventReference pickupSound;
+    [SerializeField] private EventReference throwSound;
 
     public GameObject heldObject;
     public bool isHoldingObject = false;
@@ -351,6 +354,7 @@ public class PlayerActions : MonoBehaviour
                 CancelInvoke(nameof(TestMine));
             }
         }
+        RuntimeManager.PlayOneShot(state ? throwSound : pickupSound, transform.position);
         obj.transform.SetParent(state ? null : objectSlot);
     }
 
