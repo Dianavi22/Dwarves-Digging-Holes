@@ -1,5 +1,7 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +25,8 @@ public class PlayerActions : MonoBehaviour
     public bool carried = false;
     public Transform objectSlot;
     public GameObject pivot;
+
+    public LayerMask layerMask;
 
     public float vertical;
 
@@ -166,8 +170,7 @@ public class PlayerActions : MonoBehaviour
     private void TestMine()
     {
         Vector3 rayDirection;
-        Color rayColor = Color.red;
-        float distance = 1.4f;
+        float distance = 1.6f;
 
         switch (vertical)
         {
@@ -177,7 +180,6 @@ public class PlayerActions : MonoBehaviour
 
             case 0: // BASE case
                 rayDirection = -transform.right;
-                distance = 1.2f;
                 break;
 
             case -1: // DOWN case
@@ -189,19 +191,41 @@ public class PlayerActions : MonoBehaviour
                 return;
         }
 
-        // Draw the debug ray in the scene view
-        Debug.DrawRay(forward.transform.position, rayDirection * distance, rayColor);
-
         // Perform the raycast
         // ! You can hit further forward
-        if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
+        List<RaycastHit> hits = CastConeRay(transform.position, rayDirection, 90f, distance, 10);
+        if (hits.Count > 0)
         {
             if (playerFatigue.ReduceMiningFatigue(10))
             {
-                pickaxe1.Hit(hit.collider.gameObject);
+                pickaxe1.Hit(hits.Last().collider.gameObject);
             }
         }
 
+    }
+
+
+    List<RaycastHit> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
+    {
+        List<RaycastHit> allhits = new();
+        Debug.DrawRay(origin, direction * maxDistance, Color.red);
+        for (int i = 0; i < numRays; i++)
+        {
+            float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
+            Vector3 rayDirection = Quaternion.Euler(0, 0, currentAngle) * direction;
+
+            if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerMask) && hit.collider.transform.root.gameObject != gameObject.transform.root.gameObject)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green);
+                allhits.Add(hit);
+            }
+            else
+            {
+                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red);
+            }
+        }
+        return allhits;
     }
 
     // Tente de ramasser un objet � port�e
@@ -264,7 +288,7 @@ public class PlayerActions : MonoBehaviour
         if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
             Collider[] colliders = obj.GetComponentsInChildren<Collider>();
-            for (int i = 0; i < colliders.Length;i++)
+            for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].enabled = state;
             }
