@@ -198,7 +198,7 @@ public class PlayerActions : MonoBehaviour
         {
             if (playerFatigue.ReduceMiningFatigue(10))
             {
-                pickaxe1.Hit(hits.Last().collider.gameObject);
+                pickaxe1.Hit(hits.First().collider.gameObject);
             }
         }
 
