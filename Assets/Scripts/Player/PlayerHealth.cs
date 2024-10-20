@@ -7,12 +7,10 @@ using UnityEngine.Events;
 [System.Serializable]
 public class HealthChangedEvent : UnityEvent<int, int> { }
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : PlayerManager
 {
     public HealthChangedEvent onHealthChanged;
     private Transform _respawnPoint;
-    private PlayerActions _playerActions;
-    private PlayerMovements _playerMovements;
     private Rigidbody _rb;
 
     #region Old Heal system
@@ -28,19 +26,19 @@ public class PlayerHealth : MonoBehaviour
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
-        _playerActions = GetComponent<PlayerActions>();
-        _playerMovements = GetComponent<PlayerMovements>();
-        _rb = GetComponent<Rigidbody>();
-
         // Todo use TargetManager to find the GoldChariot
         _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
         // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
         currentHealth = _maxHealth;
 
         onHealthChanged.Invoke(currentHealth, _maxHealth);
-
     }
 
     #region Old heal system
@@ -119,15 +117,14 @@ public class PlayerHealth : MonoBehaviour
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
 
-        _playerMovements.enabled = false;
-        _playerActions.enabled = false;
+        movements.enabled = false;
+        actions.enabled = false;
         _rb.useGravity = false;
         _rb.constraints = RigidbodyConstraints.FreezePositionX;
 
-
-        if (_playerActions.heldObject != null)
+        if (actions.heldObject != null)
         {
-            _playerActions.ForceDetach();
+            actions.ForceDetach();
         }
         yield return new WaitForSeconds(2);
 
@@ -138,8 +135,8 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerRespawn()
     {
 
-        this.transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
 
         isAlive = true;
         _rb.useGravity = true;
@@ -148,13 +145,12 @@ public class PlayerHealth : MonoBehaviour
         _rb.constraints = RigidbodyConstraints.FreezeRotation;
         _playerGFX.SetActive(true);
 
-        StartCoroutine(Invincibility());
+        Invoke(nameof(Invincibility), 0.1f);
     }
 
-    private IEnumerator Invincibility()
+    private void Invincibility()
     {
-        yield return new WaitForSeconds(0.1f);
-        _playerMovements.enabled = true;
-        _playerActions.enabled = true;
+        movements.enabled = true;
+        actions.enabled = true;
     }
 }

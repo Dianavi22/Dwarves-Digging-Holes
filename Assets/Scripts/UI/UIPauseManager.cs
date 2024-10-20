@@ -21,7 +21,7 @@ public class UIPauseManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
+            Pause(FindFirstObjectByType<PlayerManager>());
         }
     }
 
@@ -29,7 +29,7 @@ public class UIPauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
+            Pause(FindFirstObjectByType<PlayerManager>());
         }
     }
 
@@ -43,7 +43,7 @@ public class UIPauseManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Pause(GameObject _currentPlayer)
+    public void Pause(PlayerManager _currentPlayer)
     {
         if (!_gameManager.isGameOver)
         {
@@ -51,7 +51,7 @@ public class UIPauseManager : MonoBehaviour
             {
                 Time.timeScale = 0;
                 _PauseCanvas.SetActive(true);
-                _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
+                _currentPlayer.GetMovement().enabled = false;
                 EventSystem.current.SetSelectedGameObject(_retryButton);
                 isPaused = true;
             }
@@ -60,7 +60,7 @@ public class UIPauseManager : MonoBehaviour
                 Time.timeScale = 1;
                 _inputCanvas.SetActive(false);
                 _PauseCanvas.SetActive(false);
-                _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
+                _currentPlayer.GetMovement().enabled = true;
 
                 isPaused = false;
             }

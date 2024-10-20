@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class Forge : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject pickaxePrefab;
+    [SerializeField] private GameObject pickaxePrefab;
 
-    private PlayerActions _player;
+    private PlayerManager _player;
     private GameManager _gameManager;
 
     private void Start()
@@ -16,16 +15,16 @@ public class Forge : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<PlayerActions>(other, out var playerActions))
+        if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<PlayerManager>(other, out var player))
         {
-            _player = playerActions;
+            _player = player;
             Invoke(nameof(BuildPickaxe), 1f);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (_player != null && Utils.TryGetParentComponent<PlayerActions>(other, out _))
+        if (_player != null && Utils.TryGetParentComponent<PlayerManager>(other, out _))
         {
             _player = null;
             CancelInvoke();
@@ -36,6 +35,6 @@ public class Forge : MonoBehaviour
     {
         var _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
         _gameManager.PickaxeInstanceList.Add(_createdPickaxe);
-        _player.TryPickUpObject();
+        _player.GetActions().TryPickUpObject();
     }
 }

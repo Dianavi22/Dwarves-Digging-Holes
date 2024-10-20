@@ -1,10 +1,9 @@
 using DG.Tweening;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerActions : MonoBehaviour
+public class PlayerActions : PlayerManager
 {
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
@@ -27,7 +26,6 @@ public class PlayerActions : MonoBehaviour
     public float vertical;
 
     private bool isTaunt = false;
-    public PlayerFatigue playerFatigue;
 
     private UIPauseManager _uiManager;
     public bool GrabThrowJustPressed { get; private set; }
@@ -45,7 +43,6 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
-        playerFatigue = GetComponent<PlayerFatigue>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -196,7 +193,7 @@ public class PlayerActions : MonoBehaviour
         // ! You can hit further forward
         if (Physics.Raycast(forward.transform.position, rayDirection, out RaycastHit hit, distance))
         {
-            if (playerFatigue.ReduceMiningFatigue(10))
+            if (fatigue.ReduceMiningFatigue(10))
             {
                 pickaxe1.Hit(hit.collider.gameObject);
             }
@@ -304,21 +301,19 @@ public class PlayerActions : MonoBehaviour
         }
 
         // Player
-        if (obj.TryGetComponent<PlayerMovements>(out var objPlayerMovements))
+        if (obj.TryGetComponent<PlayerManager>(out var obPlayer))
         {
-            objPlayerMovements.forceDetachFunction = ForceDetach;
+            obPlayer.GetMovement().forceDetachFunction = ForceDetach;
             if (!state)
             {
-                objPlayerMovements.carried = !state;
+                obPlayer.GetMovement().carried = !state;
             }
             else
             {
-                DOVirtual.DelayedCall(0.25f, () => { objPlayerMovements.canStopcarried = true; });
+                DOVirtual.DelayedCall(0.25f, () => { obPlayer.GetMovement().canStopcarried = true; });
             }
-            if (obj.TryGetComponent<PlayerActions>(out var objPlayerActions))
-            {
-                objPlayerActions.carried = !state;
-            }
+
+            obPlayer.GetActions().carried = !state;
         }
 
         // Beer
@@ -339,7 +334,9 @@ public class PlayerActions : MonoBehaviour
                 objBeer.breakable = !state;
             }
         }
-        else if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        
+        //Pickaxe
+        if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
         {
             if (!state)
             {

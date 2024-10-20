@@ -14,11 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _retryButton;
   
     public static GameManager Instance; // A static reference to the GameManager instance
-    [SerializeField] private  GoldChariot _goldChariot;
 
-    [HideInInspector]
-    public List<GameObject> PickaxeInstanceList;
-    public int MaxNbPickaxe = 1;
+    [HideInInspector] public List<GameObject> PickaxeInstanceList;
+    public int MaxNbPickaxe;
 
     [SerializeField] TMP_Text _textGameOverCondition;
 
@@ -46,10 +44,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0)
+        GameObject goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot);
+        if (goldChariot.GetComponent<GoldChariot>().GoldCount <= 0)
         {
             GameOver(DeathMessage.NoGold);
         }
+
         if(debugMode && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

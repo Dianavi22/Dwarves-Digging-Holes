@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : PlayerManager
 {
     [Header("Values")]
     [SerializeField] private float _speed = 8f;
@@ -26,8 +26,6 @@ public class PlayerMovements : MonoBehaviour
     private Vector3 playerVelocity;
     private Rigidbody _rb;
 
-    private PlayerActions _playerActions;
-
     public bool flip = false;
 
     public bool flip_vertical = false;
@@ -47,7 +45,6 @@ public class PlayerMovements : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _playerActions = GetComponent<PlayerActions>();
     }
 
     void Update()
@@ -119,7 +116,6 @@ public class PlayerMovements : MonoBehaviour
         float targetZRotation = 0f;
         float targetYRotation = flip ? 0 : 180;
 
-
         if (_vertical > 0)
         {
             targetZRotation = -35f;
@@ -128,10 +124,10 @@ public class PlayerMovements : MonoBehaviour
         {
             targetZRotation = 35f;
         }
-        _playerActions.StopAnimation();
-        _playerActions.CancelInvoke();
-        _playerActions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
-        _playerActions.vertical = _vertical;
+        actions.StopAnimation();
+        actions.CancelInvoke();
+        actions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
+        actions.vertical = _vertical;
         flip_vertical = _vertical != 0;
     }
 
