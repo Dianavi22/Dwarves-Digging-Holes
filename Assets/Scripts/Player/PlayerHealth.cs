@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class HealthChangedEvent : UnityEvent<int, int> { }
 
-public class PlayerHealth : PlayerManager
+public class PlayerHealth : Player
 {
     public HealthChangedEvent onHealthChanged;
     private Transform _respawnPoint;

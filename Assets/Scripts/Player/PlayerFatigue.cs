@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class FatigueChangedEvent : UnityEvent<float, float> { }
 
-public class PlayerFatigue : PlayerManager
+public class PlayerFatigue : Player
 {
     [HideInInspector] public FatigueChangedEvent onCartsFatigueChanged;
     [HideInInspector] public FatigueChangedEvent onMiningFatigueChanged;

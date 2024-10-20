@@ -3,17 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class PlayerUIInput : PlayerManager
+public class PlayerUIInput : Player
 {
-    private UIPauseManager _gameManager;
-
-    void Awake()
-    {
-        _gameManager = FindObjectOfType<UIPauseManager>();
-    }
-
     public void OnPause(InputAction.CallbackContext context)
     {
-        _gameManager.Pause(this);
+        UIPauseManager.Instance.Pause(this);
     }
 }

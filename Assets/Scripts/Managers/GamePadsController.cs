@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class GamePadsController : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerPrefab;
+    [SerializeField] private Player playerPrefab;
 
     [SerializeField] private GameObject canvas;
 
@@ -42,7 +42,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        PlayerManager player = Instantiate(playerPrefab, transform.parent);
+        Player player = Instantiate(playerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         GameObject ui = Instantiate(uiObjects[playerNumber], canvas.transform);
@@ -54,7 +54,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device)
     {
-        PlayerManager player = Instantiate(playerPrefab, transform.parent);
+        Player player = Instantiate(playerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         GameObject ui = Instantiate(uiObjects[index], canvas.transform);

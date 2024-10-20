@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerActions : PlayerManager
+public class PlayerActions : Player
 {
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
@@ -32,17 +32,13 @@ public class PlayerActions : PlayerManager
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         _uiManager = FindObjectOfType<UIPauseManager>();
         if (!_uiManager)
         {
             Debug.Log("ERROR: _uiManager not found");
         }
-    }
-
-    private void Start()
-    {
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -301,7 +297,7 @@ public class PlayerActions : PlayerManager
         }
 
         // Player
-        if (obj.TryGetComponent<PlayerManager>(out var obPlayer))
+        if (obj.TryGetComponent<Player>(out var obPlayer))
         {
             obPlayer.GetMovement().forceDetachFunction = ForceDetach;
             if (!state)

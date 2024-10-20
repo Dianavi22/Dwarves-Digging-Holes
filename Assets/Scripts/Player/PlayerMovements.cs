@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
 
-public class PlayerMovements : PlayerManager
+public class PlayerMovements : Player
 {
     [Header("Values")]
     [SerializeField] private float _speed = 8f;
@@ -41,8 +41,7 @@ public class PlayerMovements : PlayerManager
     public bool JumpJustPressed { get; private set; }
     public bool DashJustPressed { get; private set; }
 
-
-    private void Awake()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }

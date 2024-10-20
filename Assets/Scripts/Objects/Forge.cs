@@ -5,7 +5,7 @@ public class Forge : MonoBehaviour
 {
     [SerializeField] private GameObject pickaxePrefab;
 
-    private PlayerManager _player;
+    private Player _player;
     private GameManager _gameManager;
 
     private void Start()
@@ -15,7 +15,7 @@ public class Forge : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<PlayerManager>(other, out var player))
+        if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<Player>(other, out var player))
         {
             _player = player;
             Invoke(nameof(BuildPickaxe), 1f);
@@ -24,7 +24,7 @@ public class Forge : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (_player != null && Utils.TryGetParentComponent<PlayerManager>(other, out _))
+        if (_player != null && Utils.TryGetParentComponent<Player>(other, out _))
         {
             _player = null;
             CancelInvoke();

@@ -12,16 +12,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _GameOverCanvas;
     [SerializeField] GameObject _retryButton;
-  
-    public static GameManager Instance; // A static reference to the GameManager instance
+
+    [SerializeField] TMP_Text _textGameOverCondition;
 
     [HideInInspector] public List<GameObject> PickaxeInstanceList;
     public int MaxNbPickaxe;
 
-    [SerializeField] TMP_Text _textGameOverCondition;
-
     public bool isGameOver = false;
 
+    public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
         if (Instance == null) // If there is no instance already

@@ -6,7 +6,7 @@ public class PushChariot : MonoBehaviour
     [SerializeField] private Rigidbody chariotRigidbody;
 
     private bool _isTriggerActive;
-    private PlayerManager _player;
+    private Player _player;
 
 
     private void FixedUpdate()
@@ -21,7 +21,7 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerManager>(other, out var player) && !player.GetActions().isHoldingObject)
+        if (Utils.TryGetParentComponent<Player>(other, out var player) && !player.GetActions().isHoldingObject)
         {
             _isTriggerActive = true;
             _player = player;
@@ -30,11 +30,10 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerManager>(other, out _))
+        if (Utils.TryGetParentComponent<Player>(other, out _))
         {
             _isTriggerActive = false;
             _player = null;
         }
     }
-
 }

@@ -16,7 +16,7 @@ public class Pickaxe : MonoBehaviour
             HandleRockHit(rock);
         }
         
-        else if (Utils.TryGetParentComponent<PlayerManager>(hit.transform.parent.gameObject, out var player))
+        else if (Utils.TryGetParentComponent<Player>(hit.transform.parent.gameObject, out var player))
         {
             HandlePlayerHit(player);
         }
@@ -35,7 +35,7 @@ public class Pickaxe : MonoBehaviour
         Debug.Log(_healthPoint);
     }
 
-    private void HandlePlayerHit(PlayerManager player)
+    private void HandlePlayerHit(Player player)
     {
         PlayerActions playerActions = player.GetActions();
         playerActions.ForceDetach();

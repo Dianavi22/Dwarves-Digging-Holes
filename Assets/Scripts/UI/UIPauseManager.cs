@@ -15,21 +15,24 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _rebindJump;
 
     [SerializeField] private GameObject _inputCanvas;
-    [SerializeField] private GameManager _gameManager;
 
-    public void OnPause(InputAction.CallbackContext context)
+    public static UIPauseManager Instance; // A static reference to the GameManager instance
+
+    void Awake()
     {
-        if (context.phase == InputActionPhase.Started)
+        if (Instance == null) // If there is no instance already
         {
-            Pause(FindFirstObjectByType<PlayerManager>());
+            Instance = this;
         }
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause(FindFirstObjectByType<PlayerManager>());
+            Pause(FindFirstObjectByType<Player>());
         }
     }
 
@@ -43,9 +46,9 @@ public class UIPauseManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Pause(PlayerManager _currentPlayer)
+    public void Pause(Player _currentPlayer)
     {
-        if (!_gameManager.isGameOver)
+        if (!GameManager.Instance.isGameOver)
         {
             if (!isPaused)
             {
