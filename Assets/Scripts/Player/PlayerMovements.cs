@@ -38,9 +38,6 @@ public class PlayerMovements : Player
 
     private readonly float gravityValue = -9.81f;
 
-    public bool JumpJustPressed { get; private set; }
-    public bool DashJustPressed { get; private set; }
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -134,7 +131,6 @@ public class PlayerMovements : Player
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        JumpJustPressed = UserInput.instance.JumpJustPressed;
         if (carried)
         {
             forceDetachFunction?.Invoke();
@@ -170,8 +166,6 @@ public class PlayerMovements : Player
 
     public void OnDash()
     {
-        DashJustPressed = UserInput.instance.JumpJustPressed;
-
         if (_isDashing || _isDashingCooldown || carried) return;
 
         _isDashing = true;

@@ -9,4 +9,9 @@ public class PlayerUIInput : Player
     {
         UIPauseManager.Instance.Pause(this);
     }
+
+    public void OnTest(InputAction.CallbackContext context)
+    {
+        Debug.Log("Test");
+    }
 }

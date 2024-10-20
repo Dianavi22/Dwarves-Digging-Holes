@@ -28,9 +28,6 @@ public class PlayerActions : Player
     private bool isTaunt = false;
 
     private UIPauseManager _uiManager;
-    public bool GrabThrowJustPressed { get; private set; }
-    public bool BaseActionJustPressed { get; private set; }
-    public bool TauntJustPressed { get; private set; }
 
     private void Start()
     {
@@ -68,9 +65,6 @@ public class PlayerActions : Player
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-
-        GrabThrowJustPressed = UserInput.instance.GrabThrowJustPressed;
-
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isHoldingObject)
@@ -82,8 +76,6 @@ public class PlayerActions : Player
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        TauntJustPressed = UserInput.instance.TauntJustPressed;
-
         if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
         {
             if (isTaunt) return;
@@ -94,8 +86,6 @@ public class PlayerActions : Player
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        BaseActionJustPressed = UserInput.instance.BaseActionJustPressed;
-
         if (heldObject == null)
         {
             // TODO: Action avec autre chose
