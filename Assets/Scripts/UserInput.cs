@@ -34,6 +34,7 @@ public class UserInput : MonoBehaviour
 
     private void SetupInputActions()
     {
+        //_jumpAction.ChangeBinding()
         _jumpAction = PlayerInput.actions["Jump"];
         _grabThrowAction = PlayerInput.actions["GrabAndThrow"];
         _baseAction = PlayerInput.actions["BaseAction"];

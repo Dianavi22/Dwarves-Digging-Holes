@@ -27,15 +27,8 @@ public class PlayerActions : Player
 
     private bool isTaunt = false;
 
-    private UIPauseManager _uiManager;
-
     private void Start()
     {
-        _uiManager = FindObjectOfType<UIPauseManager>();
-        if (!_uiManager)
-        {
-            Debug.Log("ERROR: _uiManager not found");
-        }
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -65,7 +58,7 @@ public class PlayerActions : Player
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
+        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
         {
             if (isHoldingObject)
                 ThrowObject();
@@ -76,7 +69,7 @@ public class PlayerActions : Player
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !_uiManager.isPaused)
+        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
 
@@ -94,7 +87,7 @@ public class PlayerActions : Player
         // Pickaxe
         if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (_uiManager.isPaused) return;
+            if (UIPauseManager.Instance.isPaused) return;
             if (context.performed) // the key has been pressed
             {
                 PrepareAction();
@@ -190,7 +183,7 @@ public class PlayerActions : Player
     // Tente de ramasser un objet � port�e
     public void TryPickUpObject()
     {
-        if (_uiManager.isPaused) return;
+        if (UIPauseManager.Instance.isPaused) return;
 
         // D�tection des objets � port�e autour du joueur
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
