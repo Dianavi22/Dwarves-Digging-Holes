@@ -21,7 +21,7 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<Player>(other, out var player) && !player.GetActions().isHoldingObject)
+        if (Utils.TryGetParentComponent<Player>(other, out var player) && !player.GetActions().IsHoldingObject)
         {
             _isTriggerActive = true;
             _player = player;

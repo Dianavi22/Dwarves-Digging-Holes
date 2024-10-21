@@ -12,7 +12,7 @@ public class PlayerActions : Player
     [SerializeField] ParticleSystem _HurtPart;
 
     public GameObject heldObject;
-    public bool isHoldingObject = false;
+    public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
     private Pickaxe pickaxe1;
@@ -30,12 +30,6 @@ public class PlayerActions : Player
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-    }
-
-    public void PrepareAction()
-    {
-        StartAnimation();
-        InvokeRepeating(nameof(TestMine), 0f, 0.5f);
     }
 
     public void Hit()
@@ -60,7 +54,7 @@ public class PlayerActions : Player
     {
         if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
         {
-            if (isHoldingObject)
+            if (IsHoldingObject)
                 ThrowObject();
             else
                 TryPickUpObject();
@@ -79,7 +73,7 @@ public class PlayerActions : Player
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (heldObject == null)
+        if (!IsHoldingObject)
         {
             // TODO: Action avec autre chose
             return;
@@ -99,6 +93,13 @@ public class PlayerActions : Player
                 CancelInvoke(nameof(TestMine));
             }
         }
+    }
+    #endregion
+
+    public void PrepareAction()
+    {
+        StartAnimation();
+        InvokeRepeating(nameof(TestMine), 0f, 0.5f);
     }
 
     // Method to start the tween, connected to the Unity Event when key is pressed
@@ -193,27 +194,21 @@ public class PlayerActions : Player
 
             if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
             {
-                if (player.isHoldingObject) continue;
+                if (player.IsHoldingObject) continue;
                 parentGameobject = player.gameObject;
             }
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
             if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
             {
-                heldObject = parentGameobject;
-
-                if (heldObject != null)
-                {
-                    PickupObject(heldObject);
-                    break;
-                }
+                PickupObject(parentGameobject);
+                break;
             }
         }
     }
-
-    #endregion
-
-    public void PickupObject(GameObject heldObject)
+    public void PickupObject(GameObject _object)
     {
+        heldObject = _object;
+
         if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
         {
             enemy.hasFocus = false;
@@ -222,7 +217,6 @@ public class PlayerActions : Player
 
         SetObjectState(heldObject, false);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        isHoldingObject = true;
     }
 
     // <summary>
@@ -338,13 +332,12 @@ public class PlayerActions : Player
     private void EmptyHands()
     {
         heldObject = null;
-        isHoldingObject = false;
     }
 
 
     private void ThrowObject(bool forced = false)
     {
-        if (heldObject == null || GameManager.Instance.isGameOver) return;
+        if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
         if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
         {
