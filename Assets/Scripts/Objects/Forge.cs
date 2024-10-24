@@ -15,6 +15,7 @@ public class Forge : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (UIPauseManager.Instance.isPaused) return;
         if (_gameManager.PickaxeInstanceList.Count < _gameManager.MaxNbPickaxe && _player == null && Utils.TryGetParentComponent<Player>(other, out var player))
         {
             _player = player;

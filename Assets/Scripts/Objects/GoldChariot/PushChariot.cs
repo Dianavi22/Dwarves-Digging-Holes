@@ -13,7 +13,7 @@ public class PushChariot : MonoBehaviour
     {
         if (!_isTriggerActive || _player == null) return;
 
-        if (_player.GetFatigue().ReduceCartsFatigue(10f * Time.deltaTime))
+        if (_player.GetInput().BaseActionJustPressed && _player.GetFatigue().ReduceCartsFatigue(10f * Time.deltaTime))
         {
             chariotRigidbody.AddForce(pushForce, 0, 0, ForceMode.Impulse);
         }

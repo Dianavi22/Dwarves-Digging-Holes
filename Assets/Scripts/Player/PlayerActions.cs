@@ -9,6 +9,7 @@ public class PlayerActions : Player
 {
     [SerializeField] private float throwForce = 500f;
     [SerializeField] private float pickupRange = 0.1f;
+    [SerializeField] private float updateCheckBaseAction = 0.5f;
     [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
     [SerializeField] ParticleSystem _HurtPart;
@@ -17,7 +18,9 @@ public class PlayerActions : Player
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
-    private Pickaxe pickaxe1;
+    private bool isBaseActionToggle = false;
+    private float _lastCheckBaseAction;
+
     private Rigidbody _rb;
     private bool _isHit = false;
 
@@ -34,6 +37,22 @@ public class PlayerActions : Player
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _lastCheckBaseAction = Time.time;
+    }
+
+    private void Update()
+    {
+        if (isBaseActionToggle && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
+        {
+            // Pickaxe
+            if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
+            {
+                if (fatigue.ReduceMiningFatigue(10))
+                {
+                    pickaxe.Hit(hits.First().collider.gameObject);
+                }
+            }
+        }
     }
 
     public void Hit()
@@ -50,7 +69,6 @@ public class PlayerActions : Player
             _isHit = false;
         });
     }
-
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
@@ -77,34 +95,20 @@ public class PlayerActions : Player
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (!IsHoldingObject)
+        if (UIPauseManager.Instance.isPaused) return;
+        if (context.performed) // the key has been pressed
         {
-            // TODO: Action avec autre chose
-            return;
+            isBaseActionToggle = true;
+            StartAnimation();
         }
-        // Pickaxe
-        if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
+
+        if (context.canceled) //the key has been released
         {
-            if (UIPauseManager.Instance.isPaused) return;
-            if (context.performed) // the key has been pressed
-            {
-                PrepareAction();
-                pickaxe1 = pickaxe;
-            }
-            if (context.canceled) //the key has been released
-            {
-                StopAnimation();
-                CancelInvoke(nameof(TestMine));
-            }
+            isBaseActionToggle = false;
+            StopAnimation();
         }
     }
     #endregion
-
-    public void PrepareAction()
-    {
-        StartAnimation();
-        InvokeRepeating(nameof(TestMine), 0f, 0.5f);
-    }
 
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
@@ -144,7 +148,7 @@ public class PlayerActions : Player
         }
     }
 
-    private void TestMine()
+    private bool CheckHitRaycast(out List<RaycastHit> hits)
     {
         Vector3 rayDirection;
         float distance = 1.6f;
@@ -165,22 +169,15 @@ public class PlayerActions : Player
 
             default:
                 // If the pivot angle is not relevant, exit early
-                return;
+                hits = new List<RaycastHit>();
+                return false;
         }
 
         // Perform the raycast
         // ! You can hit further forward
-        List<RaycastHit> hits = CastConeRay(transform.position, rayDirection, 90f, distance, 10);
-        if (hits.Count > 0)
-        {
-            if (fatigue.ReduceMiningFatigue(10))
-            {
-                pickaxe1.Hit(hits.First().collider.gameObject);
-            }
-        }
-
+        hits = CastConeRay(transform.position, rayDirection, 90f, distance, 10);
+        return hits.Count > 0;
     }
-
 
     List<RaycastHit> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
     {
@@ -208,8 +205,7 @@ public class PlayerActions : Player
     // Tente de ramasser un objet � port�e
     public void TryPickUpObject()
     {
-        if (UIPauseManager.Instance.isPaused) return;
-
+        if (IsHoldingObject) return;
         // D�tection des objets � port�e autour du joueur
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
         foreach (var hitCollider in hitColliders)
@@ -226,6 +222,12 @@ public class PlayerActions : Player
             {
                 PickupObject(parentGameobject);
                 break;
+            }
+
+            if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var chariot))
+            {
+                heldObject = chariot.gameObject;
+                chariot.TryJoinPlayer(_rb);
             }
         }
     }
@@ -337,12 +339,12 @@ public class PlayerActions : Player
         {
             if (!state)
             {
-                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); CancelInvoke(nameof(TestMine)); };
+                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); isBaseActionToggle = false; };
             }
             else
             {
                 StopAnimation();
-                CancelInvoke(nameof(TestMine));
+                isBaseActionToggle = false;
             }
         }
         obj.transform.SetParent(state ? null : objectSlot);
@@ -358,7 +360,6 @@ public class PlayerActions : Player
         heldObject = null;
     }
 
-
     private void ThrowObject(bool forced = false)
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
@@ -367,6 +368,12 @@ public class PlayerActions : Player
         {
             enemy.isGrabbed = false;
             enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
+        }
+        if (heldObject.TryGetComponent<GoldChariot>(out var goldChariot))
+        {
+            goldChariot.EmptyJoin();
+            EmptyHands();
+            return;
         }
         SetObjectState(heldObject, true, forced);
         EmptyHands();

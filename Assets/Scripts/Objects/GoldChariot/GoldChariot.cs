@@ -8,6 +8,8 @@ public class GoldChariot : MonoBehaviour
     [SerializeField] private ParticleSystem _lostGoldPart;
     public int goblinOnTheChariot;
 
+    private FixedJoint _joint;
+
     public int GoldCount
     {
         get => _goldCount;
@@ -18,23 +20,30 @@ public class GoldChariot : MonoBehaviour
         }
     }
 
-   
-
-
-    private void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        
+        UpdateText();
     }
-
 
     private void UpdateText()
     {
         _goldCountText.text = _goldCount.ToString();
     }
 
-
-    void Start()
+    public void TryJoinPlayer(Rigidbody player)
     {
-        UpdateText();
+        if (_joint != null)
+        {
+            Debug.Log(_joint);
+            return;
+        }
+        _joint = gameObject.AddComponent<FixedJoint>();
+        _joint.connectedBody = player;
+    }
+
+    public void EmptyJoin()
+    {
+        Destroy(_joint);
+        _joint = null;
     }
 }

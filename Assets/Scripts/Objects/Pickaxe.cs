@@ -16,7 +16,7 @@ public class Pickaxe : MonoBehaviour
             HandleRockHit(rock);
         }
         
-        else if (Utils.TryGetParentComponent<Player>(hit.transform.parent.gameObject, out var player))
+        else if (Utils.TryGetParentComponent<Player>(hit, out var player))
         {
             HandlePlayerHit(player);
         }
