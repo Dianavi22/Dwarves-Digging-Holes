@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5240119379322174540}
   - component: {fileID: 8110452125874359559}
   - component: {fileID: -4643059896975039049}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RockWithGold
   m_TagString: Pickaxe
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3491127282237006348}
   - component: {fileID: 320493466943607899}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631071121865981103}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,9 +234,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7623479399575375555, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4303502325549179482, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
       propertyPath: m_Name
       value: Projet_Nains
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2607469989809418135, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -299,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 536266005936814667, guid: 7cbd4cfb661e4e14b8d9e4d16985a9d9, type: 3}
       propertyPath: m_Name
       value: HitGold_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 536266005936814667, guid: 7cbd4cfb661e4e14b8d9e4d16985a9d9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2170393990111077991, guid: 7cbd4cfb661e4e14b8d9e4d16985a9d9, type: 3}
       propertyPath: m_LocalPosition.x
