@@ -12,7 +12,6 @@ public class UserInput : MonoBehaviour
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
 
-
     public PlayerInput PlayerInput { private set; get; }
 
     private InputAction _jumpAction;

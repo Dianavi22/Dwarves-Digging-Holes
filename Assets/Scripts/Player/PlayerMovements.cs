@@ -6,11 +6,11 @@ using System;
 public class PlayerMovements : Player
 {
     [Header("Values")]
-    [SerializeField] private float _speed = 8f;
-    [SerializeField] private float _dashForce = 10f;
-    [SerializeField] private float _jumpForce = 10f;
-    [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] private float lowJumpMultiplier = 100f;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _dashForce;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float fallMultiplier;
+    [SerializeField] private float lowJumpMultiplier;
     [SerializeField] private Vector2 _deadZoneSpace = new (0.5f, 0.5f);
 
     [SerializeField] private Transform _leftRay;
@@ -24,7 +24,6 @@ public class PlayerMovements : Player
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
     private Vector3 playerVelocity;
-    private Rigidbody _rb;
 
     public bool flip = false;
 
@@ -38,20 +37,15 @@ public class PlayerMovements : Player
 
     private readonly float gravityValue = -9.81f;
 
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
     void Update()
     {
         // Move
         if (!_isDashing)
         {
             float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried
-                ? _rb.velocity.x
+                ? rb.velocity.x
                 : _horizontal * _speed;
-            _rb.velocity = new Vector3(xVelocity, _rb.velocity.y, 0f);
+            rb.velocity = new Vector3(xVelocity, rb.velocity.y, 0f);
         }
 
         // Flip
@@ -67,16 +61,16 @@ public class PlayerMovements : Player
         }
 
         // Faster falling
-        if (_rb.velocity.y < 1 && !_isDashing)
+        if (rb.velocity.y < 1 && !_isDashing)
         {
-            _rb.velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            rb.velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
 
         // Shorter jump
-        else if (_rb.velocity.y > 0 && !_jumpButtonHeld)
+        else if (rb.velocity.y > 0 && !_jumpButtonHeld)
         {
             // Apply low jump multiplier to reduce upward velocity when the jump button is released
-            _rb.velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            rb.velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
 
         // Grounded
@@ -85,7 +79,7 @@ public class PlayerMovements : Player
         {
             playerVelocity.y = -2f;
             playerVelocity.y += gravityValue * Time.deltaTime;
-            _rb.AddForce(playerVelocity * Time.deltaTime);
+            rb.AddForce(playerVelocity * Time.deltaTime);
         }
         else if (carried && canStopcarried)
         {
@@ -109,17 +103,9 @@ public class PlayerMovements : Player
 
     private void FlipHoldObject()
     {
-        float targetZRotation = 0f;
         float targetYRotation = flip ? 0 : 180;
+        float targetZRotation = -Math.Sign(_vertical) * 35f;
 
-        if (_vertical > 0)
-        {
-            targetZRotation = -35f;
-        }
-        else if (_vertical < 0)
-        {
-            targetZRotation = 35f;
-        }
         actions.StopAnimation();
         actions.CancelInvoke();
         actions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
@@ -142,7 +128,7 @@ public class PlayerMovements : Player
             if (_isGrounded && !_isDashing)
             {
                 _jumpButtonHeld = true;
-                _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             }
         }
 
@@ -164,15 +150,15 @@ public class PlayerMovements : Player
         _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
     }
 
-    public void OnDash()
+    public void OnDash(InputAction.CallbackContext _)
     {
         if (_isDashing || _isDashingCooldown || carried) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
-        Vector3 dashDirection = new(flip ? -1 : 1, 0, 0);
-        _rb.velocity = new Vector3(dashDirection.x * _dashForce, _rb.velocity.y, 0f);
+        Vector3 dashDirection = flip ? Vector3.left : Vector3.right;
+        rb.velocity = new Vector3(dashDirection.x * _dashForce, rb.velocity.y, 0f);
 
         DOVirtual.DelayedCall(0.2f, () =>
         {

@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : Player
 {
-    [SerializeField] private float throwForce = 500f;
-    [SerializeField] private float pickupRange = 0.1f;
-    [SerializeField] private float updateCheckBaseAction = 0.5f;
+    [SerializeField] private float throwForce;
+    [SerializeField] private float pickupRange;
+    [SerializeField] private float updateCheckBaseAction;
     [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
     [SerializeField] ParticleSystem _HurtPart;
@@ -21,7 +21,6 @@ public class PlayerActions : Player
     private bool isBaseActionToggle = false;
     private float _lastCheckBaseAction;
 
-    private Rigidbody _rb;
     private bool _isHit = false;
 
     public bool carried = false;
@@ -36,7 +35,6 @@ public class PlayerActions : Player
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
         _lastCheckBaseAction = Time.time;
     }
 
@@ -61,11 +59,11 @@ public class PlayerActions : Player
 
         _HurtPart.Play();
         _isHit = true;
-        _rb.constraints = RigidbodyConstraints.FreezeAll;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
 
         DOVirtual.DelayedCall(1f, () =>
         {
-            _rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
             _isHit = false;
         });
     }
@@ -227,7 +225,7 @@ public class PlayerActions : Player
             if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var chariot))
             {
                 heldObject = chariot.gameObject;
-                chariot.TryJoinPlayer(_rb);
+                chariot.TryJoinPlayer(rb);
             }
         }
     }

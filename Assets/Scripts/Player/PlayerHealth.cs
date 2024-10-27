@@ -9,9 +9,8 @@ public class HealthChangedEvent : UnityEvent<int, int> { }
 
 public class PlayerHealth : Player
 {
-    public HealthChangedEvent onHealthChanged;
+    public HealthChangedEvent onHealthChanged; // Not used for now
     private Transform _respawnPoint;
-    private Rigidbody _rb;
 
     #region Old Heal system
     [SerializeField][HideInInspector] private int _maxHealth = 10;
@@ -26,16 +25,9 @@ public class PlayerHealth : Player
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
     void Start()
     {
-        // Todo use TargetManager to find the GoldChariot
         _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
-        // _respawnPoint = FindObjectOfType<GoldChariot>().GetComponentInChildren<HitBoxRespawn>().gameObject.transform;
         currentHealth = _maxHealth;
 
         onHealthChanged.Invoke(currentHealth, _maxHealth);
@@ -108,19 +100,19 @@ public class PlayerHealth : Player
 
     public void TakeDamage()
     {
-        isAlive = false;
         StartCoroutine(DeathPlayer());
     }
 
     private IEnumerator DeathPlayer()
     {
+        isAlive = false;
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
 
         movements.enabled = false;
         actions.enabled = false;
-        _rb.useGravity = false;
-        _rb.constraints = RigidbodyConstraints.FreezePositionX;
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionX;
 
         if (actions.heldObject != null)
         {
@@ -135,14 +127,13 @@ public class PlayerHealth : Player
     private void PlayerRespawn()
     {
 
-        transform.position = new Vector3(_respawnPoint.position.x, _respawnPoint.position.y, _respawnPoint.position.z);
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.SetPositionAndRotation(_respawnPoint.position, Quaternion.identity);
 
         isAlive = true;
-        _rb.useGravity = true;
-        _rb.constraints = RigidbodyConstraints.None;
-        _rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        _rb.constraints = RigidbodyConstraints.FreezeRotation;
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         _playerGFX.SetActive(true);
 
         Invoke(nameof(Invincibility), 0.1f);
