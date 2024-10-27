@@ -973,11 +973,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!198 &1153789461 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4159188239862836962, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-  m_PrefabInstance: {fileID: 1393171042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366857849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3466602016402688194, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -991,33 +986,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: _goldCount
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6136916227646394314, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: _lostGoldPart
-      value: 
-      objectReference: {fileID: 1153789461}
-    - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1112,7 +1083,7 @@ Transform:
   m_GameObject: {fileID: 1630702525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.6, y: 27.7, z: 0.05181255}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1147,7 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23539e732c8d12a47b1509fcfc1b52b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReadyToRespawn: 0
+  radiusDetectCollider: 1
 --- !u!4 &1748244956
 Transform:
   m_ObjectHideFlags: 0

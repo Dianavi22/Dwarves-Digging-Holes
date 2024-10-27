@@ -1,17 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Target primaryTarget;
-
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
     [SerializeField] float jumpForce = 0.5f;
-
-    // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
-    public bool hasFocus = true;
-    public bool isGrabbed;
 
     [SerializeField] GameObject raycastDetectHitWall;
 
@@ -22,20 +17,38 @@ public class Enemy : MonoBehaviour
     private readonly float gravityValue = -9.81f;
 
     private GoldChariot _goldChariot;
-    private bool _isTouchingChariot = false;
+    private bool _isTouchChariot;
+    private bool IsTouchingChariot 
+    { 
+        get => _isTouchChariot;
+        set
+        {
+            if (_isTouchChariot == value) return;
+
+            if (value)
+                _goldChariot.NbGoblin++;
+            else
+                _goldChariot.NbGoblin--;
+            _isTouchChariot = value;
+        }
+    }
     private bool _InCD = false;
 
-   [SerializeField] private ParticleSystem _goldOutChariot;
+    // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
+    public bool hasFocus = true;
+    public bool isGrabbed;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
     }
 
     void Update()
     {
         // Can jump part
         bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+
         // Grounded
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
         if (hitWall && isGrounded)
@@ -49,8 +62,8 @@ public class Enemy : MonoBehaviour
             _rb.AddForce(mvtVelocity * Time.deltaTime);
         }
 
-        Transform currentTarget = TargetManager.Instance.GetGameObject(primaryTarget).transform;
-        float direction = Mathf.Sign(currentTarget.position.x - transform.position.x);
+        Vector3 goldChariotPosition = _goldChariot.transform.position;
+        float direction = Mathf.Sign(goldChariotPosition.x - transform.position.x);
 
         if (direction == -1f && flip || direction == 1f && !flip)
         {
@@ -59,7 +72,7 @@ public class Enemy : MonoBehaviour
         }
 
         float offset = 1f;
-        if (currentTarget.position.x - offset < transform.position.x && currentTarget.position.x + offset > transform.position.x)
+        if (goldChariotPosition.x - offset < transform.position.x && goldChariotPosition.x + offset > transform.position.x)
             direction = 0f;
 
         // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
@@ -69,14 +82,14 @@ public class Enemy : MonoBehaviour
         if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
         
         //lost Gold function
-        if (_isTouchingChariot && !_InCD && !isGrabbed)
+        if (IsTouchingChariot && !_InCD && !isGrabbed)
         {
             StartCoroutine(HitChariot());
-            _goldOutChariot = _goldChariot.GetComponentInChildren<ParticleSystem>();
-            _goldOutChariot.Play();
         }
+
         if (isGrabbed)
         {
+            IsTouchingChariot = false;
             _rb.mass = 1f;
         }
         else 
@@ -89,11 +102,6 @@ public class Enemy : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-1.1f,0));
-    }
-
     private IEnumerator HitChariot()
     {
         _InCD = true;
@@ -102,24 +110,27 @@ public class Enemy : MonoBehaviour
         _InCD = false;
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (Utils.TryGetParentComponent<GoldChariot>(collision.collider, out var goldChariot) && goldChariot.gameObject.name == "GoldChariot")
+        //Debug.Log(collision.gameObject.name);
+        if (Utils.Compare(collision.gameObject, _goldChariot.gameObject))
         {
-            print("Collision");
-            _goldChariot = goldChariot;
-            _isTouchingChariot = true;
+            Debug.Log("---- GoldChariot collision");
+            IsTouchingChariot = true;
         }
     }
     
-    private void OnCollisionExit(Collision collision) { 
-    
-        _isTouchingChariot = false;
-        if (_goldOutChariot != null)
+    private void OnCollisionExit(Collision collision)
+    {
+        if (Utils.Compare(collision.gameObject, _goldChariot.gameObject))
         {
-            _goldOutChariot.Stop();
-            _goldOutChariot = null;
+            Debug.Log("---- Quitting");
+            IsTouchingChariot = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -1.1f, 0));
     }
 }

@@ -58,4 +58,10 @@ public static class Utils
             return false;
         }
     }
+
+
+    public static bool Compare(GameObject a, GameObject b)
+    {
+        return a.GetInstanceID() == b.GetInstanceID();
+    }
 }
