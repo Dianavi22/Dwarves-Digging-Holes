@@ -115,13 +115,9 @@ public class PlayerHealth : Player
 
         movements.enabled = false;
         actions.enabled = false;
+        actions.ForceDetach();
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
-
-        if (actions.heldObject != null)
-        {
-            actions.ForceDetach();
-        }
 
         DOVirtual.DelayedCall(2f, () =>
         {

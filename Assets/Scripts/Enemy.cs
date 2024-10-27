@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.name);
-        if (Utils.Compare(collision.gameObject, _goldChariot.gameObject))
+        if (_goldChariot.gameObject.Equals(collision.gameObject))
         {
             Debug.Log("---- GoldChariot collision");
             IsTouchingChariot = true;
@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour
     
     private void OnCollisionExit(Collision collision)
     {
-        if (Utils.Compare(collision.gameObject, _goldChariot.gameObject))
+        if (_goldChariot.gameObject.Equals(collision.gameObject))
         {
             Debug.Log("---- Quitting");
             IsTouchingChariot = false;
