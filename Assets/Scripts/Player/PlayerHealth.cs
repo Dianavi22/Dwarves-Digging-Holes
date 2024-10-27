@@ -10,21 +10,22 @@ public class HealthChangedEvent : UnityEvent<int, int> { }
 
 public class PlayerHealth : Player
 {
-    public HealthChangedEvent onHealthChanged; // Not used for now
+    [SerializeField] GameObject _playerGFX;
+
+    private bool _isReadyToSpawn = true;
     private RespawnPoint _respawnPoint;
 
+    public HealthChangedEvent onHealthChanged; // Not used for now
+    public bool IsAlive { private set; get; }
+
     #region Old Heal system
-    [SerializeField][HideInInspector] private int _maxHealth = 10;
-    [SerializeField][HideInInspector] public int currentHealth;
+    [SerializeField][HideInInspector] int _maxHealth = 10;
+    [SerializeField][HideInInspector] int currentHealth;
     private PlayerHealth allyToHeal;
     private bool canHeal = false;
     private float healHoldTime = 0f;
     private float requiredHoldTime = 3f;
     #endregion
-
-    public bool IsAlive { private set; get; }
-    private bool _isReadyToSpawn = true;
-    [SerializeField] GameObject _playerGFX;
 
     void Start()
     {
@@ -95,7 +96,7 @@ public class PlayerHealth : Player
 
     private void Update()
     {
-        if (!IsAlive && _isReadyToSpawn && _respawnPoint.isReadyToRespawn)
+        if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
         {
             PlayerRespawn();
         }

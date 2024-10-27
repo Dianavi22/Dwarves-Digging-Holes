@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class RespawnPoint : MonoBehaviour
 {
-    public bool isReadyToRespawn;
+    [SerializeField] float radiusDetectCollider = 1f;
+    public bool IsReadyToRespawn { private set; get; }
 
     void Update()
     {
-        var colliders = Physics.OverlapSphere(new Vector3(this.transform.position.x, this.transform.position.y, 0), 1);
+        var colliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), radiusDetectCollider);
 
         if (colliders.Length != 0)
         {
@@ -16,23 +17,23 @@ public class RespawnPoint : MonoBehaviour
             {
                 if (!collider.isTrigger)
                 {
-                    isReadyToRespawn = false;
+                    IsReadyToRespawn = false;
                 }
                 else
                 {
-                    isReadyToRespawn = true;
+                    IsReadyToRespawn = true;
                 }
             }
         }
         else
         {
-            isReadyToRespawn = true;
+            IsReadyToRespawn = true;
         }
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(new Vector3(this.transform.position.x, this.transform.position.y, 0), 1);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y, 0), radiusDetectCollider);
     }
 }
