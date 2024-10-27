@@ -7,7 +7,6 @@ public class Pickaxe : MonoBehaviour
     [SerializeField] private int _healthPoint = 20;
 
     public Action throwOnDestroy;
-    public Action respawnOnDestroy;
 
     public void Hit(GameObject hit)
     {
@@ -51,6 +50,5 @@ public class Pickaxe : MonoBehaviour
     private void OnDestroy()
     {
         throwOnDestroy?.Invoke();
-        DOVirtual.DelayedCall(1f, () => respawnOnDestroy?.Invoke());
     }
 }
