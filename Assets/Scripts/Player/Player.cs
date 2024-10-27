@@ -31,4 +31,18 @@ public class Player : MonoBehaviour
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
     public Rigidbody GetRigidbody() => rb;
+
+    public void HandleCarriedState(bool isGrabbed)
+    {
+        if (isGrabbed)
+        {
+            movements.carried = true;
+        }
+        else
+        {
+            DOVirtual.DelayedCall(0.25f, () => { movements.canStopcarried = true; });
+        }
+
+        actions.carried = isGrabbed;
+    }
 }

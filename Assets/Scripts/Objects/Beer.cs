@@ -6,16 +6,27 @@ using System;
 
 public class Beer : MonoBehaviour
 {
-
     public bool breakable = false;
     public Action throwOnDestroy;
 
-    /// <summary>
-    /// This function is called when the MonoBehaviour will be destroyed.
-    /// </summary>
-    void OnDestroy()
+    public void HandleCarriedState(bool isGrabbed)
     {
-        throwOnDestroy?.Invoke();
+        breakable = isGrabbed;
+        if (!isGrabbed)
+        {
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                breakable = true;
+            });
+        }
+    }
+
+    void BreakBeer()
+    {
+        /*
+        TODO: Play Animation
+        */
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -50,11 +61,11 @@ public class Beer : MonoBehaviour
         }
     }
 
-    void BreakBeer()
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
     {
-        /*
-        TODO: Play Animation
-        */
-        Destroy(gameObject);
+        throwOnDestroy?.Invoke();
     }
 }

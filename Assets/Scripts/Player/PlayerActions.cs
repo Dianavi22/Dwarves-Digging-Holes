@@ -18,7 +18,7 @@ public class PlayerActions : Player
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
-    private bool isBaseActionToggle = false;
+    private bool isBaseActionActivated = false;
     private float _lastCheckBaseAction;
 
     private bool _isHit = false;
@@ -40,19 +40,20 @@ public class PlayerActions : Player
 
     private void Update()
     {
-        if (isBaseActionToggle && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
+        if (isBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
         {
             // Pickaxe
-            if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe))
+            if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && fatigue.ReduceMiningFatigue(10))
             {
-                if (fatigue.ReduceMiningFatigue(10))
-                {
-                    pickaxe.Hit(hits.First().collider.gameObject);
-                }
+                pickaxe.Hit(hits.First().gameObject);
+                _lastCheckBaseAction = Time.time;
             }
         }
     }
 
+    /**
+     * TODO: Move this function to PlayerHealth -> its not an action from current player to be hit
+     */
     public void Hit()
     {
         if (_isHit) return;
@@ -96,13 +97,13 @@ public class PlayerActions : Player
         if (UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
-            isBaseActionToggle = true;
+            isBaseActionActivated = true;
             StartAnimation();
         }
 
         if (context.canceled) //the key has been released
         {
-            isBaseActionToggle = false;
+            isBaseActionActivated = false;
             StopAnimation();
         }
     }
@@ -146,7 +147,7 @@ public class PlayerActions : Player
         }
     }
 
-    private bool CheckHitRaycast(out List<RaycastHit> hits)
+    private bool CheckHitRaycast(out List<Collider> hits)
     {
         Vector3 rayDirection;
         float distance = 1.6f;
@@ -167,7 +168,7 @@ public class PlayerActions : Player
 
             default:
                 // If the pivot angle is not relevant, exit early
-                hits = new List<RaycastHit>();
+                hits = new List<Collider>();
                 return false;
         }
 
@@ -177,9 +178,9 @@ public class PlayerActions : Player
         return hits.Count > 0;
     }
 
-    List<RaycastHit> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
+    private List<Collider> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
     {
-        List<RaycastHit> allhits = new();
+        List<Collider> allhits = new();
         Debug.DrawRay(origin, direction * maxDistance, Color.red);
         for (int i = 0; i < numRays; i++)
         {
@@ -190,7 +191,7 @@ public class PlayerActions : Player
             {
                 Debug.Log(hit.collider.gameObject.name);
                 Debug.DrawRay(origin, rayDirection * hit.distance, Color.green);
-                allhits.Add(hit);
+                allhits.Add(hit.collider);
             }
             else
             {
@@ -203,11 +204,15 @@ public class PlayerActions : Player
     // Tente de ramasser un objet � port�e
     public void TryPickUpObject()
     {
+        // Can't pickup item if the player already has one
         if (IsHoldingObject) return;
-        // D�tection des objets � port�e autour du joueur
+        // Detect object arround the player
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
         foreach (var hitCollider in hitColliders)
         {
+            // Can't pickup an other item if the player already has one
+            // It also prevent if there are 2 object near the player that can be picked
+            if (IsHoldingObject) return;
             GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
 
             if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
@@ -239,7 +244,7 @@ public class PlayerActions : Player
             enemy.isGrabbed = true;
         }
 
-        SetObjectState(heldObject, false);
+        SetObjectState(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -249,34 +254,32 @@ public class PlayerActions : Player
     // <param name="obj"></param>
     // <param name="state"></param>
     // <param name="forced"></param>
-    private void SetObjectState(GameObject obj, bool state, bool forced = false)
+    private void SetObjectState(GameObject obj, bool isGrabbed, bool forced = false)
     {
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
-            objRenderer.enabled = state;
+            objRenderer.enabled = !isGrabbed;
         }
+
         if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
             Collider[] colliders = obj.GetComponentsInChildren<Collider>();
             for (int i = 0; i < colliders.Length; i++)
             {
-                colliders[i].enabled = state;
+                colliders[i].enabled = !isGrabbed;
             }
         }
-        else
+        else if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider) && !objCollider.isTrigger)
         {
-            if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider) && !objCollider.isTrigger)
-            {
-                objCollider.enabled = state;
-            }
+            objCollider.enabled = !isGrabbed;
         }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
-            rb.isKinematic = !state;
+            rb.isKinematic = isGrabbed;
 
-            rb.collisionDetectionMode = state ? CollisionDetectionMode.Discrete : CollisionDetectionMode.Continuous;
-            if (state && !forced)
+            rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete ;
+            if (!isGrabbed && !forced)
             {
                 float pivotAngle = Mathf.Clamp(pivot.transform.localEulerAngles.z, -45f, 45f);
                 if (pivotAngle > 180) pivotAngle -= 360;
@@ -286,12 +289,11 @@ public class PlayerActions : Player
                 float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
                 float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
-                float force = throwForce * (obj.CompareTag("Player") ? 1.5f : 1);
+                float force = throwForce * (obj.TryGetComponent<Player>(out _) ? 1.5f : 1);
                 rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * force, ForceMode.Impulse);
             }
-
-            if (forced)
+            else if (forced)
             {
                 rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
             }
@@ -301,51 +303,29 @@ public class PlayerActions : Player
         if (obj.TryGetComponent<Player>(out var obPlayer))
         {
             obPlayer.GetMovement().forceDetachFunction = ForceDetach;
-            if (!state)
-            {
-                obPlayer.GetMovement().carried = !state;
-            }
-            else
-            {
-                DOVirtual.DelayedCall(0.25f, () => { obPlayer.GetMovement().canStopcarried = true; });
-            }
-
-            obPlayer.GetActions().carried = !state;
+            obPlayer.HandleCarriedState(isGrabbed);
         }
 
         // Beer
         if (obj.TryGetComponent<Beer>(out var objBeer))
         {
-            if (state)
-            {
-                objBeer.throwOnDestroy = null;
-                objBeer.breakable = !state;
-                DOVirtual.DelayedCall(0.5f, () =>
-                {
-                    objBeer.breakable = state;
-                });
-            }
-            else
-            {
-                objBeer.throwOnDestroy = EmptyHands;
-                objBeer.breakable = !state;
-            }
+            objBeer.HandleCarriedState(isGrabbed);
         }
         
         //Pickaxe
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            if (!state)
+            if (isGrabbed)
             {
-                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); isBaseActionToggle = false; };
+                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); isBaseActionActivated = false; };
             }
             else
             {
                 StopAnimation();
-                isBaseActionToggle = false;
+                isBaseActionActivated = false;
             }
         }
-        obj.transform.SetParent(state ? null : objectSlot);
+        obj.transform.SetParent(isGrabbed ? objectSlot: null);
     }
 
     public void ForceDetach()
@@ -373,7 +353,7 @@ public class PlayerActions : Player
             EmptyHands();
             return;
         }
-        SetObjectState(heldObject, true, forced);
+        SetObjectState(heldObject, false, forced);
         EmptyHands();
     }
 

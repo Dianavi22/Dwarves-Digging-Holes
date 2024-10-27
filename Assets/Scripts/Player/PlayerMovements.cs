@@ -30,9 +30,11 @@ public class PlayerMovements : Player
     public bool flip_vertical = false;
     public bool _isGrounded = false;
     public float gravityScale = 1f;
-    public bool carried = false;
 
+    //TODO remove this and use PlayerAction.carried instead
+    public bool carried = false;
     public bool canStopcarried = false;
+
     public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
