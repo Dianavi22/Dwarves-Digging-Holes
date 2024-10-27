@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using DG.Tweening;
 
 [System.Serializable]
 public class HealthChangedEvent : UnityEvent<int, int> { }
@@ -10,7 +11,7 @@ public class HealthChangedEvent : UnityEvent<int, int> { }
 public class PlayerHealth : Player
 {
     public HealthChangedEvent onHealthChanged; // Not used for now
-    private Transform _respawnPoint;
+    private RespawnPoint _respawnPoint;
 
     #region Old Heal system
     [SerializeField][HideInInspector] private int _maxHealth = 10;
@@ -21,14 +22,16 @@ public class PlayerHealth : Player
     private float requiredHoldTime = 3f;
     #endregion
 
-    public bool isAlive = true;
+    public bool IsAlive { private set; get; }
     private bool _isReadyToSpawn = true;
     [SerializeField] GameObject _playerGFX;
 
     void Start()
     {
-        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).transform;
+        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).GetComponent<RespawnPoint>();
         currentHealth = _maxHealth;
+
+        IsAlive = true;
 
         onHealthChanged.Invoke(currentHealth, _maxHealth);
     }
@@ -92,7 +95,7 @@ public class PlayerHealth : Player
 
     private void Update()
     {
-        if (!isAlive && _isReadyToSpawn && _respawnPoint.GetComponent<HitBoxRespawn>().isReadyToRespawn)
+        if (!IsAlive && _isReadyToSpawn && _respawnPoint.isReadyToRespawn)
         {
             PlayerRespawn();
         }
@@ -100,40 +103,38 @@ public class PlayerHealth : Player
 
     public void TakeDamage()
     {
-        StartCoroutine(DeathPlayer());
+        DeathPlayer();
     }
 
-    private IEnumerator DeathPlayer()
+    private void DeathPlayer()
     {
-        isAlive = false;
+        IsAlive = false;
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
 
         movements.enabled = false;
         actions.enabled = false;
         rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezePositionX;
+        rb.velocity = Vector3.zero;
 
         if (actions.heldObject != null)
         {
             actions.ForceDetach();
         }
-        yield return new WaitForSeconds(2);
 
-        _isReadyToSpawn = true;
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            _isReadyToSpawn = true;
+        });
     }
 
 
     private void PlayerRespawn()
     {
+        transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
 
-        transform.SetPositionAndRotation(_respawnPoint.position, Quaternion.identity);
-
-        isAlive = true;
+        IsAlive = true;
         rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.None;
-        rb.constraints = RigidbodyConstraints.FreezePositionZ;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
         _playerGFX.SetActive(true);
 
         Invoke(nameof(Invincibility), 0.1f);

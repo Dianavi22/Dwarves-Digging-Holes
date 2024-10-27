@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitBoxRespawn : MonoBehaviour
+public class RespawnPoint : MonoBehaviour
 {
     public bool isReadyToRespawn;
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
-       
         var colliders = Physics.OverlapSphere(new Vector3(this.transform.position.x, this.transform.position.y, 0), 1);
 
         if (colliders.Length != 0)

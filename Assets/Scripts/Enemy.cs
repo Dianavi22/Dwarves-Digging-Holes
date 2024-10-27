@@ -27,14 +27,11 @@ public class Enemy : MonoBehaviour
 
    [SerializeField] private ParticleSystem _goldOutChariot;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Can jump part
@@ -82,13 +79,10 @@ public class Enemy : MonoBehaviour
         {
             _rb.mass = 1f;
         }
-        else {
+        else 
+        {
             _rb.mass = 10f;
-
         }
-
-
-
     }
     private void FlipFacingDirection()
     {
@@ -102,10 +96,10 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator HitChariot()
     {
-            _InCD = true;
-            _goldChariot.GoldCount -= 1;
-            yield return new WaitForSeconds(1);
-            _InCD = false;
+        _InCD = true;
+        _goldChariot.GoldCount -= 1;
+        yield return new WaitForSeconds(1);
+        _InCD = false;
     }
 
 
@@ -116,7 +110,6 @@ public class Enemy : MonoBehaviour
             print("Collision");
             _goldChariot = goldChariot;
             _isTouchingChariot = true;
-           
         }
     }
     
@@ -125,12 +118,8 @@ public class Enemy : MonoBehaviour
         _isTouchingChariot = false;
         if (_goldOutChariot != null)
         {
-          _goldOutChariot.Stop();
+            _goldOutChariot.Stop();
             _goldOutChariot = null;
-
-
         }
-
     }
-
 }
