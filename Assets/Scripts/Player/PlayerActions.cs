@@ -81,7 +81,7 @@ public class PlayerActions : Player
                 TryPickUpObject();
         }
 
-
+        // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
             goldChariot.EmptyJoin();
@@ -208,11 +208,14 @@ public class PlayerActions : Player
         return allhits;
     }
 
-    // Tente de ramasser un objet � port�e
+    #region Handle Grab Item
     public void TryPickUpObject()
     {
         // Can't pickup item if the player already has one
         if (IsHoldingObject) return;
+
+        GoldChariot chariot = null;
+
         // Detect object arround the player
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
         foreach (var hitCollider in hitColliders)
@@ -234,11 +237,14 @@ public class PlayerActions : Player
                 break;
             }
 
-            if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var chariot))
-            {
-                heldObject = chariot.gameObject;
-                chariot.TryJoinPlayer(rb);
-            }
+            if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var testchariot)) chariot = testchariot;
+        }
+
+        // With this logic, we let priority on actual object that the player can grab. If nothing else is found, then the player can grab the chariot
+        if (chariot != null && !IsHoldingObject)
+        {
+            heldObject = chariot.gameObject;
+            chariot.TryJoinPlayer(this);
         }
     }
     public void PickupObject(GameObject _object)
@@ -251,7 +257,7 @@ public class PlayerActions : Player
             enemy.isGrabbed = true;
         }
 
-        SetObjectState(heldObject, true);
+        SetObjectInHand(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -261,7 +267,7 @@ public class PlayerActions : Player
     // <param name="obj"></param>
     // <param name="state"></param>
     // <param name="forced"></param>
-    private void SetObjectState(GameObject obj, bool isGrabbed, bool forced = false)
+    private void SetObjectInHand(GameObject obj, bool isGrabbed, bool forced = false)
     {
         if (obj.TryGetComponent<Renderer>(out var objRenderer))
         {
@@ -354,9 +360,10 @@ public class PlayerActions : Player
             enemy.isGrabbed = false;
             enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
         }
-        SetObjectState(heldObject, false, forced);
+        SetObjectInHand(heldObject, false, forced);
         EmptyHands();
     }
+    #endregion
 
     private IEnumerator Taunt()
     {

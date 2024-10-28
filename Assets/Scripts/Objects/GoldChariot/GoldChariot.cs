@@ -52,15 +52,15 @@ public class GoldChariot : MonoBehaviour
         Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
-    public void TryJoinPlayer(Rigidbody player)
+    public void TryJoinPlayer(Player player)
     {
         if (_joint != null)
         {
             Debug.Log(_joint);
             return;
         }
-        _joint = gameObject.AddComponent<FixedJoint>();
-        _joint.connectedBody = player;
+        _joint = player.gameObject.AddComponent<FixedJoint>();
+        _joint.connectedBody = GetComponent<Rigidbody>();
     }
 
     public void EmptyJoin()
