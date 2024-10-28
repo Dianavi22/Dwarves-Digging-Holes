@@ -80,6 +80,13 @@ public class PlayerActions : Player
             else
                 TryPickUpObject();
         }
+
+
+        if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
+        {
+            goldChariot.EmptyJoin();
+            EmptyHands();
+        }
     }
 
     public void OnTaunt(InputAction.CallbackContext context)
@@ -346,12 +353,6 @@ public class PlayerActions : Player
         {
             enemy.isGrabbed = false;
             enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
-        }
-        if (heldObject.TryGetComponent<GoldChariot>(out var goldChariot))
-        {
-            goldChariot.EmptyJoin();
-            EmptyHands();
-            return;
         }
         SetObjectState(heldObject, false, forced);
         EmptyHands();
