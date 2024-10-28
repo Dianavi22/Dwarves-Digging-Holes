@@ -45,7 +45,7 @@ public class PlayerActions : Player
             // Pickaxe
             if (heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && fatigue.ReduceMiningFatigue(10))
             {
-                pickaxe.Hit(hits.First().gameObject);
+                pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
             }
         }
@@ -157,12 +157,12 @@ public class PlayerActions : Player
     private bool CheckHitRaycast(out List<Collider> hits)
     {
         Vector3 rayDirection;
-        float distance = 1.6f;
+        float distance = 1.7f;
 
         switch (vertical)
         {
             case 1: // UP case
-                rayDirection = transform.up;
+                rayDirection = new Vector3(0, 2f, 0) + (-transform.right);
                 break;
 
             case 0: // BASE case
@@ -170,7 +170,7 @@ public class PlayerActions : Player
                 break;
 
             case -1: // DOWN case
-                rayDirection = -transform.up;
+                rayDirection = new Vector3(0, -2f, 0) + (-transform.right);
                 break;
 
             default:
@@ -188,7 +188,7 @@ public class PlayerActions : Player
     private List<Collider> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
     {
         List<Collider> allhits = new();
-        Debug.DrawRay(origin, direction * maxDistance, Color.red);
+        Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.5f);
         for (int i = 0; i < numRays; i++)
         {
             float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
@@ -196,13 +196,13 @@ public class PlayerActions : Player
 
             if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerMask) && hit.collider.transform.root.gameObject != gameObject.transform.root.gameObject)
             {
-                Debug.Log(hit.collider.gameObject.name);
-                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green);
+                // Debug.Log(hit.collider.gameObject.name);
+                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green, 0.5f);
                 allhits.Add(hit.collider);
             }
             else
             {
-                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red);
+                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red, 0.5f);
             }
         }
         return allhits;
