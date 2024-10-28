@@ -59,12 +59,14 @@ public class GoldChariot : MonoBehaviour
             Debug.Log(_joint);
             return;
         }
+        player.GetRigidbody().mass = 20f;
         _joint = player.gameObject.AddComponent<FixedJoint>();
         _joint.connectedBody = GetComponent<Rigidbody>();
     }
 
     public void EmptyJoin()
     {
+        _joint.GetComponent<Rigidbody>().mass = 1f;
         Destroy(_joint);
         _joint = null;
     }
