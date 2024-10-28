@@ -119,6 +119,8 @@ public class PlayerHealth : Player
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
 
+        EmptyPlayerFixedJoin();
+
         DOVirtual.DelayedCall(2f, () =>
         {
             _isReadyToSpawn = true;

@@ -84,7 +84,7 @@ public class PlayerActions : Player
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
-            goldChariot.EmptyJoin();
+            EmptyPlayerFixedJoin();
             EmptyHands();
         }
     }
@@ -244,7 +244,7 @@ public class PlayerActions : Player
         if (chariot != null && !IsHoldingObject)
         {
             heldObject = chariot.gameObject;
-            chariot.TryJoinPlayer(this);
+            CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
     }
     public void PickupObject(GameObject _object)

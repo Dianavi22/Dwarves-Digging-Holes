@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     protected PlayerFatigue fatigue;
     protected UserInput input;
     protected Rigidbody rb;
+
+    private FixedJoint _joint;
 
     private void Awake()
     {
@@ -44,5 +47,24 @@ public class Player : MonoBehaviour
         }
 
         actions.carried = isGrabbed;
+    }
+
+    public void CreatePlayerFixedJoin(Rigidbody obj)
+    {
+        if (_joint != null)
+        {
+            Debug.Log(_joint);
+            return;
+        }
+        rb.mass = 20f;
+        _joint = gameObject.AddComponent<FixedJoint>();
+        _joint.connectedBody = obj;
+    }
+
+    public void EmptyPlayerFixedJoin()
+    {
+        rb.mass = 1f;
+        Destroy(_joint);
+        _joint = null;
     }
 }

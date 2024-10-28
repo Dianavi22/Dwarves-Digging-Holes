@@ -7,7 +7,6 @@ public class GoldChariot : MonoBehaviour
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
-    private FixedJoint _joint;
     private int _nbGolbinOnChariot;
 
     public int NbGoblin
@@ -50,24 +49,5 @@ public class GoldChariot : MonoBehaviour
             _lostGoldPart.Stop();
         }
         Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
-    }
-
-    public void TryJoinPlayer(Player player)
-    {
-        if (_joint != null)
-        {
-            Debug.Log(_joint);
-            return;
-        }
-        player.GetRigidbody().mass = 20f;
-        _joint = player.gameObject.AddComponent<FixedJoint>();
-        _joint.connectedBody = GetComponent<Rigidbody>();
-    }
-
-    public void EmptyJoin()
-    {
-        _joint.GetComponent<Rigidbody>().mass = 1f;
-        Destroy(_joint);
-        _joint = null;
     }
 }
