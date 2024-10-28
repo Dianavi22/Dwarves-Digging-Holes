@@ -170,12 +170,12 @@ public class PlayerActions : MonoBehaviour
     private void TestMine()
     {
         Vector3 rayDirection;
-        float distance = 1.6f;
+        float distance = 1.7f;
 
         switch (vertical)
         {
             case 1: // UP case
-                rayDirection = transform.up;
+                rayDirection = new Vector3(0, 2f, 0) + (-transform.right);
                 break;
 
             case 0: // BASE case
@@ -183,7 +183,7 @@ public class PlayerActions : MonoBehaviour
                 break;
 
             case -1: // DOWN case
-                rayDirection = -transform.up;
+                rayDirection = new Vector3(0, -2f, 0) + (-transform.right);
                 break;
 
             default:
@@ -193,12 +193,12 @@ public class PlayerActions : MonoBehaviour
 
         // Perform the raycast
         // ! You can hit further forward
-        List<RaycastHit> hits = CastConeRay(transform.position, rayDirection, 90f, distance, 10);
+        List<RaycastHit> hits = CastConeRay(transform.position, rayDirection, 45f, distance, 10);
         if (hits.Count > 0)
         {
             if (playerFatigue.ReduceMiningFatigue(10))
             {
-                pickaxe1.Hit(hits.First().collider.gameObject);
+                pickaxe1.Hit(hits.Last().collider.gameObject);
             }
         }
 
@@ -208,7 +208,7 @@ public class PlayerActions : MonoBehaviour
     List<RaycastHit> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
     {
         List<RaycastHit> allhits = new();
-        Debug.DrawRay(origin, direction * maxDistance, Color.red);
+        Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.5f);
         for (int i = 0; i < numRays; i++)
         {
             float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
@@ -217,12 +217,12 @@ public class PlayerActions : MonoBehaviour
             if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerMask) && hit.collider.transform.root.gameObject != gameObject.transform.root.gameObject)
             {
                 Debug.Log(hit.collider.gameObject.name);
-                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green);
+                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green, 0.5f);
                 allhits.Add(hit);
             }
             else
             {
-                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red);
+                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red, 0.5f);
             }
         }
         return allhits;
