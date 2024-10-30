@@ -7,7 +7,6 @@ public class Pickaxe : MonoBehaviour
     [SerializeField] private int _healthPoint = 20;
 
     public Action throwOnDestroy;
-    public Action respawnOnDestroy;
 
     public void Hit(GameObject hit)
     {
@@ -16,9 +15,9 @@ public class Pickaxe : MonoBehaviour
             HandleRockHit(rock);
         }
         
-        else if (Utils.TryGetParentComponent<PlayerActions>(hit.transform.parent.gameObject, out var hitPlayerActions))
+        else if (Utils.TryGetParentComponent<Player>(hit, out var player))
         {
-            HandlePlayerHit(hitPlayerActions);
+            HandlePlayerHit(player);
         }
     }
 
@@ -35,8 +34,9 @@ public class Pickaxe : MonoBehaviour
         Debug.Log(_healthPoint);
     }
 
-    private void HandlePlayerHit(PlayerActions playerActions)
+    private void HandlePlayerHit(Player player)
     {
+        PlayerActions playerActions = player.GetActions();
         playerActions.ForceDetach();
         playerActions.Hit();
     }
@@ -50,6 +50,5 @@ public class Pickaxe : MonoBehaviour
     private void OnDestroy()
     {
         throwOnDestroy?.Invoke();
-        DOVirtual.DelayedCall(1f, () => respawnOnDestroy?.Invoke());
     }
 }

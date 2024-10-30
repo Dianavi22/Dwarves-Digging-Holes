@@ -12,18 +12,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _GameOverCanvas;
     [SerializeField] GameObject _retryButton;
-  
-    public static GameManager Instance; // A static reference to the GameManager instance
-    [SerializeField] private  GoldChariot _goldChariot;
-
-    [HideInInspector]
-    public List<GameObject> PickaxeInstanceList;
-    public int MaxNbPickaxe = 1;
 
     [SerializeField] TMP_Text _textGameOverCondition;
 
+    [HideInInspector] public List<GameObject> PickaxeInstanceList;
+    public int MaxNbPickaxe;
+
     public bool isGameOver = false;
 
+    public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -46,10 +43,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0)
+        GameObject goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot);
+        if (goldChariot.GetComponent<GoldChariot>().GoldCount <= 0)
         {
             GameOver(DeathMessage.NoGold);
         }
+
         if(debugMode && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

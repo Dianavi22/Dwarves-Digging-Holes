@@ -18,29 +18,27 @@ public class PlayerInformationManager : MonoBehaviour
     public Sprite pickaxeSprite;
     public Sprite chariotSprite;
 
-    public PlayerFatigue playerFatigue;
-
-
-    public void Initialize(PlayerHealth health, PlayerFatigue fatigue)
+    public Player _player;
+    public void Initialize(Player player)
     {
-        playerFatigue = fatigue;
+        _player = player;
 
-        if (playerFatigue != null)
+        if (_player.GetFatigue() != null)
         {
-            playerFatigue.onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
-            playerFatigue.onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
+            _player.GetFatigue().onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
+            _player.GetFatigue().onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
 
-            UpdateCartsFatigueUI(playerFatigue.currentCartsFatigue, playerFatigue.maxCartsFatigue);
-            UpdateMiningFatigueUI(playerFatigue.currentMiningFatigue, playerFatigue.maxMiningFatigue);
+            UpdateCartsFatigueUI(_player.GetFatigue().currentCartsFatigue, _player.GetFatigue().maxCartsFatigue);
+            UpdateMiningFatigueUI(_player.GetFatigue().currentMiningFatigue, _player.GetFatigue().maxMiningFatigue);
         }
     }
 
     private void OnDestroy()
     {
-        if (playerFatigue != null)
+        if (_player.GetFatigue() != null)
         {
-            playerFatigue.onCartsFatigueChanged.RemoveListener(UpdateCartsFatigueUI);
-            playerFatigue.onMiningFatigueChanged.RemoveListener(UpdateMiningFatigueUI);
+            _player.GetFatigue().onCartsFatigueChanged.RemoveListener(UpdateCartsFatigueUI);
+            _player.GetFatigue().onMiningFatigueChanged.RemoveListener(UpdateMiningFatigueUI);
         }
     }
 
@@ -49,8 +47,7 @@ public class PlayerInformationManager : MonoBehaviour
     {
         if (cartsFatigueBar != null)
         {
-        UpdateBar(currentFatigue, maxFatigue, cartsFatigueBar, cartsFatigueText);
-
+            UpdateBar(currentFatigue, maxFatigue, cartsFatigueBar, cartsFatigueText);
         }
     }
 
@@ -69,36 +66,26 @@ public class PlayerInformationManager : MonoBehaviour
         text.text = ((int)currentValue).ToString();
     }
 
-
-
-
-
-    
-
- 
-
     // ^ Functions for test buttons. Its functions do not harm anyone. Please keep them ! :3
-
     public void IncreaseCartsFatigue(float amount)
     {
-        playerFatigue.IncreaseCartsFatigue(amount);
+        _player.GetFatigue().IncreaseCartsFatigue(amount);
     }
 
     public void IncreaseMiningFatigue(float amount)
     {
-        playerFatigue.IncreaseMiningFatigue(amount);
+        _player.GetFatigue().IncreaseMiningFatigue(amount);
     }
 
     public void ReduceCartsFatigueButtom(float amount)
     {
-        playerFatigue.ReduceCartsFatigue(amount);
+        _player.GetFatigue().ReduceCartsFatigue(amount);
     }
 
     public void ReduceMiningbutton(float amount)
     {
-        playerFatigue.ReduceMiningFatigue(amount);
+        _player.GetFatigue().ReduceMiningFatigue(amount);
     }
-    
     
     // ^ Functions for test buttons ICONS.
     public void UpdateImageIcon(Sprite iconSprite)

@@ -6,14 +6,14 @@ public class PushChariot : MonoBehaviour
     [SerializeField] private Rigidbody chariotRigidbody;
 
     private bool _isTriggerActive;
-    private PlayerFatigue _playerFatigue;
+    private Player _player;
 
 
     private void FixedUpdate()
     {
-        if (!_isTriggerActive || _playerFatigue == null) return;
+        if (!_isTriggerActive || _player == null) return;
 
-        if (_playerFatigue.ReduceCartsFatigue(10f * Time.deltaTime))
+        if (_player.GetInput().BaseActionJustPressed && _player.GetFatigue().ReduceCartsFatigue(10f * Time.deltaTime))
         {
             chariotRigidbody.AddForce(pushForce, 0, 0, ForceMode.Impulse);
         }
@@ -21,20 +21,19 @@ public class PushChariot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerActions>(other, out var player) && !player.isHoldingObject)
+        if (Utils.TryGetParentComponent<Player>(other, out var player) && !player.GetActions().IsHoldingObject)
         {
             _isTriggerActive = true;
-            _playerFatigue = player.playerFatigue;
+            _player = player;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerActions>(other, out _))
+        if (Utils.TryGetParentComponent<Player>(other, out _))
         {
             _isTriggerActive = false;
-            _playerFatigue = null;
+            _player = null;
         }
     }
-
 }

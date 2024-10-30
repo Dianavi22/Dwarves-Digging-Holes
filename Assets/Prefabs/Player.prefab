@@ -975,16 +975,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 15
   pickupRange: 1
+  updateCheckBaseAction: 0.5
   forward: {fileID: 2417238011257084485}
   _scale: {fileID: 1788393512460230314}
   _HurtPart: {fileID: 8534331348445387762}
   heldObject: {fileID: 0}
-  isHoldingObject: 0
   carried: 0
   objectSlot: {fileID: 3412405687064983370}
   pivot: {fileID: 3808914129422552221}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 72
   vertical: 0
-  playerFatigue: {fileID: 0}
 --- !u!114 &7568293103426823972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,13 +999,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerGFX: {fileID: 294205051610316351}
   onHealthChanged:
     m_PersistentCalls:
       m_Calls: []
   _maxHealth: 3
   currentHealth: 3
-  isAlive: 1
-  _playerGFX: {fileID: 294205051610316351}
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0

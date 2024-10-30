@@ -6,8 +6,18 @@ public class GoldChariot : MonoBehaviour
     [SerializeField] private int _goldCount;
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
-    public int goblinOnTheChariot;
 
+    private int _nbGolbinOnChariot;
+
+    public int NbGoblin
+    {
+        get => _nbGolbinOnChariot;
+        set
+        {
+            _nbGolbinOnChariot = value;
+            UpdateParticle();
+        }
+    }
     public int GoldCount
     {
         get => _goldCount;
@@ -17,24 +27,27 @@ public class GoldChariot : MonoBehaviour
             UpdateText();
         }
     }
+    public ParticleSystem GetParticleLostGold() => _lostGoldPart;
 
-   
-
-
-    private void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        
+        UpdateText();
     }
-
 
     private void UpdateText()
     {
         _goldCountText.text = _goldCount.ToString();
     }
 
-
-    void Start()
+    private void UpdateParticle()
     {
-        UpdateText();
+        if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
+        {
+            _lostGoldPart.Play();
+        } else if (_nbGolbinOnChariot <= 0)
+        {
+            _lostGoldPart.Stop();
+        }
+        Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 }

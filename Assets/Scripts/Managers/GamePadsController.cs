@@ -5,23 +5,19 @@ using UnityEngine.InputSystem;
 
 public class GamePadsController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject playerPrefab;
+    [SerializeField] private Player playerPrefab;
 
-    [SerializeField]
-    private GameObject canvas;
+    [SerializeField] private GameObject canvas;
 
-    [SerializeField]
-    private GameObject[] uiObjects;
+    [SerializeField] private GameObject[] uiObjects;
 
     public bool debug;
 
-    [SerializeField, Range(1, 4)] 
-    private int debugPlayerCount = 1;
+    [SerializeField, Range(1, 4)] private int debugPlayerCount = 1;
 
     private int index = 0;
 
-    [SerializeField] List<Material> _playerMAT = new List<Material>();
+    [SerializeField] List<Material> _playerMAT = new();
 
     void Start()
     {
@@ -36,7 +32,6 @@ public class GamePadsController : MonoBehaviour
             {
                 InstantiateDebugPlayer(i);
             }
-
             return;
         }
         foreach ( Gamepad gamepad in gamepads )
@@ -47,39 +42,31 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        GameObject player = Instantiate(playerPrefab, transform.parent);
+        Player player = Instantiate(playerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
-        GameObject ui = Instantiate(uiObjects[index], canvas.transform);
+        GameObject ui = Instantiate(uiObjects[playerNumber], canvas.transform);
         PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
 
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
-        uiInfo.Initialize(playerHealth, playerFatigue);
-
+        uiInfo.Initialize(player);
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
-
-        index++;
     }
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device)
     {
-        GameObject player = Instantiate(playerPrefab, transform.parent);
+        Player player = Instantiate(playerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         GameObject ui = Instantiate(uiObjects[index], canvas.transform);
         PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
 
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        PlayerFatigue playerFatigue = player.GetComponent<PlayerFatigue>();
-        uiInfo.Initialize(playerHealth, playerFatigue);
+        uiInfo.Initialize(player);
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        if(Utils.TryGetChildComponent<MeshRenderer>(player, out var mat, 1))
+        if(Utils.TryGetChildComponent<MeshRenderer>(player.gameObject, out var mat, 1))
         {
             mat.material = _playerMAT[index];
         }
         index++;
     }
-
 }

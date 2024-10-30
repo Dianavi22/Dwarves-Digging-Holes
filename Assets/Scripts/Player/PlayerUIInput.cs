@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class PlayerUIInput : MonoBehaviour
+public class PlayerUIInput : Player
 {
-    private UIPauseManager _gameManager;
-
     public void OnPause(InputAction.CallbackContext context)
     {
-        _gameManager.Pause(this.gameObject);
+        UIPauseManager.Instance.Pause(this);
     }
 
-    void Awake()
+    public void OnTest(InputAction.CallbackContext context)
     {
-        _gameManager = FindObjectOfType<UIPauseManager>();
+        Debug.Log("Test");
     }
 }
