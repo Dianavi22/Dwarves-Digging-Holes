@@ -391,8 +391,8 @@ GameObject:
   m_Component:
   - component: {fileID: 184080656}
   - component: {fileID: 184080655}
-  - component: {fileID: 184080653}
   - component: {fileID: 184080657}
+  - component: {fileID: 184080653}
   m_Layer: 0
   m_Name: BlockSpawner
   m_TagString: Untagged
@@ -1307,64 +1307,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1222737240315994372, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2092299537
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2092299539}
-  - component: {fileID: 2092299538}
-  m_Layer: 0
-  m_Name: GamePadController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2092299538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092299537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6831975214807127632, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
-  canvas: {fileID: 1507898232}
-  uiObjects:
-  - {fileID: 8325982029632982444, guid: 7d44554d7e905024ebb41e8bc2bf053c, type: 3}
-  - {fileID: 1891106824667603586, guid: b98501577510de04f8c1e3882e3e0614, type: 3}
-  - {fileID: 6148870047027336297, guid: eda9877c9d2153544ab91e36a36c138e, type: 3}
-  - {fileID: 2938528163977328098, guid: e6fcf545246ba68428a12eff3e487344, type: 3}
-  debug: 0
-  debugPlayerCount: 1
-  _playerMAT:
-  - {fileID: 2100000, guid: 77cd56b789b239d4fb3566f6ba23f894, type: 2}
-  - {fileID: 2100000, guid: 45ed354a04401394b92cbba829f941ea, type: 2}
-  - {fileID: 2100000, guid: 6000f2f7410230343a0110898894d92b, type: 2}
-  - {fileID: 2100000, guid: 29dd0a0715457274ba1b14b4316b8f84, type: 2}
---- !u!4 &2092299539
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092299537}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2094380562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2819156671898626256, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -1682,6 +1624,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: m_MainCanvas
+      value: 
+      objectReference: {fileID: 1507898232}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _rebindJump
       value: 
@@ -1719,15 +1665,14 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 6746278764115178908}
   - {fileID: 691050780}
   - {fileID: 1143502662}
   - {fileID: 1630702527}
   - {fileID: 184080656}
   - {fileID: 859681943}
-  - {fileID: 2092299539}
   - {fileID: 79244604896038318}
   - {fileID: 5436758355274485485}
-  - {fileID: 6746278764115178908}
   - {fileID: 125992425}
   - {fileID: 1748244956}
   - {fileID: 1907694448}
