@@ -5,7 +5,7 @@ using UnityEngine;
  * @todo Need to better instanciate this for better performance
  * For now - each child will do the Awake. Better if can use SerializeField only once where each child can have reference to
  */
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IGrabbable
 {
     private PlayerMovements movements;
     private PlayerActions actions;

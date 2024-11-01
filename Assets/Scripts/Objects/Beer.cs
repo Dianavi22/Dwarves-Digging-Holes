@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class Beer : MonoBehaviour
+public class Beer : MonoBehaviour, IGrabbable
 {
     public bool breakable = false;
     public Action throwOnDestroy;
