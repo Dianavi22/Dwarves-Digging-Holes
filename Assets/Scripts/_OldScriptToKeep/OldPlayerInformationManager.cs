@@ -31,7 +31,7 @@ public class OldPlayerInformationManager : MonoBehaviour
 
         if (playerHealth != null)
         {
-            playerHealth.onHealthChanged.AddListener(UpdateLifeUI);
+            //playerHealth.onHealthChanged.AddListener(UpdateLifeUI);
         }
 
         if (playerFatigue != null)
@@ -48,7 +48,7 @@ public class OldPlayerInformationManager : MonoBehaviour
     {
         if (playerHealth != null)
         {
-            playerHealth.onHealthChanged.RemoveListener(UpdateLifeUI);
+            //playerHealth.onHealthChanged.RemoveListener(UpdateLifeUI);
         }
 
         if (playerFatigue != null)

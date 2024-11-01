@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /**
  * @todo Need to better instanciate this for better performance
