@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using DG.Tweening;
 
-[System.Serializable]
-public class HealthChangedEvent : UnityEvent<int, int> { }
-
-public class PlayerHealth : Player
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] GameObject _playerGFX;
 
     private bool _isReadyToSpawn = true;
     private RespawnPoint _respawnPoint;
+    private Player _p;
 
     public bool IsAlive { private set; get; }
+
+    private void Awake()
+    {
+        _p = GetComponent<Player>();
+    }
 
     void Start()
     {
@@ -43,13 +42,13 @@ public class PlayerHealth : Player
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
 
-        movements.enabled = false;
-        actions.enabled = false;
-        actions.ForceDetach();
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
+        _p.GetMovement().enabled = false;
+        _p.GetActions().enabled = false;
+        _p.GetActions().ForceDetach();
+        _p.GetRigidbody().useGravity = false;
+        _p.GetRigidbody().velocity = Vector3.zero;
 
-        EmptyPlayerFixedJoin();
+        _p.EmptyPlayerFixedJoin();
 
         DOVirtual.DelayedCall(2f, () =>
         {
@@ -62,7 +61,7 @@ public class PlayerHealth : Player
         transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
 
         IsAlive = true;
-        rb.useGravity = true;
+        _p.GetRigidbody().useGravity = true;
         _playerGFX.SetActive(true);
 
         Invoke(nameof(Invincibility), 0.1f);
@@ -70,7 +69,7 @@ public class PlayerHealth : Player
 
     private void Invincibility()
     {
-        movements.enabled = true;
-        actions.enabled = true;
+        _p.GetMovement().enabled = true;
+        _p.GetActions().enabled = true;
     }
 }

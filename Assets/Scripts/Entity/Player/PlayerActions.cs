@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerActions : Player
+public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
@@ -33,6 +33,13 @@ public class PlayerActions : Player
 
     private bool isTaunt = false;
 
+    private Player _p;
+
+    private void Awake()
+    {
+        _p = GetComponent<Player>();
+    }
+
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
@@ -43,7 +50,7 @@ public class PlayerActions : Player
         if (isBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
         {
             // Pickaxe
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && fatigue.ReduceMiningFatigue(10))
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && _p.GetFatigue().ReduceMiningFatigue(10))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
@@ -60,11 +67,11 @@ public class PlayerActions : Player
 
         _HurtPart.Play();
         _isHit = true;
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
 
         DOVirtual.DelayedCall(1f, () =>
         {
-            rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
             _isHit = false;
         });
     }
@@ -84,7 +91,7 @@ public class PlayerActions : Player
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
-            EmptyPlayerFixedJoin();
+            _p.EmptyPlayerFixedJoin();
             EmptyHands();
         }
     }
@@ -225,9 +232,9 @@ public class PlayerActions : Player
             if (IsHoldingObject) return;
             GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
 
-            if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
+            if (Utils.TryGetParentComponent<Player>(parentGameobject, out var player))
             {
-                if (player.IsHoldingObject) continue;
+                if (player.GetActions().IsHoldingObject) continue;
                 parentGameobject = player.gameObject;
             }
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
@@ -244,7 +251,7 @@ public class PlayerActions : Player
         if (chariot != null && !IsHoldingObject)
         {
             heldObject = chariot.gameObject;
-            CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
+            _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
     }
     public void PickupObject(GameObject _object)

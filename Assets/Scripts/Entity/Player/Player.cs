@@ -7,12 +7,12 @@ using UnityEngine;
  */
 public class Player : MonoBehaviour
 {
-    protected PlayerMovements movements;
-    protected PlayerActions actions;
-    protected PlayerHealth health;
-    protected PlayerFatigue fatigue;
-    protected UserInput input;
-    protected Rigidbody rb;
+    private PlayerMovements movements;
+    private PlayerActions actions;
+    private PlayerHealth health;
+    private PlayerFatigue fatigue;
+    private UserInput input;
+    private Rigidbody rb;
 
     private FixedJoint _joint;
 
