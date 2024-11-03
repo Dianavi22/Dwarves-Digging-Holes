@@ -16,6 +16,8 @@ public class Player : MonoBehaviour, IGrabbable
 
     private FixedJoint _joint;
 
+    public bool IsCarried {  get; private set; }
+
     private void Awake()
     {
         movements = GetComponent<PlayerMovements>();
@@ -36,17 +38,12 @@ public class Player : MonoBehaviour, IGrabbable
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+        IsCarried = isGrabbed;
 
-        if (isGrabbed)
-        {
-            movements.carried = true;
-        }
-        else
-        {
-            DOVirtual.DelayedCall(0.25f, () => { movements.canStopcarried = true; });
-        }
-
-        actions.carried = isGrabbed;
+        //if (!isGrabbed)
+        //{
+        //    DOVirtual.DelayedCall(0.25f, () => { movements.canStopcarried = true; });
+        //}
     }
 
     public void CreatePlayerFixedJoin(Rigidbody obj)

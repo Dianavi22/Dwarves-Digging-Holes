@@ -1,20 +1,14 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IGrabbable
+public class Enemy : EntityMovement, IGrabbable
 {
-    [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
-    [SerializeField] float jumpForce = 0.5f;
 
     [SerializeField] GameObject raycastDetectHitWall;
 
     private Vector3 mvtVelocity;
-    private Rigidbody _rb;
-    private bool flip = false;
-
-    // The Physics Gravity is changed, so we set a new one for the enemy
-    private readonly float gravityValue = -9.81f;
 
     private GoldChariot _goldChariot;
     private bool _isTouchChariot;
@@ -35,8 +29,8 @@ public class Enemy : MonoBehaviour, IGrabbable
     private bool _InCD = false;
 
     // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
-    public bool hasFocus = true;
-    public bool isGrabbed;
+    private bool hasFocus = true;
+    private bool isGrabbed;
 
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
@@ -52,66 +46,58 @@ public class Enemy : MonoBehaviour, IGrabbable
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        SetRigidbody(GetComponent<Rigidbody>());
         _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Can jump part
         bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
 
         // Grounded
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        if (hitWall && isGrounded)
-        {
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-        else
-        {
-            mvtVelocity.y = -2f;
-            mvtVelocity.y += gravityValue * Time.deltaTime;
-            _rb.AddForce(mvtVelocity * Time.deltaTime);
-        }
+        if (hitWall) Jump();
+        //else
+        //{
+        //    mvtVelocity.y = -2f;
+        //    mvtVelocity.y += gravityValue * Time.deltaTime;
+        //    _rb.AddForce(mvtVelocity * Time.deltaTime);
+        //}
 
         Vector3 goldChariotPosition = _goldChariot.transform.position;
-        float direction = Mathf.Sign(goldChariotPosition.x - transform.position.x);
-
-        if (direction == -1f && flip || direction == 1f && !flip)
-        {
-            flip = !flip;
-            FlipFacingDirection();
-        }
+        float direction = Math.Sign(goldChariotPosition.x - transform.position.x);
 
         float offset = 1f;
         if (goldChariotPosition.x - offset < transform.position.x && goldChariotPosition.x + offset > transform.position.x)
             direction = 0f;
 
-        // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
-        if (!hitWall && hasFocus) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
+        SetGrid(direction, 0f);
 
-        // TODO faire condition isGrabbed
+        // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
+        if (!hitWall && hasFocus) Move();
+
         if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
         
+        if (isGrabbed)
+        {
+            IsTouchingChariot = false;
+            //_rb.mass = 1f;
+        }
+        //else
+        //{
+        //    _rb.mass = 10f;
+        //}
+    }
+
+    private new void Update()
+    {
+        base.Update();
         //lost Gold function
         if (IsTouchingChariot && !_InCD && !isGrabbed)
         {
             StartCoroutine(HitChariot());
         }
-
-        if (isGrabbed)
-        {
-            IsTouchingChariot = false;
-            _rb.mass = 1f;
-        }
-        else 
-        {
-            _rb.mass = 10f;
-        }
-    }
-    private void FlipFacingDirection()
-    {
-        transform.Rotate(0f, 180f, 0f);
     }
 
     private IEnumerator HitChariot()
@@ -139,10 +125,5 @@ public class Enemy : MonoBehaviour, IGrabbable
             Debug.Log("---- Quitting");
             IsTouchingChariot = false;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -1.1f, 0));
     }
 }

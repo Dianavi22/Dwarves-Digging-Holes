@@ -752,7 +752,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &3588309023502915711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,21 +777,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7e108634e9f774da2b422291698fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
-  _dashForce: 20
+  _speed: 9
+  m_Acceleration: 9
+  m_Decceleration: 9
+  m_VelocityPower: 1.2
   _jumpForce: 11
+  m_GroundedOffset: 0.1
+  _dashForce: 20
   fallMultiplier: 3.5
   lowJumpMultiplier: 5
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
   _DashPart: {fileID: 6319271055205663220}
-  flip: 1
-  flip_vertical: 0
-  _isGrounded: 0
   gravityScale: 500
-  carried: 0
-  canStopcarried: 0
 --- !u!114 &2117048352203454760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,8 +991,7 @@ MonoBehaviour:
   forward: {fileID: 2417238011257084485}
   _scale: {fileID: 1788393512460230314}
   _HurtPart: {fileID: 8534331348445387762}
-  heldObject: {fileID: 0}
-  carried: 0
+  IsBaseActionActivated: 0
   objectSlot: {fileID: 3412405687064983370}
   pivot: {fileID: 3808914129422552221}
   layerMask:
