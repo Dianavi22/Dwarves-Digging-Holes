@@ -18,7 +18,7 @@ public class PlayerActions : MonoBehaviour
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
-    private bool isBaseActionActivated = false;
+    public bool IsBaseActionActivated = false;
     private float _lastCheckBaseAction;
 
     private bool _isHit = false;
@@ -47,7 +47,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (isBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
         {
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && _p.GetFatigue().ReduceMiningFatigue(10))
@@ -111,13 +111,13 @@ public class PlayerActions : MonoBehaviour
         if (UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
-            isBaseActionActivated = true;
+            IsBaseActionActivated = true;
             StartAnimation();
         }
 
         if (context.canceled) //the key has been released
         {
-            isBaseActionActivated = false;
+            IsBaseActionActivated = false;
             StopAnimation();
         }
     }
@@ -258,12 +258,6 @@ public class PlayerActions : MonoBehaviour
     {
         heldObject = _object;
 
-        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
-        {
-            enemy.hasFocus = false;
-            enemy.isGrabbed = true;
-        }
-
         SetObjectInHand(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
@@ -319,32 +313,12 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        // Player
-        if (obj.TryGetComponent<Player>(out var obPlayer))
+        // Grabbable Object
+        if (obj.TryGetComponent<IGrabbable>(out var grabbable))
         {
-            obPlayer.GetMovement().forceDetachFunction = ForceDetach;
-            obPlayer.HandleCarriedState(isGrabbed);
+            grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
-        // Beer
-        if (obj.TryGetComponent<Beer>(out var objBeer))
-        {
-            objBeer.HandleCarriedState(isGrabbed);
-        }
-        
-        //Pickaxe
-        if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
-        {
-            if (isGrabbed)
-            {
-                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); isBaseActionActivated = false; };
-            }
-            else
-            {
-                StopAnimation();
-                isBaseActionActivated = false;
-            }
-        }
         obj.transform.SetParent(isGrabbed ? objectSlot: null);
     }
 
@@ -353,7 +327,7 @@ public class PlayerActions : MonoBehaviour
         ThrowObject(true);
     }
 
-    private void EmptyHands()
+    public void EmptyHands()
     {
         heldObject = null;
     }
@@ -362,11 +336,6 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
-        {
-            enemy.isGrabbed = false;
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
-        }
         SetObjectInHand(heldObject, false, forced);
         EmptyHands();
     }

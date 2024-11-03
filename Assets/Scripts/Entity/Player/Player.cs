@@ -33,8 +33,10 @@ public class Player : MonoBehaviour, IGrabbable
     public UserInput GetInput() => input;
     public Rigidbody GetRigidbody() => rb;
 
-    public void HandleCarriedState(bool isGrabbed)
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+        movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+
         if (isGrabbed)
         {
             movements.carried = true;

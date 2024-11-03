@@ -1,4 +1,4 @@
 interface IGrabbable
 {
-    public void HandleCarriedState(bool isGrabbed);
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed);
 }

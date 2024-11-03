@@ -1,11 +1,26 @@
 using System;
 using UnityEngine;
+using static UnityEngine.Rendering.ReloadAttribute;
 
-public class Pickaxe : MonoBehaviour
+public class Pickaxe : MonoBehaviour, IGrabbable
 {
     [SerializeField] private int _healthPoint = 20;
 
-    public Action throwOnDestroy;
+    private Action throwOnDestroy;
+
+    public void HandleCarriedState(Player currentPlayer, bool isCarried)
+    {
+        PlayerActions actions = currentPlayer.GetActions();
+        if (isCarried)
+        {
+            throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };
+        }
+        else
+        {
+            actions.StopAnimation();
+            actions.IsBaseActionActivated = false;
+        }
+    }
 
     public void Hit(GameObject hit)
     {
