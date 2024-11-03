@@ -8,8 +8,6 @@ public class Enemy : EntityMovement, IGrabbable
 
     [SerializeField] GameObject raycastDetectHitWall;
 
-    private Vector3 mvtVelocity;
-
     private GoldChariot _goldChariot;
     private bool _isTouchChariot;
     private bool IsTouchingChariot 
@@ -80,14 +78,7 @@ public class Enemy : EntityMovement, IGrabbable
         if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
         
         if (isGrabbed)
-        {
             IsTouchingChariot = false;
-            //_rb.mass = 1f;
-        }
-        //else
-        //{
-        //    _rb.mass = 10f;
-        //}
     }
 
     private new void Update()

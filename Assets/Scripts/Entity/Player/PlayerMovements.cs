@@ -18,7 +18,6 @@ public class PlayerMovements : EntityMovement
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
-    private Vector3 playerVelocity;
 
     public float gravityScale = 1f;
 

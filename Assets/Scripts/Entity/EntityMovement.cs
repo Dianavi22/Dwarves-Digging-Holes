@@ -7,14 +7,16 @@ using UnityEngine;
 public class EntityMovement : MonoBehaviour
 {
     [Header("EntityMovement")]
-    [SerializeField] private float _speed;
-    [SerializeField] private float m_Acceleration;
-    [SerializeField] private float m_Decceleration;
-    [SerializeField] private float m_VelocityPower;
+    [SerializeField] private float _speed = 9;
+    [SerializeField] private float m_Acceleration = 9;
+    [SerializeField] private float m_Decceleration = 9;
+    [SerializeField] private float m_VelocityPower = 1.2f;
 
     [Header("EntityJump")]
-    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpForce = 11;
     [SerializeField] private float m_GroundedOffset = 0.1f;
+    [SerializeField] private float m_GravityMultiplier;
+    [SerializeField] private float m_LowJumpMultiplier;
 
     private bool _isGrounded = true;
 
@@ -24,8 +26,6 @@ public class EntityMovement : MonoBehaviour
     private float _horizontal = 0f;
     protected float VDirection => Math.Sign(_vertical);
     private float _vertical = 0f;
-
-    private 
 
     protected void SetRigidbody(Rigidbody rb)
     {
