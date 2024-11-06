@@ -7,6 +7,10 @@ public class GoldChariot : MonoBehaviour
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
+    [SerializeField] private Score _score;
+
+    [SerializeField] private int _goldScore;
+
     private int _nbGolbinOnChariot;
 
     public int NbGoblin
@@ -23,6 +27,7 @@ public class GoldChariot : MonoBehaviour
         get => _goldCount;
         set
         {
+            _score.AddScoreOnce(_goldCount < value ? _goldScore : -(_goldScore / 2));
             _goldCount = value;
             UpdateText();
         }
