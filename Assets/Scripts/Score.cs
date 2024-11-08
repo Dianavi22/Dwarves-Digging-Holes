@@ -20,17 +20,31 @@ public class Score : MonoBehaviour
     }
 
 
-    private void UpdateScore() {
-        scoreText.text = score.ToString(); 
+    private void UpdateScore()
+    {
+        scoreText.text = score.ToString();
     }
 
-    public void AddScoreOnce(int scoreToAdd) {
+    public void AddScoreOnce(int scoreToAdd)
+    {
         score += scoreToAdd;
         UpdateScore();
     }
 
-    private void AddScoreTimer() {
+    private void AddScoreTimer()
+    {
         score += scoreToAddTimer;
         UpdateScore();
+    }
+
+    public bool CheckBestScore()
+    {
+        int bestScore = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY);
+        if (score > bestScore)
+        {
+            PlayerPrefs.SetInt(Utils.BEST_SCORE_KEY, score);
+            return true;
+        }
+        return false;
     }
 }
