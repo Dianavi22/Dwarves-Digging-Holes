@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /**
  * @todo Need to better instanciate this for better performance
@@ -17,6 +15,8 @@ public class Player : MonoBehaviour
     protected Rigidbody rb;
 
     private FixedJoint _joint;
+
+    public bool HasJoint => _joint != null;
 
     private void Awake()
     {
