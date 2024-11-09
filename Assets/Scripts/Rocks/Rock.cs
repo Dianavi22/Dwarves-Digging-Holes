@@ -32,7 +32,7 @@ public class Rock : MonoBehaviour
     public void Break()
     {
         if (_haveGold)
-            TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>().GoldCount += 1;
+            TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
 
         _gfx.SetActive(false);
         _rockCollider.enabled = false;

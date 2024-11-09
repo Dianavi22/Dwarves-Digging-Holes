@@ -76,13 +76,15 @@ public class GameManager : MonoBehaviour
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+        _goldChariot.GoldCount = Difficulty.NbStartingGold;
+
         GameStarted();
     }
 
     void Update()
     {
-        GameObject goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot);
-        if (goldChariot.GetComponent<GoldChariot>().GoldCount <= 0)
+        if (_goldChariot.GoldCount <= 0)
         {
             GameOver(DeathMessage.NoGold);
         }

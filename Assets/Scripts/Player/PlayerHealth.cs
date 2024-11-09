@@ -29,7 +29,7 @@ public class PlayerHealth : Player
 
     void Start()
     {
-        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).GetComponent<RespawnPoint>();
+        _respawnPoint = TargetManager.Instance.GetGameObject<RespawnPoint>(Target.RespawnPoint);
         currentHealth = _maxHealth;
 
         IsAlive = true;
