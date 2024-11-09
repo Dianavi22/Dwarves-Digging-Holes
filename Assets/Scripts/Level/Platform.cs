@@ -20,7 +20,7 @@ public class Platform : MonoBehaviour
     private void FixedUpdate()
     {
         Physics.SyncTransforms();
-        float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.scrollingSpeed * speedModifier;
+        float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.ScrollingSpeed * speedModifier;
         _rb.MovePosition(new Vector3(movementSpeed, transform.position.y, transform.position.z));
     }
 }

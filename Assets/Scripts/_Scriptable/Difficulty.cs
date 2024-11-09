@@ -7,10 +7,10 @@ public class Difficulty : ScriptableObject
     public float ScrollingSpeed;
 
     [Header("GoldChariot")]
-    public float NbStartingGold;
+    public int NbStartingGold;
 
     [Header("Pickaxe")]
     public float MiningSpeed;
-    public float PickaxeDurability;
-    public float MaxNumberPickaxe;
+    public int PickaxeDurability;
+    public int MaxNumberPickaxe;
 }

@@ -9,7 +9,6 @@ public class PlayerActions : Player
 {
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
-    [SerializeField] private float updateCheckBaseAction;
     [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
     [SerializeField] ParticleSystem _HurtPart;
@@ -40,10 +39,12 @@ public class PlayerActions : Player
 
     private void Update()
     {
-        if (isBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
+        if (isBaseActionActivated && CheckHitRaycast(out var hits))
         {
             // Pickaxe
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && fatigue.ReduceMiningFatigue(10))
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) 
+                && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed 
+                && fatigue.ReduceMiningFatigue(10))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
