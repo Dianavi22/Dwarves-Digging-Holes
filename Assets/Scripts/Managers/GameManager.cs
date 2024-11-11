@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
         get => _nbPickaxe;
         set
         {
-            if (!CanCreatePickaxe) return;
             _nbPickaxe = value;
         }
     }
