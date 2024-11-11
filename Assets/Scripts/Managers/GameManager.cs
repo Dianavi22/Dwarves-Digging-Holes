@@ -38,12 +38,6 @@ public class GameManager : MonoBehaviour
         NbPickaxe++;
     }
     #endregion
-
-    public float ScrollingSpeed
-    {
-        // Is used in Platform script
-        get { return Difficulty.ScrollingSpeed; }
-    }
     #endregion
 
     [SerializeField] private GameObject _GameOverCanvas;
@@ -64,20 +58,19 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
             Destroy(gameObject);
-
-        foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>()) 
-            AddPickaxe(pickaxe);
-
-        // Select the difficulty
     }
 
     void Start()
     {
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
+        // Select the difficulty
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
         _goldChariot.GoldCount = Difficulty.NbStartingGold;
+
+        foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
+            AddPickaxe(pickaxe);
 
         GameStarted();
     }

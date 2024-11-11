@@ -13,14 +13,10 @@ public class Platform : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-    }
-
     private void FixedUpdate()
     {
         Physics.SyncTransforms();
-        float movementSpeed = transform.position.x - Time.deltaTime * GameManager.Instance.ScrollingSpeed * speedModifier;
-        _rb.MovePosition(new Vector3(movementSpeed, transform.position.y, transform.position.z));
+        Vector3 goalDestination = GameManager.Instance.Difficulty.ScrollingSpeed * speedModifier * Time.fixedDeltaTime * Vector3.left;
+        _rb.MovePosition(transform.position + goalDestination);
     }
 }
