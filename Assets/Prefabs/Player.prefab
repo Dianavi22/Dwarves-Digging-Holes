@@ -881,7 +881,7 @@ MonoBehaviour:
       - m_Target: {fileID: 6831975214807127632}
         m_TargetAssemblyTypeName: PlayerMovements, Assembly-CSharp
         m_MethodName: OnDash
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -975,7 +975,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 15
   pickupRange: 1
-  updateCheckBaseAction: 0.5
   forward: {fileID: 2417238011257084485}
   _scale: {fileID: 1788393512460230314}
   _HurtPart: {fileID: 8534331348445387762}
