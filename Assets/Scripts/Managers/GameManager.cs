@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text _textGameOverCondition;
 
+    [SerializeField] Score score;
+
     public bool isGameOver = false;
 
     private GoldChariot _goldChariot;
@@ -106,7 +108,11 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         Time.timeScale = 0;
         _GameOverCanvas.SetActive(true);
+        
+        // ? Activer un message / effet si record battu
+        bool newBest = score.CheckBestScore();
+        Debug.Log(newBest);
+
         EventSystem.current.SetSelectedGameObject(_retryButton);
-        Time.timeScale = 0;
     }
 }

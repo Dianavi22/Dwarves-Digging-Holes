@@ -58,4 +58,6 @@ public static class Utils
             return false;
         }
     }
+    
+    public static readonly string BEST_SCORE_KEY = "BEST_SCORE";
 }
