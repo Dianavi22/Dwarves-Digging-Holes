@@ -44,7 +44,7 @@ public class PlayerActions : Player
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) 
                 && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed 
-                && fatigue.ReduceMiningFatigue(10))
+                && fatigue.ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigue))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;

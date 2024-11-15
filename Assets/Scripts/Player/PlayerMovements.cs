@@ -44,9 +44,13 @@ public class PlayerMovements : Player
         // Move
         if (!_isDashing)
         {
-            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried
-                ? rb.velocity.x
-                : _horizontal * _speed;
+            PlayerActions pa = GetActions();
+            bool canMoveChariot = pa.HasJoint && Utils.TryGetParentComponent<GoldChariot>(pa.heldObject, out _);
+
+            float xVelocity = _horizontal != 0 || _isDashingCooldown || !carried 
+                || (canMoveChariot && GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
+                ? _horizontal * _speed
+                : rb.velocity.x;
             rb.velocity = new Vector3(xVelocity, rb.velocity.y, 0f);
         }
 
