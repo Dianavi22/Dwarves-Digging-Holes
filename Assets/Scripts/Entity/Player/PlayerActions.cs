@@ -10,7 +10,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
-    [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private LayerMask layerHitBaseAction;
     [SerializeField] private Transform slotInventoriaObject;
 
@@ -21,7 +20,6 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] public bool IsBaseActionActivated = false;
     private float _lastCheckBaseAction;
 
-    private bool _isHit = false;
     public GameObject pivot;
 
     [HideInInspector] public float vertical;
@@ -53,24 +51,6 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
-    }
-
-    /**
-     * TODO: Move this function to PlayerHealth -> its not an action from current player to be hit
-     */
-    public void Hit()
-    {
-        if (_isHit) return;
-
-        _HurtPart.Play();
-        _isHit = true;
-        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
-
-        DOVirtual.DelayedCall(1f, () =>
-        {
-            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
-            _isHit = false;
-        });
     }
 
     #region EVENTS 

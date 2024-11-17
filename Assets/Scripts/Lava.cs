@@ -12,7 +12,7 @@ public class Lava : MonoBehaviour
     {
         if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
         {
-            playerHealth.TakeDamage();
+            playerHealth.DeathPlayer();
         }
 
         if (other.CompareTag("EndingCondition"))
