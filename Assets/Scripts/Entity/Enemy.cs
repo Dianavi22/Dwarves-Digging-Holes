@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour, IGrabbable
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
     }
 
     void Update()

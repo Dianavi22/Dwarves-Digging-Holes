@@ -9,7 +9,6 @@ public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
-    [SerializeField] private float updateCheckBaseAction;
     [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
     [SerializeField] ParticleSystem _HurtPart;
@@ -47,10 +46,12 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (IsBaseActionActivated && Time.time - _lastCheckBaseAction >= updateCheckBaseAction && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && CheckHitRaycast(out var hits))
         {
             // Pickaxe
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) && _p.GetFatigue().ReduceMiningFatigue(10))
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) 
+                && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed 
+                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigue))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;

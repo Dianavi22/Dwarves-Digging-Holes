@@ -30,6 +30,14 @@ public class TargetManager : MonoBehaviour
         }
     }
 
+    public T GetGameObject<T>(Target target)
+    {
+        GameObject go = GetGameObject(target);
+        if (go.TryGetComponent(out T targetInstance))
+            return targetInstance;
+        return default;
+    }
+
     public GameObject GetGameObject(Target target)
     {
         return target switch

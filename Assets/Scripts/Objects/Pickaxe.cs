@@ -3,7 +3,19 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
-    [SerializeField] private int _healthPoint = 20;
+    // In case the set of HealthPoint want to destroy the pickaxe
+    // _healthPoint is update in GameManager
+    private int _healthPoint = 1;
+    public int HealthPoint
+    {
+        get => _healthPoint;
+        set
+        {
+            _healthPoint = value;
+            if (_healthPoint <= 0)
+                Destroy(gameObject);
+        }
+    }
 
     private Action throwOnDestroy;
 
@@ -37,14 +49,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void HandleRockHit(Rock rock)
     {
         rock.Hit();
-        _healthPoint -= 1;
-
-        if (_healthPoint <= 0)
-        {
-            DestroyPickaxe();
-        }
-
-        Debug.Log(_healthPoint);
+        HealthPoint--;
+        Debug.Log(HealthPoint);
     }
 
     private void HandlePlayerHit(Player player)
@@ -54,14 +60,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         playerActions.Hit();
     }
 
-    private void DestroyPickaxe()
-    {
-        GameManager.Instance.PickaxeInstanceList.Remove(gameObject);
-        Destroy(gameObject);
-    }
-
     private void OnDestroy()
     {
+        GameManager.Instance.NbPickaxe--;
         throwOnDestroy?.Invoke();
     }
 }

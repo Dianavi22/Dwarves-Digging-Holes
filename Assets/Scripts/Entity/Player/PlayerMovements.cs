@@ -51,9 +51,12 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried
-                ? _p.GetRigidbody().velocity.x
-                : _horizontal * _speed;
+            bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
+
+            float xVelocity = _horizontal != 0 || _isDashingCooldown || !carried 
+                || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
+                ? _horizontal * _speed
+                : _p.GetRigidbody().velocity.x;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
         }
 

@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class GoldChariot : MonoBehaviour
 {
-    [SerializeField] private int _goldCount;
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
-    private int _nbGolbinOnChariot;
+    [SerializeField] private Score _score;
 
+    [SerializeField] private int _goldScore;
+
+    private int _nbGolbinOnChariot;
     public int NbGoblin
     {
         get => _nbGolbinOnChariot;
@@ -18,25 +20,23 @@ public class GoldChariot : MonoBehaviour
             UpdateParticle();
         }
     }
+
+    private int _currentGoldCount;
     public int GoldCount
     {
-        get => _goldCount;
+        get => _currentGoldCount;
         set
         {
-            _goldCount = value;
+            _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
+            _currentGoldCount = value;
             UpdateText();
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
 
-    void Start()
-    {
-        UpdateText();
-    }
-
     private void UpdateText()
     {
-        _goldCountText.text = _goldCount.ToString();
+        _goldCountText.text = GoldCount.ToString();
     }
 
     private void UpdateParticle()

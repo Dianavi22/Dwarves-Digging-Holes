@@ -17,7 +17,20 @@ public class GamePadsController : MonoBehaviour
     public bool IsDebugMode;
     [SerializeField, Range(1, 4)] private int m_DebugPlayerCount = 1;
 
-    private int index = 0;
+    public List<Player> PlayerList { private set; get; }
+
+    public static GamePadsController Instance; // A static reference to the GameManager instance
+    private void Awake()
+    {
+        if (Instance == null) // If there is no instance already
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+            Destroy(gameObject);
+
+        PlayerList = new List<Player>();
+    }
 
     void Start()
     {
@@ -34,9 +47,12 @@ public class GamePadsController : MonoBehaviour
             }
             return;
         }
+
+        int index = 0;
         foreach ( Gamepad gamepad in gamepads )
         {   
-            InstantiatePlayerUI("Gamepad", gamepad);
+            InstantiatePlayerUI("Gamepad", gamepad, index);
+            index++;
         }
     }
 
@@ -52,7 +68,7 @@ public class GamePadsController : MonoBehaviour
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
     }
 
-    private void InstantiatePlayerUI(string controlScheme, InputDevice device)
+    private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
     {
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
@@ -67,6 +83,7 @@ public class GamePadsController : MonoBehaviour
         {
             mat.material = m_PlayerMAT[index];
         }
-        index++;
+
+        PlayerList.Add(player);
     }
 }

@@ -16,6 +16,8 @@ public class Player : MonoBehaviour, IGrabbable
 
     private FixedJoint _joint;
 
+    public bool HasJoint => _joint != null;
+
     private void Awake()
     {
         movements = GetComponent<PlayerMovements>();
