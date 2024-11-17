@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerActions : Player
+public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
@@ -17,12 +17,11 @@ public class PlayerActions : Player
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
-    private bool isBaseActionActivated = false;
+    public bool IsBaseActionActivated = false;
     private float _lastCheckBaseAction;
 
     private bool _isHit = false;
 
-    public bool carried = false;
     public Transform objectSlot;
     public GameObject pivot;
 
@@ -32,6 +31,13 @@ public class PlayerActions : Player
 
     private bool isTaunt = false;
 
+    private Player _p;
+
+    private void Awake()
+    {
+        _p = GetComponent<Player>();
+    }
+
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
@@ -39,12 +45,12 @@ public class PlayerActions : Player
 
     private void Update()
     {
-        if (isBaseActionActivated && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && CheckHitRaycast(out var hits))
         {
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) 
                 && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed 
-                && fatigue.ReduceMiningFatigue(10))
+                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigue))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
@@ -61,11 +67,11 @@ public class PlayerActions : Player
 
         _HurtPart.Play();
         _isHit = true;
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
 
         DOVirtual.DelayedCall(1f, () =>
         {
-            rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
             _isHit = false;
         });
     }
@@ -74,7 +80,7 @@ public class PlayerActions : Player
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
             if (IsHoldingObject)
                 ThrowObject();
@@ -85,14 +91,14 @@ public class PlayerActions : Player
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
-            EmptyPlayerFixedJoin();
+            _p.EmptyPlayerFixedJoin();
             EmptyHands();
         }
     }
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
 
@@ -105,13 +111,13 @@ public class PlayerActions : Player
         if (UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
-            isBaseActionActivated = true;
+            IsBaseActionActivated = true;
             StartAnimation();
         }
 
         if (context.canceled) //the key has been released
         {
-            isBaseActionActivated = false;
+            IsBaseActionActivated = false;
             StopAnimation();
         }
     }
@@ -226,9 +232,9 @@ public class PlayerActions : Player
             if (IsHoldingObject) return;
             GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
 
-            if (Utils.TryGetParentComponent<PlayerActions>(parentGameobject, out var player))
+            if (Utils.TryGetParentComponent<Player>(parentGameobject, out var player))
             {
-                if (player.IsHoldingObject) continue;
+                if (player.GetActions().IsHoldingObject) continue;
                 parentGameobject = player.gameObject;
             }
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
@@ -245,18 +251,12 @@ public class PlayerActions : Player
         if (chariot != null && !IsHoldingObject)
         {
             heldObject = chariot.gameObject;
-            CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
+            _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
     }
     public void PickupObject(GameObject _object)
     {
         heldObject = _object;
-
-        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
-        {
-            enemy.hasFocus = false;
-            enemy.isGrabbed = true;
-        }
 
         SetObjectInHand(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -313,32 +313,12 @@ public class PlayerActions : Player
             }
         }
 
-        // Player
-        if (obj.TryGetComponent<Player>(out var obPlayer))
+        // Grabbable Object
+        if (obj.TryGetComponent<IGrabbable>(out var grabbable))
         {
-            obPlayer.GetMovement().forceDetachFunction = ForceDetach;
-            obPlayer.HandleCarriedState(isGrabbed);
+            grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
-        // Beer
-        if (obj.TryGetComponent<Beer>(out var objBeer))
-        {
-            objBeer.HandleCarriedState(isGrabbed);
-        }
-        
-        //Pickaxe
-        if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
-        {
-            if (isGrabbed)
-            {
-                pickaxe.throwOnDestroy = () => { EmptyHands(); StopAnimation(); isBaseActionActivated = false; };
-            }
-            else
-            {
-                StopAnimation();
-                isBaseActionActivated = false;
-            }
-        }
         obj.transform.SetParent(isGrabbed ? objectSlot: null);
     }
 
@@ -347,7 +327,7 @@ public class PlayerActions : Player
         ThrowObject(true);
     }
 
-    private void EmptyHands()
+    public void EmptyHands()
     {
         heldObject = null;
     }
@@ -356,11 +336,6 @@ public class PlayerActions : Player
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (Utils.TryGetParentComponent<Enemy>(heldObject, out var enemy))
-        {
-            enemy.isGrabbed = false;
-            enemy.transform.rotation = Quaternion.Euler(new Vector3(enemy.transform.rotation.x, enemy.transform.rotation.y, 0));
-        }
         SetObjectInHand(heldObject, false, forced);
         EmptyHands();
     }

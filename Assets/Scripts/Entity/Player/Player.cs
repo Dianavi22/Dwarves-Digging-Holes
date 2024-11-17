@@ -5,18 +5,19 @@ using UnityEngine;
  * @todo Need to better instanciate this for better performance
  * For now - each child will do the Awake. Better if can use SerializeField only once where each child can have reference to
  */
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IGrabbable
 {
-    protected PlayerMovements movements;
-    protected PlayerActions actions;
-    protected PlayerHealth health;
-    protected PlayerFatigue fatigue;
-    protected UserInput input;
-    protected Rigidbody rb;
+    private PlayerMovements movements;
+    private PlayerActions actions;
+    private PlayerHealth health;
+    private PlayerFatigue fatigue;
+    private UserInput input;
+    private Rigidbody rb;
 
     private FixedJoint _joint;
 
     public bool HasJoint => _joint != null;
+    [HideInInspector] public bool IsCarried = false;
 
     private void Awake()
     {
@@ -35,18 +36,11 @@ public class Player : MonoBehaviour
     public UserInput GetInput() => input;
     public Rigidbody GetRigidbody() => rb;
 
-    public void HandleCarriedState(bool isGrabbed)
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        if (isGrabbed)
-        {
-            movements.carried = true;
-        }
-        else
-        {
-            DOVirtual.DelayedCall(0.25f, () => { movements.canStopcarried = true; });
-        }
+        movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
 
-        actions.carried = isGrabbed;
+        IsCarried = isGrabbed;
     }
 
     public void CreatePlayerFixedJoin(Rigidbody obj)

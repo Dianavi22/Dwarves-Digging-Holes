@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using DG.Tweening;
 
-public class Pickaxe : MonoBehaviour
+public class Pickaxe : MonoBehaviour, IGrabbable
 {
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -18,7 +17,21 @@ public class Pickaxe : MonoBehaviour
         }
     }
 
-    public Action throwOnDestroy;
+    private Action throwOnDestroy;
+
+    public void HandleCarriedState(Player currentPlayer, bool isCarried)
+    {
+        PlayerActions actions = currentPlayer.GetActions();
+        if (isCarried)
+        {
+            throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };
+        }
+        else
+        {
+            actions.StopAnimation();
+            actions.IsBaseActionActivated = false;
+        }
+    }
 
     public void Hit(GameObject hit)
     {
