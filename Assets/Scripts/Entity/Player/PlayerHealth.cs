@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        _respawnPoint = TargetManager.Instance.GetGameObject(Target.RespawnPoint).GetComponent<RespawnPoint>();
+        _respawnPoint = TargetManager.Instance.GetGameObject<RespawnPoint>(Target.RespawnPoint);
 
         IsAlive = true;
     }
