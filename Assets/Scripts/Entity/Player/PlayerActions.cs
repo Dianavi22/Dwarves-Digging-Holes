@@ -185,31 +185,8 @@ public class PlayerActions : MonoBehaviour
 
         // Perform the raycast
         // ! You can hit further forward
-        hits = CastConeRay(transform.position, rayDirection, 45f, distance, 10);
+        hits = Utils.ConeRayCast(transform.position, rayDirection, 45f, distance, 10, layerHitBaseAction);
         return hits.Count > 0;
-    }
-
-    private List<Collider> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
-    {
-        List<Collider> allhits = new();
-        Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.5f);
-        for (int i = 0; i < numRays; i++)
-        {
-            float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
-            Vector3 rayDirection = Quaternion.Euler(0, 0, currentAngle) * direction;
-
-            if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerHitBaseAction) && hit.collider.transform.root.gameObject != gameObject.transform.root.gameObject)
-            {
-                // Debug.Log(hit.collider.gameObject.name);
-                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green, 0.5f);
-                allhits.Add(hit.collider);
-            }
-            else
-            {
-                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red, 0.5f);
-            }
-        }
-        return allhits;
     }
 
     #region Handle Grab Item
