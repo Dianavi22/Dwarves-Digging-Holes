@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IGrabbable
     private FixedJoint _joint;
 
     public bool HasJoint => _joint != null;
+    public bool IsCarried = false;
 
     private void Awake()
     {
@@ -39,16 +40,12 @@ public class Player : MonoBehaviour, IGrabbable
     {
         movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
 
-        if (isGrabbed)
-        {
-            movements.carried = true;
-        }
-        else
+        if (!isGrabbed)
         {
             DOVirtual.DelayedCall(0.25f, () => { movements.canStopcarried = true; });
         }
 
-        actions.carried = isGrabbed;
+        IsCarried = isGrabbed;
     }
 
     public void CreatePlayerFixedJoin(Rigidbody obj)

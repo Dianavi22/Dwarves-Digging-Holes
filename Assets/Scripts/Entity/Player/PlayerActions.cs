@@ -22,7 +22,6 @@ public class PlayerActions : MonoBehaviour
 
     private bool _isHit = false;
 
-    public bool carried = false;
     public Transform objectSlot;
     public GameObject pivot;
 
@@ -81,7 +80,7 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
             if (IsHoldingObject)
                 ThrowObject();
@@ -99,7 +98,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !carried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
 

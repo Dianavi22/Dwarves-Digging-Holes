@@ -31,8 +31,6 @@ public class PlayerMovements : MonoBehaviour
     public bool _isGrounded = false;
     public float gravityScale = 1f;
 
-    //TODO remove this and use PlayerAction.carried instead
-    public bool carried = false;
     public bool canStopcarried = false;
 
     public Action forceDetachFunction;
@@ -53,7 +51,7 @@ public class PlayerMovements : MonoBehaviour
         {
             bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
 
-            float xVelocity = _horizontal != 0 || _isDashingCooldown || !carried 
+            float xVelocity = _horizontal != 0 || _isDashingCooldown || !_p.IsCarried 
                 || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
                 ? _horizontal * _speed
                 : _p.GetRigidbody().velocity.x;
@@ -93,9 +91,9 @@ public class PlayerMovements : MonoBehaviour
             playerVelocity.y += gravityValue * Time.deltaTime;
             _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
         }
-        else if (carried && canStopcarried)
+        else if (_p.IsCarried && canStopcarried)
         {
-            carried = false;
+            _p.IsCarried = false;
             canStopcarried = false;
         }
     }
@@ -129,7 +127,7 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (carried)
+        if (_p.IsCarried)
         {
             forceDetachFunction?.Invoke();
         }
@@ -164,7 +162,7 @@ public class PlayerMovements : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (_isDashing || _isDashingCooldown || carried) return;
+        if (_isDashing || _isDashingCooldown || _p.IsCarried) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
