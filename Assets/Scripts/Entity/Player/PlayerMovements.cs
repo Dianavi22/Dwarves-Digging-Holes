@@ -31,8 +31,6 @@ public class PlayerMovements : MonoBehaviour
     public bool _isGrounded = false;
     public float gravityScale = 1f;
 
-    public bool canStopcarried = false;
-
     public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
@@ -49,12 +47,12 @@ public class PlayerMovements : MonoBehaviour
         // Move
         if (!_isDashing)
         {
-            bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
+            //bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
 
-            float xVelocity = _horizontal != 0 || _isDashingCooldown || !_p.IsCarried 
-                || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
-                ? _horizontal * _speed
-                : _p.GetRigidbody().velocity.x;
+            // || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
+            float xVelocity = _horizontal == 0 && !_isDashingCooldown && !_p.IsCarried
+                ? _p.GetRigidbody().velocity.x
+                : _horizontal * _speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
         }
 
@@ -91,17 +89,6 @@ public class PlayerMovements : MonoBehaviour
             playerVelocity.y += gravityValue * Time.deltaTime;
             _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
         }
-        else if (_p.IsCarried && canStopcarried)
-        {
-            _p.IsCarried = false;
-            canStopcarried = false;
-        }
-    }
-
-    // Fin du cooldown du dash
-    void EndDashCoolDown()
-    {
-        _isDashingCooldown = false;
     }
 
     private void FlipFacingDirection()
@@ -178,4 +165,10 @@ public class PlayerMovements : MonoBehaviour
         });
     }
     #endregion
+    
+    // Fin du cooldown du dash
+    void EndDashCoolDown()
+    {
+        _isDashingCooldown = false;
+    }
 }
