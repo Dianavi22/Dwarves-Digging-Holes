@@ -4,7 +4,9 @@ using DG.Tweening;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] GameObject _playerGFX;
+    [SerializeField] private ParticleSystem _HurtPart;
 
+    private bool _isHit = false;
     private bool _isReadyToSpawn = true;
     private RespawnPoint _respawnPoint;
     private Player _p;
@@ -30,13 +32,22 @@ public class PlayerHealth : MonoBehaviour
             PlayerRespawn();
         }
     }
-
-    public void TakeDamage()
+    public void Hit()
     {
-        DeathPlayer();
+        if (_isHit) return;
+
+        _HurtPart.Play();
+        _isHit = true;
+        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
+
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            _isHit = false;
+        });
     }
 
-    private void DeathPlayer()
+    public void DeathPlayer()
     {
         IsAlive = false;
         _isReadyToSpawn = false;

@@ -9,25 +9,20 @@ public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
-    [SerializeField] private GameObject forward;
     [SerializeField] private Transform _scale;
-    [SerializeField] ParticleSystem _HurtPart;
+    [SerializeField] private LayerMask layerHitBaseAction;
+    [SerializeField] private Transform slotInventoriaObject;
 
-    public GameObject heldObject;
+    [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
 
-    public bool IsBaseActionActivated = false;
+    [HideInInspector] public bool IsBaseActionActivated = false;
     private float _lastCheckBaseAction;
 
-    private bool _isHit = false;
-
-    public Transform objectSlot;
     public GameObject pivot;
 
-    public LayerMask layerMask;
-
-    public float vertical;
+    [HideInInspector] public float vertical;
 
     private bool isTaunt = false;
 
@@ -56,24 +51,6 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
-    }
-
-    /**
-     * TODO: Move this function to PlayerHealth -> its not an action from current player to be hit
-     */
-    public void Hit()
-    {
-        if (_isHit) return;
-
-        _HurtPart.Play();
-        _isHit = true;
-        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
-
-        DOVirtual.DelayedCall(1f, () =>
-        {
-            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
-            _isHit = false;
-        });
     }
 
     #region EVENTS 
@@ -112,7 +89,7 @@ public class PlayerActions : MonoBehaviour
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
-            StartAnimation();
+            if(IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) StartAnimation();
         }
 
         if (context.canceled) //the key has been released
@@ -188,31 +165,8 @@ public class PlayerActions : MonoBehaviour
 
         // Perform the raycast
         // ! You can hit further forward
-        hits = CastConeRay(transform.position, rayDirection, 45f, distance, 10);
+        hits = Utils.ConeRayCast(transform.position, rayDirection, 45f, distance, 10, layerHitBaseAction);
         return hits.Count > 0;
-    }
-
-    private List<Collider> CastConeRay(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays)
-    {
-        List<Collider> allhits = new();
-        Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.5f);
-        for (int i = 0; i < numRays; i++)
-        {
-            float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
-            Vector3 rayDirection = Quaternion.Euler(0, 0, currentAngle) * direction;
-
-            if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerMask) && hit.collider.transform.root.gameObject != gameObject.transform.root.gameObject)
-            {
-                // Debug.Log(hit.collider.gameObject.name);
-                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green, 0.5f);
-                allhits.Add(hit.collider);
-            }
-            else
-            {
-                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red, 0.5f);
-            }
-        }
-        return allhits;
     }
 
     #region Handle Grab Item
@@ -293,23 +247,21 @@ public class PlayerActions : MonoBehaviour
             rb.isKinematic = isGrabbed;
 
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete ;
-            if (!isGrabbed && !forced)
+            if (forced)
+            {
+                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
+            }
+            else if (!isGrabbed)
             {
                 float pivotAngle = Mathf.Clamp(pivot.transform.localEulerAngles.z, -45f, 45f);
                 if (pivotAngle > 180) pivotAngle -= 360;
-
                 pivotAngle = Mathf.Clamp(pivotAngle, -35f, 35f);
 
                 float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
                 float radians = pivotAngle * Mathf.Deg2Rad;
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
-                float force = throwForce * (obj.TryGetComponent<Player>(out _) ? 1.5f : 1);
                 rb.gameObject.transform.rotation = Quaternion.identity;
-                rb.AddForce(throwDirection * force, ForceMode.Impulse);
-            }
-            else if (forced)
-            {
-                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
+                rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             }
         }
 
@@ -319,7 +271,7 @@ public class PlayerActions : MonoBehaviour
             grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
-        obj.transform.SetParent(isGrabbed ? objectSlot: null);
+        obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
     }
 
     public void ForceDetach()

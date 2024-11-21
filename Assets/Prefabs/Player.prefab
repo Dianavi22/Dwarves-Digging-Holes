@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c12f00987472394ebca538d720aad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCarried: 0
 --- !u!114 &6831975214807127632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,8 +791,6 @@ MonoBehaviour:
   flip_vertical: 0
   _isGrounded: 0
   gravityScale: 500
-  carried: 0
-  canStopcarried: 0
 --- !u!114 &2117048352203454760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,16 +987,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 15
   pickupRange: 1
-  forward: {fileID: 2417238011257084485}
   _scale: {fileID: 1788393512460230314}
   _HurtPart: {fileID: 8534331348445387762}
-  heldObject: {fileID: 0}
-  carried: 0
-  objectSlot: {fileID: 3412405687064983370}
-  pivot: {fileID: 3808914129422552221}
-  layerMask:
+  layerHitBaseAction:
     serializedVersion: 2
     m_Bits: 72
+  slotInventoriaObject: {fileID: 3412405687064983370}
+  heldObject: {fileID: 0}
+  IsBaseActionActivated: 0
+  pivot: {fileID: 3808914129422552221}
   vertical: 0
 --- !u!114 &7568293103426823972
 MonoBehaviour:
@@ -1012,6 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerGFX: {fileID: 294205051610316351}
+  _HurtPart: {fileID: 8534331348445387762}
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9197527417c218242bb6bae08de9a635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCarried: 0
 --- !u!114 &3847963404825759604
 MonoBehaviour:
   m_ObjectHideFlags: 0
