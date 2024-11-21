@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
 
-public class PlayerMovements : Player
+public class PlayerMovements : MonoBehaviour
 {
     [Header("Values")]
     [SerializeField] private float _speed;
@@ -31,23 +31,29 @@ public class PlayerMovements : Player
     public bool _isGrounded = false;
     public float gravityScale = 1f;
 
-    //TODO remove this and use PlayerAction.carried instead
-    public bool carried = false;
-    public bool canStopcarried = false;
-
     public Action forceDetachFunction;
 
     private readonly float gravityValue = -9.81f;
+
+    private Player _p;
+
+    private void Awake()
+    {
+        _p = GetComponent<Player>();
+    }
 
     void Update()
     {
         // Move
         if (!_isDashing)
         {
-            float xVelocity = _horizontal == 0 && !_isDashingCooldown && carried
-                ? rb.velocity.x
+            //bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
+
+            // || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
+            float xVelocity = _horizontal == 0 && !_isDashingCooldown && !_p.IsCarried
+                ? _p.GetRigidbody().velocity.x
                 : _horizontal * _speed;
-            rb.velocity = new Vector3(xVelocity, rb.velocity.y, 0f);
+            _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
         }
 
         // Flip
@@ -63,16 +69,16 @@ public class PlayerMovements : Player
         }
 
         // Faster falling
-        if (rb.velocity.y < 1 && !_isDashing)
+        if (_p.GetRigidbody().velocity.y < 1 && !_isDashing)
         {
-            rb.velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            _p.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
 
         // Shorter jump
-        else if (rb.velocity.y > 0 && !_jumpButtonHeld)
+        else if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
         {
             // Apply low jump multiplier to reduce upward velocity when the jump button is released
-            rb.velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
 
         // Grounded
@@ -81,19 +87,8 @@ public class PlayerMovements : Player
         {
             playerVelocity.y = -2f;
             playerVelocity.y += gravityValue * Time.deltaTime;
-            rb.AddForce(playerVelocity * Time.deltaTime);
+            _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
         }
-        else if (carried && canStopcarried)
-        {
-            carried = false;
-            canStopcarried = false;
-        }
-    }
-
-    // Fin du cooldown du dash
-    void EndDashCoolDown()
-    {
-        _isDashingCooldown = false;
     }
 
     private void FlipFacingDirection()
@@ -108,10 +103,10 @@ public class PlayerMovements : Player
         float targetYRotation = flip ? 0 : 180;
         float targetZRotation = -Math.Sign(_vertical) * 35f;
 
-        actions.StopAnimation();
-        actions.CancelInvoke();
-        actions.pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
-        actions.vertical = _vertical;
+        _p.GetActions().StopAnimation();
+        _p.GetActions().CancelInvoke();
+        _p.GetActions().pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
+        _p.GetActions().vertical = _vertical;
         flip_vertical = _vertical != 0;
     }
 
@@ -119,7 +114,7 @@ public class PlayerMovements : Player
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (carried)
+        if (_p.IsCarried)
         {
             forceDetachFunction?.Invoke();
         }
@@ -130,7 +125,7 @@ public class PlayerMovements : Player
             if (_isGrounded && !_isDashing)
             {
                 _jumpButtonHeld = true;
-                rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                _p.GetRigidbody().AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             }
         }
 
@@ -154,13 +149,13 @@ public class PlayerMovements : Player
 
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (_isDashing || _isDashingCooldown || carried) return;
+        if (_isDashing || _isDashingCooldown || _p.IsCarried) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
         Vector3 dashDirection = flip ? Vector3.left : Vector3.right;
-        rb.velocity = new Vector3(dashDirection.x * _dashForce, rb.velocity.y, 0f);
+        _p.GetRigidbody().velocity = new Vector3(dashDirection.x * _dashForce, _p.GetRigidbody().velocity.y, 0f);
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
@@ -170,4 +165,10 @@ public class PlayerMovements : Player
         });
     }
     #endregion
+    
+    // Fin du cooldown du dash
+    void EndDashCoolDown()
+    {
+        _isDashingCooldown = false;
+    }
 }

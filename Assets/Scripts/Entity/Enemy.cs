@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IGrabbable
 {
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float lifePoint = 3f;
@@ -14,6 +13,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody _rb;
     private bool flip = false;
 
+    // The Physics Gravity is changed, so we set a new one for the enemy
     private readonly float gravityValue = -9.81f;
 
     private GoldChariot _goldChariot;
@@ -38,10 +38,22 @@ public class Enemy : MonoBehaviour
     public bool hasFocus = true;
     public bool isGrabbed;
 
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    {
+        this.isGrabbed = isGrabbed;
+        if (isGrabbed)
+        {
+            hasFocus = false;
+        } else
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, 0));
+        }
+    }
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _goldChariot = TargetManager.Instance.GetGameObject(Target.GoldChariot).GetComponent<GoldChariot>();
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
     }
 
     void Update()

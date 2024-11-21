@@ -7,12 +7,10 @@ public class UserInput : MonoBehaviour
 {
     public bool JumpJustPressed { get; private set; }
     public bool DashJustPressed { get; private set; }
-
     public bool GrabThrowJustPressed { get; private set; }
     public bool BaseActionJustPressed { get; private set; }
     public bool TauntJustPressed { get; private set; }
-
-    public PlayerInput PlayerInput { private set; get; }
+    public PlayerInput PlayerInput { get; private set; }
 
     private InputAction _jumpAction;
     private InputAction _grabThrowAction;

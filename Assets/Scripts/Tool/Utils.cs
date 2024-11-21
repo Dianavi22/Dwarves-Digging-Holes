@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
 {
+    public static readonly string BEST_SCORE_KEY = "BEST_SCORE";
+
+    #region Get Component
     public static GameObject GetCollisionGameObject(Collider hitCollider)
     {
         try
@@ -57,5 +61,28 @@ public static class Utils
             _out = default;
             return false;
         }
+    }
+    #endregion
+
+    public static List<Collider> ConeRayCast(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays, LayerMask layerHit)
+    {
+        List<Collider> allhits = new();
+        for (int i = 0; i < numRays; i++)
+        {
+            float currentAngle = Mathf.Lerp(-angle / 2, angle / 2, i / (float)(numRays - 1));
+            Vector3 rayDirection = Quaternion.Euler(0, 0, currentAngle) * direction;
+
+            if (Physics.Raycast(origin, rayDirection, out RaycastHit hit, maxDistance, layerHit))
+            {
+                //Debug.Log(hit.collider.gameObject.name);
+                Debug.DrawRay(origin, rayDirection * hit.distance, Color.green, 0.1f);
+                allhits.Add(hit.collider);
+            }
+            else
+            {
+                Debug.DrawRay(origin, rayDirection * maxDistance, Color.red, 0.1f);
+            }
+        }
+        return allhits;
     }
 }

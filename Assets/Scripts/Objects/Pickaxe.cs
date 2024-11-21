@@ -1,12 +1,37 @@
 using System;
 using UnityEngine;
-using DG.Tweening;
 
-public class Pickaxe : MonoBehaviour
+public class Pickaxe : MonoBehaviour, IGrabbable
 {
-    [SerializeField] private int _healthPoint = 20;
+    // In case the set of HealthPoint want to destroy the pickaxe
+    // _healthPoint is update in GameManager
+    private int _healthPoint = 1;
+    public int HealthPoint
+    {
+        get => _healthPoint;
+        set
+        {
+            _healthPoint = value;
+            if (_healthPoint <= 0)
+                Destroy(gameObject);
+        }
+    }
 
-    public Action throwOnDestroy;
+    private Action throwOnDestroy;
+
+    public void HandleCarriedState(Player currentPlayer, bool isCarried)
+    {
+        PlayerActions actions = currentPlayer.GetActions();
+        if (isCarried)
+        {
+            throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };
+        }
+        else
+        {
+            actions.StopAnimation();
+            actions.IsBaseActionActivated = false;
+        }
+    }
 
     public void Hit(GameObject hit)
     {
@@ -24,31 +49,19 @@ public class Pickaxe : MonoBehaviour
     private void HandleRockHit(Rock rock)
     {
         rock.Hit();
-        _healthPoint -= 1;
-
-        if (_healthPoint <= 0)
-        {
-            DestroyPickaxe();
-        }
-
-        Debug.Log(_healthPoint);
+        HealthPoint--;
+        Debug.Log(HealthPoint);
     }
 
     private void HandlePlayerHit(Player player)
     {
-        PlayerActions playerActions = player.GetActions();
-        playerActions.ForceDetach();
-        playerActions.Hit();
-    }
-
-    private void DestroyPickaxe()
-    {
-        GameManager.Instance.PickaxeInstanceList.Remove(gameObject);
-        Destroy(gameObject);
+        player.GetActions().ForceDetach();
+        player.GetHealth().Hit();
     }
 
     private void OnDestroy()
     {
+        GameManager.Instance.NbPickaxe--;
         throwOnDestroy?.Invoke();
     }
 }

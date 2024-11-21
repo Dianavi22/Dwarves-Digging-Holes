@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
 public class FatigueChangedEvent : UnityEvent<float, float> { }
 
-public class PlayerFatigue : Player
+public class PlayerFatigue : MonoBehaviour
 {
     [HideInInspector] public FatigueChangedEvent onCartsFatigueChanged;
     [HideInInspector] public FatigueChangedEvent onMiningFatigueChanged;
@@ -56,7 +54,6 @@ public class PlayerFatigue : Player
     {
         onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
     }
-
 
     // * Regeneration fatigue over time
 
