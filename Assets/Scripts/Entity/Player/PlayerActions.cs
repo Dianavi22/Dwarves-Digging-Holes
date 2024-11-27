@@ -282,7 +282,7 @@ public class PlayerActions : MonoBehaviour
             grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
-        RuntimeManager.PlayOneShot(isGrabbed ? throwSound : pickupSound, transform.position);
+        RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
         canPickup = forced;
 
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
