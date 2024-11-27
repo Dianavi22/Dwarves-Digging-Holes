@@ -10,6 +10,8 @@ public class GoldChariot : MonoBehaviour
 
     [SerializeField] private int _goldScore;
 
+    [SerializeField] GameObject _gfx;
+
     private int _nbGolbinOnChariot;
     public int NbGoblin
     {
@@ -49,5 +51,10 @@ public class GoldChariot : MonoBehaviour
             _lostGoldPart.Stop();
         }
         Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
+    }
+
+    public void HideGfx()
+    {
+        _gfx.SetActive(false);
     }
 }
