@@ -988,7 +988,6 @@ MonoBehaviour:
   throwForce: 15
   pickupRange: 1
   _scale: {fileID: 1788393512460230314}
-  _HurtPart: {fileID: 8534331348445387762}
   layerHitBaseAction:
     serializedVersion: 2
     m_Bits: 72
@@ -1114,6 +1113,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4888754176829173431, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249228889221742188, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249228889221742188, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249228889221742188, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249228889221742188, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
+      propertyPath: startDelay.minMaxState
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

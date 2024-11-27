@@ -42,17 +42,17 @@ public class PlayerHealth : MonoBehaviour
             .Append(_respawnPoint.circle.transform.DOScale(2f, 0.33f).SetEase(Ease.OutQuad))
             .Append(_respawnPoint.circle.transform.DOScale(0f, 0.33f).SetEase(Ease.InQuad));
     }
-    public void Hit()
+    public void Stun()
     {
         if (_isHit) return;
 
         _HurtPart.Play();
         _isHit = true;
-        _p.GetRigidbody().constraints = RigidbodyConstraints.FreezeAll;
-
+        _p.GetMovement().enabled = false;
+        
         DOVirtual.DelayedCall(1f, () =>
         {
-            _p.GetRigidbody().constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+            _p.GetMovement().enabled = true;
             _isHit = false;
         });
     }

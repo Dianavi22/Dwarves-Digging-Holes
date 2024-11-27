@@ -56,7 +56,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void HandlePlayerHit(Player player)
     {
         player.GetActions().ForceDetach();
-        player.GetHealth().Hit();
+        player.GetHealth().Stun();
     }
 
     public void HandleDestroy()
