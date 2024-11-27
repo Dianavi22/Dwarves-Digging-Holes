@@ -231,6 +231,8 @@ public class PlayerActions : MonoBehaviour
 
         if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
+            StopAnimation();
+            CancelInvoke();
             Collider[] colliders = obj.GetComponentsInChildren<Collider>();
             for (int i = 0; i < colliders.Length; i++)
             {

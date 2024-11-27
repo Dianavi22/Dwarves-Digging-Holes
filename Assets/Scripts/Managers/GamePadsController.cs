@@ -66,6 +66,7 @@ public class GamePadsController : MonoBehaviour
 
         uiInfo.Initialize(player);
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+        PlayerList.Add(player);
     }
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
