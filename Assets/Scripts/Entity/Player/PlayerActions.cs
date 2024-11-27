@@ -43,8 +43,8 @@ public class PlayerActions : MonoBehaviour
         if (IsBaseActionActivated && CheckHitRaycast(out var hits))
         {
             // Pickaxe
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe) 
-                && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed 
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
+                && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed
                 && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigue))
             {
                 pickaxe.Hit(hits.Last().gameObject);
@@ -89,7 +89,7 @@ public class PlayerActions : MonoBehaviour
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
-            if(IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) StartAnimation();
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) StartAnimation();
         }
 
         if (context.canceled) //the key has been released
@@ -185,18 +185,20 @@ public class PlayerActions : MonoBehaviour
             // It also prevent if there are 2 object near the player that can be picked
             if (IsHoldingObject) return;
             GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-
-            if (Utils.TryGetParentComponent<Player>(parentGameobject, out var player))
-            {
-                if (player.GetActions().IsHoldingObject) continue;
-                parentGameobject = player.gameObject;
-            }
             // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
             if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
             {
+                if (Utils.TryGetParentComponent<Player>(parentGameobject, out var player))
+                {
+                    if (player.GetActions().IsHoldingObject) continue;
+                    parentGameobject = player.gameObject;
+                }
+        
                 PickupObject(parentGameobject);
-                break;
+                if (parentGameobject.CompareTag("Throwable")) return;
+                continue;
             }
+
 
             if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var testchariot)) chariot = testchariot;
         }
@@ -231,6 +233,8 @@ public class PlayerActions : MonoBehaviour
 
         if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
         {
+            StopAnimation();
+            CancelInvoke();
             Collider[] colliders = obj.GetComponentsInChildren<Collider>();
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -246,10 +250,11 @@ public class PlayerActions : MonoBehaviour
         {
             rb.isKinematic = isGrabbed;
 
-            rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete ;
+            rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
             if (forced)
             {
-                rb.AddForce(transform.up * (throwForce * 0.5f), ForceMode.Impulse);
+                rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
+                rb.gameObject.transform.rotation = Quaternion.identity;
             }
             else if (!isGrabbed)
             {

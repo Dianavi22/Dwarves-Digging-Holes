@@ -49,6 +49,11 @@ public class Enemy : MonoBehaviour, IGrabbable
             transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, 0));
         }
     }
+    
+    public void HandleDestroy()
+    {
+        Destroy(gameObject);
+    } 
 
     void Start()
     {

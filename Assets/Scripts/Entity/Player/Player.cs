@@ -61,4 +61,9 @@ public class Player : MonoBehaviour, IGrabbable
         Destroy(_joint);
         _joint = null;
     }
+    
+    public void HandleDestroy()
+    {
+        health.DeathPlayer();
+    } 
 }
