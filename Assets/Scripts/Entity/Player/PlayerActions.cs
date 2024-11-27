@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
     [SerializeField] private Transform slotInventoriaObject;
+
+    [SerializeField] private EventReference pickupSound;
+    [SerializeField] private EventReference throwSound;
 
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
@@ -276,6 +280,7 @@ public class PlayerActions : MonoBehaviour
             grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
+        RuntimeManager.PlayOneShot(isGrabbed ? throwSound : pickupSound, transform.position);
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
     }
 
