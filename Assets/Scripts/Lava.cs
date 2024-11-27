@@ -32,7 +32,7 @@ public class Lava : MonoBehaviour
 
         if (Utils.TryGetParentComponent<Enemy>(other, out var enemy))
         {
-            Destroy(enemy.gameObject);
+            StartCoroutine(enemy.DestroyByLava());
         }
 
         if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))

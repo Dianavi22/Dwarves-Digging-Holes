@@ -8,10 +8,14 @@ public class Enemy : MonoBehaviour, IGrabbable
     [SerializeField] float jumpForce = 0.5f;
 
     [SerializeField] GameObject raycastDetectHitWall;
+    [SerializeField] GameObject _gfx;
 
     private Vector3 mvtVelocity;
     private Rigidbody _rb;
     private bool flip = false;
+
+    [SerializeField] ParticleSystem _destroyGobPart;
+    [SerializeField] ShakyCame _shakyCame;
 
     // The Physics Gravity is changed, so we set a new one for the enemy
     private readonly float gravityValue = -9.81f;
@@ -53,6 +57,7 @@ public class Enemy : MonoBehaviour, IGrabbable
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _shakyCame = FindObjectOfType<ShakyCame>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
     }
 
@@ -144,5 +149,17 @@ public class Enemy : MonoBehaviour, IGrabbable
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -1.1f, 0));
+    }
+
+    public IEnumerator DestroyByLava()
+    {
+        _rb.velocity = Vector3.zero;
+        _shakyCame._radius = 0.3f;
+        _shakyCame._duration = 0.3f;
+        _shakyCame.isShaking = true;
+        _gfx.SetActive(false);
+        _destroyGobPart.Play();
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
     }
 }
