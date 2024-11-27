@@ -89,6 +89,8 @@ public class PlayerMovements : MonoBehaviour
             playerVelocity.y += gravityValue * Time.deltaTime;
             _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
         }
+        
+        _p.GetAnimator().SetFloat("Run", Mathf.Abs(_horizontal));
     }
 
     private void FlipFacingDirection()
