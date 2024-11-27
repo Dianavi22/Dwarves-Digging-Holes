@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
+
+    [SerializeField] ParticleSystem _hitRockParts;
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
     private int _healthPoint = 1;
@@ -38,6 +40,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         if (Utils.TryGetParentComponent<Rock>(hit, out var rock))
         {
             HandleRockHit(rock);
+            _hitRockParts.Play();
         }
         
         else if (Utils.TryGetParentComponent<Player>(hit, out var player))
