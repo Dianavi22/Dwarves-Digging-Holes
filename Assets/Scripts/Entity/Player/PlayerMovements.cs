@@ -100,12 +100,11 @@ public class PlayerMovements : MonoBehaviour
 
     private void FlipHoldObject()
     {
-        float targetYRotation = flip ? 0 : 180;
         float targetZRotation = -Math.Sign(_vertical) * 35f;
 
         _p.GetActions().StopAnimation();
         _p.GetActions().CancelInvoke();
-        _p.GetActions().pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
+        _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
         _p.GetActions().vertical = _vertical;
         flip_vertical = _vertical != 0;
     }
