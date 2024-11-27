@@ -68,6 +68,7 @@ public class PlayerActions : MonoBehaviour
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
+            _p.GetFatigue().StopReducingCartsFatigue();
             _p.EmptyPlayerFixedJoin();
             EmptyHands();
         }
@@ -204,6 +205,7 @@ public class PlayerActions : MonoBehaviour
         // With this logic, we let priority on actual object that the player can grab. If nothing else is found, then the player can grab the chariot
         if (chariot != null && !IsHoldingObject)
         {
+            _p.GetFatigue().StartReducingCartsFatigue();
             heldObject = chariot.gameObject;
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
