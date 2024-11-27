@@ -13,6 +13,9 @@ public class Player : MonoBehaviour, IGrabbable
     private PlayerFatigue fatigue;
     private UserInput input;
     private Rigidbody rb;
+    
+    [SerializeField]
+    private Animator animator;
 
     private FixedJoint _joint;
 
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour, IGrabbable
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
     public Rigidbody GetRigidbody() => rb;
+    public Animator GetAnimator() => animator;
 
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
