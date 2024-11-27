@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class GoldChariot : MonoBehaviour
+public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
@@ -49,5 +49,15 @@ public class GoldChariot : MonoBehaviour
             _lostGoldPart.Stop();
         }
         Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
+    }
+
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void HandleDestroy()
+    {
+        throw new System.NotImplementedException();
     }
 }
