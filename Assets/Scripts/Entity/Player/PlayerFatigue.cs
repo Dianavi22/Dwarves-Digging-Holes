@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +6,8 @@ public class FatigueChangedEvent : UnityEvent<float, float> { }
 
 public class PlayerFatigue : MonoBehaviour
 {
-    public FatigueChangedEvent onCartsFatigueChanged;
-    public FatigueChangedEvent onMiningFatigueChanged;
+    [HideInInspector] public FatigueChangedEvent onCartsFatigueChanged;
+    [HideInInspector] public FatigueChangedEvent onMiningFatigueChanged;
 
     public float maxCartsFatigue = 60;
     public float maxMiningFatigue = 60;
@@ -27,8 +25,6 @@ public class PlayerFatigue : MonoBehaviour
 
     [SerializeField] private float regenDelayCartsFatigueMax = 2f;
     [SerializeField] private float regenDelayMiningFatiMax = 2f;
-
-
 
     void Start()
     {
@@ -58,7 +54,6 @@ public class PlayerFatigue : MonoBehaviour
     {
         onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
     }
-
 
     // * Regeneration fatigue over time
 
@@ -153,12 +148,7 @@ public class PlayerFatigue : MonoBehaviour
 
     private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
     {
-        currentFatigue += amount;
-        if (currentFatigue > maxFatigue)
-        {
-            currentFatigue = maxFatigue;
-            return true;
-        }
+        currentFatigue = Mathf.Min(currentFatigue + amount, maxFatigue);
         return true;
     }
 
@@ -186,7 +176,7 @@ public class PlayerFatigue : MonoBehaviour
 
     // * Reduces fatigue instantly
 
-    private bool ReduceFatigue(ref float currentFatigue, float maxFatigue, float amount)
+    private bool ReduceFatigue(ref float currentFatigue, float amount)
     {
         if (amount <= currentFatigue)
         {
@@ -198,7 +188,7 @@ public class PlayerFatigue : MonoBehaviour
 
     public bool ReduceCartsFatigue(float amount)
     {
-        if (ReduceFatigue(ref currentCartsFatigue, maxCartsFatigue, amount))
+        if (ReduceFatigue(ref currentCartsFatigue, amount))
         {
             InvokeOnCartsFatigueChanged();
             ResetDelayRegenCartsFatigue();
@@ -209,7 +199,7 @@ public class PlayerFatigue : MonoBehaviour
 
     public bool ReduceMiningFatigue(float amount)
     { 
-        if (ReduceFatigue(ref currentMiningFatigue, maxMiningFatigue, amount))
+        if (ReduceFatigue(ref currentMiningFatigue, amount))
         {
             InvokeOnMiningFatigueChanged();
             ResetDelayRegenMiningFatigue();
@@ -217,6 +207,4 @@ public class PlayerFatigue : MonoBehaviour
         }
         return false;
     }
-
-
 }

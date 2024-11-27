@@ -15,41 +15,24 @@ public class Lava : MonoBehaviour
         Invoke(nameof(CooldownLava), 4);
         PlayLavaSound();
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
+        if (Utils.TryGetParentComponent<IGrabbable>(other, out var grabbable))
         {
-            playerHealth.TakeDamage();
             PlayLavaBurntSound();
+            grabbable.HandleDestroy();
         }
-
-        if (other.CompareTag("EndingCondition"))
-        {
-            GameManager.Instance.GameOver(DeathMessage.Lava);
-            PlayLavaBurntSound();
-        }
-
-        /*
-         * Todo: Need to unify this condition
-         * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
-         */
 
         if (Utils.TryGetParentComponent<Rock>(other, out var rock))
         {
             Destroy(rock.gameObject);
         }
 
-        if (Utils.TryGetParentComponent<Enemy>(other, out var enemy))
+        if (other.CompareTag("EndingCondition"))
         {
-            Destroy(enemy.gameObject);
             PlayLavaBurntSound();
-        }
-
-        if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
-        {
-            GameManager.Instance.PickaxeInstanceList.Remove(pickaxe.gameObject);
-            Destroy(pickaxe.gameObject);
-            PlayLavaBurntSound();
+            GameManager.Instance.GameOver(DeathMessage.Lava);
         }
     }
 
@@ -57,6 +40,7 @@ public class Lava : MonoBehaviour
     {
         _lavaCollider.enabled = true;
     }
+
     private void PlayLavaSound()
     {
         if (!_lavaEventInstance.isValid())
@@ -66,6 +50,7 @@ public class Lava : MonoBehaviour
             _lavaEventInstance.start();
         }
     }
+
     private void PlayLavaBurntSound()
     {
         RuntimeManager.PlayOneShot(lavaBurntSound, transform.position);

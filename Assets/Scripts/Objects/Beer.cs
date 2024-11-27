@@ -1,21 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class Beer : MonoBehaviour
+public class Beer : MonoBehaviour, IGrabbable
 {
-
     public bool breakable = false;
     public Action throwOnDestroy;
 
-    /// <summary>
-    /// This function is called when the MonoBehaviour will be destroyed.
-    /// </summary>
-    void OnDestroy()
+    public void HandleCarriedState(Player _, bool isGrabbed)
     {
-        throwOnDestroy?.Invoke();
+        breakable = isGrabbed;
+        if (!isGrabbed)
+        {
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                breakable = true;
+            });
+        }
+    }
+
+    void BreakBeer()
+    {
+        /*
+        TODO: Play Animation
+        */
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -28,7 +37,6 @@ public class Beer : MonoBehaviour
         {
             return;
         }
-
 
         /*
         * A voir qu'est ce qui pourrait briser la bière
@@ -50,11 +58,16 @@ public class Beer : MonoBehaviour
         }
     }
 
-    void BreakBeer()
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
     {
-        /*
-        TODO: Play Animation
-        */
-        Destroy(gameObject);
+        throwOnDestroy?.Invoke();
     }
+    
+    public void HandleDestroy()
+    {
+        Destroy(gameObject);
+    } 
 }

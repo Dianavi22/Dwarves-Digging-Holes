@@ -15,21 +15,24 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _rebindJump;
 
     [SerializeField] private GameObject _inputCanvas;
-    [SerializeField] private GameManager _gameManager;
 
-    public void OnPause(InputAction.CallbackContext context)
+    public static UIPauseManager Instance; // A static reference to the GameManager instance
+
+    void Awake()
     {
-        if (context.phase == InputActionPhase.Started)
+        if (Instance == null) // If there is no instance already
         {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
+            Instance = this;
         }
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause(FindFirstObjectByType<PlayerActions>().gameObject);
+            Pause(FindFirstObjectByType<Player>());
         }
     }
 
@@ -43,15 +46,15 @@ public class UIPauseManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Pause(GameObject _currentPlayer)
+    public void Pause(Player _currentPlayer)
     {
-        if (!_gameManager.isGameOver)
+        if (!GameManager.Instance.isGameOver)
         {
             if (!isPaused)
             {
                 Time.timeScale = 0;
                 _PauseCanvas.SetActive(true);
-                _currentPlayer.GetComponent<PlayerMovements>().enabled = false;
+                _currentPlayer.GetMovement().enabled = false;
                 EventSystem.current.SetSelectedGameObject(_retryButton);
                 isPaused = true;
             }
@@ -60,7 +63,7 @@ public class UIPauseManager : MonoBehaviour
                 Time.timeScale = 1;
                 _inputCanvas.SetActive(false);
                 _PauseCanvas.SetActive(false);
-                _currentPlayer.GetComponent<PlayerMovements>().enabled = true;
+                _currentPlayer.GetMovement().enabled = true;
 
                 isPaused = false;
             }

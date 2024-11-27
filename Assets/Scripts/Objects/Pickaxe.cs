@@ -1,13 +1,37 @@
 using System;
 using UnityEngine;
-using DG.Tweening;
 
-public class Pickaxe : MonoBehaviour
+public class Pickaxe : MonoBehaviour, IGrabbable
 {
-    [SerializeField] private int _healthPoint = 20;
+    // In case the set of HealthPoint want to destroy the pickaxe
+    // _healthPoint is update in GameManager
+    private int _healthPoint = 1;
+    public int HealthPoint
+    {
+        get => _healthPoint;
+        set
+        {
+            _healthPoint = value;
+            if (_healthPoint <= 0)
+                Destroy(gameObject);
+        }
+    }
 
-    public Action throwOnDestroy;
-    public Action respawnOnDestroy;
+    private Action throwOnDestroy;
+
+    public void HandleCarriedState(Player currentPlayer, bool isCarried)
+    {
+        PlayerActions actions = currentPlayer.GetActions();
+        if (isCarried)
+        {
+            throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };
+        }
+        else
+        {
+            actions.StopAnimation();
+            actions.IsBaseActionActivated = false;
+        }
+    }
 
     public void Hit(GameObject hit)
     {
@@ -16,40 +40,33 @@ public class Pickaxe : MonoBehaviour
             HandleRockHit(rock);
         }
         
-        else if (Utils.TryGetParentComponent<PlayerActions>(hit.transform.parent.gameObject, out var hitPlayerActions))
+        else if (Utils.TryGetParentComponent<Player>(hit, out var player))
         {
-            HandlePlayerHit(hitPlayerActions);
+            HandlePlayerHit(player);
         }
     }
 
     private void HandleRockHit(Rock rock)
     {
         rock.Hit();
-        _healthPoint -= 1;
-
-        if (_healthPoint <= 0)
-        {
-            DestroyPickaxe();
-        }
-
-        Debug.Log(_healthPoint);
+        HealthPoint--;
+        Debug.Log(HealthPoint);
     }
 
-    private void HandlePlayerHit(PlayerActions playerActions)
+    private void HandlePlayerHit(Player player)
     {
-        playerActions.ForceDetach();
-        playerActions.Hit();
+        player.GetActions().ForceDetach();
+        player.GetHealth().Stun();
     }
 
-    private void DestroyPickaxe()
+    public void HandleDestroy()
     {
-        GameManager.Instance.PickaxeInstanceList.Remove(gameObject);
         Destroy(gameObject);
-    }
+    } 
 
     private void OnDestroy()
     {
+        GameManager.Instance.NbPickaxe--;
         throwOnDestroy?.Invoke();
-        DOVirtual.DelayedCall(1f, () => respawnOnDestroy?.Invoke());
     }
 }

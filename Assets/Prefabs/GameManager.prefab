@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3157124828940171517}
+  - component: {fileID: 6258936125424772713}
   - component: {fileID: 433335503891712005}
   - component: {fileID: 7177857267881942841}
   - component: {fileID: 2752945893467999895}
@@ -35,6 +36,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6258936125424772713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerPrefab: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
+  m_PlayerMAT:
+  - {fileID: 2100000, guid: 77cd56b789b239d4fb3566f6ba23f894, type: 2}
+  - {fileID: 2100000, guid: 45ed354a04401394b92cbba829f941ea, type: 2}
+  - {fileID: 2100000, guid: 6000f2f7410230343a0110898894d92b, type: 2}
+  - {fileID: 2100000, guid: 29dd0a0715457274ba1b14b4316b8f84, type: 2}
+  m_MainCanvas: {fileID: 0}
+  m_UICanvas:
+  - {fileID: 8325982029632982444, guid: 7d44554d7e905024ebb41e8bc2bf053c, type: 3}
+  - {fileID: 1891106824667603586, guid: b98501577510de04f8c1e3882e3e0614, type: 3}
+  - {fileID: 6148870047027336297, guid: eda9877c9d2153544ab91e36a36c138e, type: 3}
+  - {fileID: 2938528163977328098, guid: e6fcf545246ba68428a12eff3e487344, type: 3}
+  IsDebugMode: 0
+  m_DebugPlayerCount: 1
 --- !u!114 &433335503891712005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,9 +79,9 @@ MonoBehaviour:
   blockSpawner: {fileID: 0}
   _GameOverCanvas: {fileID: 0}
   _retryButton: {fileID: 0}
-  _goldChariot: {fileID: 0}
-  PickaxeInstance: {fileID: 0}
   _textGameOverCondition: {fileID: 0}
+  PickaxeInstanceList: []
+  MaxNbPickaxe: 0
   isGameOver: 0
 --- !u!114 &7177857267881942841
 MonoBehaviour:
@@ -70,7 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PauseCanvas: {fileID: 0}
   isPaused: 0
-  _eventSystem: {fileID: 0}
   _retryButton: {fileID: 0}
   _rebindJump: {fileID: 0}
   _inputCanvas: {fileID: 0}
