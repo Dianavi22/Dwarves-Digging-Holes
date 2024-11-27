@@ -14,9 +14,12 @@ public class Rock : MonoBehaviour
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
 
+    [SerializeField] ShakyCame _shakyCame;
+
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
+        _shakyCame = FindObjectOfType<ShakyCame>();
     }
 
     public void Hit()
@@ -31,6 +34,9 @@ public class Rock : MonoBehaviour
 
     public void Break()
     {
+        _shakyCame._radius = 0.1f;
+        _shakyCame._duration = 0.1f;
+        _shakyCame.isShaking = true;
         if (_haveGold)
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
 
