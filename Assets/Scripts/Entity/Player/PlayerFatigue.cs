@@ -18,6 +18,9 @@ public class PlayerFatigue : MonoBehaviour
     public float reduceSpeedCartsFatigue = 0.05f;
     public float reduceSpeedMiningFatigue = 0.5f;
 
+    public bool isReducingCartsFatigue = false;
+    public bool isCartsFatigue = false;
+
     public float currentCartsFatigue;
     public float currentMiningFatigue;
     private float regenDelayCartsFatigue = 0f;
@@ -39,6 +42,12 @@ public class PlayerFatigue : MonoBehaviour
     {
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
+
+        if (isReducingCartsFatigue)
+        {
+           if (ReduceCartsFatigueOverTime()){isCartsFatigue = true; Debug.Log("isCartsFatigue = " + isCartsFatigue);}
+           else isCartsFatigue = false; Debug.Log("isCartsFatigue = " + isCartsFatigue);
+        }
 
         //ReduceCartsFatigueOverTime();
         //ReduceMiningFatigueOverTime();
@@ -109,11 +118,11 @@ public class PlayerFatigue : MonoBehaviour
         if (currentFatigue > 0)
         {
             currentFatigue = Mathf.Clamp(currentFatigue - reductionRatePerSecond * Time.deltaTime, 0, maxFatigue);
-            Debug.Log("ReduceFatigueOverTime activé");
+            //Debug.Log("ReduceFatigueOverTime activé");
 
             return true;
         }
-        Debug.Log("ReduceFatigueOverTime désactiver");
+        //Debug.Log("ReduceFatigueOverTime désactiver");
         return false;
     }
 
@@ -123,12 +132,23 @@ public class PlayerFatigue : MonoBehaviour
         {
             InvokeOnCartsFatigueChanged();
             ResetDelayRegenCartsFatigue();
-            Debug.Log("ReduceCartsFatigueOverTime activé");
+            //Debug.Log("ReduceCartsFatigueOverTime activé");
             return true;
         }
-        Debug.Log("ReduceCartsFatigueOverTime désactivé");
+        //Debug.Log("ReduceCartsFatigueOverTime désactivé");
         return false;
     }
+
+    public void StartReducingCartsFatigue()
+    {
+        isReducingCartsFatigue = true;
+    }
+
+    public void StopReducingCartsFatigue()
+    {
+        isReducingCartsFatigue = false;
+    }
+
 
     public bool ReduceMiningFatigueOverTime()
     {
@@ -136,10 +156,10 @@ public class PlayerFatigue : MonoBehaviour
         {
             RegenMiningFatigueOverTime();
             ResetDelayRegenMiningFatigue();
-            Debug.Log("ReduceFatigueOverTime activé");
+            //Debug.Log("ReduceFatigueOverTime activé");
             return true;
         }
-        Debug.Log("ReduceFatigueOverTime désactivé");
+        //Debug.Log("ReduceFatigueOverTime désactivé");
         return false;
     }
 
