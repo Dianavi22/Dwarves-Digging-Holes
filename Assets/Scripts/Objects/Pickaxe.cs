@@ -59,6 +59,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         player.GetHealth().Hit();
     }
 
+    public void HandleDestroy()
+    {
+        Destroy(gameObject);
+    } 
+
     private void OnDestroy()
     {
         GameManager.Instance.NbPickaxe--;
