@@ -32,6 +32,8 @@ public class PlayerActions : MonoBehaviour
 
     private Player _p;
 
+    private bool canPickup = true;
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -65,13 +67,14 @@ public class PlayerActions : MonoBehaviour
         {
             if (IsHoldingObject)
                 ThrowObject();
-            else
+            else if (canPickup)
                 TryPickUpObject();
         }
 
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
+            _p.GetFatigue().StopReducingCartsFatigue();
             _p.EmptyPlayerFixedJoin();
             EmptyHands();
         }
@@ -183,33 +186,31 @@ public class PlayerActions : MonoBehaviour
 
         // Detect object arround the player
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
-        foreach (var hitCollider in hitColliders)
+
+        Collider mostImportant = hitColliders
+            .Where(collider => Utils.TryGetParentComponent<IGrabbable>(collider, out var a) && !a.Equals(GetComponent<IGrabbable>()))
+            .Where(collider => GetPriority(collider) > 0)
+            .OrderByDescending(collider => GetPriority(collider))
+            .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
+            .FirstOrDefault();
+
+        if (mostImportant != null)
         {
-            // Can't pickup an other item if the player already has one
-            // It also prevent if there are 2 object near the player that can be picked
-            if (IsHoldingObject) return;
-            GameObject parentGameobject = Utils.GetCollisionGameObject(hitCollider);
-            // V�rifie que l'objet est �tiquet� comme "Throwable" ou "Player"
-            if (parentGameobject != null && (parentGameobject.CompareTag("Throwable") || parentGameobject.CompareTag("Player")) && !parentGameobject.Equals(gameObject))
+            //if(!Utils.TryGetParentComponent<IGrabbable>(mostImportant, out _)) return;
+
+            if (Utils.TryGetParentComponent<Player>(mostImportant, out var player))
             {
-                if (Utils.TryGetParentComponent<Player>(parentGameobject, out var player))
-                {
-                    if (player.GetActions().IsHoldingObject) continue;
-                    parentGameobject = player.gameObject;
-                }
-        
-                PickupObject(parentGameobject);
-                if (parentGameobject.CompareTag("Throwable")) return;
-                continue;
+                if (player.GetActions().IsHoldingObject) return;
+                PickupObject(player.gameObject);
             }
-
-
-            if (Utils.TryGetParentComponent<GoldChariot>(parentGameobject, out var testchariot)) chariot = testchariot;
+            else if (Utils.TryGetParentComponent<GoldChariot>(Utils.GetCollisionGameObject(mostImportant), out var testchariot)) chariot = testchariot;
+            else PickupObject(mostImportant.transform.parent.gameObject);
         }
 
         // With this logic, we let priority on actual object that the player can grab. If nothing else is found, then the player can grab the chariot
         if (chariot != null && !IsHoldingObject)
         {
+            _p.GetFatigue().StartReducingCartsFatigue();
             heldObject = chariot.gameObject;
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
@@ -271,6 +272,7 @@ public class PlayerActions : MonoBehaviour
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                Debug.Log("Added FORCE");
             }
         }
 
@@ -281,7 +283,26 @@ public class PlayerActions : MonoBehaviour
         }
 
         RuntimeManager.PlayOneShot(isGrabbed ? throwSound : pickupSound, transform.position);
+        canPickup = forced;
+
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+    }
+
+    private int GetPriority(Collider collider)
+    {
+        GameObject go = Utils.GetCollisionGameObject(collider);
+        if(go.name.Equals("MainHitbox") || go.name.Equals("SliperyHitboxes")) return 0;
+        
+        Debug.Log(go.name);
+        if (Utils.TryGetParentComponent<Pickaxe>(go, out _))
+            return 5;
+        if (Utils.TryGetParentComponent<Enemy>(go, out _))
+            return 4;
+        if (Utils.TryGetParentComponent<GoldChariot>(go, out _))
+            return 3;
+        if(go.TryGetComponent<Player>(out _))
+            return 2; // Player
+        return 1;
     }
 
     public void ForceDetach()
@@ -300,6 +321,7 @@ public class PlayerActions : MonoBehaviour
 
         SetObjectInHand(heldObject, false, forced);
         EmptyHands();
+        DOVirtual.DelayedCall(1f, () => canPickup = true);
     }
     #endregion
 
