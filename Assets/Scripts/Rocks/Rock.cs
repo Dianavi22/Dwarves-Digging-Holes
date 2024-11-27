@@ -9,7 +9,7 @@ public class Rock : MonoBehaviour
     [SerializeField] int _healthPoint = 5;
     [SerializeField] bool _haveGold;
 
-    [SerializeField] ParticleSystem _hitRockParticule;
+    [SerializeField] ParticleSystem _breakRockParticule;
 
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
@@ -26,7 +26,6 @@ public class Rock : MonoBehaviour
     {
         _healthPoint -= 1;
 
-        _hitRockParticule.Play();
 
         if (_healthPoint <= 0)
             Break();
@@ -34,6 +33,7 @@ public class Rock : MonoBehaviour
 
     public void Break()
     {
+        _breakRockParticule.Play();
         _shakyCame._radius = 0.1f;
         _shakyCame._duration = 0.1f;
         _shakyCame.isShaking = true;

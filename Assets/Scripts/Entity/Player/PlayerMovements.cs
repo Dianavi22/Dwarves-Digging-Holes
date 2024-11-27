@@ -37,6 +37,10 @@ public class PlayerMovements : MonoBehaviour
 
     private Player _p;
 
+    private bool _playGroundedPart = true;
+    [SerializeField] ParticleSystem _groundedPart;
+
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -85,9 +89,15 @@ public class PlayerMovements : MonoBehaviour
         _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
         if (!_isGrounded)
         {
+            _playGroundedPart = false;
             playerVelocity.y = -2f;
             playerVelocity.y += gravityValue * Time.deltaTime;
             _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
+        }
+        if (_isGrounded && !_playGroundedPart)
+        {
+            _playGroundedPart = true;
+            _groundedPart.Play();
         }
     }
 
