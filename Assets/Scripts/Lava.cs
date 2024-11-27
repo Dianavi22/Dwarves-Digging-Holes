@@ -28,12 +28,6 @@ public class Lava : MonoBehaviour
         {
             Destroy(rock.gameObject);
         }
-
-        if (other.CompareTag("EndingCondition"))
-        {
-            PlayLavaBurntSound();
-            GameManager.Instance.GameOver(DeathMessage.Lava);
-        }
     }
 
     private void CooldownLava()
