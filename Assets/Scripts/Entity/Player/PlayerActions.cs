@@ -183,37 +183,29 @@ public class PlayerActions : MonoBehaviour
         // Can't pickup item if the player already has one
         if (IsHoldingObject) return;
 
-        GoldChariot chariot = null;
-
         // Detect object arround the player
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
 
         Collider mostImportant = hitColliders
             .Where(collider => Utils.TryGetParentComponent<IGrabbable>(collider, out var a) && !a.Equals(GetComponent<IGrabbable>()))
-            .Where(collider => GetPriority(collider) > 0)
+            //.Where(collider => GetPriority(collider) > 0)
             .OrderByDescending(collider => GetPriority(collider))
             .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
             .FirstOrDefault();
 
-        if (mostImportant != null)
+        if(mostImportant == null) return;
+
+        if (Utils.TryGetParentComponent<Player>(mostImportant, out var player))
         {
-            //if(!Utils.TryGetParentComponent<IGrabbable>(mostImportant, out _)) return;
-
-            if (Utils.TryGetParentComponent<Player>(mostImportant, out var player))
-            {
-                if (player.GetActions().IsHoldingObject) return;
-                PickupObject(player.gameObject);
-            }
-            else if (Utils.TryGetParentComponent<GoldChariot>(Utils.GetCollisionGameObject(mostImportant), out var testchariot)) chariot = testchariot;
-            else PickupObject(mostImportant.transform.parent.gameObject);
+            if (player.GetActions().IsHoldingObject) return;
+            PickupObject(player.gameObject);
         }
-
-        // With this logic, we let priority on actual object that the player can grab. If nothing else is found, then the player can grab the chariot
-        if (chariot != null && !IsHoldingObject)
+        else if (Utils.TryGetParentComponent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
+        else PickupObject(Utils.GetParentComponent<IGrabbable>(mostImportant).GetGameObject());
     }
     public void PickupObject(GameObject _object)
     {
@@ -308,16 +300,13 @@ public class PlayerActions : MonoBehaviour
 
     private int GetPriority(Collider collider)
     {
-        GameObject go = Utils.GetCollisionGameObject(collider);
-        if (go.name.Equals("MainHitbox") || go.name.Equals("SliperyHitboxes")) return 0;
-
-        if (Utils.TryGetParentComponent<Pickaxe>(go, out _))
+        if (Utils.TryGetParentComponent<Pickaxe>(collider, out _))
             return 5;
-        if (Utils.TryGetParentComponent<Enemy>(go, out _))
+        if (Utils.TryGetParentComponent<Enemy>(collider, out _))
             return 4;
-        if (Utils.TryGetParentComponent<GoldChariot>(go, out _))
+        if (Utils.TryGetParentComponent<GoldChariot>(collider, out _))
             return 3;
-        if (go.TryGetComponent<Player>(out _))
+        if (collider.TryGetComponent<Player>(out _))
             return 2; // Player
         return 1;
     }

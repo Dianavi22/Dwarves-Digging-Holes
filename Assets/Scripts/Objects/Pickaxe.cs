@@ -62,7 +62,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     public void HandleDestroy()
     {
         Destroy(gameObject);
-    } 
+    }
+
+    public GameObject GetGameObject() { return gameObject; }
 
     private void OnDestroy()
     {

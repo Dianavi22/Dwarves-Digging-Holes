@@ -6,6 +6,10 @@ public static class Utils
     public static readonly string BEST_SCORE_KEY = "BEST_SCORE";
 
     #region Get Component
+
+    /**
+     * @deprecated
+     */
     public static GameObject GetCollisionGameObject(Collider hitCollider)
     {
         try
