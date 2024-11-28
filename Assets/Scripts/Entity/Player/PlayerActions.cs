@@ -65,19 +65,15 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused && canPickup)
         {
-            if (IsHoldingObject)
-                ThrowObject();
-            else if (canPickup)
-                TryPickUpObject();
+            TryPickUpObject();
         }
 
         // The grab for the goldchariot is kept while the button is pressed
-        if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
+        if (context.canceled && IsHoldingObject) //the key has been released
         {
-            _p.EmptyPlayerFixedJoin();
-            EmptyHands();
+            ThrowObject();
         }
     }
 
@@ -310,9 +306,15 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        SetObjectInHand(heldObject, false, forced);
+        if (heldObject.TryGetComponent<GoldChariot>(out _))
+        {
+            _p.EmptyPlayerFixedJoin();
+        } else
+        {
+            SetObjectInHand(heldObject, false, forced);
+            DOVirtual.DelayedCall(1f, () => canPickup = true);
+        }
         EmptyHands();
-        DOVirtual.DelayedCall(1f, () => canPickup = true);
     }
     #endregion
 
