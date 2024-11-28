@@ -285,7 +285,7 @@ public class PlayerActions : MonoBehaviour
         }
 
         RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
-        canPickup = forced;
+        //canPickup = forced;
 
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
     }
