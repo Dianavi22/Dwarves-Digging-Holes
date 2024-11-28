@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public bool debugMode;
     [SerializeField] private PlatformSpawner blockSpawner;
+    [SerializeField] Platform _platform;
 
     #region Difficulty
     // The difficulty have to be listed from the easiest to the hardest
@@ -111,7 +112,7 @@ public class GameManager : MonoBehaviour
     {
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
-        
+        _platform.speedModifier = 0;
 
         //Faire que le monde arrete de bouger
         _goldChariot.HideChariotText();

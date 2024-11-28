@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    [SerializeField] float speedModifier = 1;
+    public float speedModifier = 1;
     private Rigidbody _rb;
 
     private void Awake()
