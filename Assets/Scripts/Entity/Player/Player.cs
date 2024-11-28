@@ -69,5 +69,6 @@ public class Player : MonoBehaviour, IGrabbable
     public void HandleDestroy()
     {
         health.DeathPlayer();
-    } 
+    }
+    public GameObject GetGameObject() { return gameObject; }
 }

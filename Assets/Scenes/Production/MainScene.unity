@@ -889,7 +889,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -995,18 +995,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43e49306a12886c49a1f9789daef1609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &995559458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995559454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7792139c8436973418598ebcdcc2d347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1053372500
@@ -1162,9 +1150,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_Constraints
-      value: 120
+    - target: {fileID: 290876174428856369, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _score
@@ -1238,33 +1226,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Path
-      value: event:/SFX/Cart/Cart movements
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data1
-      value: 1614653347
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data2
-      value: 1133231653
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data3
-      value: 59965104
-      objectReference: {fileID: 0}
-    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data4
-      value: -1644879758
+    - target: {fileID: 8792053908639858265, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 995559458}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
 --- !u!1 &1507898232 stripped
 GameObject:
@@ -1426,7 +1395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1624007108629371456, guid: 3621ffe7910e3460283210536c24c6bc, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 521
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2026,7 +1995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: IsDebugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: m_MainCanvas
@@ -2038,7 +2007,7 @@ PrefabInstance:
       objectReference: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: m_DebugPlayerCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _rebindJump

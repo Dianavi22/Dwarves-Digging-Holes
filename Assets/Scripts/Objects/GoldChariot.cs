@@ -129,4 +129,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         //@todo Make the gameover call only after a certain time in the lava not instantly
         GameManager.Instance.GameOver(DeathMessage.Lava);
     }
+
+    public GameObject GetGameObject() { return gameObject; }
 }
