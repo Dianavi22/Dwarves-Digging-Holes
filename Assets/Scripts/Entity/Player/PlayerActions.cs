@@ -34,6 +34,8 @@ public class PlayerActions : MonoBehaviour
 
     private bool canPickup = true;
 
+    private Dictionary<int, int> previousLayer = new();
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -241,14 +243,14 @@ public class PlayerActions : MonoBehaviour
             StopAnimation();
             CancelInvoke();
             Collider[] colliders = obj.GetComponentsInChildren<Collider>();
-            for (int i = 0; i < colliders.Length; i++)
+            foreach (Collider col in colliders)
             {
-                colliders[i].enabled = !isGrabbed;
+                LayerHandler(col);
             }
         }
         else if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider) && !objCollider.isTrigger)
         {
-            objCollider.enabled = !isGrabbed;
+            LayerHandler(objCollider);
         }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
@@ -288,11 +290,29 @@ public class PlayerActions : MonoBehaviour
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
     }
 
+    private void LayerHandler(Collider objCollider)
+    {
+        int instanceId = objCollider.gameObject.GetInstanceID();
+        int newLayer;
+
+        if (previousLayer.TryGetValue(instanceId, out int layer))
+        {
+            previousLayer.Remove(instanceId);
+            newLayer = layer;
+        }
+        else
+        {
+            previousLayer.Add(instanceId, objCollider.gameObject.layer);
+            newLayer = 10;
+        }
+        objCollider.gameObject.layer = newLayer;
+    }
+
     private int GetPriority(Collider collider)
     {
         GameObject go = Utils.GetCollisionGameObject(collider);
-        if(go.name.Equals("MainHitbox") || go.name.Equals("SliperyHitboxes")) return 0;
-        
+        if (go.name.Equals("MainHitbox") || go.name.Equals("SliperyHitboxes")) return 0;
+
         Debug.Log(go.name);
         if (Utils.TryGetParentComponent<Pickaxe>(go, out _))
             return 5;
@@ -300,7 +320,7 @@ public class PlayerActions : MonoBehaviour
             return 4;
         if (Utils.TryGetParentComponent<GoldChariot>(go, out _))
             return 3;
-        if(go.TryGetComponent<Player>(out _))
+        if (go.TryGetComponent<Player>(out _))
             return 2; // Player
         return 1;
     }
