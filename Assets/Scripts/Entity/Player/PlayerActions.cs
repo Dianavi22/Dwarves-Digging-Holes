@@ -264,7 +264,6 @@ public class PlayerActions : MonoBehaviour
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-                Debug.Log("Added FORCE");
             }
         }
 

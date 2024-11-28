@@ -50,7 +50,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     {
         rock.Hit();
         HealthPoint--;
-        Debug.Log(HealthPoint);
     }
 
     private void HandlePlayerHit(Player player)
