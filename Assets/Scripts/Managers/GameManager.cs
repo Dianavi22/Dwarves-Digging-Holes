@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
         _gameOverPart.gameObject.SetActive(true);
         _platform.speedModifier = 0;
 
-        //Faire que le monde arrete de bouger
         _goldChariot.HideChariotText();
         _shakyCame._radius = 0.2f;
         _shakyCame._duration = 5.5f;
