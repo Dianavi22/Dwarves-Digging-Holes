@@ -68,6 +68,15 @@ public static class Utils
     }
     #endregion
 
+    public static void SetNewLayerObject(GameObject gameObject, int layer)
+    {
+        gameObject.layer = layer;
+        foreach (Transform child in gameObject.transform)
+        {
+            SetNewLayerObject(child.gameObject, layer);
+        }
+    }
+
     public static List<Collider> ConeRayCast(Vector3 origin, Vector3 direction, float angle, float maxDistance, int numRays, LayerMask layerHit)
     {
         List<Collider> allhits = new();

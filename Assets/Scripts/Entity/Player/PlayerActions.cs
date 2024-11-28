@@ -228,21 +228,6 @@ public class PlayerActions : MonoBehaviour
             objRenderer.enabled = !isGrabbed;
         }
 
-        if (obj.CompareTag("Player") || obj.CompareTag("Throwable"))
-        {
-            StopAnimation();
-            CancelInvoke();
-            Collider[] colliders = obj.GetComponentsInChildren<Collider>();
-            foreach (Collider col in colliders)
-            {
-                LayerHandler(col);
-            }
-        }
-        else if (Utils.TryGetParentComponent<Collider>(obj, out var objCollider) && !objCollider.isTrigger)
-        {
-            LayerHandler(objCollider);
-        }
-
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = isGrabbed;
@@ -264,13 +249,13 @@ public class PlayerActions : MonoBehaviour
                 Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-                Debug.Log("Added FORCE");
             }
         }
 
         // Grabbable Object
         if (obj.TryGetComponent<IGrabbable>(out var grabbable))
         {
+            LayerHandler(obj);
             grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
@@ -280,9 +265,9 @@ public class PlayerActions : MonoBehaviour
         obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
     }
 
-    private void LayerHandler(Collider objCollider)
+    private void LayerHandler(GameObject obj)
     {
-        int instanceId = objCollider.gameObject.GetInstanceID();
+        int instanceId = obj.GetInstanceID();
         int newLayer;
 
         if (previousLayer.TryGetValue(instanceId, out int layer))
@@ -292,10 +277,10 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            previousLayer.Add(instanceId, objCollider.gameObject.layer);
-            newLayer = 10;
+            previousLayer.Add(instanceId, obj.layer);
+            newLayer = 10; //Grabbed Layer
         }
-        objCollider.gameObject.layer = newLayer;
+        Utils.SetNewLayerObject(obj, newLayer);
     }
 
     private int GetPriority(Collider collider)
