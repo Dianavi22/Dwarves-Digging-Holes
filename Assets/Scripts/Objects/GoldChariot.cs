@@ -5,11 +5,8 @@ public class GoldChariot : MonoBehaviour
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
-
     [SerializeField] private Score _score;
-
     [SerializeField] private int _goldScore;
-
     [SerializeField] GameObject _gfx;
 
     private int _nbGolbinOnChariot;
@@ -53,6 +50,11 @@ public class GoldChariot : MonoBehaviour
         Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
+    public void HideChariotText()
+    {
+        _goldCountText.gameObject.SetActive(false);
+        _lostGoldPart.Stop();
+    }
     public void HideGfx()
     {
         _gfx.SetActive(false);

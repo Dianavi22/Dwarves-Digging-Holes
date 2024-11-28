@@ -48,11 +48,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Score score;
 
     [SerializeField] ParticleSystem _gameOverPart;
+    [SerializeField] ShakyCame _shakyCame;
 
     public bool isGameOver = false;
-
     private GoldChariot _goldChariot;
-
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -111,19 +110,21 @@ public class GameManager : MonoBehaviour
     public IEnumerator GameOver(DeathMessage deathMessage)
     {
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
-        isGameOver = true;
-        Time.timeScale = 0;
-        _gameOverPart.Play();
+        _gameOverPart.gameObject.SetActive(true);
+        
+
+        //Faire que le monde arrete de bouger
+        _goldChariot.HideChariotText();
+        _shakyCame._radius = 0.2f;
+        _shakyCame._duration = 5.5f;
+        _shakyCame.isShaking = true;
         yield return new WaitForSeconds(3.5f);
+        isGameOver = true;
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);
-
         _GameOverCanvas.SetActive(true);
-        
         // ? Activer un message / effet si record battu
         bool newBest = score.CheckBestScore();
-        Debug.Log(newBest);
-
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }
