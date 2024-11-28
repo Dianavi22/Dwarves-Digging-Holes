@@ -1,19 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
     [SerializeField] int _healthPoint = 5;
-    [SerializeField] bool _haveGold;
-
+    public bool haveGold;
     [SerializeField] ParticleSystem _breakRockParticule;
-
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-
     [SerializeField] ShakyCame _shakyCame;
 
     private void Awake()
@@ -25,21 +23,22 @@ public class Rock : MonoBehaviour
     public void Hit()
     {
         _healthPoint -= 1;
-
-
         if (_healthPoint <= 0)
             Break();
     }
 
     public void Break()
     {
-        _breakRockParticule.Play();
         _shakyCame._radius = 0.1f;
         _shakyCame._duration = 0.1f;
         _shakyCame.isShaking = true;
-        if (_haveGold)
+        if (haveGold)
+        {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
-
+        }
+        
+            _breakRockParticule.gameObject.SetActive(true);
+        
         _gfx.SetActive(false);
         _rockCollider.enabled = false;
         Destroy(gameObject);
