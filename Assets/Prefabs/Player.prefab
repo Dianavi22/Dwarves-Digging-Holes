@@ -768,6 +768,10 @@ MonoBehaviour:
   throwForce: 15
   pickupRange: 1
   _scale: {fileID: 2810882924107094176}
+  layerHitBaseAction:
+    serializedVersion: 2
+    m_Bits: 72
+  slotInventoriaObject: {fileID: 3412405687064983370}
   pickupSound:
     Guid:
       Data1: 1136159633
@@ -782,10 +786,6 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
-  layerHitBaseAction:
-    serializedVersion: 2
-    m_Bits: 72
-  slotInventoriaObject: {fileID: 3412405687064983370}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
@@ -852,8 +852,10 @@ MonoBehaviour:
   maxMiningFatigue: 500
   regenSpeedCartsFatigue: 0.05
   regenSpeedMiningFatigue: 0.05
-  reduceSpeedCartsFatigue: 0.05
+  reduceSpeedCartsFatigue: 10
   reduceSpeedMiningFatigue: 0.5
+  isReducingCartsFatigue: 0
+  isCartsFatigue: 0
   currentCartsFatigue: 0
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
