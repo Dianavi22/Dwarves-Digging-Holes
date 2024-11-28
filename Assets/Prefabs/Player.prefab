@@ -107,7 +107,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -192,7 +192,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -245,7 +245,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -298,7 +298,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -451,7 +451,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -768,6 +768,10 @@ MonoBehaviour:
   throwForce: 15
   pickupRange: 1
   _scale: {fileID: 2810882924107094176}
+  layerHitBaseAction:
+    serializedVersion: 2
+    m_Bits: 72
+  slotInventoriaObject: {fileID: 3412405687064983370}
   pickupSound:
     Guid:
       Data1: 1136159633
@@ -782,10 +786,6 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
-  layerHitBaseAction:
-    serializedVersion: 2
-    m_Bits: 72
-  slotInventoriaObject: {fileID: 3412405687064983370}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
@@ -854,6 +854,8 @@ MonoBehaviour:
   regenSpeedMiningFatigue: 0.05
   reduceSpeedCartsFatigue: 0.05
   reduceSpeedMiningFatigue: 0.5
+  isReducingCartsFatigue: 0
+  isCartsFatigue: 0
   currentCartsFatigue: 0
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
@@ -949,6 +951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8765590584797458301}
     m_Modifications:
+    - target: {fileID: 2476397401038257183, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 8340248448468402465, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5
