@@ -997,6 +997,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e49306a12886c49a1f9789daef1609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &995559458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995559454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7792139c8436973418598ebcdcc2d347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1053372500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1162,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _score
       value: 
@@ -1157,6 +1173,26 @@ PrefabInstance:
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _goldScore
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Path
+      value: event:/SFX/Cart/Cart movements
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data1
+      value: 1614653347
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data2
+      value: 1133231653
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data3
+      value: 59965104
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data4
+      value: -1644879758
       objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
@@ -1202,10 +1238,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Path
+      value: event:/SFX/Cart/Cart movements
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data1
+      value: 1614653347
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data2
+      value: 1133231653
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data3
+      value: 59965104
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279364890230368400, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: chariotSound.Guid.Data4
+      value: -1644879758
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 995559458}
   m_SourcePrefab: {fileID: 100100000, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
 --- !u!1 &1507898232 stripped
 GameObject:
@@ -1741,6 +1800,46 @@ PrefabInstance:
     - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Path
+      value: event:/SFX/Lava/Constant lava sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Path
+      value: event:/SFX/Lava/Object thrown into lava
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data1
+      value: 1895020149
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data2
+      value: 1225686260
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data3
+      value: -1201794420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaSound.Guid.Data4
+      value: 1575285054
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data1
+      value: 2014613190
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data2
+      value: 1340100124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data3
+      value: -628569689
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: lavaBurntSound.Guid.Data4
+      value: 1919475445
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4692784183656238104, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
