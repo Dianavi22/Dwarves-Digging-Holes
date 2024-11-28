@@ -53,7 +53,7 @@ public class PlayerActions : MonoBehaviour
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
                 && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed
-                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigue))
+                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigueReducer))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
@@ -76,7 +76,6 @@ public class PlayerActions : MonoBehaviour
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
-            _p.GetFatigue().StopReducingCartsFatigue();
             _p.EmptyPlayerFixedJoin();
             EmptyHands();
         }
@@ -212,7 +211,6 @@ public class PlayerActions : MonoBehaviour
         // With this logic, we let priority on actual object that the player can grab. If nothing else is found, then the player can grab the chariot
         if (chariot != null && !IsHoldingObject)
         {
-            _p.GetFatigue().StartReducingCartsFatigue();
             heldObject = chariot.gameObject;
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
@@ -313,7 +311,6 @@ public class PlayerActions : MonoBehaviour
         GameObject go = Utils.GetCollisionGameObject(collider);
         if (go.name.Equals("MainHitbox") || go.name.Equals("SliperyHitboxes")) return 0;
 
-        Debug.Log(go.name);
         if (Utils.TryGetParentComponent<Pickaxe>(go, out _))
             return 5;
         if (Utils.TryGetParentComponent<Enemy>(go, out _))
