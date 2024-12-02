@@ -78,6 +78,7 @@ public class GamePadsController : MonoBehaviour
     {
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
         // * Instantiate Player UI
         GameObject ui = Instantiate(m_UICanvas[index], m_MainCanvas.transform);
@@ -89,17 +90,11 @@ public class GamePadsController : MonoBehaviour
         PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
         fatigueUI.Initialize(player);
 
-        playerInput.SwitchCurrentControlScheme(controlScheme, device);
-
         var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renders)
         {
             r.material = m_PlayerMAT[index];
         }
-        // if (Utils.TryGetChildComponent<SkinnedMeshRenderer>(player.gameObject, out var mat, 1))
-        //{
-        //    mat.material = m_PlayerMAT[index];
-        //}
 
         PlayerList.Add(player);
     }

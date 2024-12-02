@@ -36,7 +36,6 @@ public class PlayerFatigue : MonoBehaviour
     {
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
-        //InvokeOnMiningFatigueChanged();
     }
 
     private void InvokeOnCartsFatigueChanged()
@@ -49,7 +48,6 @@ public class PlayerFatigue : MonoBehaviour
     }
 
     // * Regeneration fatigue over time
-
     private void RegenerationFatigueOverTime(ref float currentFatigue, float maxFatigue, float regenSpeed)
     {
         if (currentFatigue < maxFatigue)
@@ -95,7 +93,6 @@ public class PlayerFatigue : MonoBehaviour
     }
 
     // * Increases fatigue instantly
-
     private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
     {
         currentFatigue = Mathf.Min(currentFatigue + amount, maxFatigue);
