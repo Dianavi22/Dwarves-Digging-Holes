@@ -139,26 +139,18 @@ namespace Utils
         #endregion
 
         #region Blink
-
-        public static IEnumerator Blink(GameObject obj, float time)
+        public static IEnumerator Blink(CanvasGroup obj, float time)
         {
-            Renderer[] objectRenderers = obj.GetComponentsInChildren<Renderer>();
             bool switchAnim = true;
             float endTime = Time.time + time;
             while (endTime > Time.time)
             {
                 switchAnim = !switchAnim;
-                BlinkAnim(objectRenderers, switchAnim);
+                obj.alpha = switchAnim ? 1f : 0f;
                 yield return new WaitForSeconds(0.05f);
             }
             //To make sure the gameobject stay visible at the end of the animation
-            BlinkAnim(objectRenderers, true);
-        }
-
-        private static void BlinkAnim(Renderer[] objectRenderers, bool hasToRender)
-        {
-            foreach (Renderer r in objectRenderers)
-                r.enabled = hasToRender;
+            obj.alpha = 1f;
         }
         #endregion
 

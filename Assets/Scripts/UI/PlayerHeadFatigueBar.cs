@@ -115,29 +115,19 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
                 if (ratio < CRITICAL_THRESHOLD && !isBlinkingCarts)
                 {
-                    StartCoroutine(Anim.Blink());
+                    isBlinkingCarts = true;
+                    StartCoroutine(BlinkCartsFatigue());
                 }
                 else if (isBlinkingCarts)
                 {
+                    //Will stop the Coroutine
                     isBlinkingCarts = false;
-                    StopCoroutine(BlinkCartsFatigue());
-                    cartsFatigueCanvasGroup.alpha = 1f;
                 }
             }
-            else
+            else if (cartsFatigueCanvasGroup != null && cartsFatigueCanvasGroup.alpha == 1f)
             {
-                if (cartsFatigueCanvasGroup != null && cartsFatigueCanvasGroup.alpha == 1f)
-                {
-                    StopCoroutine(FadeInCartsFatigue());
-                    StartCoroutine(FadeOutCartsFatigue());
-                }
-
-                if (isBlinkingCarts)
-                {
-                    isBlinkingCarts = false;
-                    StopCoroutine(BlinkCartsFatigue());
-                    cartsFatigueCanvasGroup.alpha = 1f;
-                }
+                StopCoroutine(FadeInCartsFatigue());
+                StartCoroutine(FadeOutCartsFatigue());
             }
         }
     }
@@ -161,13 +151,13 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
                 if (ratio < CRITICAL_THRESHOLD && !isBlinkingMining)
                 {
+                    isBlinkingMining = true;
                     StartCoroutine(BlinkMiningFatigue());
                 }
                 else if (isBlinkingMining)
                 {
+                    //Will stop the Coroutine
                     isBlinkingMining = false;
-                    StopCoroutine(BlinkMiningFatigue());
-                    miningFatigueCanvasGroup.alpha = 1f;
                 }
             }
             else
@@ -176,13 +166,6 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                 {
                     StopCoroutine(FadeInMiningFatigue());
                     StartCoroutine(FadeOutMiningFatigue());
-                }
-
-                if (isBlinkingMining)
-                {
-                    isBlinkingMining = false;
-                    StopCoroutine(BlinkMiningFatigue());
-                    miningFatigueCanvasGroup.alpha = 1f;
                 }
             }
         }
@@ -216,24 +199,18 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
     private IEnumerator BlinkCartsFatigue()
     {
-        isBlinkingCarts = true;
         while (isBlinkingCarts)
         {
-            cartsFatigueCanvasGroup.alpha = Mathf.PingPong(Time.time * (1f / blinkInterval), 1f);
-            yield return null;
+            yield return Anim.Blink(cartsFatigueCanvasGroup, 0.1f);
         }
-        cartsFatigueCanvasGroup.alpha = 1f;
     }
 
     private IEnumerator BlinkMiningFatigue()
     {
-        isBlinkingMining = true;
         while (isBlinkingMining)
         {
-            miningFatigueCanvasGroup.alpha = Mathf.PingPong(Time.time * (1f / blinkInterval), 1f);
-            yield return null;
+            yield return Anim.Blink(miningFatigueCanvasGroup, 0.1f);
         }
-        miningFatigueCanvasGroup.alpha = 1f;
     }
 
     private IEnumerator FadeInCartsFatigue()
