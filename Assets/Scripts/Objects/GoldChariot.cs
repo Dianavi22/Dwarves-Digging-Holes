@@ -7,10 +7,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
-
     [SerializeField] private Score _score;
-
     [SerializeField] private int _goldScore;
+    [SerializeField] GameObject _gfx;
 
     [SerializeField] private EventReference chariotSound;
     private SoundUtils _soundUtils;
@@ -36,6 +35,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         get => _currentGoldCount;
         set
         {
+            //if (_currentGoldCount <= 0) { return; }
             _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
             _currentGoldCount = value;
             UpdateText();
@@ -71,7 +71,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
         {
             _lostGoldPart.Play();
-        } else if (_nbGolbinOnChariot <= 0)
+        }
+        else if (_nbGolbinOnChariot <= 0)
         {
             _lostGoldPart.Stop();
         }
@@ -129,6 +130,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         //@todo Make the gameover call only after a certain time in the lava not instantly
         GameManager.Instance.GameOver(DeathMessage.Lava);
     }
-
+    public void HideGfx()
+    {
+        _gfx.SetActive(false);
+    }
     public GameObject GetGameObject() { return gameObject; }
+
+    public void HideChariotText()
+    {
+      //  _goldCountText.gameObject.SetActive(false);
+        _lostGoldPart.Stop();
+
+    }
 }

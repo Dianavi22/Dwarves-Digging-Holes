@@ -24,6 +24,16 @@ public class Lava : MonoBehaviour
             grabbable.HandleDestroy();
         }
 
+        if (other.CompareTag("EndingCondition"))
+        {
+            StartCoroutine(GameManager.Instance.GameOver(DeathMessage.Lava));
+        }
+
+        /*
+         * Todo: Need to unify this condition
+         * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
+         */
+
         if (Utils.TryGetParentComponent<Rock>(other, out var rock))
         {
             Destroy(rock.gameObject);
