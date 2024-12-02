@@ -250,8 +250,10 @@ MonoBehaviour:
   miningFatigueBar: {fileID: 6961007731882846555}
   cartsFatigueText: {fileID: 1884019937599660368}
   miningFatigueText: {fileID: 8536765526741160054}
-  displayThreshold: 0.5
   fadeDuration: 0.5
+  normalColor: {r: 0, g: 0, b: 1, a: 1}
+  warningColor: {r: 1, g: 0.5, b: 0, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2285769514679516147
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7c341e44e9f8068448da21cd37097a13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7721f48d047cecb4699e3e908e3f921f, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -889,7 +891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7c341e44e9f8068448da21cd37097a13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7721f48d047cecb4699e3e908e3f921f, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
