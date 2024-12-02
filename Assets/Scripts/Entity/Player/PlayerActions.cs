@@ -134,6 +134,8 @@ public class PlayerActions : MonoBehaviour
         rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
             .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Yoyo);
+        
+        _p.GetAnimator().SetBool("pickaxeHit", true);
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
@@ -145,6 +147,8 @@ public class PlayerActions : MonoBehaviour
             rotationTween.Rewind();
             rotationTween.Kill();
         }
+        
+        _p.GetAnimator().SetBool("pickaxeHit", false);
     }
 
     private bool CheckHitRaycast(out List<Collider> hits)

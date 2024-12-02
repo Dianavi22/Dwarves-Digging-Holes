@@ -122,7 +122,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     #endregion
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        Debug.Log("fsfsdfsdfsdfsd");
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed); 
     }
