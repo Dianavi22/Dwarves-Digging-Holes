@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _retryButton;
 
     [SerializeField] TMP_Text _textGameOverCondition;
+    [SerializeField] TMP_Text _bestScoreTxt;
 
     [SerializeField] Score score;
 

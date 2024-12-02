@@ -9,26 +9,45 @@ public class Score : MonoBehaviour
 
     [SerializeField] private int scoreToAddTimer = 10;
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] TMP_Text _bestScoreTxt;
+    [SerializeField] TMP_Text _newRecordText;
+
+    private int _bestScore;
+
 
     private int score = 0;
     private int _scoreFixed;
+    private bool _isNewRecord = false;
 
     void Start()
     {
         InvokeRepeating(nameof(AddScoreTimer), 1f, 1f);
+        _bestScoreTxt.text = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY).ToString();
     }
 
    
     private void UpdateScore()
     {
-            scoreText.text = score.ToString();
+        scoreText.text = score.ToString();
+        if(int.Parse(_bestScoreTxt.text) < score && !_isNewRecord)
+        {
+            _isNewRecord = true;
+            NewRecord();
+        }
+
+    }
+
+    private void NewRecord()
+    {
+        print("New Record");
+        _newRecordText.gameObject.SetActive(true);
+        _bestScoreTxt.gameObject.SetActive(false);
     }
 
     public void AddScoreOnce(int scoreToAdd)
     {
         if (!_gameManager.isGameOver)
         {
-            print("AddScoreOnce");
             score += scoreToAdd;
             UpdateScore();
         }
@@ -38,7 +57,6 @@ public class Score : MonoBehaviour
     {
         if (!_gameManager.isGameOver)
         {
-            print("AddScoreTimer");
             score += scoreToAddTimer;
             UpdateScore();
         }
@@ -46,8 +64,8 @@ public class Score : MonoBehaviour
 
     public bool CheckBestScore()
     {
-        int bestScore = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY);
-        if (score > bestScore)
+        _bestScore = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY);
+        if (score > _bestScore)
         {
             PlayerPrefs.SetInt(Utils.BEST_SCORE_KEY, score);
             return true;
