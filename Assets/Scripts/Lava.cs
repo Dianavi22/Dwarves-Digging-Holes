@@ -1,18 +1,27 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    [SerializeField] Collider _lavaCollider;
+    [SerializeField] private Collider _lavaCollider;
+    [SerializeField] private EventReference lavaSound;
+    [SerializeField] private EventReference lavaBurntSound;
+    private EventInstance _lavaEventInstance;
+
     private void Start()
     {
         _lavaCollider.enabled = false;
-        Invoke("CooldownLava", 4);
+        Invoke(nameof(CooldownLava), 4);
+        PlayLavaSound();
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<PlayerHealth>(other, out var playerHealth))
+        if (Utils.TryGetParentComponent<IGrabbable>(other, out var grabbable))
         {
-            playerHealth.DeathPlayer();
+            PlayLavaBurntSound();
+            grabbable.HandleDestroy();
         }
 
         if (other.CompareTag("EndingCondition"))
@@ -29,20 +38,40 @@ public class Lava : MonoBehaviour
         {
             Destroy(rock.gameObject);
         }
-
-        if (Utils.TryGetParentComponent<Enemy>(other, out var enemy))
-        {
-            StartCoroutine(enemy.DestroyByLava());
-        }
-
-        if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
-        {
-            Destroy(pickaxe.gameObject);
-        }
     }
 
     private void CooldownLava()
     {
         _lavaCollider.enabled = true;
+    }
+
+    private void PlayLavaSound()
+    {
+        if (!_lavaEventInstance.isValid())
+        {
+            _lavaEventInstance = RuntimeManager.CreateInstance(lavaSound);
+            _lavaEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+            _lavaEventInstance.start();
+            StartCoroutine(enemy.DestroyByLava());
+        }
+    }
+
+    private void PlayLavaBurntSound()
+    {
+        RuntimeManager.PlayOneShot(lavaBurntSound, transform.position);
+    }
+
+    public void StopLavaSound()
+    {
+        if (_lavaEventInstance.isValid())
+        {
+            _lavaEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _lavaEventInstance.release();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        StopLavaSound();
     }
 }

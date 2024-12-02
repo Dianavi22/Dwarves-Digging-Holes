@@ -15,9 +15,6 @@ public class PlayerFatigue : MonoBehaviour
     public float regenSpeedCartsFatigue = 0.05f;
     public float regenSpeedMiningFatigue = 0.05f;
 
-    public float reduceSpeedCartsFatigue = 0.05f;
-    public float reduceSpeedMiningFatigue = 0.5f;
-
     public float currentCartsFatigue;
     public float currentMiningFatigue;
     private float regenDelayCartsFatigue = 0f;
@@ -39,10 +36,6 @@ public class PlayerFatigue : MonoBehaviour
     {
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
-
-        //ReduceCartsFatigueOverTime();
-        //ReduceMiningFatigueOverTime();
-        //ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue);
         //InvokeOnMiningFatigueChanged();
     }
 
@@ -100,49 +93,6 @@ public class PlayerFatigue : MonoBehaviour
     {
         regenDelayMiningFatigue = regenDelayMiningFatiMax;
     }
-
-
-    // * Reduce Fatigue OverTime
-
-    private bool ReduceFatigueOverTime(ref float currentFatigue, float maxFatigue, float reductionRatePerSecond)
-    {
-        if (currentFatigue > 0)
-        {
-            currentFatigue = Mathf.Clamp(currentFatigue - reductionRatePerSecond * Time.deltaTime, 0, maxFatigue);
-            Debug.Log("ReduceFatigueOverTime activé");
-
-            return true;
-        }
-        Debug.Log("ReduceFatigueOverTime désactiver");
-        return false;
-    }
-
-    public bool ReduceCartsFatigueOverTime()
-    {
-        if (ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue))
-        {
-            InvokeOnCartsFatigueChanged();
-            ResetDelayRegenCartsFatigue();
-            Debug.Log("ReduceCartsFatigueOverTime activé");
-            return true;
-        }
-        Debug.Log("ReduceCartsFatigueOverTime désactivé");
-        return false;
-    }
-
-    public bool ReduceMiningFatigueOverTime()
-    {
-        if (ReduceFatigueOverTime(ref currentMiningFatigue, maxMiningFatigue, reduceSpeedMiningFatigue))
-        {
-            RegenMiningFatigueOverTime();
-            ResetDelayRegenMiningFatigue();
-            Debug.Log("ReduceFatigueOverTime activé");
-            return true;
-        }
-        Debug.Log("ReduceFatigueOverTime désactivé");
-        return false;
-    }
-
 
     // * Increases fatigue instantly
 

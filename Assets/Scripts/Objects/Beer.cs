@@ -65,4 +65,11 @@ public class Beer : MonoBehaviour, IGrabbable
     {
         throwOnDestroy?.Invoke();
     }
+    
+    public void HandleDestroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public GameObject GetGameObject() { return gameObject; }
 }

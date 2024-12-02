@@ -5,6 +5,8 @@ using UnityEngine;
 public class RespawnPoint : MonoBehaviour
 {
     [SerializeField] float radiusDetectCollider = 1f;
+
+    public GameObject circle;
     public bool IsReadyToRespawn { private set; get; }
 
     void Update()
