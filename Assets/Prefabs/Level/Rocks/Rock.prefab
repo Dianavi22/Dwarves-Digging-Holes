@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthPoint: 2
-  _haveGold: 0
+  haveGold: 0
   _breakRockParticule: {fileID: 4022188921834413446}
   _gfx: {fileID: 5815697713690995316}
   _shakyCame: {fileID: 0}
@@ -210,10 +210,6 @@ PrefabInstance:
     - target: {fileID: 3565025670256012897, guid: 00144a4705fac144cbc61ca3d3832e0a, type: 3}
       propertyPath: m_Name
       value: BreakRock_PART
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565025670256012897, guid: 00144a4705fac144cbc61ca3d3832e0a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

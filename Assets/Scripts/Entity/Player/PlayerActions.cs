@@ -16,6 +16,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
+    [SerializeField] private PlayerFatigue _playerFatigue;
+    //[SerializeField] private ParticleSystem _fatiguePart;
 
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
@@ -57,7 +59,10 @@ public class PlayerActions : MonoBehaviour
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
+
             }
+
+           
         }
     }
 
