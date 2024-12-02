@@ -9,9 +9,8 @@ public class EnemyMovements : EntityMovement
 
     Enemy GetBase => (Enemy)_p;
 
-    override protected void Awake()
+    void Awake()
     {
-        base.Awake();
         _p = GetComponent<Enemy>();
     }
 
@@ -20,7 +19,7 @@ public class EnemyMovements : EntityMovement
         if (GameManager.Instance.isGameOver) GetBase.KillGobs();
         if (!_p.IsGrabbed)
         {
-            HandleGround();
+            base.Update();
 
             bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
 
@@ -29,18 +28,12 @@ public class EnemyMovements : EntityMovement
                 Jump();
             }
 
-            HandleFlip();
-
-            HandleMovement();
-
 
             //lost Gold function
             if (GetBase.IsTouchingChariot && !_p.IsGrabbed && GetBase.canSteal)
             {
                 StartCoroutine(GetBase.HitChariot());
             }
-
-            HandleJumpPhysics();
         }
     }
     override protected void HandleMovement()

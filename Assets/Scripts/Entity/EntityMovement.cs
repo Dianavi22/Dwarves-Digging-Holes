@@ -28,11 +28,6 @@ public class EntityMovement : MonoBehaviour
             Vector3 newVelocity = new(horizontalInput * speed, _p.GetRigidbody().velocity.y, 0f);
             _p.GetRigidbody().velocity = newVelocity;
         }
-
-        if (_animator != null)
-        {
-            _animator.SetFloat("Run", Mathf.Abs(horizontalInput));
-        }
     }
 
     protected void HandleGround() {

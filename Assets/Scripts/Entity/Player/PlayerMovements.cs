@@ -31,7 +31,7 @@ public class PlayerMovements : EntityMovement
     [SerializeField] ParticleSystem _groundedPart;
     [SerializeField] ParticleSystem _movePart;
 
-    override protected void Awake()
+    void Awake()
     {
         _p = GetComponent<Player>();
     }
@@ -44,16 +44,10 @@ public class PlayerMovements : EntityMovement
     {
         base.Update();
 
-        // Move
-        HandleMovement();
-        HandleFlip();
-
         if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
         {
             FlipHoldObject();
         }
-        HandleJumpPhysics();
-        HandleGround();
     }
 
     override protected void HandleMovement()
@@ -67,12 +61,18 @@ public class PlayerMovements : EntityMovement
                 ? _p.GetRigidbody().velocity.x
                 : horizontalInput * speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
-            
-            if(xVelocity != 0) {
-                if(_movePart.isStopped) _movePart.Play();
+
+            if (xVelocity != 0)
+            {
+                if (_movePart.isStopped) _movePart.Play();
             }
-            else {
+            else
+            {
                 _movePart.Stop();
+            }
+            if (_animator != null)
+            {
+                _animator.SetFloat("Run", Mathf.Abs(horizontalInput));
             }
         }
     }
@@ -96,21 +96,6 @@ public class PlayerMovements : EntityMovement
     }
 
     #region EVENTS
-
-    protected override void HandleMovement()
-    {
-        // Move
-        if (!_isDashing)
-        {
-            bool isHoldingChariot = GetBase.HasJoint && Utils.TryGetParentComponent<GoldChariot>(GetBase.GetActions().heldObject, out _);
-
-            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !GetBase.IsCarried
-                    && isHoldingChariot && !GetBase.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
-                ? _p.GetRigidbody().velocity.x
-                : horizontalInput * speed;
-            _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
-        }
-    }
 
     public void OnJump(InputAction.CallbackContext context)
     {
