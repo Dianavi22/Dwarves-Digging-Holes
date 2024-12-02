@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShakyCame : MonoBehaviour
 {
     private Transform _pointToShake; //Camera
-    private float _speed = 0; // vitesse de deplacement de la camera (pas besoin d'être change : a 0)
+    private float _speed = 0; // vitesse de deplacement de la camera (pas besoin d'ï¿½tre change : a 0)
     private Vector3 _offset;
 
     [Header("Configuration de la duree et de la distance de secousse")]
