@@ -31,7 +31,7 @@ public class Score : MonoBehaviour
     private void UpdateScore()
     {
         scoreText.text = score.ToString();
-        if(int.Parse(_bestScoreTxt.text) < score && !_isNewRecord)
+        if(int.Parse(_bestScoreTxt.text) < score && !_isNewRecord && int.Parse(_bestScoreTxt.text) != 0)
         {
             _isNewRecord = true;
             NewRecord();

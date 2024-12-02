@@ -111,7 +111,6 @@ public class GameManager : MonoBehaviour
     {
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
-        _platform.speedModifier = 0;
         isGameOver = true;
         _goldChariot.HideChariotText();
         _shakyCame.ShakyCameCustom(5.5f,0.2f);
