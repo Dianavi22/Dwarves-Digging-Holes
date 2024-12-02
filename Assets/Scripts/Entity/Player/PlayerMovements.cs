@@ -3,14 +3,9 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : EntityMovement
 {
-    [Header("Values")]
-    [SerializeField] private float _speed;
     [SerializeField] private float _dashForce;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float fallMultiplier;
-    [SerializeField] private float lowJumpMultiplier;
     [SerializeField] private Vector2 _deadZoneSpace = new (0.5f, 0.5f);
 
     [SerializeField] private Transform _leftRay;
@@ -18,86 +13,46 @@ public class PlayerMovements : MonoBehaviour
 
     [SerializeField] ParticleSystem _DashPart;
 
-    private float _horizontal = 0f;
     private float _vertical = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
-    private Vector3 playerVelocity;
-
-    public bool flip = false;
 
     public bool flip_vertical = false;
-    public bool _isGrounded = false;
-    public float gravityScale = 1f;
 
     public Action forceDetachFunction;
 
-    private readonly float gravityValue = -9.81f;
+    new private Player _p;
 
-    private Player _p;
-
-    private void Awake()
+    override protected void Awake()
     {
+        base.Awake();
         _p = GetComponent<Player>();
     }
 
-    void Update()
+    override protected void Update()
     {
+
         // Move
         if (!_isDashing)
         {
             bool isHoldingChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
 
-            float xVelocity = (_horizontal != 0 && !_isDashingCooldown && !_p.IsCarried 
+            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !_p.IsCarried 
                     && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
                 ? _p.GetRigidbody().velocity.x
-                : _horizontal * _speed;
+                : horizontalInput * speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
         }
-
-        // Flip
-        if (_horizontal > 0 && flip || _horizontal < 0 && !flip)
-        {
-            flip = !flip;
-            FlipFacingDirection();
-        }
+        HandleFlip();
 
         if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
         {
             FlipHoldObject();
         }
 
-        // Faster falling
-        if (_p.GetRigidbody().velocity.y < 1 && !_isDashing)
-        {
-            _p.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
-
-        // Shorter jump
-        else if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
-        {
-            // Apply low jump multiplier to reduce upward velocity when the jump button is released
-            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
-
-        // Grounded
-        _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
-        if (!_isGrounded)
-        {
-            playerVelocity.y = -2f;
-            playerVelocity.y += gravityValue * Time.deltaTime;
-            _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
-        }
-        
-        _p.GetAnimator().SetFloat("Run", Mathf.Abs(_horizontal));
-    }
-
-    private void FlipFacingDirection()
-    {
-        if (GameManager.Instance.isGameOver) return;
-
-        transform.rotation = Quaternion.Euler(0, flip ? 0 : 180, 0);
+        HandleJumpPhysics();
+        HandleGround();
     }
 
     private void FlipHoldObject()
@@ -120,13 +75,13 @@ public class PlayerMovements : MonoBehaviour
             forceDetachFunction?.Invoke();
         }
         // When jump is pressed
-        if (context.phase == InputActionPhase.Performed && _isGrounded)
+        if (context.phase == InputActionPhase.Performed && isGrounded)
         {
 
-            if (_isGrounded && !_isDashing)
+            if (isGrounded && !_isDashing)
             {
                 _jumpButtonHeld = true;
-                _p.GetRigidbody().AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
 
@@ -144,7 +99,7 @@ public class PlayerMovements : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 vector = context.ReadValue<Vector2>();
-        _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
+        horizontalInput = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
         _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
     }
 
@@ -155,7 +110,7 @@ public class PlayerMovements : MonoBehaviour
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
-        Vector3 dashDirection = flip ? Vector3.left : Vector3.right;
+        Vector3 dashDirection = flip ? Vector3.right : Vector3.left;
         _p.GetRigidbody().velocity = new Vector3(dashDirection.x * _dashForce, _p.GetRigidbody().velocity.y, 0f);
 
         DOVirtual.DelayedCall(0.2f, () =>
