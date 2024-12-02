@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7499086067161612237}
   - {fileID: 4416196802561774293}
   - {fileID: 6926314866145427853}
   - {fileID: 521113218554231967}
@@ -103,7 +104,6 @@ MonoBehaviour:
   speed: 5
   jumpForce: 5
   fallMultiplier: 2.5
-  lowJumpMultiplier: 2
 --- !u!1 &1188561611238712796
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +399,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3712447926190866104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7499086067161612237}
+  m_Layer: 0
+  m_Name: 'ExplodeGob_PART (Missing Prefab with guid: 898d4eb89aa822b41807b20e56c3c230)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7499086067161612237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712447926190866104}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1113642333549338642}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &4097263794078600179
 GameObject:
   m_ObjectHideFlags: 0
