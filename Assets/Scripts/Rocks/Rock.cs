@@ -29,9 +29,7 @@ public class Rock : MonoBehaviour
 
     public void Break()
     {
-        _shakyCame._radius = 0.1f;
-        _shakyCame._duration = 0.1f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;

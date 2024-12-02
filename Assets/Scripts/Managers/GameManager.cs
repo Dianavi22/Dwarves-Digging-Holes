@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _retryButton;
 
     [SerializeField] TMP_Text _textGameOverCondition;
-    [SerializeField] TMP_Text _bestScoreTxt;
 
     [SerializeField] Score score;
 
@@ -76,7 +75,6 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-
         GameStarted();
     }
 
@@ -116,9 +114,7 @@ public class GameManager : MonoBehaviour
         _platform.speedModifier = 0;
         isGameOver = true;
         _goldChariot.HideChariotText();
-        _shakyCame._radius = 0.2f;
-        _shakyCame._duration = 5.5f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(5.5f,0.2f);
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);

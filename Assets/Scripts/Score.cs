@@ -11,6 +11,7 @@ public class Score : MonoBehaviour
     [SerializeField] private GameManager _gameManager;
     [SerializeField] TMP_Text _bestScoreTxt;
     [SerializeField] TMP_Text _newRecordText;
+    [SerializeField] ShakyCame _shakyCame;
 
     private int _bestScore;
 
