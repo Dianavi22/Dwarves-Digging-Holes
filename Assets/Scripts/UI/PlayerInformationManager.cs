@@ -66,6 +66,10 @@ public class PlayerInformationManager : MonoBehaviour
         text.text = ((int)currentValue).ToString();
     }
 
+
+
+
+
     // ^ Functions for test buttons. Its functions do not harm anyone. Please keep them ! :3
     public void IncreaseCartsFatigue(float amount)
     {

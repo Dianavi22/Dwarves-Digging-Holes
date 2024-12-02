@@ -851,9 +851,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxCartsFatigue: 100
-  maxMiningFatigue: 500
-  regenSpeedCartsFatigue: 0.05
-  regenSpeedMiningFatigue: 0.05
+  maxMiningFatigue: 200
+  regenSpeedCartsFatigue: 0.2
+  regenSpeedMiningFatigue: 0.2
+  reduceSpeedCartsFatigue: 20
+  reduceSpeedMiningFatigue: 20
+  isReducingCartsFatigue: 0
+  isCartsFatigue: 0
   currentCartsFatigue: 0
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
