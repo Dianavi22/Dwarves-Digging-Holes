@@ -16,7 +16,7 @@ public class Forge : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (UIPauseManager.Instance.isPaused) return;
-        if (_gameManager.CanCreatePickaxe && _player == null && Utils.TryGetParentComponent<Player>(other, out var player) && !player.HasJoint)
+        if (_gameManager.CanCreatePickaxe && _player == null && Utils.Component.TryGetInParent<Player>(other, out var player) && !player.HasJoint)
         {
             _player = player;
             Invoke(nameof(BuildPickaxe), 1f);
@@ -25,7 +25,7 @@ public class Forge : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (_player != null && Utils.TryGetParentComponent<Player>(other, out _))
+        if (_player != null && Utils.Component.TryGetInParent<Player>(other, out _))
         {
             _player = null;
             CancelInvoke();

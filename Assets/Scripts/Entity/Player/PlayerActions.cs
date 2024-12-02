@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -173,7 +174,7 @@ public class PlayerActions : MonoBehaviour
 
         // Perform the raycast
         // ! You can hit further forward
-        hits = Utils.ConeRayCast(transform.position, rayDirection, 45f, distance, 10, layerHitBaseAction);
+        hits = DRayCast.Cone(transform.position, rayDirection, 45f, distance, 10, layerHitBaseAction);
         return hits.Count > 0;
     }
 
@@ -187,7 +188,7 @@ public class PlayerActions : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
 
         Collider mostImportant = hitColliders
-            .Where(collider => Utils.TryGetParentComponent<IGrabbable>(collider, out var a) && !a.Equals(GetComponent<IGrabbable>()))
+            .Where(collider => Utils.Component.TryGetInParent<IGrabbable>(collider, out var a) && !a.Equals(GetComponent<IGrabbable>()))
             //.Where(collider => GetPriority(collider) > 0)
             .OrderByDescending(collider => GetPriority(collider))
             .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
@@ -195,17 +196,17 @@ public class PlayerActions : MonoBehaviour
 
         if(mostImportant == null) return;
 
-        if (Utils.TryGetParentComponent<Player>(mostImportant, out var player))
+        if (Utils.Component.TryGetInParent<Player>(mostImportant, out var player))
         {
             if (player.GetActions().IsHoldingObject) return;
             PickupObject(player.gameObject);
         }
-        else if (Utils.TryGetParentComponent<GoldChariot>(mostImportant, out var chariot))
+        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
-        else PickupObject(Utils.GetParentComponent<IGrabbable>(mostImportant).GetGameObject());
+        else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
     }
     public void PickupObject(GameObject _object)
     {
@@ -280,16 +281,16 @@ public class PlayerActions : MonoBehaviour
             previousLayer.Add(instanceId, obj.layer);
             newLayer = 10; //Grabbed Layer
         }
-        Utils.SetNewLayerObject(obj, newLayer);
+        Layer.SetNewLayerObject(obj, newLayer);
     }
 
     private int GetPriority(Collider collider)
     {
-        if (Utils.TryGetParentComponent<Pickaxe>(collider, out _))
+        if (Utils.Component.TryGetInParent<Pickaxe>(collider, out _))
             return 5;
-        if (Utils.TryGetParentComponent<Enemy>(collider, out _))
+        if (Utils.Component.TryGetInParent<Enemy>(collider, out _))
             return 4;
-        if (Utils.TryGetParentComponent<GoldChariot>(collider, out _))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collider, out _))
             return 3;
         if (collider.TryGetComponent<Player>(out _))
             return 2; // Player

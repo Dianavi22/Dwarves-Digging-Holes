@@ -40,13 +40,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     public void Hit(GameObject hit)
     {
-        if (Utils.TryGetParentComponent<Rock>(hit, out var rock))
+        if (Utils.Component.TryGetInParent<Rock>(hit, out var rock))
         {
             HandleRockHit(rock);
             
         }
         
-        else if (Utils.TryGetParentComponent<Player>(hit, out var player))
+        else if (Utils.Component.TryGetInParent<Player>(hit, out var player))
         {
             HandlePlayerHit(player);
         }

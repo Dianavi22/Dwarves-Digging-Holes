@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 public class Score : MonoBehaviour
 {
@@ -39,10 +40,10 @@ public class Score : MonoBehaviour
 
     public bool CheckBestScore()
     {
-        int bestScore = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY);
+        int bestScore = PlayerPrefs.GetInt(Constant.BEST_SCORE_KEY);
         if (score > bestScore)
         {
-            PlayerPrefs.SetInt(Utils.BEST_SCORE_KEY, score);
+            PlayerPrefs.SetInt(Constant.BEST_SCORE_KEY, score);
             return true;
         }
         return false;
