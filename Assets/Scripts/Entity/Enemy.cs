@@ -58,7 +58,8 @@ public class Enemy : MonoBehaviour, IGrabbable
     
     public void HandleDestroy()
     {
-        Destroy(gameObject);
+        StartCoroutine(DestroyByLava());
+
     }
 
     public GameObject GetGameObject() { return gameObject; }

@@ -52,7 +52,6 @@ public class Lava : MonoBehaviour
             _lavaEventInstance = RuntimeManager.CreateInstance(lavaSound);
             _lavaEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
             _lavaEventInstance.start();
-            StartCoroutine(enemy.DestroyByLava());
         }
     }
 
