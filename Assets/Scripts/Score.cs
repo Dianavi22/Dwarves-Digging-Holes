@@ -12,6 +12,7 @@ public class Score : MonoBehaviour
     [SerializeField] TMP_Text _bestScoreTxt;
     [SerializeField] TMP_Text _newRecordText;
     [SerializeField] ShakyCame _shakyCame;
+    [SerializeField] ParticleSystem _newRecordPart;
 
     private int _bestScore;
 
@@ -43,6 +44,8 @@ public class Score : MonoBehaviour
         print("New Record");
         _newRecordText.gameObject.SetActive(true);
         _bestScoreTxt.gameObject.SetActive(false);
+        _shakyCame.ShakyCameCustom(1, 0.3f);
+        _newRecordPart.Play();
     }
 
     public void AddScoreOnce(int scoreToAdd)
