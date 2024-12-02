@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPoint: 3
   haveGold: 1
-  _breakRockParticule: {fileID: 8944693923445161416, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
+  _breakRockParticule: {fileID: 2581523678156346455}
   _gfx: {fileID: 7212093183657113754}
   _shakyCame: {fileID: 0}
 --- !u!114 &-4643059896975039049
@@ -355,13 +355,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3565025670256012897, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944693923445161416, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944693923445161416, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
+--- !u!198 &2581523678156346455 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8944693923445161416, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}
+  m_PrefabInstance: {fileID: 6913735304173054367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9181536423786510343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2349149592418062744, guid: a160f6b7a7a83fe4087dcbfc58e1a512, type: 3}

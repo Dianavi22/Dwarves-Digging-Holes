@@ -24,21 +24,21 @@ public class Rock : MonoBehaviour
     {
         _healthPoint -= 1;
         if (_healthPoint <= 0)
-            Break();
+            StartCoroutine(Break());
     }
 
-    public void Break()
+    public IEnumerator Break()
     {
         _shakyCame.ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
         }
-        
-            _breakRockParticule.gameObject.SetActive(true);
-        
+
+        _breakRockParticule.Play();
         _gfx.SetActive(false);
         _rockCollider.enabled = false;
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 }
