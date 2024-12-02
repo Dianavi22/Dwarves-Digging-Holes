@@ -29,16 +29,19 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
-    private int _currentGoldCount;
+    private int _currentGoldCount = 10;
     public int GoldCount
     {
         get => _currentGoldCount;
         set
         {
-            //if (_currentGoldCount <= 0) { return; }
-            _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
-            _currentGoldCount = value;
-            UpdateText();
+           if (_currentGoldCount > 0)
+                {
+                _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
+                _currentGoldCount = value;
+                UpdateText();
+            };
+
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
@@ -51,6 +54,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
+
+
         if (_rb.velocity.x > 0)
         {
             PlayChariotSound();
@@ -132,13 +137,13 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
     public void HideGfx()
     {
+        _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
     }
     public GameObject GetGameObject() { return gameObject; }
 
     public void HideChariotText()
     {
-      //  _goldCountText.gameObject.SetActive(false);
         _lostGoldPart.Stop();
 
     }

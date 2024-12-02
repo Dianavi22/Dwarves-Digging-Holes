@@ -5,36 +5,43 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText;
 
-    [SerializeField]
-    private int scoreToAddTimer = 10;
+    [SerializeField] private int scoreToAddTimer = 10;
+    [SerializeField] private GameManager _gameManager;
 
     private int score = 0;
+    private int _scoreFixed;
 
-    // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating(nameof(AddScoreTimer), 1f, 1f);
     }
 
-
+   
     private void UpdateScore()
     {
-        scoreText.text = score.ToString();
+            scoreText.text = score.ToString();
     }
 
     public void AddScoreOnce(int scoreToAdd)
     {
-        score += scoreToAdd;
-        UpdateScore();
+        if (!_gameManager.isGameOver)
+        {
+            print("AddScoreOnce");
+            score += scoreToAdd;
+            UpdateScore();
+        }
     }
 
     private void AddScoreTimer()
     {
-        score += scoreToAddTimer;
-        UpdateScore();
+        if (!_gameManager.isGameOver)
+        {
+            print("AddScoreTimer");
+            score += scoreToAddTimer;
+            UpdateScore();
+        }
     }
 
     public bool CheckBestScore()

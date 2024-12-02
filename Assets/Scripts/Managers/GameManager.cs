@@ -113,13 +113,12 @@ public class GameManager : MonoBehaviour
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
         _platform.speedModifier = 0;
-
+        isGameOver = true;
         _goldChariot.HideChariotText();
         _shakyCame._radius = 0.2f;
         _shakyCame._duration = 5.5f;
         _shakyCame.isShaking = true;
         yield return new WaitForSeconds(3.5f);
-        isGameOver = true;
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);

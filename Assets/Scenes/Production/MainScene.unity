@@ -428,6 +428,7 @@ MonoBehaviour:
   platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 0
+  maximumDifficulty: 1.25
 --- !u!65 &184080655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -964,6 +965,7 @@ MonoBehaviour:
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
+  maximumDifficulty: 1.25
 --- !u!54 &859681941
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1122,6 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1947155072}
   scoreToAddTimer: 10
+  _gameManager: {fileID: 1880652950}
 --- !u!4 &1053372502
 Transform:
   m_ObjectHideFlags: 0
