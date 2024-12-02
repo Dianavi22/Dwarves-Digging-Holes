@@ -11,7 +11,7 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float fallMultiplier;
     [SerializeField] private float lowJumpMultiplier;
-    [SerializeField] private Vector2 _deadZoneSpace = new (0.5f, 0.5f);
+    [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
     [SerializeField] private Transform _leftRay;
     [SerializeField] private Transform _rightRay;
@@ -37,6 +37,11 @@ public class PlayerMovements : MonoBehaviour
 
     private Player _p;
 
+    private bool _playGroundedPart = true;
+    [SerializeField] ParticleSystem _groundedPart;
+    [SerializeField] ParticleSystem _movePart;
+
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -54,6 +59,9 @@ public class PlayerMovements : MonoBehaviour
                 ? _p.GetRigidbody().velocity.x
                 : _horizontal * _speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
+            _movePart.Play();
+
+
         }
 
         // Flip
@@ -85,12 +93,19 @@ public class PlayerMovements : MonoBehaviour
         _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
         if (!_isGrounded)
         {
+            _movePart.Stop();
+            _playGroundedPart = false;
             playerVelocity.y = -2f;
             playerVelocity.y += gravityValue * Time.deltaTime;
             _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
         }
         
         _p.GetAnimator().SetFloat("Run", Mathf.Abs(_horizontal));
+        if (_isGrounded && !_playGroundedPart)
+        {
+            _playGroundedPart = true;
+            _groundedPart.Play();
+        }
     }
 
     private void FlipFacingDirection()
@@ -166,7 +181,7 @@ public class PlayerMovements : MonoBehaviour
         });
     }
     #endregion
-    
+
     // Fin du cooldown du dash
     void EndDashCoolDown()
     {
