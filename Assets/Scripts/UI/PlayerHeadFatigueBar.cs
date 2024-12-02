@@ -37,7 +37,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
     private Player _player;
     private Camera _mainCamera;
-
+    
     private void Awake()
     {
         _mainCamera = Camera.main;
