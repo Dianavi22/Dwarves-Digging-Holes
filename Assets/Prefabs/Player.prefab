@@ -851,9 +851,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxCartsFatigue: 100
-  maxMiningFatigue: 500
-  regenSpeedCartsFatigue: 0.05
-  regenSpeedMiningFatigue: 0.05
+  maxMiningFatigue: 200
+  regenSpeedCartsFatigue: 0.2
+  regenSpeedMiningFatigue: 0.2
+  reduceSpeedCartsFatigue: 20
+  reduceSpeedMiningFatigue: 20
+  isReducingCartsFatigue: 0
+  isCartsFatigue: 0
   currentCartsFatigue: 0
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
@@ -1088,10 +1092,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8765590584797458301}
     m_Modifications:
+    - target: {fileID: 111995821996642719, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 518030808305039787, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
     - target: {fileID: 2476397401038257183, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 4025440304725303794, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
+    - target: {fileID: 5125294637135573921, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
+    - target: {fileID: 5640686698073275374, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7998582756837983026, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
     - target: {fileID: 8340248448468402465, guid: a15d14f89b1d74849a494438af2ecc7b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
