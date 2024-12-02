@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
@@ -6,6 +7,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
+    [SerializeField] ParticleSystem _hitPickaxe;
+    private bool _isPartPlayed;
+
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
     private int _healthPoint = 1;
@@ -35,6 +39,24 @@ public class Pickaxe : MonoBehaviour, IGrabbable
             actions.IsBaseActionActivated = false;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!_isPartPlayed)
+        {
+            _isPartPlayed = true;
+            _hitPickaxe.Play();
+            StartCoroutine(CdParticule());
+        }
+    }
+
+   private IEnumerator CdParticule()
+    {
+        yield return new WaitForSeconds(1);
+        _isPartPlayed = false;
+    }
+
+
 
     public void Hit(GameObject hit)
     {
