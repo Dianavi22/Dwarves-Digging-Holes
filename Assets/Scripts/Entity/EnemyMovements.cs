@@ -1,61 +1,54 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using DG.Tweening;
 using System;
-using System.Collections;
 
 public class EnemyMovements : EntityMovement
 {
 
-    new private Enemy _p;
+    Enemy GetBase => (Enemy)_p;
+    private Transform _goldChariot;
 
-    override protected void Awake()
+    void Awake()
     {
-        base.Awake();
         _p = GetComponent<Enemy>();
+        _goldChariot = GetBase._goldChariot.transform;
     }
-
     override protected void Update()
     {
         if (GameManager.Instance.isGameOver) return;
         if (!_p.IsGrabbed)
         {
-            Vector3 goldChariotPosition = _p._goldChariot.transform.position;
-            horizontalInput = Mathf.Sign(goldChariotPosition.x - transform.position.x);
-
-            HandleGround();
-
-            bool hitWall = Physics.Raycast(_p.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
-
-            Debug.Log(hitWall);
+            base.Update();
+            
+            bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
 
             if (hitWall && isGrounded)
             {
                 Jump();
             }
-
-            HandleFlip();
-
-            if (Math.Abs(Vector3.Distance(goldChariotPosition, transform.position)) <= 1.25f)
-                horizontalInput = 0f;
-
-            if (_p.IsTouchingChariot)
-            {
-                _p.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
-            }
-            else
-            {
-                _p.GetRigidbody().velocity = new Vector3(speed * horizontalInput, _p.GetRigidbody().velocity.y, 0f);
-            }
+            //HandleMovement();
 
 
             //lost Gold function
-            if (_p.IsTouchingChariot && !_p.IsGrabbed && _p.canSteal)
+            if (GetBase.IsTouchingChariot && !GetBase.IsGrabbed && GetBase.canSteal)
             {
-                StartCoroutine(_p.HitChariot());
+                StartCoroutine(GetBase.HitChariot());
             }
+        }
+    }
 
-            HandleJumpPhysics();
+    override protected void HandleMovement()
+    {
+        horizontalInput = Mathf.Sign(_goldChariot.position.x - transform.position.x);
+        if (Math.Abs(Vector3.Distance(_goldChariot.position, transform.position)) <= 1.25f)
+            horizontalInput = 0f;
+
+        if (GetBase.IsTouchingChariot)
+        {
+            _p.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
+        }
+        else
+        {
+            _p.GetRigidbody().velocity = new Vector3(speed * horizontalInput, GetBase.GetRigidbody().velocity.y, 0f);
         }
     }
 }

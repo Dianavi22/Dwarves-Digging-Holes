@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0)
+        if (_goldChariot.GoldCount <= 0 && !isGameOver)
         {
             GameOver(DeathMessage.NoGold);
         }
