@@ -91,10 +91,15 @@ public class GamePadsController : MonoBehaviour
 
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        // if(Utils.TryGetChildComponent<MeshRenderer>(player.gameObject, out var mat, 1))
-        // {
-        //     mat.material = m_PlayerMAT[index];
-        // }
+        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer r in renders)
+        {
+            r.material = m_PlayerMAT[index];
+        }
+        // if (Utils.TryGetChildComponent<SkinnedMeshRenderer>(player.gameObject, out var mat, 1))
+        //{
+        //    mat.material = m_PlayerMAT[index];
+        //}
 
         PlayerList.Add(player);
     }
