@@ -38,8 +38,6 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private Player _player;
     private Camera _mainCamera;
 
-    private bool isInitializationDelay = true;
-
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -67,7 +65,6 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private IEnumerator DelayedInitialize(float delay)
     {
         yield return new WaitForSeconds(delay);
-        isInitializationDelay = false;
 
         if (_player.GetFatigue() != null)
         {
