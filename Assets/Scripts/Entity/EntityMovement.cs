@@ -6,8 +6,6 @@ public class EntityMovement : MonoBehaviour
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float jumpForce = 10f;
     [SerializeField] protected float fallMultiplier = 2.5f;
-    [SerializeField] protected float lowJumpMultiplier = 2f;
-    protected Animator _animator;
     protected bool isGrounded;
     protected bool flip;
     protected float horizontalInput;
@@ -15,14 +13,9 @@ public class EntityMovement : MonoBehaviour
 
     protected Entity _p;
 
-    protected virtual void Awake()
-    {
-        _p = GetComponent<Entity>();
-        _animator = GetComponent<Animator>();
-    }
-
     protected virtual void Update()
     {
+        HandleGround();
         HandleMovement();
         HandleJumpPhysics();
         HandleFlip();
@@ -53,7 +46,7 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    protected void HandleJumpPhysics()
+    protected virtual void HandleJumpPhysics()
     {
         if (!isGrounded)
         {
@@ -61,11 +54,6 @@ public class EntityMovement : MonoBehaviour
             if (_p.GetRigidbody().velocity.y < 0)
             {
                 _p.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-            }
-            // Shorter jump
-            else if (_p.GetRigidbody().velocity.y > 0 && !Input.GetButton("Jump"))
-            {
-                _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
             }
         }
     }

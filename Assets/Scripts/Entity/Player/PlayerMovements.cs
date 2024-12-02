@@ -13,10 +13,13 @@ public class PlayerMovements : EntityMovement
 
     [SerializeField] ParticleSystem _DashPart;
 
+    [SerializeField] protected float lowJumpMultiplier = 2f;
+
     private float _vertical = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
+    private Animator _animator;
 
     public bool flip_vertical = false;
 
@@ -30,12 +33,16 @@ public class PlayerMovements : EntityMovement
 
     override protected void Awake()
     {
-        base.Awake();
         _p = GetComponent<Player>();
+    }
+    void Start()
+    {
+        _animator = GetBase.GetAnimator();
     }
 
     override protected void Update()
     {
+        base.Update();
 
         // Move
         HandleMovement();
@@ -90,6 +97,21 @@ public class PlayerMovements : EntityMovement
 
     #region EVENTS
 
+    protected override void HandleMovement()
+    {
+        // Move
+        if (!_isDashing)
+        {
+            bool isHoldingChariot = GetBase.HasJoint && Utils.TryGetParentComponent<GoldChariot>(GetBase.GetActions().heldObject, out _);
+
+            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !GetBase.IsCarried
+                    && isHoldingChariot && !GetBase.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
+                ? _p.GetRigidbody().velocity.x
+                : horizontalInput * speed;
+            _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
+        }
+    }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (GetBase.IsCarried)
@@ -124,6 +146,7 @@ public class PlayerMovements : EntityMovement
         Vector2 vector = context.ReadValue<Vector2>();
         horizontalInput = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
         _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
+        _animator.SetFloat("Run", Mathf.Abs(horizontalInput));
     }
 
     public void OnDash(InputAction.CallbackContext _)
@@ -149,5 +172,14 @@ public class PlayerMovements : EntityMovement
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
+    }
+
+    override protected void HandleJumpPhysics()
+    {
+        base.HandleJumpPhysics();
+        if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
+        {
+            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+        }
     }
 }
