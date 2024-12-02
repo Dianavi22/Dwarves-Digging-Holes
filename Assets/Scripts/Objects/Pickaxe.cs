@@ -38,6 +38,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
         PlayerActions actions = currentPlayer.GetActions();
+        currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
+
         if (isCarried)
         {
             throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };

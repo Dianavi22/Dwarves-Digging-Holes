@@ -82,6 +82,7 @@ public class PlayerActions : MonoBehaviour
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
             _p.EmptyPlayerFixedJoin();
+            goldChariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, false);
             EmptyHands();
         }
     }
@@ -208,6 +209,7 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.TryGetParentComponent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
+            chariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, true);
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.GetParentComponent<IGrabbable>(mostImportant).GetGameObject());
