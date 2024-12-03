@@ -22,7 +22,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     [SerializeField] private TMP_Text miningFatigueText;
 
     [Header("Fade Settings")]
-    [SerializeField] private  float fadeDuration = 0.5f;
+    [SerializeField] private float fadeDuration = 0.5f;
     private const float DISPLAY_THRESHOLD = 0.5f;
     private const float CRITICAL_THRESHOLD = 0.2f;
 
@@ -31,8 +31,6 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     [SerializeField] private Color warningColor = new Color(1f, 0.5f, 0f);
     [SerializeField] private Color criticalColor = Color.red;
 
-    [Header("Blink Settings")]
-    private float blinkInterval = 0.3f;
     private bool isBlinkingCarts = false;
     private bool isBlinkingMining = false;
 
@@ -42,13 +40,11 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     {
         if (cartsFatigueCanvasGroup != null)
         {
-            cartsFatigueCanvasGroup.alpha = 0f;
             cartsFatigueCanvasGroup.gameObject.SetActive(false);
         }
 
         if (miningFatigueCanvasGroup != null)
         {
-            miningFatigueCanvasGroup.alpha = 0f;
             miningFatigueCanvasGroup.gameObject.SetActive(false);
         }
     }
@@ -92,86 +88,73 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         PlayerFatigue _f = _player.GetFatigue();
 
-        ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.maxCartsFatigue);
-        ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.maxMiningFatigue);
+        if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.maxCartsFatigue);
+        if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.maxMiningFatigue);
     }
 
     public void UpdateCartsFatigueUI(float currentFatigue, float maxFatigue)
     {
-        if (cartsFatigueBar != null)
+        if (cartsFatigueBar == null) return;
+
+        UpdateBar(currentFatigue, maxFatigue, cartsFatigueBar, cartsFatigueText);
+        float ratio = currentFatigue / maxFatigue;
+
+        if (ratio < DISPLAY_THRESHOLD)
         {
-            UpdateBar(currentFatigue, maxFatigue, cartsFatigueBar, cartsFatigueText);
-
-            float ratio = currentFatigue / maxFatigue;
-
-            if (ratio < DISPLAY_THRESHOLD)
+            if (!cartsFatigueCanvasGroup.enabled)
             {
-                if (cartsFatigueCanvasGroup != null && cartsFatigueCanvasGroup.alpha == 0f)
-                {
-                    cartsFatigueCanvasGroup.gameObject.SetActive(true);
-                    StopCoroutine(FadeOutCartsFatigue());
-                    StartCoroutine(FadeInCartsFatigue());
-                }
+                StartCoroutine(Anim.FadeIn(fadeDuration, cartsFatigueCanvasGroup));
+            }
 
-                if (ratio < CRITICAL_THRESHOLD && !isBlinkingCarts)
-                {
-                    isBlinkingCarts = true;
-                    StartCoroutine(BlinkCartsFatigue());
-                }
-                else if (isBlinkingCarts)
-                {
-                    //Will stop the Coroutine
-                    isBlinkingCarts = false;
-                }
-            }
-            else if (cartsFatigueCanvasGroup != null && cartsFatigueCanvasGroup.alpha == 1f)
+            if (ratio < CRITICAL_THRESHOLD && !isBlinkingCarts)
             {
-                StopCoroutine(FadeInCartsFatigue());
-                StartCoroutine(FadeOutCartsFatigue());
+                isBlinkingCarts = true;
+                StartCoroutine(BlinkCartsFatigue());
             }
+            else if (isBlinkingCarts)
+            {
+                //Will stop the Coroutine
+                isBlinkingCarts = false;
+            }
+        }
+        else if (cartsFatigueCanvasGroup.enabled)
+        {
+            StartCoroutine(Anim.FadeOut(fadeDuration, cartsFatigueCanvasGroup));
         }
     }
 
     public void UpdateMiningFatigueUI(float currentFatigue, float maxFatigue)
     {
-        if (miningFatigueBar != null)
+        if (miningFatigueBar == null) return;
+
+        UpdateBar(currentFatigue, maxFatigue, miningFatigueBar, miningFatigueText);
+        float ratio = currentFatigue / maxFatigue;
+
+        if (ratio < DISPLAY_THRESHOLD)
         {
-            UpdateBar(currentFatigue, maxFatigue, miningFatigueBar, miningFatigueText);
-
-            float ratio = currentFatigue / maxFatigue;
-
-            if (ratio < DISPLAY_THRESHOLD)
+            if (!miningFatigueCanvasGroup.enabled)
             {
-                if (miningFatigueCanvasGroup != null && miningFatigueCanvasGroup.alpha == 0f)
-                {
-                    miningFatigueCanvasGroup.gameObject.SetActive(true);
-                    StopCoroutine(FadeOutMiningFatigue());
-                    StartCoroutine(FadeInMiningFatigue());
-                }
+                StartCoroutine(Anim.FadeIn(fadeDuration, miningFatigueCanvasGroup));
+            }
 
-                if (ratio < CRITICAL_THRESHOLD && !isBlinkingMining)
-                {
-                    isBlinkingMining = true;
-                    StartCoroutine(BlinkMiningFatigue());
-                }
-                else if (isBlinkingMining)
-                {
-                    //Will stop the Coroutine
-                    isBlinkingMining = false;
-                }
-            }
-            else
+            if (ratio < CRITICAL_THRESHOLD && !isBlinkingMining)
             {
-                if (miningFatigueCanvasGroup != null && miningFatigueCanvasGroup.alpha == 1f)
-                {
-                    StopCoroutine(FadeInMiningFatigue());
-                    StartCoroutine(FadeOutMiningFatigue());
-                }
+                isBlinkingMining = true;
+                StartCoroutine(BlinkMiningFatigue());
             }
+            else if (isBlinkingMining)
+            {
+                //Will stop the Coroutine
+                isBlinkingMining = false;
+            }
+        }
+        else if (miningFatigueCanvasGroup.enabled)
+        {
+            StartCoroutine(Anim.FadeOut(fadeDuration, miningFatigueCanvasGroup));
         }
     }
 
-    public void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
+    private static void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
     {
         float ratio = currentValue / maxValue;
         bar.fillAmount = ratio;
@@ -180,21 +163,12 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
     private void ChangeBarColor(Image bar, float ratio)
     {
-        if (bar != null)
-        {
-            if (ratio < CRITICAL_THRESHOLD)
-            {
-                bar.color = Color.Lerp(bar.color, criticalColor, Time.deltaTime * 5f);
-            }
-            else if (ratio < DISPLAY_THRESHOLD)
-            {
-                bar.color = Color.Lerp(bar.color, warningColor, Time.deltaTime * 5f);
-            }
-            else
-            {
-                bar.color = Color.Lerp(bar.color, normalColor, Time.deltaTime * 5f);
-            }
-        }
+        if (ratio < CRITICAL_THRESHOLD)
+            bar.color = Color.Lerp(bar.color, criticalColor, Time.deltaTime * 5f);
+        else if (ratio < DISPLAY_THRESHOLD)
+            bar.color = Color.Lerp(bar.color, warningColor, Time.deltaTime * 5f);
+        else
+            bar.color = Color.Lerp(bar.color, normalColor, Time.deltaTime * 5f);
     }
 
     private IEnumerator BlinkCartsFatigue()
@@ -211,51 +185,5 @@ public class PlayerHeadFatigueBar : MonoBehaviour
         {
             yield return Anim.Blink(miningFatigueCanvasGroup, 0.1f);
         }
-    }
-
-    private IEnumerator FadeInCartsFatigue()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            cartsFatigueCanvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
-            yield return null;
-        }
-    }
-
-    private IEnumerator FadeOutCartsFatigue()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            cartsFatigueCanvasGroup.alpha = 1f - Mathf.Clamp01(elapsedTime / fadeDuration);
-            yield return null;
-        }
-        cartsFatigueCanvasGroup.gameObject.SetActive(false);
-    }
-
-    private IEnumerator FadeInMiningFatigue()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            miningFatigueCanvasGroup.alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
-            yield return null;
-        }
-    }
-
-    private IEnumerator FadeOutMiningFatigue()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            miningFatigueCanvasGroup.alpha = 1f - Mathf.Clamp01(elapsedTime / fadeDuration);
-            yield return null;
-        }
-        miningFatigueCanvasGroup.gameObject.SetActive(false);
     }
 }
