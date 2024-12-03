@@ -16,7 +16,7 @@ public class Score : MonoBehaviour
     [SerializeField] ShakyCame _shakyCame;
     [SerializeField] ParticleSystem _newRecordPart;
 
-    private int score = 50;
+    private int score = 0;
     public int ScoreCounter
     {
         get => score;
