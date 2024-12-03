@@ -13,6 +13,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] ShakyCame _sc;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
+    public bool test = false;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager

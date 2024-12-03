@@ -47,13 +47,13 @@ public void SpawnPlatform()
         iteration ++;
     }
     while ((selectedPlatform.blockDifficulty + currentDifficulty) >= maximumDifficulty + 0.2f);
-    Debug.Log("SELECTED " + selectedPlatform.blockDifficulty);
+    //Debug.Log("SELECTED " + selectedPlatform.blockDifficulty);
 
 
     Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
 
     currentDifficulty += selectedPlatform.blockDifficulty;
 
-    Debug.Log("CURRENT DIFFICULTY " + currentDifficulty);
+    //Debug.Log("CURRENT DIFFICULTY " + currentDifficulty);
 }
 }

@@ -18,7 +18,7 @@ public class Score : MonoBehaviour
 
     private GameManager _gameManager;
 
-    private int score = 0;
+    private int score = 50;
     private int _scoreFixed;
     private bool _isNewRecord = false;
 
