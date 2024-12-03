@@ -12,7 +12,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
-    [SerializeField] private Transform slotInventoriaObject;
+    [SerializeField] private Transform slotInventoriaObject, slotPickaxe;
 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
@@ -273,7 +273,15 @@ public class PlayerActions : MonoBehaviour
         RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
         //canPickup = forced;
 
-        obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+        if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        {
+            // obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+            obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
+        }
+        else
+        {
+            obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+        }
     }
 
     private void LayerHandler(GameObject obj)
