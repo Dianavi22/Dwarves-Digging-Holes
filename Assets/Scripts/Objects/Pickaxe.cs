@@ -42,7 +42,12 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
         if (isCarried)
         {
-            throwOnDestroy = () => { actions.EmptyHands(); actions.StopAnimation(); actions.IsBaseActionActivated = false; };
+            throwOnDestroy = () => { 
+                actions.EmptyHands();
+                actions.StopAnimation();
+                currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
+                actions.IsBaseActionActivated = false;
+            };
         }
         else
         {
