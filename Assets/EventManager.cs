@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent)
         {
-            StartCoroutine(Event());
+          //StartCoroutine(Event());
         }
         if (_isLavaMove)
         {
