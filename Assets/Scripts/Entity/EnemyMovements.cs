@@ -22,12 +22,12 @@ public class EnemyMovements : EntityMovement
         {
             base.Update();
 
-            bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+            bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
 
             if (hitWall && isGrounded && canJump)
             {
                 SetCanJump();
-                Invoke(nameof(SetCanJump), 0.25f);
+                Invoke(nameof(SetCanJump), 1f);
                 Jump();
             }
 
