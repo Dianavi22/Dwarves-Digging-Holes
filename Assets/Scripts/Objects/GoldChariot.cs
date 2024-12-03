@@ -8,7 +8,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
     [SerializeField] private Score _score;
-    [SerializeField] private int _goldScore;
     [SerializeField] GameObject _gfx;
 
     [SerializeField] private EventReference chariotSound;
@@ -36,11 +35,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         set
         {
            if (_currentGoldCount > 0)
-                {
-                _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
+           {
                 _currentGoldCount = value;
                 UpdateText();
-            }
+           }
           
         }
     }

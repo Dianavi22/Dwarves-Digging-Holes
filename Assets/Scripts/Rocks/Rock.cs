@@ -14,6 +14,7 @@ public class Rock : MonoBehaviour
     [SerializeField] private GameObject _gfx;
     [SerializeField] ShakyCame _shakyCame;
     [SerializeField] Score _score;
+    [SerializeField] private int _goldScore;
 
     private void Awake()
     {       
@@ -35,8 +36,7 @@ public class Rock : MonoBehaviour
         if (haveGold)
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
-            _score.AddScoreOnce(10);
-
+            _score.ScoreCounter += _goldScore;
         }
 
         _breakRockParticule.Play();
