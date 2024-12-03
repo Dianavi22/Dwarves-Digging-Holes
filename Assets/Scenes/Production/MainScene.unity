@@ -499,6 +499,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6363883477962220990, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &687599867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2572176601379811770, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+  m_PrefabInstance: {fileID: 5436758355274485485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &691050777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe0a5ce517e407458faab5f7aa5e18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _goldChariot: {fileID: 995559457}
+  _lava: {fileID: 687599867}
 --- !u!1001 &1907694448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1815,20 +1822,8 @@ PrefabInstance:
       value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.4070623
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 8.1701
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.9
+      value: -6.3
       objectReference: {fileID: 0}
     - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1866,72 +1861,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4692784183656238104, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_Size.x
-      value: 17.416416
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_Size.y
-      value: 15.220348
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_Center.x
-      value: -8.208207
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_Center.y
-      value: -7.1101727
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276974091082846381, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaSound.Path
-      value: event:/SFX/Lava/Constant lava sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaBurntSound.Path
-      value: event:/SFX/Lava/Object thrown into lava
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaSound.Guid.Data1
-      value: 1895020149
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaSound.Guid.Data2
-      value: 1225686260
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaSound.Guid.Data3
-      value: -1201794420
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaSound.Guid.Data4
-      value: 1575285054
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaBurntSound.Guid.Data1
-      value: 2014613190
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaBurntSound.Guid.Data2
-      value: 1340100124
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaBurntSound.Guid.Data3
-      value: -628569689
-      objectReference: {fileID: 0}
-    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-      propertyPath: lavaBurntSound.Guid.Data4
-      value: 1919475445
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4692784183656238104, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: _sc
+      value: 
+      objectReference: {fileID: 691050783}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
