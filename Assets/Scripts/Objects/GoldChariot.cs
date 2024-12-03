@@ -40,8 +40,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
                 _currentGoldCount = value;
                 UpdateText();
-            };
-
+            }
+          
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
