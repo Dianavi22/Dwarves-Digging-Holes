@@ -210,7 +210,7 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
-            chariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, true);
+            chariot.HandleCarriedState(_p, true);
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
