@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Utils;
+using System;
 
 public class PlayerHeadFatigueBar : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     [SerializeField] private float fadeDuration = 0.5f;
     private const float DISPLAY_THRESHOLD = 0.5f;
     private const float CRITICAL_THRESHOLD = 0.2f;
+
+    [SerializeField] private float blinkDuration = 0.3f;
 
     [Header("Color Settings")]
     [SerializeField] private Color normalColor = Color.blue;
@@ -106,14 +109,15 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                 StartCoroutine(Anim.FadeIn(fadeDuration, cartsFatigueCanvasGroup));
             }
 
-            if (ratio < CRITICAL_THRESHOLD && !isBlinkingCarts)
+            if (ratio < CRITICAL_THRESHOLD)
             {
-                isBlinkingCarts = true;
-                StartCoroutine(BlinkCartsFatigue());
-            }
-            else if (isBlinkingCarts)
+                if (!isBlinkingCarts)
+                {
+                    isBlinkingCarts = true;
+                    StartCoroutine(BlinkCartsFatigue());
+                }
+            } else if (isBlinkingCarts)
             {
-                //Will stop the Coroutine
                 isBlinkingCarts = false;
             }
         }
@@ -139,13 +143,12 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
             if (ratio < CRITICAL_THRESHOLD && !isBlinkingMining)
             {
-                isBlinkingMining = true;
+                isBlinkingCarts = true;
                 StartCoroutine(BlinkMiningFatigue());
             }
-            else if (isBlinkingMining)
+            else if (isBlinkingCarts)
             {
-                //Will stop the Coroutine
-                isBlinkingMining = false;
+                isBlinkingCarts = false;
             }
         }
         else if (miningFatigueCanvasGroup.isActiveAndEnabled)
@@ -170,20 +173,24 @@ public class PlayerHeadFatigueBar : MonoBehaviour
         else
             bar.color = Color.Lerp(bar.color, normalColor, Time.deltaTime * 5f);
     }
-
     private IEnumerator BlinkCartsFatigue()
     {
+        isBlinkingCarts = true;
         while (isBlinkingCarts)
         {
-            yield return Anim.Blink(cartsFatigueCanvasGroup, 0.1f);
+            cartsFatigueCanvasGroup.alpha = Mathf.PingPong(Time.time * (1f / blinkDuration), 1f);
+            yield return null;
         }
+        cartsFatigueCanvasGroup.alpha = 1f;
     }
 
     private IEnumerator BlinkMiningFatigue()
     {
         while (isBlinkingMining)
         {
-            yield return Anim.Blink(miningFatigueCanvasGroup, 0.1f);
+            miningFatigueCanvasGroup.alpha = Mathf.PingPong(Time.time * (1f / blinkDuration), 1f);
+            yield return null;
         }
+        miningFatigueCanvasGroup.alpha = 1f;
     }
 }

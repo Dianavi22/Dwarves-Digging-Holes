@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 namespace Utils
 {
@@ -135,22 +136,6 @@ namespace Utils
                 yield return null;
             }
             c.gameObject.SetActive(false);
-        }
-        #endregion
-
-        #region Blink
-        public static IEnumerator Blink(CanvasGroup obj, float time)
-        {
-            bool switchAnim = true;
-            float endTime = Time.time + time;
-            while (endTime > Time.time)
-            {
-                switchAnim = !switchAnim;
-                obj.alpha = switchAnim ? 1f : 0f;
-                yield return new WaitForSeconds(0.25f);
-            }
-            //To make sure the gameobject stay visible at the end of the animation
-            obj.alpha = 1f;
         }
         #endregion
 
