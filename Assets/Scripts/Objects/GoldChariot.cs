@@ -10,7 +10,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] GameObject _gfx;
-
     [SerializeField] private EventReference chariotSound;
     private SoundUtils _soundUtils;
     private bool _isSoundPlaying = false;
@@ -35,13 +34,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         get => _currentGoldCount;
         set
         {
-           if (_currentGoldCount > 0)
-                {
-                _score.AddScoreOnce(_currentGoldCount < value ? _goldScore : -(_goldScore / 2));
+            if (_currentGoldCount > 0)
+            {
                 _currentGoldCount = value;
                 UpdateText();
             }
-          
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
@@ -128,7 +125,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         currentPlayer.GetMovement().canFlip = !isGrabbed;
-        currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed); 
+        currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
     }
 
     public void HandleDestroy()
@@ -148,4 +145,18 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         _lostGoldPart.Stop();
 
     }
+
+    public void GoldEvent()
+    {
+        if (_currentGoldCount <= 1)
+        {
+            return;
+        }
+        else
+        {
+            _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
+            UpdateText();
+        }
+    }
+
 }

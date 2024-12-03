@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     private bool _readyToEvent = true;
+    [SerializeField] GoldChariot _goldChariot;
     void Start()
     {
         
@@ -14,7 +15,7 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent)
         {
-          //  StartCoroutine(Event());
+            StartCoroutine(Event());
         }
     }
 
@@ -23,7 +24,7 @@ public class EventManager : MonoBehaviour
         _readyToEvent = false;
         yield return new WaitForSeconds(3);
         print("EVENT");
-        EventPickaxe();
+        EventGoldChariot();
         yield return new WaitForSeconds(3);
         print("END EVENT");
         _readyToEvent = true;
@@ -41,5 +42,10 @@ public class EventManager : MonoBehaviour
         {
             _pickaxeInScene[i].HandleDestroy();
         }
+    }
+
+    private void EventGoldChariot()
+    {
+        _goldChariot.GoldEvent();
     }
 }
