@@ -7,7 +7,7 @@ public class WallLimit : MonoBehaviour
     private Pickaxe _pickaxe;
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<Pickaxe>(other, out var pickaxe))
+        if (Utils.Component.TryGetInParent<Pickaxe>(other, out var pickaxe))
         {
             pickaxe.HandleDestroy();
         }
