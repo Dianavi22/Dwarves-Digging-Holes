@@ -433,6 +433,7 @@ MonoBehaviour:
   platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 0
+  maximumDifficulty: 1.25
 --- !u!65 &184080655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -878,6 +879,7 @@ MonoBehaviour:
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
+  maximumDifficulty: 1.25
 --- !u!54 &859681941
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2107,7 +2109,7 @@ PrefabInstance:
       objectReference: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: m_DebugPlayerCount
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: m_HeadFatigueBarUI
