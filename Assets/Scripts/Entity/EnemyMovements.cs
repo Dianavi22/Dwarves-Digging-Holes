@@ -10,6 +10,8 @@ public class EnemyMovements : EntityMovement
     Enemy GetBase => (Enemy)_p;
     private bool canJump = true;
 
+    private bool hitWall = false;
+
     void Awake()
     {
         _p = GetComponent<Enemy>();
@@ -17,20 +19,25 @@ public class EnemyMovements : EntityMovement
 
     override protected void Update()
     {
-        if (GameManager.Instance.isGameOver) GetBase.KillGobs();
+        if (GameManager.Instance.isGameOver)
+        {
+            GetBase.KillGobs();
+            return;
+        }
         if (!_p.IsGrabbed)
         {
             base.Update();
 
-            bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
-
-            if (hitWall && isGrounded && canJump)
+            if (isGrounded)
             {
-                SetCanJump();
-                Invoke(nameof(SetCanJump), 1f);
-                Jump();
+                hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+                if (hitWall && canJump)
+                {
+                    SetCanJump();
+                    Invoke(nameof(SetCanJump), 0.25f);
+                    Jump();
+                }
             }
-
 
             //lost Gold function
             if (GetBase.IsTouchingChariot && !_p.IsGrabbed && GetBase.canSteal)

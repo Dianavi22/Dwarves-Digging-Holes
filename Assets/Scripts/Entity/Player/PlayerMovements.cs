@@ -70,10 +70,7 @@ public class PlayerMovements : EntityMovement
             {
                 _movePart.Stop();
             }
-            if (_animator != null)
-            {
-                _animator.SetFloat("Run", Mathf.Abs(horizontalInput));
-            }
+            _animator?.SetFloat("Run", Mathf.Abs(horizontalInput));
         }
     }
 
@@ -87,6 +84,8 @@ public class PlayerMovements : EntityMovement
     private void FlipHoldObject()
     {
         float targetZRotation = -Math.Sign(_vertical) * 35f;
+
+        if (GetBase.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
 
         GetBase.GetActions().StopAnimation();
         GetBase.GetActions().CancelInvoke();
@@ -103,26 +102,19 @@ public class PlayerMovements : EntityMovement
         {
             forceDetachFunction?.Invoke();
         }
-        // When jump is pressed
-        if (context.phase == InputActionPhase.Performed && isGrounded)
+        switch (context.phase)
         {
-
-            if (isGrounded && !_isDashing)
-            {
-                _jumpButtonHeld = true;
-                _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                _movePart.Stop();
-            }
-        }
-
-        // When jump button is released
-        if (context.phase == InputActionPhase.Canceled)
-        {
-            _jumpButtonHeld = false;
-        }
-        else if (context.phase == InputActionPhase.Started)
-        {
-            _jumpButtonHeld = true;
+            case InputActionPhase.Performed:
+                if (isGrounded && !_isDashing)
+                {
+                    _jumpButtonHeld = true;
+                    _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    _movePart.Stop();
+                }
+                break;
+            case InputActionPhase.Canceled:
+                _jumpButtonHeld = false;
+                break;
         }
     }
 
