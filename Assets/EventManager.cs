@@ -33,7 +33,7 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(10);
         StartCoroutine(LavaGetingClose());
         EventGoldChariot();
         yield return new WaitForSeconds(30);
