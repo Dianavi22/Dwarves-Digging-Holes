@@ -72,9 +72,6 @@ public class EntityMovement : MonoBehaviour
 
     public virtual void Jump()
     {
-        if (isGrounded)
-        {
-            _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }

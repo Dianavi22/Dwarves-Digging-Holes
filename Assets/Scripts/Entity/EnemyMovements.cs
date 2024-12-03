@@ -8,6 +8,7 @@ public class EnemyMovements : EntityMovement
 {
 
     Enemy GetBase => (Enemy)_p;
+    private bool canJump = true;
 
     void Awake()
     {
@@ -23,8 +24,10 @@ public class EnemyMovements : EntityMovement
 
             bool hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
 
-            if (hitWall && isGrounded)
+            if (hitWall && isGrounded && canJump)
             {
+                SetCanJump();
+                Invoke(nameof(SetCanJump), 0.25f);
                 Jump();
             }
 
@@ -51,5 +54,9 @@ public class EnemyMovements : EntityMovement
         {
             _p.GetRigidbody().velocity = new Vector3(speed * horizontalInput, _p.GetRigidbody().velocity.y, 0f);
         }
+    }
+
+    private void SetCanJump() {
+        canJump = !canJump;
     }
 }
