@@ -4,11 +4,13 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public bool debugMode;
     [SerializeField] private PlatformSpawner blockSpawner;
+    [SerializeField] Platform _platform;
 
     #region Difficulty
     // The difficulty have to be listed from the easiest to the hardest
@@ -46,10 +48,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Score score;
 
+    [SerializeField] ParticleSystem _gameOverPart;
+    [SerializeField] ShakyCame _shakyCame;
+
     public bool isGameOver = false;
-
     private GoldChariot _goldChariot;
-
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -72,20 +75,23 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-
         GameStarted();
     }
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0)
+        if (_goldChariot.GoldCount <= 0 && !isGameOver)
         {
-            GameOver(DeathMessage.NoGold);
+            if (!debugMode)
+            {
+                StartCoroutine(GameOver(DeathMessage.NoGold));
+            }
         }
 
         if(debugMode && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+           StartCoroutine(GameOver(DeathMessage.NoGold));
+            
         }
     }
 
@@ -101,18 +107,19 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
-    public void GameOver(DeathMessage deathMessage)
+    public IEnumerator GameOver(DeathMessage deathMessage)
     {
-        if (debugMode) return;
         _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
+        _gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
-        Time.timeScale = 0;
+        _goldChariot.HideChariotText();
+        _shakyCame.ShakyCameCustom(5.5f,0.2f);
+        yield return new WaitForSeconds(3.5f);
+        _goldChariot.HideGfx();
+        yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
-        
         // ? Activer un message / effet si record battu
         bool newBest = score.CheckBestScore();
-        Debug.Log(newBest);
-
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }

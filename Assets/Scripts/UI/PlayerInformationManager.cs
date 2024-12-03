@@ -6,19 +6,19 @@ using TMPro;
 
 public class PlayerInformationManager : MonoBehaviour
 {
-    public Image cartsFatigueBar;
-    public Image miningFatigueBar;
+    [SerializeField] private Image cartsFatigueBar;
+    [SerializeField] private Image miningFatigueBar;
 
-    public TMP_Text cartsFatigueText;
-    public TMP_Text miningFatigueText;
+    [SerializeField] private TMP_Text cartsFatigueText;
+    [SerializeField] private TMP_Text miningFatigueText;
 
-    public Image imagePlayer;
-    public Image imageIcon;
-    public Sprite beerSprite;
-    public Sprite pickaxeSprite;
-    public Sprite chariotSprite;
+    [SerializeField] private Image imagePlayer;
+    [SerializeField] private Image imageIcon;
+    [SerializeField] private Sprite beerSprite;
+    [SerializeField] private Sprite pickaxeSprite;
+    [SerializeField] private Sprite chariotSprite;
 
-    public Player _player;
+    private Player _player;
     public void Initialize(Player player)
     {
         _player = player;
@@ -59,12 +59,16 @@ public class PlayerInformationManager : MonoBehaviour
         }
     }
 
-    public void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
+    private void UpdateBar(float currentValue, float maxValue, Image bar, TMP_Text text)
     {
         float ratio = currentValue / maxValue;
         bar.fillAmount = Mathf.MoveTowards(bar.fillAmount, ratio, Time.deltaTime * maxValue);
         text.text = ((int)currentValue).ToString();
     }
+
+
+
+
 
     // ^ Functions for test buttons. Its functions do not harm anyone. Please keep them ! :3
     public void IncreaseCartsFatigue(float amount)

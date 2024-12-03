@@ -1,41 +1,44 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
     [SerializeField] int _healthPoint = 5;
-    [SerializeField] bool _haveGold;
-
-    [SerializeField] ParticleSystem _hitRockParticule;
-
+    public bool haveGold;
+    [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
+    [SerializeField] ShakyCame _shakyCame;
 
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
+        _shakyCame = FindObjectOfType<ShakyCame>();
     }
 
     public void Hit()
     {
         _healthPoint -= 1;
-
-        _hitRockParticule.Play();
-
         if (_healthPoint <= 0)
-            Break();
+            StartCoroutine(Break());
     }
 
-    public void Break()
+    public IEnumerator Break()
     {
-        if (_haveGold)
+        _shakyCame.ShakyCameCustom(0.1f, 0.1f);
+        if (haveGold)
+        {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
+        }
 
+        _breakRockParticule.Play();
         _gfx.SetActive(false);
         _rockCollider.enabled = false;
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 }
