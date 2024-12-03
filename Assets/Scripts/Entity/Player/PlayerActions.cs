@@ -17,6 +17,8 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
+    [SerializeField] private PlayerFatigue _playerFatigue;
+    //[SerializeField] private ParticleSystem _fatiguePart;
 
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
@@ -78,6 +80,7 @@ public class PlayerActions : MonoBehaviour
         if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
         {
             _p.EmptyPlayerFixedJoin();
+            goldChariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, false);
             EmptyHands();
         }
     }
@@ -134,6 +137,8 @@ public class PlayerActions : MonoBehaviour
         rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
             .SetEase(Ease.InOutQuad)
             .SetLoops(-1, LoopType.Yoyo);
+        
+        _p.GetAnimator().SetBool("pickaxeHit", true);
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
@@ -145,6 +150,8 @@ public class PlayerActions : MonoBehaviour
             rotationTween.Rewind();
             rotationTween.Kill();
         }
+        
+        _p.GetAnimator().SetBool("pickaxeHit", false);
     }
 
     private bool CheckHitRaycast(out List<Collider> hits)
@@ -204,6 +211,7 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
+            chariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, true);
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());

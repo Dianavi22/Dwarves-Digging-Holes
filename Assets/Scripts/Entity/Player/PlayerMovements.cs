@@ -26,6 +26,7 @@ public class PlayerMovements : MonoBehaviour
     private Vector3 playerVelocity;
 
     public bool flip = false;
+    public bool canFlip = true;
 
     public bool flip_vertical = false;
     public bool _isGrounded = false;
@@ -65,7 +66,7 @@ public class PlayerMovements : MonoBehaviour
         }
 
         // Flip
-        if (_horizontal > 0 && flip || _horizontal < 0 && !flip)
+        if (_horizontal > 0 && flip && canFlip || _horizontal < 0 && !flip && canFlip)
         {
             flip = !flip;
             FlipFacingDirection();

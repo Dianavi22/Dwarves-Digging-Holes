@@ -505,6 +505,7 @@ Transform:
   - {fileID: 2381619269048957974}
   - {fileID: 8552993834400764855}
   - {fileID: 3809735766035253042}
+  - {fileID: 5731828655470516485}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1078326625411918701
@@ -790,6 +791,7 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
+  _playerFatigue: {fileID: 3847963404825759604}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
@@ -854,14 +856,78 @@ MonoBehaviour:
   maxMiningFatigue: 200
   regenSpeedCartsFatigue: 0.2
   regenSpeedMiningFatigue: 0.2
-  reduceSpeedCartsFatigue: 20
-  reduceSpeedMiningFatigue: 20
-  isReducingCartsFatigue: 0
-  isCartsFatigue: 0
   currentCartsFatigue: 0
   currentMiningFatigue: 0
   regenDelayCartsFatigueMax: 2
   regenDelayMiningFatiMax: 2
+  _fatiguePart: {fileID: 3311710927786514565}
+--- !u!1001 &1358340027701125200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8765590584797458301}
+    m_Modifications:
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530516006646531385, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+      propertyPath: m_Name
+      value: Tears_PART
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+--- !u!198 &3311710927786514565 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4552088657530419413, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+  m_PrefabInstance: {fileID: 1358340027701125200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5731828655470516485 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+  m_PrefabInstance: {fileID: 1358340027701125200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4459195232005684559
 PrefabInstance:
   m_ObjectHideFlags: 0

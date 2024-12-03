@@ -35,7 +35,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private bool isBlinkingMining = false;
 
     private Player _player;
-
+    
     private void Awake()
     {
         if (cartsFatigueCanvasGroup != null)
