@@ -75,7 +75,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             _lostGoldPart.Stop();
         }
-        Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
+        //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
     #region SFX
@@ -127,7 +127,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        //@todo Make the gameover call only after a certain time in the lava not instantly
         GameManager.Instance.GameOver(DeathMessage.Lava);
     }
     public void HideGfx()
