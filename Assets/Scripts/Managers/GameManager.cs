@@ -77,18 +77,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0 && !isGameOver)
+        if (_goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
         {
-            if (!debugMode)
-            {
-                StartCoroutine(GameOver(DeathMessage.NoGold));
-            }
-        }
-
-        if(debugMode && Input.GetKeyDown(KeyCode.R))
-        {
-           StartCoroutine(GameOver(DeathMessage.NoGold));
-            
+            StartCoroutine(GameOver(DeathMessage.NoGold));
         }
     }
 
