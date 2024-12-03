@@ -101,7 +101,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         if (ratio < DISPLAY_THRESHOLD)
         {
-            if (!cartsFatigueCanvasGroup.enabled)
+            if (!cartsFatigueCanvasGroup.isActiveAndEnabled)
             {
                 StartCoroutine(Anim.FadeIn(fadeDuration, cartsFatigueCanvasGroup));
             }
@@ -117,7 +117,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                 isBlinkingCarts = false;
             }
         }
-        else if (cartsFatigueCanvasGroup.enabled)
+        else if (cartsFatigueCanvasGroup.isActiveAndEnabled)
         {
             StartCoroutine(Anim.FadeOut(fadeDuration, cartsFatigueCanvasGroup));
         }
@@ -132,7 +132,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         if (ratio < DISPLAY_THRESHOLD)
         {
-            if (!miningFatigueCanvasGroup.enabled)
+            if (!miningFatigueCanvasGroup.isActiveAndEnabled)
             {
                 StartCoroutine(Anim.FadeIn(fadeDuration, miningFatigueCanvasGroup));
             }
@@ -148,7 +148,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                 isBlinkingMining = false;
             }
         }
-        else if (miningFatigueCanvasGroup.enabled)
+        else if (miningFatigueCanvasGroup.isActiveAndEnabled)
         {
             StartCoroutine(Anim.FadeOut(fadeDuration, miningFatigueCanvasGroup));
         }
