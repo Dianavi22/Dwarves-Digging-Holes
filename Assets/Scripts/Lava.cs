@@ -1,24 +1,27 @@
 using FMOD.Studio;
 using FMODUnity;
+using System.Collections;
 using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
     [SerializeField] private Collider _lavaCollider;
+    [SerializeField] private ShakyCame _sc;
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
     private EventInstance _lavaEventInstance;
+    private bool _isStartLava;
 
     private void Start()
     {
         _lavaCollider.enabled = false;
-        Invoke(nameof(CooldownLava), 4);
+        StartCoroutine(CooldownLava());
         PlayLavaSound();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.TryGetParentComponent<IGrabbable>(other, out var grabbable))
+        if (Utils.Component.TryGetInParent<IGrabbable>(other, out var grabbable))
         {
             PlayLavaBurntSound();
             grabbable.HandleDestroy();
@@ -34,15 +37,29 @@ public class Lava : MonoBehaviour
          * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
          */
 
-        if (Utils.TryGetParentComponent<Rock>(other, out var rock))
+        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
             Destroy(rock.gameObject);
         }
     }
-
-    private void CooldownLava()
+    private void Update()
     {
+        if (_isStartLava)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 5, transform.position.y, transform.position.z), Time.deltaTime * 0.5f);
+        }
+    }
+
+    private IEnumerator CooldownLava()
+    {
+        yield return new WaitForSeconds(4);
+        _sc.ShakyCameCustom(2, 0.2f);
         _lavaCollider.enabled = true;
+        _isStartLava = true;
+        yield return new WaitForSeconds(2.5f);
+        _isStartLava = false;
+
+
     }
 
     private void PlayLavaSound()

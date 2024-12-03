@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
-
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
     [SerializeField] ParticleSystem _breakPickaxe;
     [SerializeField] GameObject _gfx;
-    [SerializeField] ShakyCame _sc;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
 
@@ -33,7 +31,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Start()
     {
         StartCoroutine(CdParticule());
-        _sc = FindObjectOfType<ShakyCame>();
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
@@ -76,13 +73,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     public void Hit(GameObject hit)
     {
-        if (Utils.TryGetParentComponent<Rock>(hit, out var rock))
+        if (Utils.Component.TryGetInParent<Rock>(hit, out var rock))
         {
             HandleRockHit(rock);
             
         }
         
-        else if (Utils.TryGetParentComponent<Player>(hit, out var player))
+        else if (Utils.Component.TryGetInParent<Player>(hit, out var player))
         {
             HandlePlayerHit(player);
         }
@@ -125,7 +122,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         _isDying = true;
         print("DestroyPickaxe");
         _breakPickaxe.Play();
-        _sc.ShakyCameCustom(0.2f, 0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);
         yield return new WaitForSeconds(1);
         Destroy(this.gameObject);

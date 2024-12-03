@@ -278,7 +278,6 @@ GameObject:
   - component: {fileID: 7016933003152741732}
   - component: {fileID: 3244071171031559675}
   - component: {fileID: 415383790900409220}
-  - component: {fileID: 7912732950645580312}
   m_Layer: 0
   m_Name: GoldChariot
   m_TagString: Untagged
@@ -322,7 +321,7 @@ MonoBehaviour:
   _goldCountText: {fileID: 9219658797423398484}
   _lostGoldPart: {fileID: 4159188239862836962}
   _score: {fileID: 0}
-  _goldScore: 100
+  _gfx: {fileID: 1351085718703704695}
   chariotSound:
     Guid:
       Data1: 1614653347
@@ -330,9 +329,6 @@ MonoBehaviour:
       Data3: 59965104
       Data4: -1644879758
     Path: event:/SFX/Cart/Cart movements
-  _score: {fileID: 0}
-  _goldScore: 0
-  _gfx: {fileID: 1351085718703704695}
 --- !u!54 &415383790900409220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -360,18 +356,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &7912732950645580312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4740474609369040211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7792139c8436973418598ebcdcc2d347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5108152184688381427
 GameObject:
   m_ObjectHideFlags: 0
