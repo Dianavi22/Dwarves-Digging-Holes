@@ -2,6 +2,7 @@ using FMOD.Studio;
 using FMODUnity;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
@@ -11,7 +12,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
 
     [SerializeField] private EventReference chariotSound;
-    private SoundUtils _soundUtils;
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
 
@@ -46,7 +46,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Start()
     {
-        _soundUtils = GetComponent<SoundUtils>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -95,7 +94,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
             else
             {
-                _soundUtils.UnpauseWithFade(_chariotEventInstance, 0.1f);
+                StartCoroutine(Sound.UnpauseWithFade(_chariotEventInstance, 0.1f));
             }
 
             _isSoundPlaying = true;
@@ -108,7 +107,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             FMOD.RESULT result = _chariotEventInstance.getPaused(out bool isPaused);
             if (result == FMOD.RESULT.OK && !isPaused)
             {
-                _soundUtils.PauseWithFade(_chariotEventInstance, 0.1f);
+                StartCoroutine(Sound.PauseWithFade(_chariotEventInstance, 0.1f));
                 _isSoundPlaying = false;
             }
         }

@@ -10,9 +10,9 @@ public class Enemy : Entity
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
-    public GoldChariot _goldChariot;
+    [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
-    public bool canSteal = true;
+    [HideInInspector] public bool canSteal = true;
 
     public bool IsTouchingChariot
     {
