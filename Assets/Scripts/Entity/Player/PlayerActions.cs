@@ -13,11 +13,10 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
-    [SerializeField] private Transform slotInventoriaObject;
+    [SerializeField] private Transform slotInventoriaObject, slotPickaxe;
 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
-    [SerializeField] private PlayerFatigue _playerFatigue;
     //[SerializeField] private ParticleSystem _fatiguePart;
 
     [HideInInspector] public GameObject heldObject;
@@ -206,7 +205,7 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
-            chariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, true);
+            chariot.HandleCarriedState(_p, true);
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
@@ -266,7 +265,15 @@ public class PlayerActions : MonoBehaviour
         RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
         //canPickup = forced;
 
-        obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+        if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
+        {
+            // obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+            obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
+        }
+        else
+        {
+            obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
+        }
     }
 
     private void LayerHandler(GameObject obj)

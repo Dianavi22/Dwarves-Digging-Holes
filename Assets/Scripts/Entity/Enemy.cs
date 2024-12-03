@@ -7,13 +7,12 @@ public class Enemy : Entity
 {
     [SerializeField] private float jumpForce = 0.5f;
     [SerializeField] public GameObject raycastDetectHitWall;
-    [SerializeField] ShakyCame _shakyCame;
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
-    public GoldChariot _goldChariot;
+    [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
-    public bool canSteal = true;
+    [HideInInspector] public bool canSteal = true;
 
     public bool IsTouchingChariot
     {
@@ -30,7 +29,6 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        _shakyCame = FindFirstObjectByType<ShakyCame>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
     }
 
@@ -69,7 +67,7 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _rb.velocity = Vector3.zero;
-        _shakyCame.ShakyCameCustom(0.3f, 0.3f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;
         _gfx.SetActive(false);
         _destroyGobPart.Play();

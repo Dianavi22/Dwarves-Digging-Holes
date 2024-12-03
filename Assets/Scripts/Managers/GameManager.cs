@@ -46,10 +46,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text _textGameOverCondition;
 
-    [SerializeField] Score score;
-
     [SerializeField] ParticleSystem _gameOverPart;
-    [SerializeField] ShakyCame _shakyCame;
 
     public bool isGameOver = false;
     private GoldChariot _goldChariot;
@@ -80,18 +77,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0 && !isGameOver)
+        if (_goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
         {
-            if (!debugMode)
-            {
-                StartCoroutine(GameOver(DeathMessage.NoGold));
-            }
-        }
-
-        if(debugMode && Input.GetKeyDown(KeyCode.R))
-        {
-           StartCoroutine(GameOver(DeathMessage.NoGold));
-            
+            StartCoroutine(GameOver(DeathMessage.NoGold));
         }
     }
 
@@ -113,13 +101,13 @@ public class GameManager : MonoBehaviour
         _gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.HideChariotText();
-        _shakyCame.ShakyCameCustom(5.5f,0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f,0.2f);
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
         // ? Activer un message / effet si record battu
-        bool newBest = score.CheckBestScore();
+        bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }

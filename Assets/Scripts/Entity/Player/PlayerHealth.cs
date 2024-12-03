@@ -5,6 +5,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] GameObject _playerGFX;
     [SerializeField] private ParticleSystem _HurtPart;
+    [SerializeField] private ParticleSystem _DestroyPlayer;
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -60,6 +61,8 @@ public class PlayerHealth : MonoBehaviour
     public void DeathPlayer()
     {
         IsAlive = false;
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f,0.2f);
+        _DestroyPlayer.Play();
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
 
