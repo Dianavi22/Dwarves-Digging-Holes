@@ -69,9 +69,7 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _rb.velocity = Vector3.zero;
-        _shakyCame._radius = 0.3f;
-        _shakyCame._duration = 0.3f;
-        _shakyCame.isShaking = true;
+        _shakyCame.ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;
         _gfx.SetActive(false);
         _destroyGobPart.Play();

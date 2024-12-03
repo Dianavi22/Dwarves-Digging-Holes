@@ -22,7 +22,7 @@ public class PlayerFatigue : MonoBehaviour
 
     [SerializeField] private float regenDelayCartsFatigueMax = 2f;
     [SerializeField] private float regenDelayMiningFatiMax = 2f;
-
+    [SerializeField] ParticleSystem _fatiguePart;
     void Start()
     {
         currentCartsFatigue = maxCartsFatigue;
@@ -34,9 +34,19 @@ public class PlayerFatigue : MonoBehaviour
 
     void Update()
     {
+
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
-        //InvokeOnMiningFatigueChanged();
+
+        //TODO : Fix _fatiguePart
+        if (currentCartsFatigue <= 50 || currentMiningFatigue <= 50)
+        {
+            _fatiguePart.Play();
+        }
+        else
+        {
+            _fatiguePart.Stop();
+        }
     }
 
     private void InvokeOnCartsFatigueChanged()
@@ -63,6 +73,7 @@ public class PlayerFatigue : MonoBehaviour
         if (regenDelayCartsFatigue > 0)
         {
             regenDelayCartsFatigue -= Time.deltaTime;
+
         }
         else
         {

@@ -68,9 +68,14 @@ public class GamePadsController : MonoBehaviour
         GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
         PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
         fatigueUI.Initialize(player);
-
-
+        
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+        
+        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer r in renders)
+        {
+            r.material = m_PlayerMAT[playerNumber];
+        }
         PlayerList.Add(player);
     }
 

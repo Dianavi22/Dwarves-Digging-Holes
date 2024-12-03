@@ -20,7 +20,7 @@ public class PlayerMovements : EntityMovement
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
     private Animator _animator;
-
+    private Vector3 playerVelocity;
     public bool flip_vertical = false;
 
     public Action forceDetachFunction;
