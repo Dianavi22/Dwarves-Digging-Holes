@@ -13,11 +13,13 @@ public class Rock : MonoBehaviour
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
     [SerializeField] ShakyCame _shakyCame;
+    [SerializeField] Score _score;
 
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
         _shakyCame = FindObjectOfType<ShakyCame>();
+        _score = FindObjectOfType<Score>();
     }
 
     public void Hit()
@@ -33,6 +35,8 @@ public class Rock : MonoBehaviour
         if (haveGold)
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
+            _score.AddScoreOnce(10);
+
         }
 
         _breakRockParticule.Play();
