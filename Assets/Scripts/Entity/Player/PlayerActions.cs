@@ -17,7 +17,6 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
-    [SerializeField] private PlayerFatigue _playerFatigue;
     //[SerializeField] private ParticleSystem _fatiguePart;
 
     [HideInInspector] public GameObject heldObject;

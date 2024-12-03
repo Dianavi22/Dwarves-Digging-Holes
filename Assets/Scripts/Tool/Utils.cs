@@ -147,7 +147,7 @@ namespace Utils
             {
                 switchAnim = !switchAnim;
                 obj.alpha = switchAnim ? 1f : 0f;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.25f);
             }
             //To make sure the gameobject stay visible at the end of the animation
             obj.alpha = 1f;
@@ -167,5 +167,60 @@ namespace Utils
             yield return AnimationOnCurve(time, t => o.position = Vector3.Lerp(from, to, t), curve);
         }
         #endregion
+    }
+
+    public class Sound
+    {
+        private static IEnumerator FadeEvent(FMOD.Studio.EventInstance eventInstance, float targetVolume, float duration, bool pauseAfterFade)
+        {
+            if (eventInstance.getVolume(out float currentVolume) == FMOD.RESULT.OK)
+            {
+                float startVolume = currentVolume;
+                float time = 0f;
+
+                while (time < duration)
+                {
+                    time += Time.deltaTime;
+                    float newVolume = Mathf.Lerp(startVolume, targetVolume, time / duration);
+                    eventInstance.setVolume(newVolume);
+                    yield return null;
+                }
+
+                eventInstance.setVolume(targetVolume);
+
+                if (pauseAfterFade)
+                {
+                    eventInstance.setPaused(true);
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to get the current volume.");
+            }
+        }
+
+        public static IEnumerator PauseWithFade(FMOD.Studio.EventInstance eventInstance, float fadeDuration)
+        {
+            if (eventInstance.getPaused(out bool isPaused) == FMOD.RESULT.OK && !isPaused)
+            {
+                yield return FadeEvent(eventInstance, 0f, fadeDuration, true);
+            }
+            else
+            {
+                Debug.LogError("Failed to get the paused state or event is already paused.");
+            }
+        }
+
+        public static IEnumerator UnpauseWithFade(FMOD.Studio.EventInstance eventInstance, float fadeDuration)
+        {
+            if (eventInstance.setPaused(false) == FMOD.RESULT.OK)
+            {
+                yield return FadeEvent(eventInstance, 1f, fadeDuration, false);
+            }
+            else
+            {
+                Debug.LogError("Failed to unpause the event.");
+            }
+        }
     }
 }

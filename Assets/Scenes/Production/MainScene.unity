@@ -986,10 +986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1947155072}
-  scoreToAddTimer: 10
+  scoreToAddTimer: 1
   _bestScoreTxt: {fileID: 2100342775}
   _newRecordText: {fileID: 1360434417}
-  _shakyCame: {fileID: 691050783}
   _newRecordPart: {fileID: 1502438822}
 --- !u!4 &1053372502
 Transform:
@@ -1211,26 +1210,6 @@ PrefabInstance:
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _goldScore
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Path
-      value: event:/SFX/Cart/Cart movements
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data1
-      value: 1614653347
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data2
-      value: 1133231653
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data3
-      value: 59965104
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: chariotSound.Guid.Data4
-      value: -1644879758
       objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
@@ -1967,6 +1946,14 @@ PrefabInstance:
       propertyPath: m_DifficultyList.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: d0387f9645456e844ba5a01a4a5ba047, type: 2}
+    - target: {fileID: 2752945893467999895, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 1053372500}
+    - target: {fileID: 2752945893467999895, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: shakyCame
+      value: 
+      objectReference: {fileID: 691050777}
     - target: {fileID: 2752945893467999895, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: beerChariot
       value: 

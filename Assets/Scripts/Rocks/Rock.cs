@@ -12,13 +12,12 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    [SerializeField] ShakyCame _shakyCame;
     [SerializeField] Score _score;
+    [SerializeField] private int _goldScore;
 
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
-        _shakyCame = FindObjectOfType<ShakyCame>();
         _score = FindObjectOfType<Score>();
     }
 
@@ -31,12 +30,11 @@ public class Rock : MonoBehaviour
 
     public IEnumerator Break()
     {
-        _shakyCame.ShakyCameCustom(0.1f, 0.1f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
-            _score.AddScoreOnce(10);
-
+            _score.ScoreCounter += _goldScore;
         }
 
         _breakRockParticule.Play();
