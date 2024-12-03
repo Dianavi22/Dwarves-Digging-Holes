@@ -6,7 +6,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject _playerGFX;
     [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private ParticleSystem _DestroyPlayer;
-    [SerializeField] private ShakyCame _sc;
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -18,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         _p = GetComponent<Player>();
-        _sc = FindObjectOfType<ShakyCame>();
     }
 
     void Start()
@@ -63,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
     public void DeathPlayer()
     {
         IsAlive = false;
-        _sc.ShakyCameCustom(0.2f,0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f,0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);

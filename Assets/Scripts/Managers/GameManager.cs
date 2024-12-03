@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Score score;
 
     [SerializeField] ParticleSystem _gameOverPart;
-    [SerializeField] ShakyCame _shakyCame;
 
     public bool isGameOver = false;
     private GoldChariot _goldChariot;
@@ -113,7 +112,7 @@ public class GameManager : MonoBehaviour
         _gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.HideChariotText();
-        _shakyCame.ShakyCameCustom(5.5f,0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f,0.2f);
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);

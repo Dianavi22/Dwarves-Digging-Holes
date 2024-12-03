@@ -13,7 +13,6 @@ public class Score : MonoBehaviour
 
     [Header("Break New Record")]
     [SerializeField] TMP_Text _newRecordText;
-    [SerializeField] ShakyCame _shakyCame;
     [SerializeField] ParticleSystem _newRecordPart;
 
     private int score = 0;
@@ -50,7 +49,7 @@ public class Score : MonoBehaviour
     {
         _newRecordText.gameObject.SetActive(true);
         _bestScoreTxt.gameObject.SetActive(false);
-        _shakyCame.ShakyCameCustom(1, 0.3f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(1, 0.3f);
         _newRecordPart.Play();
     }
 
