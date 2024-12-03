@@ -25,7 +25,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(AddScoreTimer), 1f, 1f);
-        _bestScoreTxt.text = PlayerPrefs.GetInt(Utils.BEST_SCORE_KEY).ToString();
+        _bestScoreTxt.text = PlayerPrefs.GetInt(Constant.BEST_SCORE_KEY).ToString();
     }
 
    
