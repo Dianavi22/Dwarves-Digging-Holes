@@ -977,7 +977,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1947155072}
   scoreToAddTimer: 10
-  _gameManager: {fileID: 1880652950}
   _bestScoreTxt: {fileID: 2100342775}
   _newRecordText: {fileID: 1360434417}
   _shakyCame: {fileID: 691050783}
@@ -1020,6 +1019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 283635268358963526, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1113642333549338642, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.94
@@ -1059,6 +1062,10 @@ PrefabInstance:
     - target: {fileID: 1113642333549338642, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179455983456145342, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
+      propertyPath: _shakyCame
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
