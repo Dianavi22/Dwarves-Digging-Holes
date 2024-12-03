@@ -8,7 +8,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
-    [SerializeField] private Score _score;
     [SerializeField] GameObject _gfx;
 
     [SerializeField] private EventReference chariotSound;

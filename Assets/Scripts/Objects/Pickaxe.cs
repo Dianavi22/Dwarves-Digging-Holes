@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
-
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
@@ -12,7 +11,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
-    public bool test = false;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager

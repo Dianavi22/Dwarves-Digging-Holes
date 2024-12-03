@@ -46,8 +46,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text _textGameOverCondition;
 
-    [SerializeField] Score score;
-
     [SerializeField] ParticleSystem _gameOverPart;
 
     public bool isGameOver = false;
@@ -118,7 +116,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
         // ? Activer un message / effet si record battu
-        bool newBest = score.CheckBestScore();
+        bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }

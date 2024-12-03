@@ -147,7 +147,7 @@ namespace Utils
             {
                 switchAnim = !switchAnim;
                 obj.alpha = switchAnim ? 1f : 0f;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.25f);
             }
             //To make sure the gameobject stay visible at the end of the animation
             obj.alpha = 1f;
