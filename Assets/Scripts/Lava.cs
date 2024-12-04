@@ -61,7 +61,6 @@ public class Lava : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         _isStartLava = false;
         _rockFall.Stop();
-
     }
 
     private void PlayLavaSound()

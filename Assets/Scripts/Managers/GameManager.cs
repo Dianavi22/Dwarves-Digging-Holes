@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
 
     public bool isGameOver = false;
+    [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -102,6 +103,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         _goldChariot.HideChariotText();
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f,0.2f);
+        _eventManager.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);
