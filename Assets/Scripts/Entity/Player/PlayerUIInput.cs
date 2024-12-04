@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using FMODUnity;
 
 public class PlayerUIInput : MonoBehaviour
 {
     private Player _p;
+
+    public EventReference submitEvent;
+    public EventReference navigateEvent;
 
     private void Awake()
     {
@@ -20,5 +24,12 @@ public class PlayerUIInput : MonoBehaviour
     public void OnTest(InputAction.CallbackContext context)
     {
         Debug.Log("Test");
+    }
+
+    public void OnNavigate() {
+        RuntimeManager.PlayOneShot(navigateEvent);
+    }
+    public void OnSubmit() {
+        RuntimeManager.PlayOneShot(submitEvent);
     }
 }

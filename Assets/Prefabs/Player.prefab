@@ -548,6 +548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c12f00987472394ebca538d720aad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 5
+  lifePoint: 3
   animator: {fileID: 1766082382499409143}
   IsCarried: 0
 --- !u!114 &6831975214807127632
@@ -562,20 +564,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7e108634e9f774da2b422291698fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
-  _dashForce: 20
-  _jumpForce: 11
+  speed: 5
+  jumpForce: 10
   fallMultiplier: 3.5
-  lowJumpMultiplier: 5
+  canFlip: 1
+  _dashForce: 20
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
   _DashPart: {fileID: 6319271055205663220}
-  flip: 1
-  canFlip: 1
+  lowJumpMultiplier: 5
   flip_vertical: 0
-  _isGrounded: 0
-  gravityScale: 500
   _groundedPart: {fileID: 8238030346643257469}
   _movePart: {fileID: 2123201682530033296}
 --- !u!114 &2117048352203454760
@@ -620,11 +619,35 @@ MonoBehaviour:
     m_ActionId: da234de2-6284-4815-809b-2115973b98e7
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7358293992737870010}
+        m_TargetAssemblyTypeName: PlayerUIInput, Assembly-CSharp
+        m_MethodName: OnNavigate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 266983bb-1c8f-47c8-ad86-49c9c65d7e16
     m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7358293992737870010}
+        m_TargetAssemblyTypeName: PlayerUIInput, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 03dc4ad6-e8ce-4a9f-a955-dfccbd1e9051
     m_ActionName: UI/Submit[/Keyboard/enter]
   - m_PersistentCalls:
@@ -794,7 +817,6 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
-  _playerFatigue: {fileID: 3847963404825759604}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
@@ -814,7 +836,6 @@ MonoBehaviour:
   _playerGFX: {fileID: 8340141567751047384}
   _HurtPart: {fileID: 8534331348445387762}
   _DestroyPlayer: {fileID: 4738655127952116816}
-  _sc: {fileID: 0}
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +860,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9197527417c218242bb6bae08de9a635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  submitEvent:
+    Guid:
+      Data1: 1023626430
+      Data2: 1306001614
+      Data3: 1594038424
+      Data4: 798773606
+    Path: event:/UI/Menu/Selecting an element
+  navigateEvent:
+    Guid:
+      Data1: -862295779
+      Data2: 1126071768
+      Data3: -1960964732
+      Data4: -1384339287
+    Path: event:/UI/Menu/Hovering over a button
 --- !u!114 &3847963404825759604
 MonoBehaviour:
   m_ObjectHideFlags: 0
