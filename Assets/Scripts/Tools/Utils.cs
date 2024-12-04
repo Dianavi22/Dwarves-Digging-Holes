@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using FMODUnity;
+using FMOD.Studio;
 
 namespace Utils
 {
@@ -156,7 +158,9 @@ namespace Utils
 
     public class Sound
     {
-        private static IEnumerator FadeEvent(FMOD.Studio.EventInstance eventInstance, float targetVolume, float duration, bool pauseAfterFade)
+        private static readonly Bus _mainBus = RuntimeManager.GetBus("bus:/");
+
+        private static IEnumerator FadeEvent(EventInstance eventInstance, float targetVolume, float duration, bool pauseAfterFade)
         {
             if (eventInstance.getVolume(out float currentVolume) == FMOD.RESULT.OK)
             {
@@ -205,6 +209,18 @@ namespace Utils
             else
             {
                 Debug.LogError("Failed to unpause the event.");
+            }
+        }
+
+        private static void SetGlobalVolume(float value) {
+            _mainBus.setVolume(value);
+        }
+
+        public static void SetGlobalVolumeExcept(float value, FMOD.Studio.Bus? exception) {
+            SetGlobalVolume(value);
+
+            if(exception != null) {
+                exception?.setVolume(1);
             }
         }
     }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -15,6 +14,8 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _rebindJump;
 
     [SerializeField] private GameObject _inputCanvas;
+
+    [SerializeField] private EventReference[] _stateMenuEvent;
 
     public static UIPauseManager Instance; // A static reference to the GameManager instance
 
@@ -50,22 +51,21 @@ public class UIPauseManager : MonoBehaviour
     {
         if (!GameManager.Instance.isGameOver)
         {
-            if (!isPaused)
-            {
-                Time.timeScale = 0;
-                _PauseCanvas.SetActive(true);
-                _currentPlayer.GetMovement().enabled = false;
-                EventSystem.current.SetSelectedGameObject(_retryButton);
-                isPaused = true;
-            }
-            else
-            {
-                Time.timeScale = 1;
-                _inputCanvas.SetActive(false);
-                _PauseCanvas.SetActive(false);
-                _currentPlayer.GetMovement().enabled = true;
+            isPaused = !isPaused;
 
-                isPaused = false;
+            Utils.Sound.SetGlobalVolumeExcept(isPaused ? 0.75f : 1f, RuntimeManager.GetBus("bus:/UI"));
+            RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", isPaused ? 1 : 0);
+
+            RuntimeManager.PlayOneShot(_stateMenuEvent[isPaused ? 1 : 0]);
+
+            Time.timeScale = isPaused ? 0 : 1;
+            _PauseCanvas.SetActive(isPaused);
+            _inputCanvas.SetActive(!isPaused);
+            _currentPlayer.GetMovement().enabled = !isPaused;
+
+            if (isPaused)
+            {
+                EventSystem.current.SetSelectedGameObject(_retryButton);
             }
         }
     }
@@ -82,4 +82,8 @@ public class UIPauseManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
+    void OnDestroy()
+    {
+        RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 0);
+    }
 }
