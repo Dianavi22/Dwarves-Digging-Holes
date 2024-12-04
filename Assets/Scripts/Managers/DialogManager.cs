@@ -8,6 +8,7 @@ public class DialogManager : MonoBehaviour
     [SerializeField] List<string> dialogList = new List<string>();
     [SerializeField] TMP_Text _dialogText;
     private TypeSentence _typeSentence;
+    private int i;
 
     void Start()
     {
@@ -24,7 +25,21 @@ public class DialogManager : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         _dialogText.text = "";
-        _typeSentence.WriteMachinEffect(dialogList[Random.Range(0, dialogList.Count)], _dialogText, 0.5f);
+        TextChoice();
+        _typeSentence.WriteMachinEffect(dialogList[i], _dialogText, 0.05f);
         StartCoroutine(Dialog());
+    }
+
+    private void TextChoice()
+    {
+        int j = Random.Range(0, dialogList.Count);
+        if (j == i)
+        {
+            TextChoice();
+        }
+        else
+        {
+            i = j;
+        }
     }
 }
