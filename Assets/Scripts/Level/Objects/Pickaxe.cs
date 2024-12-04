@@ -120,7 +120,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private IEnumerator BreakPickaxe() {
         _isDying = true;
-        print("DestroyPickaxe");
         _breakPickaxe.Play();
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);

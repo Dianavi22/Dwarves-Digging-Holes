@@ -9,6 +9,7 @@ public enum Target
     RespawnPoint,
     ShakyCame,
     Score,
+    TypeSentence,
 }
 
 public class TargetManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private GameObject goldChariot;
     [SerializeField] private GameObject respawnPoint;
     [SerializeField] private GameObject shakyCame;
+    [SerializeField] private GameObject typeSentence;
     [SerializeField] private GameObject score;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
@@ -49,6 +51,7 @@ public class TargetManager : MonoBehaviour
             Target.GoldChariot => goldChariot,
             Target.RespawnPoint => respawnPoint,
             Target.ShakyCame => shakyCame,
+            Target.TypeSentence => typeSentence,
             Target.Score => score,
             _ => null,
         };
