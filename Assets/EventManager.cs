@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
     private Vector3 _lavaPosition;
+
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
@@ -19,8 +20,9 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        if (_readyToEvent)
+        if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
+
             StartCoroutine(Event());
         }
         if (_isLavaMove)

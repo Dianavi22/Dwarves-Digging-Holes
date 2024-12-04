@@ -8,7 +8,12 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("DebugMode")]
     public bool debugMode;
+    public bool isDisableEventManager;
+
+
+
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] Platform _platform;
 
@@ -52,6 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
     public static GameManager Instance; // A static reference to the GameManager instance
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
