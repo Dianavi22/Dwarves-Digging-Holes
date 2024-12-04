@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
