@@ -8,7 +8,12 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("DebugMode")]
     public bool debugMode;
+    public bool isDisableEventManager;
+
+
+
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] Platform _platform;
 
@@ -49,8 +54,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
 
     public bool isGameOver = false;
+    [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
     public static GameManager Instance; // A static reference to the GameManager instance
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -102,6 +109,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         _goldChariot.HideChariotText();
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f,0.2f);
+        _eventManager.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
         yield return new WaitForSeconds(2f);

@@ -9,6 +9,7 @@ public class Lava : MonoBehaviour
     [SerializeField] private ShakyCame _sc;
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
+    [SerializeField] ParticleSystem _rockFall;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
 
@@ -53,13 +54,13 @@ public class Lava : MonoBehaviour
     private IEnumerator CooldownLava()
     {
         yield return new WaitForSeconds(4);
+        _rockFall.Play();
         _sc.ShakyCameCustom(2, 0.2f);
         _lavaCollider.enabled = true;
         _isStartLava = true;
         yield return new WaitForSeconds(2.5f);
         _isStartLava = false;
-
-
+        _rockFall.Stop();
     }
 
     private void PlayLavaSound()
