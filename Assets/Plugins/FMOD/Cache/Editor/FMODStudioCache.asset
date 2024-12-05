@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638687341190481917
+  lastModified: 638689277628002847
   FileSizes:
   - Name: Desktop
-    Value: 1940000
+    Value: 1958144
   Exists: 1
 --- !u!114 &-8466940032903737664
 MonoBehaviour:
@@ -74,6 +74,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7070299873532352361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LowPassMenu
+  m_EditorClassIdentifier: 
+  Name: LowPassMenu
+  StudioPath: parameter:/LowPassMenu
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2847610716
+    data2: 2164361634
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-6807414688733360388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,12 +475,13 @@ MonoBehaviour:
   - {fileID: -5234501304820533024}
   - {fileID: -8466940032903737664}
   - {fileID: -2069660481835573309}
-  EditorParameters: []
+  EditorParameters:
+  - {fileID: -7070299873532352361}
   MasterBanks:
   - {fileID: -8534444205981759030}
   StringsBanks:
   - {fileID: 2893611023895499354}
-  cacheTime: 638687341190481917
+  cacheTime: 638689277628007879
   cacheVersion: 131620
 --- !u!114 &1247678173004443359
 MonoBehaviour:
@@ -608,10 +633,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638682995324708866
+  lastModified: 638689277628007879
   FileSizes:
   - Name: Desktop
-    Value: 2616
+    Value: 2736
   Exists: 1
 --- !u!114 &4167042166684467227
 MonoBehaviour:
@@ -682,7 +707,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Menu.bank
   Name: Menu
   StudioPath: bank:/Menu
-  lastModified: 638682995324718866
+  lastModified: 638689268339381453
   FileSizes:
   - Name: Desktop
     Value: 494

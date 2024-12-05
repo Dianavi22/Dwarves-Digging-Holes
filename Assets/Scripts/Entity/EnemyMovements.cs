@@ -6,31 +6,30 @@ using System.Collections;
 
 public class EnemyMovements : EntityMovement
 {
-
-    Enemy GetBase => (Enemy)_p;
+    Enemy _e => (Enemy)GetBase;
     private bool canJump = true;
 
     private bool hitWall = false;
 
     void Awake()
     {
-        _p = GetComponent<Enemy>();
+        GetBase = GetComponent<Enemy>();
     }
 
     override protected void Update()
     {
         if (GameManager.Instance.isGameOver)
         {
-            GetBase.KillGobs();
+            _e.KillGobs();
             return;
         }
-        if (!_p.IsGrabbed)
+        if (!_e.IsGrabbed)
         {
             base.Update();
 
             if (isGrounded)
             {
-                hitWall = Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(GetBase.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+                hitWall = Physics.Raycast(_e.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(_e.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
                 if (hitWall && canJump)
                 {
                     SetCanJump();
@@ -40,26 +39,26 @@ public class EnemyMovements : EntityMovement
             }
 
             //lost Gold function
-            if (GetBase.IsTouchingChariot && !_p.IsGrabbed && GetBase.canSteal)
+            if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
-                StartCoroutine(GetBase.HitChariot());
+                StartCoroutine(_e.HitChariot());
             }
         }
     }
     override protected void HandleMovement()
     {
-        Vector3 goldChariotPosition = GetBase._goldChariot.transform.position;
+        Vector3 goldChariotPosition = _e._goldChariot.transform.position;
         horizontalInput = Mathf.Sign(goldChariotPosition.x - transform.position.x);
         if (Math.Abs(Vector3.Distance(goldChariotPosition, transform.position)) <= 1.25f)
             horizontalInput = 0f;
 
-        if (GetBase.IsTouchingChariot)
+        if (_e.IsTouchingChariot)
         {
-            _p.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
+            _e.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
         }
         else
         {
-            _p.GetRigidbody().velocity = new Vector3(speed * horizontalInput, _p.GetRigidbody().velocity.y, 0f);
+            _e.GetRigidbody().velocity = new Vector3(speed * horizontalInput, _e.GetRigidbody().velocity.y, 0f);
         }
     }
 

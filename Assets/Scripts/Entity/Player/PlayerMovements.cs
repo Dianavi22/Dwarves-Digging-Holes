@@ -25,7 +25,7 @@ public class PlayerMovements : EntityMovement
 
     public Action forceDetachFunction;
 
-    Player GetBase => (Player)_p;
+    Player _p => (Player)GetBase;
 
     private bool _playGroundedPart = true;
     [SerializeField] ParticleSystem _groundedPart;
@@ -33,11 +33,11 @@ public class PlayerMovements : EntityMovement
 
     void Awake()
     {
-        _p = GetComponent<Player>();
+        GetBase = GetComponent<Player>();
     }
     void Start()
     {
-        _animator = GetBase.GetAnimator();
+        _animator = _p.GetAnimator();
     }
 
     override protected void Update()
@@ -54,10 +54,10 @@ public class PlayerMovements : EntityMovement
     {
         if (!_isDashing)
         {
-            bool isHoldingChariot = GetBase.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(GetBase.GetActions().heldObject, out _);
+            bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
 
-            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !GetBase.IsCarried
-                    && isHoldingChariot && !GetBase.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
+            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !_p.IsCarried
+                    && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
                 ? _p.GetRigidbody().velocity.x
                 : horizontalInput * speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
@@ -85,12 +85,12 @@ public class PlayerMovements : EntityMovement
     {
         float targetZRotation = -Math.Sign(_vertical) * 35f;
 
-        if (GetBase.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
+        if (_p.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
 
-        GetBase.GetActions().StopAnimation();
-        GetBase.GetActions().CancelInvoke();
-        GetBase.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
-        GetBase.GetActions().vertical = _vertical;
+        _p.GetActions().StopAnimation();
+        _p.GetActions().CancelInvoke();
+        _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
+        _p.GetActions().vertical = _vertical;
         flip_vertical = _vertical != 0;
     }
 
@@ -98,7 +98,7 @@ public class PlayerMovements : EntityMovement
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (GetBase.IsCarried)
+        if (_p.IsCarried)
         {
             forceDetachFunction?.Invoke();
         }
@@ -128,7 +128,7 @@ public class PlayerMovements : EntityMovement
 
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (_isDashing || _isDashingCooldown || GetBase.IsCarried) return;
+        if (_isDashing || _isDashingCooldown || _p.IsCarried) return;
 
         _isDashing = true;
         _isDashingCooldown = true;

@@ -548,8 +548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c12f00987472394ebca538d720aad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  lifePoint: 3
   animator: {fileID: 1766082382499409143}
   IsCarried: 0
 --- !u!114 &6831975214807127632
@@ -622,8 +620,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7358293992737870010}
         m_TargetAssemblyTypeName: PlayerUIInput, Assembly-CSharp
-        m_MethodName: OnNavigate
-        m_Mode: 1
+        m_MethodName: OnSubmit
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -638,8 +636,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7358293992737870010}
         m_TargetAssemblyTypeName: PlayerUIInput, Assembly-CSharp
-        m_MethodName: OnSubmit
-        m_Mode: 1
+        m_MethodName: OnNavigate
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
