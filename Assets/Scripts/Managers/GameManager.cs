@@ -13,10 +13,7 @@ public class GameManager : MonoBehaviour
     public bool debugMode;
     public bool isDisableEventManager;
 
-
-
     [SerializeField] private PlatformSpawner blockSpawner;
-    [SerializeField] Platform _platform;
 
     #region Difficulty
     // The difficulty have to be listed from the easiest to the hardest
@@ -95,7 +92,7 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
-        Invoke("InitPlatformSpawner", 3f);
+        Invoke(nameof(InitPlatformSpawner), 3f);
     }
 
     private void InitPlatformSpawner()

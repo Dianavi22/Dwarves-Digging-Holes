@@ -234,8 +234,8 @@ public class PlayerActions : MonoBehaviour
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = isGrabbed;
-
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
+
             if (forced)
             {
                 rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
@@ -321,9 +321,10 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (heldObject.TryGetComponent<GoldChariot>(out _))
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
         {
             _p.EmptyPlayerFixedJoin();
+            chariot.HandleCarriedState(_p, false);
         } else
         {
             SetObjectInHand(heldObject, false, forced);
