@@ -86,9 +86,9 @@ public class GamePadsController : MonoBehaviour
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
         // * Instantiate Player UI
-        GameObject ui = Instantiate(m_UICanvas[index], m_MainCanvas.transform);
-        PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-        uiInfo.Initialize(player);
+        //GameObject ui = Instantiate(m_UICanvas[index], m_MainCanvas.transform);
+        //PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+        //uiInfo.Initialize(player);
 
         // * Instantiate PlayerHeadFatigueBar UI
         GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);

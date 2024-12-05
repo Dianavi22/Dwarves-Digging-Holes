@@ -8,8 +8,7 @@ public class Player : Entity
     private PlayerFatigue fatigue;
     private UserInput input;
     
-    [SerializeField]
-    private Animator animator;
+    [SerializeField] private Animator animator;
 
     private FixedJoint _joint;
 

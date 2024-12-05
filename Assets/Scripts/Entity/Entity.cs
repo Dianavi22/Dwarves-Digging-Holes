@@ -2,8 +2,6 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IGrabbable
 {
-    [SerializeField] protected float movementSpeed = 5f;
-    [SerializeField] protected float lifePoint = 3f;
     protected Rigidbody _rb;
 
     public bool IsGrabbed { get; protected set; }

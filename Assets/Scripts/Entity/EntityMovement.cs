@@ -11,7 +11,7 @@ public class EntityMovement : MonoBehaviour
     protected float horizontalInput;
     protected Vector3 velocity;
 
-    protected Entity _p;
+    protected Entity GetBase;
 
     public bool canFlip = true;
 
@@ -27,8 +27,8 @@ public class EntityMovement : MonoBehaviour
     {
         if (horizontalInput != 0)
         {
-            Vector3 newVelocity = new(horizontalInput * speed, _p.GetRigidbody().velocity.y, 0f);
-            _p.GetRigidbody().velocity = newVelocity;
+            Vector3 newVelocity = new(horizontalInput * speed, GetBase.GetRigidbody().velocity.y, 0f);
+            GetBase.GetRigidbody().velocity = newVelocity;
         }
     }
 
@@ -39,7 +39,7 @@ public class EntityMovement : MonoBehaviour
         {
             velocity.y = -2f;
             velocity.y += -9.81f * Time.deltaTime;
-            _p.GetRigidbody().AddForce(velocity * Time.deltaTime);
+            GetBase.GetRigidbody().AddForce(velocity * Time.deltaTime);
         }
     }
 
@@ -48,9 +48,9 @@ public class EntityMovement : MonoBehaviour
         if (!isGrounded)
         {
             // Faster falling
-            if (_p.GetRigidbody().velocity.y < 0)
+            if (GetBase.GetRigidbody().velocity.y < 0)
             {
-                _p.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+                GetBase.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
             }
         }
     }
@@ -72,6 +72,6 @@ public class EntityMovement : MonoBehaviour
 
     public virtual void Jump()
     {
-        _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        GetBase.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
