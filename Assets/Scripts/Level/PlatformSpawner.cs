@@ -4,11 +4,10 @@ using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
 {
-    public GameObject[] prefabList;
-    public string platformTrigger;
-    public Transform spawnPoint;
+    [SerializeField] GameObject[] prefabList;
+    [SerializeField] string platformTrigger;
+    [SerializeField] Transform spawnPoint;
     [SerializeField] bool destroyOnTriggerExit = true;
-
     [SerializeField] float maximumDifficulty = 1.25f;
 
     private float currentDifficulty = 0;
@@ -25,35 +24,30 @@ public class PlatformSpawner : MonoBehaviour
             Destroy(other.transform.parent.gameObject);
     }
 
-public void SpawnPlatform()
-{
-    if(prefabList.Length == 1) {
-        Instantiate(prefabList[0], spawnPoint.position, Quaternion.identity);
-        return;
-    }
-
-    Platform selectedPlatform;
-    int randIndex;
-    int iteration = 0;
-
-    do
+    public void SpawnPlatform()
     {
-        if(iteration == prefabList.Length) {
-            currentDifficulty = 0;
+        if(prefabList.Length == 1) {
+            Instantiate(prefabList[0], spawnPoint.position, Quaternion.identity);
+            return;
         }
 
-        randIndex = Random.Range(0, prefabList.Length);
-        selectedPlatform = prefabList[randIndex].GetComponent<Platform>();
-        iteration ++;
+        Platform selectedPlatform;
+        int randIndex;
+        int iteration = 0;
+
+        do
+        {
+            if(iteration == prefabList.Length) {
+                currentDifficulty = 0;
+            }
+
+            randIndex = Random.Range(0, prefabList.Length);
+            selectedPlatform = prefabList[randIndex].GetComponent<Platform>();
+            iteration ++;
+        }
+        while ((selectedPlatform.blockDifficulty + currentDifficulty) >= maximumDifficulty + 0.2f);
+
+        Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
+        currentDifficulty += selectedPlatform.blockDifficulty;
     }
-    while ((selectedPlatform.blockDifficulty + currentDifficulty) >= maximumDifficulty + 0.2f);
-    //Debug.Log("SELECTED " + selectedPlatform.blockDifficulty);
-
-
-    Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
-
-    currentDifficulty += selectedPlatform.blockDifficulty;
-
-    //Debug.Log("CURRENT DIFFICULTY " + currentDifficulty);
-}
 }
