@@ -12,6 +12,7 @@ public class Lava : MonoBehaviour
     [SerializeField] ParticleSystem _rockFall;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
+    
 
     private void Start()
     {
