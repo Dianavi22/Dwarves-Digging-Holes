@@ -17,7 +17,6 @@ public class Lava : MonoBehaviour
     private void Start()
     {
         _lavaCollider.enabled = false;
-        StartCoroutine(CooldownLava());
         PlayLavaSound();
     }
 
