@@ -6,31 +6,17 @@ public class IntroGame : MonoBehaviour
 {
     [SerializeField] List<GameObject> _ladderPart;
     [SerializeField] Lava _lava;
-    private float _scrollSpeed;
-    private float _baseScrollSpeed;
+    [SerializeField] ShakyCame _sc;
 
-    private void Awake()
-    {
-       
-    }
     private void Start()
     {
-     
-        StartCoroutine(LadderIntro());
     }
-    private IEnumerator LadderIntro()
+    public IEnumerator LadderIntro()
     {
-        //_scrollSpeed = GameManager.Instance.Difficulty.ScrollingSpeed;
-        //_baseScrollSpeed = _scrollSpeed;
-        //_scrollSpeed = 0;
-        yield return new WaitForSeconds(3);
+        
         for (int i = 0; i < _ladderPart.Count; i++)
         {
-            if(i == _ladderPart.Count)
-            {
-              //  _scrollSpeed = _baseScrollSpeed;
-
-            }
+            _sc.ShakyCameCustom(0.2f, 0.2f);
                 StartCoroutine(DestroyPart(i));
             yield return new WaitForSeconds(0.3f);
         }

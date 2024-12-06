@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    private bool _readyToEvent = true;
+    private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
     private float _scrollSpeed;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
     private Vector3 _lavaPosition;
+    
 
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
         _scrollSpeed = GameManager.Instance.Difficulty.ScrollingSpeed;
+        Invoke("LaunchEvent", 10);
+    }
+
+    private void LaunchEvent()
+    {
+        _readyToEvent = true;
     }
 
     void Update()
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
-
             StartCoroutine(Event());
         }
         if (_isLavaMove)
@@ -42,10 +48,9 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(100);
+        yield return new WaitForSeconds(70);
         ChooseEvent(Random.Range(0, 5));
         yield return new WaitForSeconds(30);
-        print("END EVENT");
         _readyToEvent = true;
     }
 

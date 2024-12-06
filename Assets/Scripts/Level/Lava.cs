@@ -17,7 +17,6 @@ public class Lava : MonoBehaviour
     private void Start()
     {
         _lavaCollider.enabled = false;
-        StartCoroutine(CooldownLava());
         PlayLavaSound();
     }
 
@@ -52,7 +51,7 @@ public class Lava : MonoBehaviour
         }
     }
 
-    private IEnumerator CooldownLava()
+    public IEnumerator CooldownLava()
     {
         yield return new WaitForSeconds(4);
         _rockFall.Play();
