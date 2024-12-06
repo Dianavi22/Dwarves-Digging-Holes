@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -9,6 +10,7 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] bool destroyOnTriggerExit = true;
     [SerializeField] float maximumDifficulty = 1.25f;
+    private float offset = 38; 
 
     private float currentDifficulty = 0;
 
@@ -27,7 +29,7 @@ public class PlatformSpawner : MonoBehaviour
     public void SpawnPlatform()
     {
         if(prefabList.Length == 1) {
-            Instantiate(prefabList[0], spawnPoint.position, Quaternion.identity);
+            Instantiate(prefabList[0], new Vector3(spawnPoint.transform.position.x + offset, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity);
             return;
         }
 
@@ -47,7 +49,7 @@ public class PlatformSpawner : MonoBehaviour
         }
         while ((selectedPlatform.blockDifficulty + currentDifficulty) >= maximumDifficulty + 0.2f);
 
-        Instantiate(prefabList[randIndex], spawnPoint.position, Quaternion.identity);
+        Instantiate(prefabList[randIndex], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity);
         currentDifficulty += selectedPlatform.blockDifficulty;
     }
 }

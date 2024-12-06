@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public bool debugMode;
     public bool isDisableEventManager;
 
-
-
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] Platform _platform;
 

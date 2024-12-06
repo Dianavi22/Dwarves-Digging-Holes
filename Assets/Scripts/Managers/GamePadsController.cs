@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class GamePadsController : MonoBehaviour
 {
+    public int nbPlayer;
+
     [Header("Player Instance")]
     [SerializeField] private Player m_PlayerPrefab;
     [SerializeField] List<Material> m_PlayerMAT = new();
@@ -51,6 +53,7 @@ public class GamePadsController : MonoBehaviour
         {   
             InstantiatePlayerUI("Gamepad", gamepad, index);
             index++;
+            nbPlayer = index;
         }
     }
 

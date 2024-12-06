@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
     [SerializeField] List<string> dialogList = new List<string>();
     [SerializeField] TMP_Text _dialogText;
+    [SerializeField] Image _dwarfHead;
+    [SerializeField] List<Sprite> _dwarfHeadSprite;
+    [SerializeField] GamePadsController _gpController;
     private TypeSentence _typeSentence;
     private int i;
 
@@ -23,11 +28,18 @@ public class DialogManager : MonoBehaviour
 
     private IEnumerator Dialog()
     {
-        yield return new WaitForSeconds(10);
-        _dialogText.text = "";
+        yield return new WaitForSeconds(30);
         TextChoice();
         _typeSentence.WriteMachinEffect(dialogList[i], _dialogText, 0.05f);
         StartCoroutine(Dialog());
+        _dwarfHead.gameObject.SetActive(true);
+        _dwarfHead.sprite = _dwarfHeadSprite[Random.Range(0,_gpController.nbPlayer)];
+        yield return new WaitForSeconds(10);
+        _dialogText.text = "";
+        _dwarfHead.gameObject.SetActive(false);
+
+
+
     }
 
     private void TextChoice()
