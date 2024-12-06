@@ -48,10 +48,9 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(100);
+        yield return new WaitForSeconds(70);
         ChooseEvent(Random.Range(0, 5));
         yield return new WaitForSeconds(30);
-        print("END EVENT");
         _readyToEvent = true;
     }
 
