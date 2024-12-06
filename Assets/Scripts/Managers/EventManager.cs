@@ -22,7 +22,6 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
-
             StartCoroutine(Event());
         }
         if (_isLavaMove)
