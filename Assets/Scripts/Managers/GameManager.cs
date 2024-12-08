@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartGame()
     {
         _baseSpeed = this.Difficulty.ScrollingSpeed;
+        _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());

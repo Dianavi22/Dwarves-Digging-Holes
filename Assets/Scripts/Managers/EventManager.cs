@@ -7,7 +7,7 @@ public class EventManager : MonoBehaviour
 {
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
-    private float _scrollSpeed;
+    public float scrollSpeed;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
@@ -18,7 +18,6 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        _scrollSpeed = GameManager.Instance.Difficulty.ScrollingSpeed;
         Invoke("LaunchEvent", 10);
     }
 
@@ -31,6 +30,7 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
+            print("EventCoroutine");
             StartCoroutine(Event());
         }
         if (_isLavaMove)
@@ -39,7 +39,7 @@ public class EventManager : MonoBehaviour
         }
         if (_isLavaMoveEndEvent)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * _scrollSpeed / 2);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * scrollSpeed / 2);
             if (_lava.transform.position.x <= _lavaPosition.x)
             {
                 _isLavaMoveEndEvent = false;
@@ -62,7 +62,7 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(70);
+        yield return new WaitForSeconds(70); 
         ChooseEvent(Random.Range(0, 5));
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
@@ -75,24 +75,23 @@ public class EventManager : MonoBehaviour
 
     private void ChooseEvent(int i)
     {
+        print("ChooseEvent");
+
         if (i == 0)
         {
-            //EventPickaxe();
-            LavaGettingClose();
+            EventPickaxe();
         }
         else if (i == 1)
         {
-            LavaGettingClose();
-           // EventGoldChariot();
+
+            EventGoldChariot();
         }
         else if (i == 2)
         {
-            LavaGettingClose();
-            //StartCoroutine(LavaGettingClose());
+            StartCoroutine(LavaGettingClose());
         }
         else
         {
-            LavaGettingClose();
             //
         }
 
@@ -116,6 +115,8 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator LavaGettingClose()
     {
+        print("LAVAEvent");
+
         StartCoroutine(TextEvent("LAVAAA !!"));
 
         _lavaPosition = _lava.transform.position;
