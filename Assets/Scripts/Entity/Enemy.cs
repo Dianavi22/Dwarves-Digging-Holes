@@ -1,6 +1,5 @@
 using System.Collections;
 using DG.Tweening;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Enemy : Entity

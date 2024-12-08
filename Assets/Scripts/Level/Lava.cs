@@ -53,7 +53,6 @@ public class Lava : MonoBehaviour
 
     public IEnumerator CooldownLava()
     {
-        yield return new WaitForSeconds(4);
         _rockFall.Play();
         _sc.ShakyCameCustom(2, 0.2f);
         _lavaCollider.enabled = true;
