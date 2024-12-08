@@ -267,8 +267,9 @@ public class PlayerActions : MonoBehaviour
 
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
         {
-            // obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
             obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
+            // Reset pickaxe scale when throw to avoid scaling issues
+            if (!isGrabbed) obj.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         else
         {
