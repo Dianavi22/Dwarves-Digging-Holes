@@ -15,6 +15,8 @@ public class Rock : MonoBehaviour
     [SerializeField] Score _score;
     [SerializeField] private int _goldScore;
 
+    [SerializeField] GameObject _gold;
+
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
@@ -35,6 +37,7 @@ public class Rock : MonoBehaviour
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
             _score.ScoreCounter += _goldScore;
+            Instantiate(_gold, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
         }
 
         _breakRockParticule.Play();

@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+        print(this.Difficulty.ScrollingSpeed);
          float baseSpeed = this.Difficulty.ScrollingSpeed;
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
@@ -93,6 +94,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         StartCoroutine(_lava.CooldownLava());
         yield return new WaitForSeconds(1);
+        print(baseSpeed);
         this.Difficulty.ScrollingSpeed = baseSpeed;
 
     }
