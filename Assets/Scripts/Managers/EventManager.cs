@@ -62,8 +62,8 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(70); 
-        ChooseEvent(Random.Range(0, 5));
+        yield return new WaitForSeconds(10); 
+        ChooseEvent(Random.Range(0, 3));
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -75,8 +75,7 @@ public class EventManager : MonoBehaviour
 
     private void ChooseEvent(int i)
     {
-        print("ChooseEvent");
-
+        print(i);
         if (i == 0)
         {
             EventPickaxe();
@@ -99,7 +98,8 @@ public class EventManager : MonoBehaviour
 
     private void EventPickaxe()
     {
-        StartCoroutine(TextEvent("PICKAXES !!"));
+        StartCoroutine(TextEvent("PICAAAAXE !!"));
+
         var _pickaxeInScene = FindObjectsOfType<Pickaxe>();
         for (int i = 0; i < _pickaxeInScene.Length; i++)
         {
@@ -109,13 +109,14 @@ public class EventManager : MonoBehaviour
 
     private void EventGoldChariot()
     {
-        StartCoroutine(TextEvent("GOOOLD !!"));
+        StartCoroutine(TextEvent("GOOOOOLD !!"));
+
+
         _goldChariot.GoldEvent();
     }
 
     private IEnumerator LavaGettingClose()
     {
-        print("LAVAEvent");
 
         StartCoroutine(TextEvent("LAVAAA !!"));
 
