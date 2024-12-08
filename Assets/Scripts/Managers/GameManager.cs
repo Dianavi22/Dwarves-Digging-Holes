@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text _textGameOverCondition;
 
     [SerializeField] ParticleSystem _gameOverPart;
-
+    [SerializeField] IntroGame _introGame;
+    [SerializeField] Lava _lava;
     public bool isGameOver = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
@@ -78,6 +79,21 @@ public class GameManager : MonoBehaviour
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
         GameStarted();
+
+       
+    }
+
+    private IEnumerator StartGame()
+    {
+         float baseSpeed = this.Difficulty.ScrollingSpeed;
+        this.Difficulty.ScrollingSpeed = 0;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(_introGame.LadderIntro());
+        yield return new WaitForSeconds(3);
+        StartCoroutine(_lava.CooldownLava());
+        yield return new WaitForSeconds(1);
+        this.Difficulty.ScrollingSpeed = baseSpeed;
+
     }
 
     void Update()
@@ -92,6 +108,7 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
+        StartCoroutine(StartGame());
         Invoke(nameof(InitPlatformSpawner), 3f);
     }
 

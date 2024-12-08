@@ -22,7 +22,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         set
         {
             _nbGolbinOnChariot = value;
-            UpdateParticle();
+          //  UpdateParticle();
         }
     }
 

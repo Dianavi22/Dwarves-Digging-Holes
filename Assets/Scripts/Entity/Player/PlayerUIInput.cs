@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using FMODUnity;
+using DG.Tweening;
 
 public class PlayerUIInput : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerUIInput : MonoBehaviour
     public EventReference submitEvent;
     public EventReference navigateEvent;
 
+    private bool condition = true;
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -18,7 +21,8 @@ public class PlayerUIInput : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        UIPauseManager.Instance.Pause(_p);
+        if (context.phase == InputActionPhase.Started)
+            UIPauseManager.Instance.Pause(_p);
     }
 
     public void OnTest(InputAction.CallbackContext context)
@@ -26,10 +30,21 @@ public class PlayerUIInput : MonoBehaviour
         Debug.Log("Test");
     }
 
-    public void OnNavigate() {
-        RuntimeManager.PlayOneShot(navigateEvent);
+    public void OnNavigate(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && UIPauseManager.Instance.isPaused)
+            RuntimeManager.PlayOneShot(navigateEvent);
     }
-    public void OnSubmit() {
-        RuntimeManager.PlayOneShot(submitEvent);
+
+    //! Les actions sont compliquées à gérer, il faudrait revoir ça
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed && UIPauseManager.Instance.isPaused && condition)
+        {
+            condition = false;
+            RuntimeManager.PlayOneShot(submitEvent);
+            DOVirtual.DelayedCall(0.5f, () => condition = true);
+
+        }
     }
 }

@@ -12,11 +12,11 @@ public class Lava : MonoBehaviour
     [SerializeField] ParticleSystem _rockFall;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
+    
 
     private void Start()
     {
         _lavaCollider.enabled = false;
-        StartCoroutine(CooldownLava());
         PlayLavaSound();
     }
 
@@ -51,9 +51,8 @@ public class Lava : MonoBehaviour
         }
     }
 
-    private IEnumerator CooldownLava()
+    public IEnumerator CooldownLava()
     {
-        yield return new WaitForSeconds(4);
         _rockFall.Play();
         _sc.ShakyCameCustom(2, 0.2f);
         _lavaCollider.enabled = true;
