@@ -12,7 +12,7 @@ public class Lava : MonoBehaviour
     [SerializeField] ParticleSystem _rockFall;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
-    
+
 
     private void Start()
     {
@@ -47,7 +47,11 @@ public class Lava : MonoBehaviour
     {
         if (_isStartLava)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 5, transform.position.y, transform.position.z), Time.deltaTime * 0.5f);
+            transform.position = Vector3.Lerp(
+            transform.position,
+            new Vector3(transform.position.x + 5, transform.position.y, transform.position.z), // +1 et pas +5  (Debug Build)
+            Time.deltaTime * 1.7f
+ );
         }
     }
 

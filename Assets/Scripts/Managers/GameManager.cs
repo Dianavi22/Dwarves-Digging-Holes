@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
         _goldChariot.GoldCount = Difficulty.NbStartingGold;
-
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
         GameStarted();
@@ -94,7 +93,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(3);
         StartCoroutine(_lava.CooldownLava());
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.5f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
 
     }

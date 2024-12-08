@@ -35,11 +35,11 @@ public class EventManager : MonoBehaviour
         }
         if (_isLavaMove)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x + 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * 0.5f);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x + 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * 4.5f);
         }
         if (_isLavaMoveEndEvent)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * scrollSpeed / 2);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * 4.5f); //  scrollSpeed / 2 (Debug BUILD)
             if (_lava.transform.position.x <= _lavaPosition.x)
             {
                 _isLavaMoveEndEvent = false;
@@ -62,7 +62,7 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(10); 
+        yield return new WaitForSeconds(30); 
         ChooseEvent(Random.Range(0, 3));
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
@@ -82,7 +82,6 @@ public class EventManager : MonoBehaviour
         }
         else if (i == 1)
         {
-
             EventGoldChariot();
         }
         else if (i == 2)
@@ -91,6 +90,7 @@ public class EventManager : MonoBehaviour
         }
         else
         {
+            StartCoroutine(LavaGettingClose());
             //
         }
 
