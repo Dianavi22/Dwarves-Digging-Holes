@@ -5,12 +5,8 @@ using UnityEngine;
 public class BigRock : MonoBehaviour
 {
    
-
-    private void OnCollisionEnter(Collision collision)
+    public void DestroyBigRock()
     {
-        if (Utils.Component.TryGetInParent<Dynamite>(collision.collider, out var dynamite))
-        {
-            Destroy(dynamite.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }
