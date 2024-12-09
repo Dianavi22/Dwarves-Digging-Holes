@@ -67,8 +67,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
             _f.onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
             _f.onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
 
-            UpdateCartsFatigueUI(_f.currentCartsFatigue, _f.maxCartsFatigue);
-            UpdateMiningFatigueUI(_f.currentMiningFatigue, _f.maxMiningFatigue);
+            UpdateCartsFatigueUI(_f.currentCartsFatigue, _f.MaxPushCartFatigue);
+            UpdateMiningFatigueUI(_f.currentMiningFatigue, _f.MaxMiningFatigue);
         }
     }
 
@@ -91,8 +91,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         PlayerFatigue _f = _player.GetFatigue();
 
-        if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.maxCartsFatigue);
-        if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.maxMiningFatigue);
+        if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.MaxPushCartFatigue);
+        if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.MaxMiningFatigue);
     }
 
     public void UpdateCartsFatigueUI(float currentFatigue, float maxFatigue)

@@ -55,7 +55,7 @@ public class PlayerActions : MonoBehaviour
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
                 && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed
-                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigueReducer))
+                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.MiningFatigue.ActionReducer))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;

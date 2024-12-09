@@ -57,7 +57,7 @@ public class PlayerMovements : EntityMovement
             bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
 
             float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !_p.IsCarried
-                    && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
+                    && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime))
                 ? _p.GetRigidbody().velocity.x
                 : horizontalInput * speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);

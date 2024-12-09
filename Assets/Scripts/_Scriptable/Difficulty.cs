@@ -7,8 +7,8 @@ public class Difficulty : ScriptableObject
     public float ScrollingSpeed;
 
     [Header("Player")]
-    public float PlayerMiningFatigueReducer;
-    public float PlayerPushFatigueReducer;
+    public PlayerFatigueData MiningFatigue;
+    public PlayerFatigueData PushCartFatigue;
 
     [Header("GoldChariot")]
     public int NbStartingGold;
