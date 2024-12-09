@@ -327,7 +327,7 @@ public class PlayerActions : MonoBehaviour
 
     private void ThrowObject(bool forced = false)
     {
-        if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
+        if (!IsHoldingObject || GameManager.Instance.isGameOver || Physics.Raycast(origin: transform.position, direction: -transform.right, maxDistance: 0.5f, layerMask: ~(LayerMask.GetMask("Default") |  LayerMask.GetMask("Grabbed")))) return;
 
         SetObjectInHand(heldObject, false, forced);
         EmptyHands();
