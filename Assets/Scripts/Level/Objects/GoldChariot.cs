@@ -48,8 +48,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-
-
         if (_rb.velocity.x > 0)
         {
             PlayChariotSound();
@@ -119,6 +117,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
     #endregion
+    
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         currentPlayer.GetMovement().canFlip = !isGrabbed;
@@ -127,7 +126,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        GameManager.Instance.GameOver(DeathMessage.Lava);
+        StartCoroutine(GameManager.Instance.GameOver(DeathMessage.Lava));
     }
     public void HideGfx()
     {
@@ -139,21 +138,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HideChariotText()
     {
         _lostGoldPart.Stop();
-
     }
 
     public void GoldEvent()
     {
-        if (_currentGoldCount <= 1)
-        {
-            return;
-        }
+        if (_currentGoldCount <= 1) return;
         else
         {
             _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
             UpdateText();
         }
     }
-  
-    
 }

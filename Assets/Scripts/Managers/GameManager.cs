@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public bool isDisableEventManager;
 
     [SerializeField] private PlatformSpawner blockSpawner;
-    [SerializeField] Platform _platform;
 
     [SerializeField] private PhysicMaterial holderPhysicMaterial;
 
@@ -133,7 +132,7 @@ public class GameManager : MonoBehaviour
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
         StartCoroutine(StartGame());
-        Invoke("InitPlatformSpawner", 3f);
+        Invoke(nameof(InitPlatformSpawner), 3f);
     }
 
     private void InitPlatformSpawner()

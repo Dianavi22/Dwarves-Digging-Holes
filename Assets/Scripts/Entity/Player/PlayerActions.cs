@@ -67,7 +67,7 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused && canPickup)
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
@@ -79,11 +79,9 @@ public class PlayerActions : MonoBehaviour
         }
 
         // The grab for the goldchariot is kept while the button is pressed
-        if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
+        if (context.canceled && IsHoldingObject) //the key has been released
         {
-            _p.EmptyPlayerFixedJoin();
-            goldChariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, false);
-            EmptyHands();
+            ThrowObject();
         }
     }
 
@@ -241,8 +239,8 @@ public class PlayerActions : MonoBehaviour
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = isGrabbed;
-
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
+
             if (forced)
             {
                 rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
@@ -329,9 +327,16 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        SetObjectInHand(heldObject, false, forced);
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
+        {
+            _p.EmptyPlayerFixedJoin();
+            chariot.HandleCarriedState(_p, false);
+        } else
+        {
+            SetObjectInHand(heldObject, false, forced);
+            DOVirtual.DelayedCall(1f, () => canPickup = true);
+        }
         EmptyHands();
-        DOVirtual.DelayedCall(1f, () => canPickup = true);
     }
     #endregion
 
