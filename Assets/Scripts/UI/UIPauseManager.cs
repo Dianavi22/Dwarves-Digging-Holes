@@ -29,14 +29,6 @@ public class UIPauseManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pause(FindFirstObjectByType<Player>());
-        }
-    }
-
     public void RetryGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
