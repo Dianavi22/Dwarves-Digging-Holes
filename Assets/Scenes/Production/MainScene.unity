@@ -317,8 +317,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1880652949}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3294447256970943864, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -2010,6 +2009,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1222737240315994372, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2040697600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7053252858748117121, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+  m_PrefabInstance: {fileID: 125992425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2094380562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2819156671898626256, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -2386,6 +2390,10 @@ PrefabInstance:
       propertyPath: _rockFall
       value: 
       objectReference: {fileID: 1177077748}
+    - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: _tutoBubble
+      value: 
+      objectReference: {fileID: 2040697600}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2441,7 +2449,7 @@ PrefabInstance:
       objectReference: {fileID: 903970390}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _tutoElements.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _tutoElements.Array.data[0]
@@ -2451,6 +2459,14 @@ PrefabInstance:
       propertyPath: _tutoElements.Array.data[1]
       value: 
       objectReference: {fileID: 226942895}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _tutoElements.Array.data[2]
+      value: 
+      objectReference: {fileID: 2040697600}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _tutoElements.Array.data[3]
+      value: 
+      objectReference: {fileID: 2040697600}
     - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _sc
       value: 

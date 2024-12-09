@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_lava.CooldownLava());
         yield return new WaitForSeconds(1);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         StopTuto();
 
     }
