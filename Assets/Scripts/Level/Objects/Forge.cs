@@ -7,10 +7,24 @@ public class Forge : MonoBehaviour
 
     private Player _player;
     private GameManager _gameManager;
+    [SerializeField] private GameObject _bubblePickaxe;
 
     private void Start()
     {
         _gameManager = GameManager.Instance;
+    }
+
+    private void Update()
+    {
+        if (_gameManager.CanCreatePickaxe)
+        {
+            _bubblePickaxe.SetActive(true);
+        }
+        else
+        {
+            _bubblePickaxe.SetActive(false);
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)

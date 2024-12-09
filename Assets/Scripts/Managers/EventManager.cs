@@ -18,7 +18,7 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        Invoke("LaunchEvent", 10);
+        Invoke("LaunchEvent", 50);
     }
 
     private void LaunchEvent()
