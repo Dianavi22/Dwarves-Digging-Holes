@@ -5,6 +5,7 @@ using System;
 
 public class PlayerMovements : EntityMovement
 {
+    [SerializeField] private float lowJumpMultiplier = 2f;
     [SerializeField] private float _dashForce;
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
@@ -12,8 +13,6 @@ public class PlayerMovements : EntityMovement
     [SerializeField] private Transform _rightRay;
 
     [SerializeField] ParticleSystem _DashPart;
-
-    [SerializeField] protected float lowJumpMultiplier = 2f;
 
     private float _vertical = 0f;
     private bool _isDashingCooldown = false;
@@ -38,6 +37,7 @@ public class PlayerMovements : EntityMovement
     void Start()
     {
         _animator = _p.GetAnimator();
+        Stats = GameManager.Instance.Difficulty.PlayerStats;
     }
 
     override protected void Update()
@@ -59,7 +59,7 @@ public class PlayerMovements : EntityMovement
             float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !_p.IsCarried
                     && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime))
                 ? _p.GetRigidbody().velocity.x
-                : horizontalInput * speed;
+                : horizontalInput * Stats.Speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
 
             if (xVelocity != 0)
@@ -110,7 +110,7 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     _jumpButtonHeld = true;
-                    _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    _p.GetRigidbody().AddForce(Vector3.up * Stats.JumpForce, ForceMode.Impulse);
                     _movePart.Stop();
                 }
                 break;

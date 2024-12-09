@@ -8,9 +8,8 @@ public class PlayerFatigue : MonoBehaviour
 {
     [HideInInspector] public FatigueChangedEvent onCartsFatigueChanged;
     [HideInInspector] public FatigueChangedEvent onMiningFatigueChanged;
-
-    public float currentCartsFatigue;
-    public float currentMiningFatigue;
+    [HideInInspector] public float currentCartsFatigue;
+    [HideInInspector] public float currentMiningFatigue;
 
     [SerializeField] ParticleSystem _fatiguePart;
 

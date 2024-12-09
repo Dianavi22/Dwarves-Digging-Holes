@@ -1,11 +1,9 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using DG.Tweening;
 using System;
-using System.Collections;
 
 public class EnemyMovements : EntityMovement
 {
+    [SerializeField] GameObject raycastDetectHitWall;
     Enemy _e => (Enemy)GetBase;
     private bool canJump = true;
 
@@ -14,6 +12,11 @@ public class EnemyMovements : EntityMovement
     void Awake()
     {
         GetBase = GetComponent<Enemy>();
+    }
+
+    private void Start()
+    {
+        Stats = GameManager.Instance.Difficulty.GoblinStats;
     }
 
     override protected void Update()
@@ -29,7 +32,7 @@ public class EnemyMovements : EntityMovement
 
             if (isGrounded)
             {
-                hitWall = Physics.Raycast(_e.raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(_e.raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+                hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
                 if (hitWall && canJump)
                 {
                     SetCanJump();
@@ -58,7 +61,7 @@ public class EnemyMovements : EntityMovement
         }
         else
         {
-            _e.GetRigidbody().velocity = new Vector3(speed * horizontalInput, _e.GetRigidbody().velocity.y, 0f);
+            _e.GetRigidbody().velocity = new Vector3(Stats.Speed * horizontalInput, _e.GetRigidbody().velocity.y, 0f);
         }
     }
 
