@@ -98,6 +98,8 @@ public class PlayerMovements : EntityMovement
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (UIPauseManager.Instance.isPaused) return;
+        
         if (_p.IsCarried)
         {
             forceDetachFunction?.Invoke();

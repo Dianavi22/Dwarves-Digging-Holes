@@ -79,7 +79,7 @@ public class Enemy : Entity
             base.HandleCarriedState(player, grabbed);
         }
         else {
-            DOVirtual.DelayedCall(1f, () =>  base.HandleCarriedState(player, grabbed));
+            DOVirtual.DelayedCall(0.5f, () =>  base.HandleCarriedState(player, grabbed));
         }
         
         _rb.mass = grabbed ? 1f : 5f;
