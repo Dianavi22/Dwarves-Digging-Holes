@@ -11,6 +11,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
+    [SerializeField] private Canvas _canvasPickaxe;
+    [SerializeField] GameObject _pickaxeTutoCanvas;
+    private bool _isCarried;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -31,12 +34,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Start()
     {
         StartCoroutine(CdParticule());
+        _canvasPickaxe.worldCamera = FindObjectOfType<Camera>(); // Trouver une autre solution que FindObjectOfType
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
-
+        _isCarried = isCarried;
         if (isCarried)
         {
             throwOnDestroy = () => { 
@@ -44,14 +48,31 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
                 actions.IsBaseActionActivated = false;
+                _pickaxeTutoCanvas.SetActive(true);
             };
         }
         else
         {
             actions.StopAnimation();
             actions.IsBaseActionActivated = false;
+            _pickaxeTutoCanvas.SetActive(true);
         }
     }
+
+    private void Update()
+    {
+        //_pickaxeTutoCanvas.transform.LookAt(_canvasPickaxe.worldCamera.transform);
+        //if (_isCarried)
+        //{
+        //    _pickaxeTutoCanvas.SetActive(false);
+
+        //}
+        //else
+        //{
+        //    _pickaxeTutoCanvas.SetActive(true);
+        //}
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
