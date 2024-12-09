@@ -70,12 +70,14 @@ public class PlayerActions : MonoBehaviour
         if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
             if (IsHoldingObject) {
+                if (Physics.Raycast(origin: transform.position, direction: -transform.right, maxDistance: 0.33f, layerMask: ~(LayerMask.GetMask("Default") |  LayerMask.GetMask("Grabbed")))) return;
                 _p.GetActions().StopAnimation();
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
             }
             else if (canPickup)
                 TryPickUpObject();
+            return;
         }
 
         // The grab for the goldchariot is kept while the button is pressed
@@ -327,7 +329,7 @@ public class PlayerActions : MonoBehaviour
 
     private void ThrowObject(bool forced = false)
     {
-        if (!IsHoldingObject || GameManager.Instance.isGameOver || Physics.Raycast(origin: transform.position, direction: -transform.right, maxDistance: 0.5f, layerMask: ~(LayerMask.GetMask("Default") |  LayerMask.GetMask("Grabbed")))) return;
+        if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
         SetObjectInHand(heldObject, false, forced);
         EmptyHands();
