@@ -69,8 +69,11 @@ public class PlayerActions : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
         {
-            if (IsHoldingObject)
+            if (IsHoldingObject) {
+                _p.GetActions().StopAnimation();
+                _p.GetActions().CancelInvoke();
                 ThrowObject();
+            }
             else if (canPickup)
                 TryPickUpObject();
         }
@@ -218,7 +221,6 @@ public class PlayerActions : MonoBehaviour
     public void PickupObject(GameObject _object)
     {
         heldObject = _object;
-
         SetObjectInHand(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
