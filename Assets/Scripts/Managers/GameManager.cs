@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
+    private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
     void Awake()
@@ -80,19 +81,20 @@ public class GameManager : MonoBehaviour
             AddPickaxe(pickaxe);
         GameStarted();
 
-       
+
     }
 
     private IEnumerator StartGame()
     {
-         float baseSpeed = this.Difficulty.ScrollingSpeed;
+        _baseSpeed = this.Difficulty.ScrollingSpeed;
+        _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(3);
         StartCoroutine(_lava.CooldownLava());
         yield return new WaitForSeconds(1);
-        this.Difficulty.ScrollingSpeed = baseSpeed;
+        this.Difficulty.ScrollingSpeed = _baseSpeed;
 
     }
 
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
         _gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.HideChariotText();
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f,0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
         _eventManager.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx();
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
         _GameOverCanvas.SetActive(true);
         // ? Activer un message / effet si record battu
         bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
+        this.Difficulty.ScrollingSpeed = _baseSpeed;
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }

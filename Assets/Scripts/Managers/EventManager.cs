@@ -1,22 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
-    private float _scrollSpeed;
+    public float scrollSpeed;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
     private Vector3 _lavaPosition;
-    
+    [SerializeField] ParticleSystem _showTextPart;
+    [SerializeField] TMP_Text _eventText;
 
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        _scrollSpeed = GameManager.Instance.Difficulty.ScrollingSpeed;
         Invoke("LaunchEvent", 10);
     }
 
@@ -29,6 +30,7 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
+            print("EventCoroutine");
             StartCoroutine(Event());
         }
         if (_isLavaMove)
@@ -37,7 +39,7 @@ public class EventManager : MonoBehaviour
         }
         if (_isLavaMoveEndEvent)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * _scrollSpeed / 2);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * scrollSpeed / 2);
             if (_lava.transform.position.x <= _lavaPosition.x)
             {
                 _isLavaMoveEndEvent = false;
@@ -45,10 +47,22 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    private IEnumerator TextEvent(string message)
+    {
+        _eventText.text = "";
+        _showTextPart.Play();
+        yield return new WaitForSeconds(0.2f);
+        _eventText.gameObject.SetActive(true);
+        _eventText.text = message;
+        yield return new WaitForSeconds(1);
+        _eventText.gameObject.SetActive(false);
+
+    }
+
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(70);
+        yield return new WaitForSeconds(70); 
         ChooseEvent(Random.Range(0, 5));
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
@@ -61,6 +75,8 @@ public class EventManager : MonoBehaviour
 
     private void ChooseEvent(int i)
     {
+        print("ChooseEvent");
+
         if (i == 0)
         {
             EventPickaxe();
@@ -72,11 +88,7 @@ public class EventManager : MonoBehaviour
         }
         else if (i == 2)
         {
-            StartCoroutine(LavaGetingClose());
-        }
-        else if (i == 3)
-        {
-            //
+            StartCoroutine(LavaGettingClose());
         }
         else
         {
@@ -87,6 +99,7 @@ public class EventManager : MonoBehaviour
 
     private void EventPickaxe()
     {
+        StartCoroutine(TextEvent("PICKAXES !!"));
         var _pickaxeInScene = FindObjectsOfType<Pickaxe>();
         for (int i = 0; i < _pickaxeInScene.Length; i++)
         {
@@ -96,11 +109,16 @@ public class EventManager : MonoBehaviour
 
     private void EventGoldChariot()
     {
+        StartCoroutine(TextEvent("GOOOLD !!"));
         _goldChariot.GoldEvent();
     }
 
-    private IEnumerator LavaGetingClose()
+    private IEnumerator LavaGettingClose()
     {
+        print("LAVAEvent");
+
+        StartCoroutine(TextEvent("LAVAAA !!"));
+
         _lavaPosition = _lava.transform.position;
         _isLavaMove = true;
         yield return new WaitForSeconds(4.5f);

@@ -14,6 +14,8 @@ public class Rock : MonoBehaviour
     [SerializeField] private GameObject _gfx;
     [SerializeField] Score _score;
     [SerializeField] private int _goldScore;
+    [SerializeField] Transform _spawnGold;
+    [SerializeField] GameObject _gold;
 
     private void Awake()
     {       
@@ -35,6 +37,7 @@ public class Rock : MonoBehaviour
         {
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
             _score.ScoreCounter += _goldScore;
+            Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
         }
 
         _breakRockParticule.Play();

@@ -35,6 +35,7 @@ Transform:
   - {fileID: 9181536423786510343}
   - {fileID: 631071121865981103}
   - {fileID: 3491127282237006348}
+  - {fileID: 3816739818359022616}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5240119379322174540
@@ -80,9 +81,10 @@ MonoBehaviour:
   haveGold: 1
   _breakRockParticule: {fileID: 2581523678156346455}
   _gfx: {fileID: 7212093183657113754}
-  _shakyCame: {fileID: 0}
   _score: {fileID: 0}
   _goldScore: 10
+  _spawnGold: {fileID: 3816739818359022616}
+  _gold: {fileID: 6593851591752231226, guid: f448c8649a4242a4499e9d49d54e7405, type: 3}
 --- !u!114 &-4643059896975039049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +189,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6191986229872814496}
+  m_Father: {fileID: 6871278959994187326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8917469526531991375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3816739818359022616}
+  m_Layer: 6
+  m_Name: GoldSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3816739818359022616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917469526531991375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 6871278959994187326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5937120717497732683
