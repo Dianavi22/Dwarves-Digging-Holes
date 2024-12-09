@@ -14,9 +14,13 @@ public class EventManager : MonoBehaviour
     private Vector3 _lavaPosition;
     [SerializeField] ParticleSystem _showTextPart;
     [SerializeField] TMP_Text _eventText;
+    [SerializeField] ShakyCame _sc;
 
     [SerializeField] List<MeshRenderer> _pickaxesModels;
     [SerializeField] List<ParticleSystem> _pickaxesPart;
+
+    [SerializeField] ParticleSystem _lavaPartUI;
+    [SerializeField] ParticleSystem _lavaRain;
 
     void Start()
     {
@@ -81,23 +85,23 @@ public class EventManager : MonoBehaviour
         print(i);
         if (i == 0)
         {
-            StartCoroutine(EventPickaxe());
+            StartCoroutine(LavaGettingClose());
 
         }
         else if (i == 1)
         {
-            StartCoroutine(EventPickaxe());
+            StartCoroutine(LavaGettingClose());
             // EventGoldChariot();
         }
         else if (i == 2)
         {
             // StartCoroutine(LavaGettingClose());
-            StartCoroutine(EventPickaxe());
+            StartCoroutine(LavaGettingClose());
 
         }
         else
         {
-            StartCoroutine(EventPickaxe());
+            StartCoroutine(LavaGettingClose());
             //
         }
 
@@ -105,11 +109,8 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator EventPickaxe()
     {
-
-        
         StartCoroutine(TextEvent("PICAAAAXE !!"));
         yield return new WaitForSeconds(0.2f);
-
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
             _pickaxesModels[i].enabled = true;
@@ -129,13 +130,13 @@ public class EventManager : MonoBehaviour
         {
             _pickaxeInScene[i].HandleDestroy();
         }
+        _sc.ShakyCameCustom(0.2f, 0.2f);
     }
 
-    private void EventGoldChariot()
+    private IEnumerator EventGoldChariot()
     {
         StartCoroutine(TextEvent("GOOOOOLD !!"));
-
-
+        yield return new WaitForSeconds(2);
         _goldChariot.GoldEvent();
     }
 
@@ -143,11 +144,17 @@ public class EventManager : MonoBehaviour
     {
 
         StartCoroutine(TextEvent("LAVAAA !!"));
-
+        _lavaPartUI.Play();
+        _lavaRain.Play();
+        _sc.ShakyCameCustom(0.2f, 0.2f);
+        yield return new WaitForSeconds(2);
+        _sc.ShakyCameCustom(4f, 0.2f);
         _lavaPosition = _lava.transform.position;
         _isLavaMove = true;
         yield return new WaitForSeconds(4.5f);
         _isLavaMove = false;
+        _lavaRain.Stop();
+
         yield return new WaitForSeconds(4.5f);
         _isLavaMoveEndEvent = true;
 

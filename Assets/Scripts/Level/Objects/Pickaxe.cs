@@ -11,8 +11,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
-    [SerializeField] private Canvas _canvasPickaxe;
-    [SerializeField] GameObject _pickaxeTutoCanvas;
+    //[SerializeField] private Canvas _canvasPickaxe;
+    //[SerializeField] GameObject _pickaxeTutoCanvas;
     private bool _isCarried;
 
     // In case the set of HealthPoint want to destroy the pickaxe
@@ -34,7 +34,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Start()
     {
         StartCoroutine(CdParticule());
-        _canvasPickaxe.worldCamera = FindObjectOfType<Camera>(); // Trouver une autre solution que FindObjectOfType
+        //_canvasPickaxe.worldCamera = FindObjectOfType<Camera>(); // Trouver une autre solution que FindObjectOfType
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
