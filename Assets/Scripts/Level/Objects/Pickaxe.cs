@@ -59,14 +59,14 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        if (_isCarried)
-        {
-            _pickaxeTutoCanvas.SetActive(false);
-        }
-        else
-        {
-            _pickaxeTutoCanvas.SetActive(true);
-        }
+        //if (_isCarried)
+        //{
+        //    _pickaxeTutoCanvas.SetActive(false);
+        //}
+        //else
+        //{
+        //    _pickaxeTutoCanvas.SetActive(true);
+        //}
     }
 
 

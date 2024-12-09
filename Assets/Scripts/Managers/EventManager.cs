@@ -15,10 +15,13 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _showTextPart;
     [SerializeField] TMP_Text _eventText;
 
+    [SerializeField] List<MeshRenderer> _pickaxesModels;
+    [SerializeField] List<ParticleSystem> _pickaxesPart;
+
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        Invoke("LaunchEvent", 50);
+        Invoke("LaunchEvent", 10);
     }
 
     private void LaunchEvent()
@@ -54,7 +57,7 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         _eventText.gameObject.SetActive(true);
         _eventText.text = message;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         _eventText.gameObject.SetActive(false);
 
     }
@@ -62,7 +65,7 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(10); 
+        yield return new WaitForSeconds(10);
         ChooseEvent(Random.Range(0, 3));
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
@@ -78,28 +81,49 @@ public class EventManager : MonoBehaviour
         print(i);
         if (i == 0)
         {
-            EventPickaxe();
+            StartCoroutine(EventPickaxe());
+
         }
         else if (i == 1)
         {
-
-            EventGoldChariot();
+            StartCoroutine(EventPickaxe());
+            // EventGoldChariot();
         }
         else if (i == 2)
         {
-            StartCoroutine(LavaGettingClose());
+            // StartCoroutine(LavaGettingClose());
+            StartCoroutine(EventPickaxe());
+
         }
         else
         {
+            StartCoroutine(EventPickaxe());
             //
         }
 
     }
 
-    private void EventPickaxe()
+    private IEnumerator EventPickaxe()
     {
-        StartCoroutine(TextEvent("PICAAAAXE !!"));
 
+        
+        StartCoroutine(TextEvent("PICAAAAXE !!"));
+        yield return new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < _pickaxesModels.Count; i++)
+        {
+            _pickaxesModels[i].enabled = true;
+        }
+        yield return new WaitForSeconds(1.5f);
+        for (int i = 0; i < _pickaxesModels.Count; i++)
+        {
+            _pickaxesModels[i].enabled = false;
+        }
+        for (int i = 0; i < _pickaxesPart.Count; i++)
+        {
+            _pickaxesPart[i].Play();
+        }
+        yield return new WaitForSeconds(2);
         var _pickaxeInScene = FindObjectsOfType<Pickaxe>();
         for (int i = 0; i < _pickaxeInScene.Length; i++)
         {
