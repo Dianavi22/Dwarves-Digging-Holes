@@ -1,32 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dynamite : MonoBehaviour
+public class Dynamite : MonoBehaviour, IGrabbable
 {
-    void Start()
+    private Action throwOnDestroy;
+
+    public GameObject GetGameObject()
     {
-        
+        return gameObject;
     }
 
-    void Update()
+    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        
+        PlayerActions actions = currentPlayer.GetActions();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void HandleDestroy()
     {
-        try
-        {
-            if (collision.collider.GetComponentInParent<GameObject>().name == "BigRock")
-            {
-                Destroy(collision.collider);
-            }
-        }
-        catch
-        {
-            //
-        }
-       
+        Destroy(gameObject);
     }
 }
