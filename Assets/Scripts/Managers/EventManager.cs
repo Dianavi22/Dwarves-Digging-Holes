@@ -88,23 +88,20 @@ public class EventManager : MonoBehaviour
         print(i);
         if (i == 0)
         {
-            StartCoroutine(EventGoldChariot());
+            StartCoroutine(EventPickaxe());
 
         }
         else if (i == 1)
         {
             StartCoroutine(EventGoldChariot());
-            // EventGoldChariot();
         }
         else if (i == 2)
         {
-            // StartCoroutine(LavaGettingClose());
-            StartCoroutine(EventGoldChariot());
+             StartCoroutine(LavaGettingClose());
 
         }
         else
         {
-            StartCoroutine(EventGoldChariot());
             //
         }
 
