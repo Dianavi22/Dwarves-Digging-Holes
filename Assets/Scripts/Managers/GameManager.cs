@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
+    [SerializeField] List<GameObject> _tutoElements;
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -85,6 +86,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void StopTuto()
+    {
+
+        for (int i = 0; i < _tutoElements.Count; i++)
+        {
+            _tutoElements[i].SetActive(false);
+        }
+    }
+
     private IEnumerator StartGame()
     {
         _baseSpeed = this.Difficulty.ScrollingSpeed;
@@ -96,6 +106,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_lava.CooldownLava());
         yield return new WaitForSeconds(1);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
+        yield return new WaitForSeconds(3);
+        StopTuto();
 
     }
 

@@ -48,29 +48,25 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
                 actions.IsBaseActionActivated = false;
-                _pickaxeTutoCanvas.SetActive(true);
             };
         }
         else
         {
             actions.StopAnimation();
             actions.IsBaseActionActivated = false;
-            _pickaxeTutoCanvas.SetActive(true);
         }
     }
 
     private void Update()
     {
-        //_pickaxeTutoCanvas.transform.LookAt(_canvasPickaxe.worldCamera.transform);
-        //if (_isCarried)
-        //{
-        //    _pickaxeTutoCanvas.SetActive(false);
-
-        //}
-        //else
-        //{
-        //    _pickaxeTutoCanvas.SetActive(true);
-        //}
+        if (_isCarried)
+        {
+            _pickaxeTutoCanvas.SetActive(false);
+        }
+        else
+        {
+            _pickaxeTutoCanvas.SetActive(true);
+        }
     }
 
 
