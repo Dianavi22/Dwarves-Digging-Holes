@@ -12,6 +12,7 @@ public class Lava : MonoBehaviour
     [SerializeField] ParticleSystem _rockFall;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
+    [SerializeField] GameObject _tutoBubble;
     
 
     private void Start()
@@ -60,6 +61,7 @@ public class Lava : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         _isStartLava = false;
         _rockFall.Stop();
+        _tutoBubble.SetActive(true);
     }
 
     private void PlayLavaSound()
