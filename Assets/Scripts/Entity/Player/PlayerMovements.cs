@@ -87,8 +87,8 @@ public class PlayerMovements : EntityMovement
 
         if (_p.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
 
-        _p.GetActions().StopAnimation();
-        _p.GetActions().CancelInvoke();
+        //_p.GetActions().StopAnimation();
+        //_p.GetActions().CancelInvoke();
         _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
         _p.GetActions().vertical = _vertical;
         flip_vertical = _vertical != 0;
