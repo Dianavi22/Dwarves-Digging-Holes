@@ -91,7 +91,14 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < _tutoElements.Count; i++)
         {
-            _tutoElements[i].SetActive(false);
+            try
+            {
+                _tutoElements[i].SetActive(false);
+            }
+            catch
+            {
+                //
+            }
         }
     }
 
