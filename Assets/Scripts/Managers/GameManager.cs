@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlatformSpawner blockSpawner;
 
+    [SerializeField] private PhysicMaterial holderPhysicMaterial;
+
     #region Difficulty
     // The difficulty have to be listed from the easiest to the hardest
     [SerializeField] private List<Difficulty> m_DifficultyList;
@@ -135,5 +137,15 @@ public class GameManager : MonoBehaviour
         bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
         this.Difficulty.ScrollingSpeed = _baseSpeed;
         EventSystem.current.SetSelectedGameObject(_retryButton);
+    }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        this.Difficulty.ScrollingSpeed = _baseSpeed;
+        holderPhysicMaterial.dynamicFriction = 1;
+        holderPhysicMaterial.staticFriction = 1;
     }
 }
