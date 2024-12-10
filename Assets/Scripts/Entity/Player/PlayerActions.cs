@@ -164,15 +164,15 @@ public class PlayerActions : MonoBehaviour
         switch (vertical)
         {
             case 1: // UP case
-                rayDirection = new Vector3(0, 2f, 0) + (-transform.right);
+                rayDirection = new Vector3(0, 2f, 0) + (transform.forward);
                 break;
 
             case 0: // BASE case
-                rayDirection = -transform.right;
+                rayDirection = transform.forward;
                 break;
 
             case -1: // DOWN case
-                rayDirection = new Vector3(0, -2f, 0) + (-transform.right);
+                rayDirection = new Vector3(0, -2f, 0) + (transform.forward);
                 break;
 
             default:
@@ -213,6 +213,7 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
+            _p.transform.LookAt(new Vector3(heldObject.transform.position.x, _p.transform.position.y));
             chariot.HandleCarriedState(_p, true);
             _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
         }
@@ -256,7 +257,7 @@ public class PlayerActions : MonoBehaviour
 
                 float launchAngle = Mathf.Lerp(70f, 20f, (pivotAngle + 35f) / 70f);
                 float radians = pivotAngle * Mathf.Deg2Rad;
-                Vector3 throwDirection = (-transform.right * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
+                Vector3 throwDirection = (transform.forward * Mathf.Cos(radians)) + (transform.up * Mathf.Sin(radians));
                 rb.gameObject.transform.rotation = Quaternion.identity;
                 rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             }
