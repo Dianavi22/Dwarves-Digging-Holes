@@ -57,7 +57,7 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    protected virtual void HandleFlip()
+    private void HandleFlip()
     {
         if (GameManager.Instance.isGameOver) return;
         if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))

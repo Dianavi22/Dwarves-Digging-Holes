@@ -173,14 +173,4 @@ public class PlayerMovements : EntityMovement
             _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
         }
     }
-
-    protected override void HandleFlip()
-    {
-        if (GameManager.Instance.isGameOver) return;
-        if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))
-        {
-            flip = !flip;
-            transform.rotation = Quaternion.Euler(0, flip ? 90 : -90, 0);
-        }
-    }
 }
