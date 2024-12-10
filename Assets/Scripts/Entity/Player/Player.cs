@@ -13,7 +13,7 @@ public class Player : Entity
     private FixedJoint _joint;
 
     public bool HasJoint => _joint != null;
-    [HideInInspector] public bool IsCarried = false;
+    //[HideInInspector] public bool IsCarried = false;
 
     protected override void Awake()
     {

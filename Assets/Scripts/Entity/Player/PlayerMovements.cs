@@ -55,11 +55,8 @@ public class PlayerMovements : EntityMovement
         if (!_isDashing)
         {
             bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
+            float xVelocity = _p.IsGrabbed ? _p.GetRigidbody().velocity.x : CalculateXVelocity(horizontalInput, isHoldingChariot);
 
-            float xVelocity = (horizontalInput != 0 && !_isDashingCooldown && !_p.IsCarried
-                    && isHoldingChariot && !_p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime))
-                ? _p.GetRigidbody().velocity.x
-                : horizontalInput * speed;
             _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
 
             if (xVelocity != 0)
@@ -72,6 +69,22 @@ public class PlayerMovements : EntityMovement
             }
             _animator?.SetFloat("Run", Mathf.Abs(horizontalInput));
         }
+    }
+
+    private float CalculateXVelocity(float horizontalInput, bool isHoldingChariot)
+    {
+        if (horizontalInput != 0 && !_isDashingCooldown && isHoldingChariot)
+        {
+            var fatigueReduced = _p.GetFatigue().ReduceCartsFatigue(
+                GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime);
+
+            if (!fatigueReduced)
+            {
+                return _p.GetRigidbody().velocity.x;
+            }
+        }
+
+        return horizontalInput * speed;
     }
 
     private void FlipFacingDirection()
@@ -99,8 +112,8 @@ public class PlayerMovements : EntityMovement
     public void OnJump(InputAction.CallbackContext context)
     {
         if (UIPauseManager.Instance.isPaused) return;
-        
-        if (_p.IsCarried)
+
+        if (_p.IsGrabbed)
         {
             forceDetachFunction?.Invoke();
         }
@@ -130,7 +143,7 @@ public class PlayerMovements : EntityMovement
 
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (_isDashing || _isDashingCooldown || _p.IsCarried) return;
+        if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
