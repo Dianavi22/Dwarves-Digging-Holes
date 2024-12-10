@@ -142,20 +142,27 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(DeathMessage deathMessage)
     {
-        _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
-        _gameOverPart.gameObject.SetActive(true);
-        isGameOver = true;
-        _goldChariot.HideChariotText();
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
-        _eventManager.enabled = false;
-        yield return new WaitForSeconds(3.5f);
-        _goldChariot.HideGfx();
-        yield return new WaitForSeconds(2f);
-        _GameOverCanvas.SetActive(true);
-        // ? Activer un message / effet si record battu
-        bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
-        this.Difficulty.ScrollingSpeed = _baseSpeed;
-        EventSystem.current.SetSelectedGameObject(_retryButton);
+        if (!isGameOver)
+        {
+            StatsManager.Instance.gameStopped = true;
+            
+            Dictionary<string, Player> s = StatsManager.Instance.EndGameStats();
+
+            _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
+            _gameOverPart.gameObject.SetActive(true);
+            isGameOver = true;
+            _goldChariot.HideChariotText();
+            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
+            _eventManager.enabled = false;
+            yield return new WaitForSeconds(3.5f);
+            _goldChariot.HideGfx();
+            yield return new WaitForSeconds(2f);
+            _GameOverCanvas.SetActive(true);
+            // ? Activer un message / effet si record battu
+            bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
+            this.Difficulty.ScrollingSpeed = _baseSpeed;
+            EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
     }
 
     /// <summary>

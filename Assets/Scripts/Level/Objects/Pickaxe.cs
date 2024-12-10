@@ -14,6 +14,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     //[SerializeField] private Canvas _canvasPickaxe;
     //[SerializeField] GameObject _pickaxeTutoCanvas;
     private bool _isCarried;
+    private Player holdingPlayer;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -38,12 +39,14 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
+        holdingPlayer = currentPlayer;
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
         _isCarried = isCarried;
         if (isCarried)
         {
             throwOnDestroy = () => { 
+                holdingPlayer = null;
                 actions.EmptyHands();
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
@@ -104,7 +107,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void HandleRockHit(Rock rock)
     {
-        rock.Hit();
+        rock.Hit(holdingPlayer);
         if (rock.haveGold)
         {
             _hitGoldParts.Play();
