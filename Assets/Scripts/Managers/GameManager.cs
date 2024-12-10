@@ -80,11 +80,15 @@ public class GameManager : MonoBehaviour
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
         _goldChariot.GoldCount = Difficulty.NbStartingGold;
 
+        foreach (Player p in GamePadsController.Instance.PlayerList)
+        {
+            p.GetMovement().SetStats(Difficulty.PlayerStats);
+            p.GetFatigue().DefineStats(Difficulty.MiningFatigue, Difficulty.PushCartFatigue);
+        }
+
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
         GameStarted();
-
-
     }
 
     private void StopTuto()
