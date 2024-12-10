@@ -76,7 +76,7 @@ public class PlayerMovements : EntityMovement
         if (horizontalInput != 0 && !_isDashingCooldown && isHoldingChariot)
         {
             var fatigueReduced = _p.GetFatigue().ReduceCartsFatigue(
-                GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime);
+                GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
 
             if (!fatigueReduced)
             {
@@ -84,7 +84,7 @@ public class PlayerMovements : EntityMovement
             }
         }
 
-        return horizontalInput * speed;
+        return horizontalInput * Stats.Speed;
     }
 
     private void FlipFacingDirection()
