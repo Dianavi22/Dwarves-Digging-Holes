@@ -67,7 +67,7 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused && canPickup)
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup)
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
@@ -81,13 +81,15 @@ public class PlayerActions : MonoBehaviour
         // The grab for the goldchariot is kept while the button is pressed
         if (context.canceled && IsHoldingObject) //the key has been released
         {
+            _p.GetActions().StopAnimation();
+            _p.GetActions().CancelInvoke();
             ThrowObject();
         }
     }
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
 
@@ -231,10 +233,10 @@ public class PlayerActions : MonoBehaviour
     // <param name="forced"></param>
     private void SetObjectInHand(GameObject obj, bool isGrabbed, bool forced = false)
     {
-        if (obj.TryGetComponent<Renderer>(out var objRenderer))
-        {
-            objRenderer.enabled = !isGrabbed;
-        }
+        // if (obj.TryGetComponent<Renderer>(out var objRenderer))
+        // {
+        //     objRenderer.enabled = !isGrabbed;
+        // }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
