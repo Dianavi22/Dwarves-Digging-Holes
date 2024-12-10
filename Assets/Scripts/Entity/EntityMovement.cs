@@ -55,10 +55,10 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    protected void HandleFlip()
+    protected virtual void HandleFlip()
     {
         if (GameManager.Instance.isGameOver) return;
-        if (((horizontalInput < 0 && flip) || (horizontalInput > 0 && !flip)) && canFlip)
+        if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))
         {
             flip = !flip;
             transform.rotation = Quaternion.Euler(0, flip ? 180 : 0, 0);
