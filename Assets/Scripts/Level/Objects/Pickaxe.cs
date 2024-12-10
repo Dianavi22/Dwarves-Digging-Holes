@@ -25,8 +25,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             _healthPoint = value;
             if (_healthPoint <= 0 && !_isDying)
-                StartCoroutine(BreakPickaxe());
-               
+                // StartCoroutine(BreakPickaxe());
+                return;
         }
     }
 
