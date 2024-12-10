@@ -5,10 +5,13 @@ public class Difficulty : ScriptableObject
 {
     [Header("General")]
     public float ScrollingSpeed;
+    public EntityMovementData GoblinStats;
 
     [Header("Player")]
-    public float PlayerMiningFatigueReducer;
-    public float PlayerPushFatigueReducer;
+    public EntityMovementData PlayerStats;
+
+    public PlayerFatigueData MiningFatigue;
+    public PlayerFatigueData PushCartFatigue;
 
     [Header("GoldChariot")]
     public int NbStartingGold;

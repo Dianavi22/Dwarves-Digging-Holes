@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class EntityMovement : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField] protected float speed = 5f;
-    [SerializeField] protected float jumpForce = 10f;
-    [SerializeField] protected float fallMultiplier = 2.5f;
     protected bool isGrounded;
     protected bool flip;
     protected float horizontalInput;
     protected Vector3 velocity;
 
     protected Entity GetBase;
+    protected EntityMovementData Stats;
 
-    public bool canFlip = true;
+    public void SetStats(EntityMovementData newStats)
+    {
+        Stats = newStats;
+    }
+
+    [HideInInspector] public bool canFlip = true;
 
     protected virtual void Update()
     {
@@ -27,7 +29,7 @@ public class EntityMovement : MonoBehaviour
     {
         if (horizontalInput != 0)
         {
-            Vector3 newVelocity = new(horizontalInput * speed, GetBase.GetRigidbody().velocity.y, 0f);
+            Vector3 newVelocity = new(horizontalInput * Stats.Speed, GetBase.GetRigidbody().velocity.y, 0f);
             GetBase.GetRigidbody().velocity = newVelocity;
         }
     }
@@ -50,12 +52,12 @@ public class EntityMovement : MonoBehaviour
             // Faster falling
             if (GetBase.GetRigidbody().velocity.y < 0)
             {
-                GetBase.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+                GetBase.GetRigidbody().velocity += (Stats.FallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
             }
         }
     }
 
-    protected virtual void HandleFlip()
+    private void HandleFlip()
     {
         if (GameManager.Instance.isGameOver) return;
         if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))
@@ -72,6 +74,6 @@ public class EntityMovement : MonoBehaviour
 
     public virtual void Jump()
     {
-        GetBase.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        GetBase.GetRigidbody().AddForce(Vector3.up * Stats.JumpForce, ForceMode.Impulse);
     }
 }

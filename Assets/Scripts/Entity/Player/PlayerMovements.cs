@@ -5,6 +5,7 @@ using System;
 
 public class PlayerMovements : EntityMovement
 {
+    [SerializeField] private float lowJumpMultiplier = 2f;
     [SerializeField] private float _dashForce;
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
@@ -12,8 +13,6 @@ public class PlayerMovements : EntityMovement
     [SerializeField] private Transform _rightRay;
 
     [SerializeField] ParticleSystem _DashPart;
-
-    [SerializeField] protected float lowJumpMultiplier = 2f;
 
     private float _vertical = 0f;
     private bool _isDashingCooldown = false;
@@ -76,7 +75,7 @@ public class PlayerMovements : EntityMovement
         if (horizontalInput != 0 && !_isDashingCooldown && isHoldingChariot)
         {
             var fatigueReduced = _p.GetFatigue().ReduceCartsFatigue(
-                GameManager.Instance.Difficulty.PlayerPushFatigueReducer * Time.deltaTime);
+                GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
 
             if (!fatigueReduced)
             {
@@ -84,7 +83,7 @@ public class PlayerMovements : EntityMovement
             }
         }
 
-        return horizontalInput * speed;
+        return horizontalInput * Stats.Speed;
     }
 
     private void FlipFacingDirection()
@@ -123,7 +122,7 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     _jumpButtonHeld = true;
-                    _p.GetRigidbody().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    _p.GetRigidbody().AddForce(Vector3.up * Stats.JumpForce, ForceMode.Impulse);
                     _movePart.Stop();
                 }
                 break;
@@ -172,16 +171,6 @@ public class PlayerMovements : EntityMovement
         if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
         {
             _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
-    }
-
-    protected override void HandleFlip()
-    {
-        if (GameManager.Instance.isGameOver) return;
-        if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))
-        {
-            flip = !flip;
-            transform.rotation = Quaternion.Euler(0, flip ? 90 : -90, 0);
         }
     }
 }

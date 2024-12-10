@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    [SerializeField] private float jumpForce = 0.5f;
-    [SerializeField] public GameObject raycastDetectHitWall;
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
