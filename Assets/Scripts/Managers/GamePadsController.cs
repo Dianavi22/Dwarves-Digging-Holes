@@ -59,7 +59,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        Player player = Instantiate(m_PlayerPrefab, transform.position, transform.localRotation, transform.parent);
+        Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         // * Instantiate Player UI
@@ -84,7 +84,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
     {
-        Player player = Instantiate(m_PlayerPrefab, transform.position, transform.localRotation, transform.parent);
+        Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
