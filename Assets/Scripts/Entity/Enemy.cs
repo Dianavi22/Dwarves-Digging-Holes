@@ -76,11 +76,8 @@ public class Enemy : Entity
     public override void HandleCarriedState(Player player, bool grabbed) {
         if(grabbed) {
             IsTouchingChariot = false;
-            base.HandleCarriedState(player, grabbed);
         }
-        else {
-            DOVirtual.DelayedCall(1f, () =>  base.HandleCarriedState(player, grabbed));
-        }
+        base.HandleCarriedState(player, grabbed);
         
         _rb.mass = grabbed ? 1f : 5f;
     } 

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public bool isDisableEventManager;
 
     [SerializeField] private PlatformSpawner blockSpawner;
-    [SerializeField] Platform _platform;
 
     [SerializeField] private PhysicMaterial holderPhysicMaterial;
 
@@ -61,6 +60,7 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
+    [SerializeField] List<GameObject> _tutoElements;
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -87,6 +87,22 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void StopTuto()
+    {
+
+        for (int i = 0; i < _tutoElements.Count; i++)
+        {
+            try
+            {
+                _tutoElements[i].SetActive(false);
+            }
+            catch
+            {
+                //
+            }
+        }
+    }
+
     private IEnumerator StartGame()
     {
         _baseSpeed = this.Difficulty.ScrollingSpeed;
@@ -98,6 +114,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_lava.CooldownLava());
         yield return new WaitForSeconds(1);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
+        yield return new WaitForSeconds(5);
+        StopTuto();
 
     }
 
@@ -114,7 +132,7 @@ public class GameManager : MonoBehaviour
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
         StartCoroutine(StartGame());
-        Invoke("InitPlatformSpawner", 3f);
+        Invoke(nameof(InitPlatformSpawner), 3f);
     }
 
     private void InitPlatformSpawner()
