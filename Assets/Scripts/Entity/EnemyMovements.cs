@@ -16,7 +16,7 @@ public class EnemyMovements : EntityMovement
 
     private void Start()
     {
-        Stats = GameManager.Instance.Difficulty.GoblinStats;
+        SetStats(GameManager.Instance.Difficulty.GoblinStats);
     }
 
     override protected void Update()

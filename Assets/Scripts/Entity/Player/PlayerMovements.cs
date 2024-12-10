@@ -37,7 +37,6 @@ public class PlayerMovements : EntityMovement
     void Start()
     {
         _animator = _p.GetAnimator();
-        Stats = GameManager.Instance.Difficulty.PlayerStats;
     }
 
     override protected void Update()

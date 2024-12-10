@@ -10,6 +10,11 @@ public class EntityMovement : MonoBehaviour
     protected Entity GetBase;
     protected EntityMovementData Stats;
 
+    public void SetStats(EntityMovementData newStats)
+    {
+        Stats = newStats;
+    }
+
     [HideInInspector] public bool canFlip = true;
 
     protected virtual void Update()

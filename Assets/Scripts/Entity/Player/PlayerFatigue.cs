@@ -22,10 +22,10 @@ public class PlayerFatigue : MonoBehaviour
     public float MaxMiningFatigue => _miningData.MaxFatigue;
     public float MaxPushCartFatigue => _pushCartData.MaxFatigue;
 
-    void Start()
+    public void DefineStats(PlayerFatigueData miningData, PlayerFatigueData pushCartData)
     {
-        _miningData = GameManager.Instance.Difficulty.MiningFatigue;
-        _pushCartData = GameManager.Instance.Difficulty.PushCartFatigue;
+        _miningData = miningData;
+        _pushCartData = pushCartData;
 
         currentCartsFatigue = MaxPushCartFatigue;
         currentMiningFatigue = MaxMiningFatigue;
