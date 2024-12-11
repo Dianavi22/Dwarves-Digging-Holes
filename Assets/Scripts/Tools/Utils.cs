@@ -230,5 +230,6 @@ namespace Utils
     public enum StatsName
     {
         GoldMined,
+        MostDeath,
     }
 }
