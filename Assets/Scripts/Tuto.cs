@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tuto : MonoBehaviour
 {
 
-    [SerializeField] GameObject _takePickaxe;
+    [SerializeField] Pickaxe _takePickaxe;
     [SerializeField] GameObject _breakRock;
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
@@ -19,7 +19,7 @@ public class Tuto : MonoBehaviour
     public bool _isYeetEnemy;
     void Start()
     {
-
+        _takePickaxe = FindFirstObjectByType<Pickaxe>();
     }
 
     void Update()
@@ -52,13 +52,13 @@ public class Tuto : MonoBehaviour
 
     private void TakePickaxe()
     {
-        // _takePickaxe.SetActive(true);
+         _takePickaxe.isInTuto = true;
         print("TakePickaxe");
     }
     private void BreakRock()
     {
+        _takePickaxe.isInTuto = false;
         startTuto = false;
-       // _takePickaxe.SetActive(false);
         _breakRock.SetActive(true);
     }
 
