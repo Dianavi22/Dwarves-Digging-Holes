@@ -16,11 +16,13 @@ public class Rock : MonoBehaviour
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
+    [SerializeField] Tuto _tuto;
 
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
         _score = FindObjectOfType<Score>();
+        _tuto = FindObjectOfType<Tuto>();
     }
 
     public void Hit()
@@ -32,6 +34,11 @@ public class Rock : MonoBehaviour
 
     public IEnumerator Break()
     {
+
+        if (_tuto.isBreakRock)
+        {
+            _tuto.isPushChariot = true;
+        }
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {

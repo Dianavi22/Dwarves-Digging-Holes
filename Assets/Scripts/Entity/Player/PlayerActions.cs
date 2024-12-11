@@ -18,7 +18,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
-
+    [SerializeField] Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
@@ -48,6 +48,7 @@ public class PlayerActions : MonoBehaviour
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
+        _tuto = FindObjectOfType<Tuto>();
     }
 
     private void Update()
@@ -212,7 +213,7 @@ public class PlayerActions : MonoBehaviour
             if (player.GetActions().IsHoldingObject) return;
             PickupObject(player.gameObject);
         }
-        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
+        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot) )
         {
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
@@ -245,7 +246,7 @@ public class PlayerActions : MonoBehaviour
             rb.isKinematic = isGrabbed;
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
 
-            if (forced)
+            if (forced && !_tuto.startTuto && !_tuto.isBreakRock)
             {
                 rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
                 rb.gameObject.transform.rotation = Quaternion.identity;
@@ -284,6 +285,14 @@ public class PlayerActions : MonoBehaviour
         {
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
         }
+
+        //Tuto
+        if (heldObject.TryGetComponent<Pickaxe>(out var picaxe) && _tuto.startTuto)
+        {
+            canPickup = true;
+            _tuto.isBreakRock = true;
+        }
+
     }
 
     private void LayerHandler(GameObject obj)
@@ -331,7 +340,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot) )
         {
             _p.EmptyPlayerFixedJoin();
             chariot.HandleCarriedState(_p, false);
@@ -340,6 +349,9 @@ public class PlayerActions : MonoBehaviour
             SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
+
+
+       
         EmptyHands();
     }
     #endregion

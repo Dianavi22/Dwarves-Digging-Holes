@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
+    [SerializeField] private Tuto _tuto;
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
-    public bool isInTuto;
     [SerializeField] List<GameObject> _tutoElements;
 
     void Awake()
@@ -117,8 +117,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
-        isInTuto = true;
-
+        _tuto.startTuto = true;
 
     }
 

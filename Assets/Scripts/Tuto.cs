@@ -11,18 +11,20 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _takeEnemy;
     [SerializeField] GameObject _tutoEnemy;
     [SerializeField] Lava _lava;
+    [SerializeField] GoldChariot _goldChariot;
 
     [SerializeField] GameObject _circleRocks;
     [SerializeField] GameObject _circleChariot;
     [SerializeField] GameObject _circleEnemy;
     [SerializeField] GameObject _circleLava;
+    [SerializeField] GameObject _wallLimitTuto;
 
 
     public bool startTuto; 
-    public bool _isBreakRock;
-    public bool _isPushChariot;
-    public bool _isTakeEnemy;
-    public bool _isYeetEnemy;
+    public bool isBreakRock;
+    public bool isPushChariot;
+    public bool isTakeEnemy;
+    public bool isYeetEnemy;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
@@ -35,22 +37,22 @@ public class Tuto : MonoBehaviour
             TakePickaxe();
         }
 
-        if (_isBreakRock)
+        if (isBreakRock)
         {
             BreakRock();
         }
 
-        if (_isPushChariot)
+        if (isPushChariot)
         {
             PushChariot();
         }
         
-        if (_isTakeEnemy)
+        if (isTakeEnemy)
         {
             TakeEnemy();
         }
        
-        if (_isYeetEnemy)
+        if (isYeetEnemy)
         {
             YeetEnemy();
         }
@@ -70,8 +72,16 @@ public class Tuto : MonoBehaviour
 
     private void PushChariot()
     {
-        _isBreakRock = startTuto;
-        _breakRock.SetActive(startTuto);
+        _goldChariot.GetComponent<GoldChariot>().enabled = true;
+        isBreakRock = startTuto;
+        try
+        {
+            _breakRock.SetActive(startTuto);
+        }
+        catch
+        {
+            //
+        }
         _pushChariot.SetActive(true);
         _circleRocks.SetActive(startTuto);
         _circleChariot.SetActive(true);
@@ -80,21 +90,22 @@ public class Tuto : MonoBehaviour
 
     private void TakeEnemy()
     {
-        _isPushChariot = false;
-        _pushChariot.SetActive(_isPushChariot);
+        isPushChariot = false;
+        _pushChariot.SetActive(isPushChariot);
         _tutoEnemy.SetActive(true);
         _takeEnemy.SetActive(true);
-        _circleChariot.SetActive(_isPushChariot);
+        _circleChariot.SetActive(isPushChariot);
         _circleEnemy.SetActive(true);
     }
 
     private void YeetEnemy()
     {
-        _isTakeEnemy = false;
-        _takeEnemy.SetActive(_isTakeEnemy);
-        _circleEnemy.SetActive(_isTakeEnemy);
+        isTakeEnemy = false;
+        _takeEnemy.SetActive(isTakeEnemy);
+        _circleEnemy.SetActive(isTakeEnemy);
         _circleLava.SetActive(true);
         StartCoroutine(_lava.CooldownLava());
+        _wallLimitTuto.SetActive(false);
     }
 
 
