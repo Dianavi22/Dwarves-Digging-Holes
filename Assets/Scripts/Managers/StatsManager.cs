@@ -1,112 +1,125 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
+using Utils;
 
 public class StatsManager : MonoBehaviour
 {
-    private Dictionary<Player, Dictionary<string, int>> _playerStatistics = new();
+    [SerializeField] private List<StatNameToText> _statisticsText;
 
-    private List<string> statNames = new();
+    private readonly Dictionary<Player, Dictionary<string, int>> _playerStatistics = new();
+    private List<string> _statNames;
 
+    public bool GameStopped { get; private set; } = false;
+    public static StatsManager Instance { get; private set; } // Singleton instance
 
-    public bool gameStopped = false;
-    public static StatsManager Instance; // A static reference to the GameManager instance
+    #region Initialization
 
-    #region Preparation
-
-    public void Awake()
+    private void Awake()
     {
-        if (Instance == null) // If there is no instance already
+        if (Instance == null)
         {
             Instance = this;
         }
         else if (Instance != this)
-            Destroy(gameObject);
-    }
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
-    void Start()
-    {
-        statNames = StatsName.GetAllFieldsFromStatsName();
-        PrepareDict();
-    }
-
-    private void PrepareDict()
-    {
-        foreach (Player p in GamePadsController.Instance.PlayerList)
         {
-            _playerStatistics[p] = PrepareNestedDict();
+            Destroy(gameObject);
         }
-
     }
 
-    private Dictionary<string, int> PrepareNestedDict()
+    private void Start()
     {
-        return new Dictionary<string, int>(statNames.ToDictionary(stat => stat, stat => 0));
+        _statNames = GetAllStatNames();
+        InitializePlayerStatistics();
+    }
+
+    private void InitializePlayerStatistics()
+    {
+        foreach (var player in GamePadsController.Instance.PlayerList)
+        {
+            _playerStatistics[player] = CreateStatDictionary();
+        }
+    }
+
+    private Dictionary<string, int> CreateStatDictionary()
+    {
+        return _statNames.ToDictionary(stat => stat, _ => 0);
     }
 
     #endregion
 
-    public void StatGoldMined(Player playerId)
+    #region Gameplay Methods
+
+    public void IncrementStatistic(Player player, StatsName statName, int value)
     {
-        IncrementStatistic(playerId, StatsName.GoldMined, 1);
+        if (GameStopped || !_playerStatistics.ContainsKey(player)) return;
+
+        if (_playerStatistics[player].TryGetValue(statName.ToString(), out var current))
+        {
+            _playerStatistics[player][statName.ToString()] = current + value;
+        }
     }
 
-    private void IncrementStatistic(Player playerId, string statName, int value)
-    {
-        if (gameStopped) return;
+    #endregion
 
-        _playerStatistics[playerId][statName] += value;
-    }
+    #region Statistics Analysis
 
-    private Player? GetTopIn(string statName)
+    private Dictionary<Player, int> GetTopPlayersInStat(string statName)
     {
         var topPlayers = _playerStatistics
-            .Where(kv => kv.Value.ContainsKey(statName) && kv.Value[statName] > 0)
+            .Where(kv => kv.Value.TryGetValue(statName, out var statValue) && statValue > 0)
             .OrderByDescending(kv => kv.Value[statName])
-            .DistinctBy(kv => kv)
             .ToList();
 
-        if (topPlayers.Any())
+        if (topPlayers.Count == 0) return null;
+
+        if (topPlayers.Count == 1 || topPlayers[0].Value[statName] != topPlayers[1].Value[statName])
         {
-            if (topPlayers.Count == 1 || topPlayers[0].Value[statName] != topPlayers[1].Value[statName])
-            {
-                return topPlayers.First().Key;
-            }
+            return new Dictionary<Player, int> { { topPlayers[0].Key, topPlayers[0].Value[statName] } };
         }
 
         return null;
     }
 
-    public Dictionary<string, Player> EndGameStats()
+    private void DisplayEndGameStats()
     {
-        Dictionary<string, Player> winners = new();
-        foreach (string stat in statNames)
+        foreach (var statName in _statNames)
         {
-            winners[stat] = GetTopIn(stat);
+            var topPlayerData = GetTopPlayersInStat(statName);
+            if (topPlayerData != null)
+            {
+                var statText = _statisticsText.FirstOrDefault(st => st.Key.ToString() == statName);
+                if (statText != null)
+                {
+                    statText.Value.text = topPlayerData.Values.FirstOrDefault().ToString();
+                }
+            }
         }
-
-        return winners;
     }
 
+    public void EndGame()
+    {
+        GameStopped = true;
+        DisplayEndGameStats();
+    }
+
+    #endregion
+
+    #region Helpers
+
+    private List<string> GetAllStatNames()
+    {
+        return Enum.GetNames(typeof(StatsName)).ToList();
+    }
+
+    #endregion
 }
 
-public static class StatsName
+[Serializable]
+public class StatNameToText
 {
-    public static string GoldMined = "GoldMined";
-
-    public static List<string> GetAllFieldsFromStatsName()
-    {
-        return typeof(StatsName)
-            .GetFields(BindingFlags.Public | BindingFlags.Static)
-            .Select(field => field.GetValue(null)?.ToString())
-            .ToList();
-    }
+    public StatsName Key;
+    public TMP_Text Value;
 }

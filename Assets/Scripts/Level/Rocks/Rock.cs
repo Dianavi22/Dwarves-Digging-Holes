@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utils;
 
 public class Rock : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Rock : MonoBehaviour
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
 
-            if(hitPlayer != null) StatsManager.Instance.StatGoldMined(hitPlayer);
+            if(hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
         }
 
         _breakRockParticule.Play();

@@ -148,9 +148,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameOver)
         {
-            StatsManager.Instance.gameStopped = true;
-            
-            Dictionary<string, Player> s = StatsManager.Instance.EndGameStats();
+            StatsManager.Instance.EndGame();
 
             _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
             _gameOverPart.gameObject.SetActive(true);
