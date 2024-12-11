@@ -15,6 +15,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _pickaxeTutoCanvas;
     private bool _isCarried;
     public bool isInTuto = false;
+    [SerializeField] GameObject _circleWhite;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -74,10 +75,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         if (isInTuto)
         {
             _pickaxeTutoCanvas.SetActive(true);
+            _circleWhite.SetActive(true);
         }
         else
         {
             _pickaxeTutoCanvas.SetActive(false);
+            _circleWhite.SetActive(false);
+
         }
     }
 

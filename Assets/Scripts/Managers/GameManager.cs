@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
+    public bool isInTuto;
     [SerializeField] List<GameObject> _tutoElements;
 
     void Awake()
@@ -115,7 +116,10 @@ public class GameManager : MonoBehaviour
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
-       
+        yield return new WaitForSeconds(2);
+        isInTuto = true;
+
+
     }
 
     public IEnumerator StartGame()

@@ -37,10 +37,12 @@ public class PlayerActions : MonoBehaviour
     private bool canPickup = true;
 
     private Dictionary<int, int> previousLayer = new();
+    private GameManager _gameManager;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
+        _gameManager = GameManager.Instance;
     }
 
     private void Start()
@@ -67,7 +69,7 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup)
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup )
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
