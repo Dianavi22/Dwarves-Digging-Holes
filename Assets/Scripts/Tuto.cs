@@ -53,7 +53,6 @@ public class Tuto : MonoBehaviour
     private void TakePickaxe()
     {
          _takePickaxe.isInTuto = true;
-        print("TakePickaxe");
     }
     private void BreakRock()
     {
