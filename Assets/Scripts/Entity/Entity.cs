@@ -6,6 +6,8 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     protected Rigidbody _rb;
 
     public bool IsGrabbed { get; protected set; }
+
+    [HideInInspector] public Player holdBy; 
     public float recoveryTime = 0.5f;
 
     private Tween recoveryTween;
@@ -14,13 +16,14 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     {
         if (isGrabbed)
         {
+            holdBy = currentPlayer;
             HandleTween();
             IsGrabbed = isGrabbed;
         }
         else
         {
             HandleTween();
-            recoveryTween = DOVirtual.DelayedCall(recoveryTime, () => { IsGrabbed = isGrabbed; recoveryTween = null; });
+            recoveryTween = DOVirtual.DelayedCall(recoveryTime, () => { IsGrabbed = isGrabbed; recoveryTween = null; holdBy = null; });
         }
 
     }

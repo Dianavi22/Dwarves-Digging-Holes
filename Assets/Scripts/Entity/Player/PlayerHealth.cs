@@ -77,6 +77,10 @@ public class PlayerHealth : MonoBehaviour
         _p.EmptyPlayerFixedJoin();
 
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
+        if(_p.holdBy != null) {
+            StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
+            _p.holdBy = null;
+        }
 
         DOVirtual.DelayedCall(2f, () =>
         {

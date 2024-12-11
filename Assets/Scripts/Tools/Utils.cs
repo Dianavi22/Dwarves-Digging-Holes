@@ -231,5 +231,7 @@ namespace Utils
     {
         GoldMined,
         MostDeath,
+        PlayerKill,
+        GoblinKill
     }
 }
