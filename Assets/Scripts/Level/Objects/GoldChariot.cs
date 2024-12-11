@@ -9,6 +9,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
     [SerializeField] GameObject _gfx;
+    [SerializeField] Tuto _tuto;
     [SerializeField] private EventReference chariotSound;
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
@@ -50,6 +51,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         if (_rb.velocity.x > 0)
         {
+           
             PlayChariotSound();
         }
         else
@@ -120,6 +122,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+
+        if (_tuto.isPushChariot)
+        {
+            _tuto.isTakeEnemy = true;
+        }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
     }

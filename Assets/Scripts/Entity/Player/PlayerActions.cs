@@ -246,7 +246,7 @@ public class PlayerActions : MonoBehaviour
             rb.isKinematic = isGrabbed;
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
 
-            if (forced && !_tuto.startTuto && !_tuto.isBreakRock)
+            if (forced)
             {
                 rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
                 rb.gameObject.transform.rotation = Quaternion.identity;
@@ -289,9 +289,10 @@ public class PlayerActions : MonoBehaviour
         //Tuto
         if (heldObject.TryGetComponent<Pickaxe>(out var picaxe) && _tuto.startTuto)
         {
-            canPickup = true;
             _tuto.isBreakRock = true;
         }
+
+       
 
     }
 

@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _tuto.isYeetEnemy = false;
         Invoke(nameof(InitPlatformSpawner), 1f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
         yield return new WaitForSeconds(70);
