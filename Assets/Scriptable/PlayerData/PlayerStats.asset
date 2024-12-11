@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b65f89059c5a294696a0e28e7c20633, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  Speed: 6.5
+  RunMaxSpeed: 9
+  RunAcceleration: 9
+  RunAccelAmount: 50
+  RunDecceleration: 9
+  RunDeccelAmount: 50
+  VelocityPower: 1.2
+  AccelInAir: 1
+  DeccelInAir: 1
+  DoConserveMomentum: 0
   JumpForce: 10
   FallMultiplier: 5.25

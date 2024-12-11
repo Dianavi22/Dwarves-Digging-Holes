@@ -30,6 +30,8 @@ public class EnemyMovements : EntityMovement
         {
             base.Update();
 
+            OnMove();
+
             if (isGrounded)
             {
                 hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
@@ -45,24 +47,19 @@ public class EnemyMovements : EntityMovement
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
                 StartCoroutine(_e.HitChariot());
+                //_e.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
             }
         }
     }
-    override protected void HandleMovement()
+    private void OnMove()
     {
         Vector3 goldChariotPosition = _e._goldChariot.transform.position;
-        horizontalInput = Mathf.Sign(goldChariotPosition.x - transform.position.x);
+        float _horizontal = Mathf.Sign(goldChariotPosition.x - transform.position.x);
         if (Math.Abs(Vector3.Distance(goldChariotPosition, transform.position)) <= 1.25f)
-            horizontalInput = 0f;
+            _horizontal = 0f;
 
-        if (_e.IsTouchingChariot)
-        {
-            _e.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
-        }
-        else
-        {
-            _e.GetRigidbody().velocity = new Vector3(Stats.Speed * horizontalInput, _e.GetRigidbody().velocity.y, 0f);
-        }
+        CanMove = !_e.IsTouchingChariot;
+        Move(_horizontal);
     }
 
     private void SetCanJump() {
