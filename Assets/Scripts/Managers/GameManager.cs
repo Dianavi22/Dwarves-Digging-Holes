@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; // A static reference to the GameManager instance
 
     [SerializeField] List<GameObject> _tutoElements;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -107,20 +108,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator StartGame()
+    private IEnumerator StartParty()
     {
         _baseSpeed = this.Difficulty.ScrollingSpeed;
         _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
-        yield return new WaitForSeconds(3);
-        StartCoroutine(_lava.CooldownLava());
-        yield return new WaitForSeconds(1);
-        this.Difficulty.ScrollingSpeed = _baseSpeed;
-        yield return new WaitForSeconds(5);
-        StopTuto();
+       
+    }
 
+    public IEnumerator StartGame()
+    {
+        Invoke(nameof(InitPlatformSpawner), 1f);
+        this.Difficulty.ScrollingSpeed = _baseSpeed;
+        yield return new WaitForSeconds(70);
+        // StopTuto();
+        _eventManager.LaunchEvent();
     }
 
     void Update()
@@ -135,8 +139,7 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
-        StartCoroutine(StartGame());
-        Invoke(nameof(InitPlatformSpawner), 3f);
+        StartCoroutine(StartParty());
     }
 
     private void InitPlatformSpawner()

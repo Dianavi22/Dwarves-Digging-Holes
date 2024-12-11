@@ -13,8 +13,8 @@ public class Lava : MonoBehaviour
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
     [SerializeField] GameObject _tutoBubble;
-    
 
+    private bool _isCoolDown = true;
     private void Start()
     {
         _lavaCollider.enabled = false;
@@ -54,14 +54,19 @@ public class Lava : MonoBehaviour
 
     public IEnumerator CooldownLava()
     {
-        _rockFall.Play();
-        _sc.ShakyCameCustom(2, 0.2f);
-        _lavaCollider.enabled = true;
-        _isStartLava = true;
-        yield return new WaitForSeconds(2.5f);
-        _isStartLava = false;
-        _rockFall.Stop();
-        _tutoBubble.SetActive(true);
+        if (_isCoolDown)
+        {
+            _rockFall.Play();
+            _sc.ShakyCameCustom(2, 0.2f);
+            _lavaCollider.enabled = true;
+            _isStartLava = true;
+            yield return new WaitForSeconds(2.5f);
+            _isStartLava = false;
+            _rockFall.Stop();
+            _tutoBubble.SetActive(true);
+            _isCoolDown = false;
+        }
+        
     }
 
     private void PlayLavaSound()
