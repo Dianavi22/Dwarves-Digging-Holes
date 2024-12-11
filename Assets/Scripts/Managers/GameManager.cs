@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] Lava _lava;
+    [SerializeField] ShakyCame _sc;
     public bool isGameOver = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
-    [SerializeField] List<GameObject> _tutoElements;
+    //[SerializeField] List<GameObject> _tutoElements;
 
     void Awake()
     {
@@ -93,21 +94,21 @@ public class GameManager : MonoBehaviour
         GameStarted();
     }
 
-    private void StopTuto()
-    {
+    //private void StopTuto()
+    //{
 
-        for (int i = 0; i < _tutoElements.Count; i++)
-        {
-            try
-            {
-                _tutoElements[i].SetActive(false);
-            }
-            catch
-            {
-                //
-            }
-        }
-    }
+    //    for (int i = 0; i < _tutoElements.Count; i++)
+    //    {
+    //        try
+    //        {
+    //            _tutoElements[i].SetActive(false);
+    //        }
+    //        catch
+    //        {
+    //            //
+    //        }
+    //    }
+    //}
 
     private IEnumerator StartParty()
     {
@@ -124,7 +125,9 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartGame()
     {
         _tuto.isYeetEnemy = false;
-        Invoke(nameof(InitPlatformSpawner), 1f);
+        _tuto.StopTuto();
+        _sc.ShakyCameCustom(3f, 0.2f);
+        Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
         yield return new WaitForSeconds(70);
         // StopTuto();

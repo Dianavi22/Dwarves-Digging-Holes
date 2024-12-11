@@ -10,6 +10,7 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
     [SerializeField] GameObject _tutoEnemy;
+    [SerializeField] GameObject _bubbleLava;
     [SerializeField] Lava _lava;
     [SerializeField] GoldChariot _goldChariot;
 
@@ -103,10 +104,19 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
         _circleEnemy.SetActive(isTakeEnemy);
-        _circleLava.SetActive(true);
         StartCoroutine(_lava.CooldownLava());
         _wallLimitTuto.SetActive(false);
+        Invoke("ActiveCircle", 2.5f);
     }
 
+    private void ActiveCircle() { 
+        _circleLava.SetActive(true);
+    }
+
+    public void StopTuto()
+    {
+        _bubbleLava.SetActive(false);
+        _circleLava.SetActive(false);
+    }
 
 }
