@@ -37,10 +37,13 @@ public class PlayerActions : MonoBehaviour
     private bool canPickup = true;
 
     private Dictionary<int, int> previousLayer = new();
+    
+    private Animator _animator;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
+        _animator = _p.GetAnimator();
     }
 
     private void Start()
@@ -117,43 +120,13 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        // Determine the target tween angle based on the current pivot angle
-        float targetAngle;
-        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
-        {
-            targetAngle = -75f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
-        {
-            targetAngle = 40f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
-        {
-            targetAngle = 75f;
-        }
-        else
-        {
-            // Default to 40 if pivot is not exactly -35, 0, or 35
-            targetAngle = 40f;
-        }
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
-            .SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Yoyo);
-        
-        _p.GetAnimator().SetBool("pickaxeHit", true);
+        _animator.SetBool("pickaxeHit", true);
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
-        // Stop the tween if it is active
-        if (rotationTween != null && rotationTween.IsActive())
-        {
-            rotationTween.Rewind();
-            rotationTween.Kill();
-        }
-        
-        _p.GetAnimator().SetBool("pickaxeHit", false);
+        _animator.SetBool("pickaxeHit", false);
     }
 
     private bool CheckHitRaycast(out List<Collider> hits)
