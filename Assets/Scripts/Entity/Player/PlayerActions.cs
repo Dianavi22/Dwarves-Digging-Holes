@@ -100,6 +100,12 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    public void OnPassTuto(InputAction.CallbackContext context)
+    {
+        print("PASS TUTO");
+        _gameManager.passTuto = true;
+    }
+
     public void OnBaseAction(InputAction.CallbackContext context)
     {
         if (UIPauseManager.Instance.isPaused) return;

@@ -562,16 +562,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7e108634e9f774da2b422291698fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6.5
-  jumpForce: 10
-  fallMultiplier: 5.25
   canFlip: 1
+  lowJumpMultiplier: 5
   _dashForce: 20
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _leftRay: {fileID: 2036966665453352247}
   _rightRay: {fileID: 8163606434354634121}
   _DashPart: {fileID: 6319271055205663220}
-  lowJumpMultiplier: 5
   flip_vertical: 0
   _groundedPart: {fileID: 8238030346643257469}
   _movePart: {fileID: 2123201682530033296}
@@ -776,6 +773,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6d471b8c-d991-4c4a-8a10-a0b5f3fdcb2b
     m_ActionName: Player/Pause[/XInputControllerWindows/start,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4955242667168942981}
+        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
+        m_MethodName: OnPassTuto
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5d6c89b0-1a2e-4226-a106-91a9e014b3f1
+    m_ActionName: Player/PassTuto[/XInputControllerWindows/dpad/up,/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Player1
   m_DefaultActionMap: Player
@@ -815,6 +828,7 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
+  _tuto: {fileID: 0}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
@@ -890,14 +904,8 @@ MonoBehaviour:
   onMiningFatigueChanged:
     m_PersistentCalls:
       m_Calls: []
-  maxCartsFatigue: 100
-  maxMiningFatigue: 200
-  regenSpeedCartsFatigue: 0.2
-  regenSpeedMiningFatigue: 0.2
   currentCartsFatigue: 0
   currentMiningFatigue: 0
-  regenDelayCartsFatigueMax: 2
-  regenDelayMiningFatiMax: 2
   _fatiguePart: {fileID: 3311710927786514565}
 --- !u!1001 &385367653580658159
 PrefabInstance:

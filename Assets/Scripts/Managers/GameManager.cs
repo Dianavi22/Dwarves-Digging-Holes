@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
 
+    public bool passTuto;
+
     //[SerializeField] List<GameObject> _tutoElements;
 
     void Awake()
@@ -118,7 +120,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
-        _tuto.startTuto = true;
+        if (passTuto && !_tuto.isInTuto)
+        {
+            StartCoroutine(_lava.CooldownLava());
+            StartCoroutine(StartGame());
+        }
+        else
+        {
+            _tuto.startTuto = true;
+        }
 
     }
 

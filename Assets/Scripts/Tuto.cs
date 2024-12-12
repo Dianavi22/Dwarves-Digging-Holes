@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Tuto : MonoBehaviour
 {
@@ -29,15 +30,19 @@ public class Tuto : MonoBehaviour
     public bool isPushChariot;
     public bool isTakeEnemy;
     public bool isYeetEnemy;
+    public bool isInTuto;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
     }
 
+   
+
     void Update()
     {
         if (startTuto)
         {
+            isInTuto = true;
             TakePickaxe();
         }
 
@@ -146,7 +151,7 @@ public class Tuto : MonoBehaviour
         _circleEnemy.SetActive(false);
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(false);
-
+        isInTuto = false;
         StartCoroutine(_gameManager.StartGame());
     }
 
