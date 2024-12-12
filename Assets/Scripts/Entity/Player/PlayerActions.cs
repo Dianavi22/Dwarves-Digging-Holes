@@ -102,8 +102,23 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
-        print("PASS TUTO");
-        _gameManager.passTuto = true;
+        if (_tuto.isInTuto)
+        {
+            if (_tuto.isYeetEnemy)
+            {
+                _tuto.StopTuto();
+            }
+            else
+            {
+                _gameManager.SkipTuto();
+                _tuto.StopTuto();
+            }
+        }
+        else
+        {
+            _gameManager.passTuto = true;
+
+        }
     }
 
     public void OnBaseAction(InputAction.CallbackContext context)

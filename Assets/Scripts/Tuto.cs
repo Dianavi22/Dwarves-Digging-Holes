@@ -144,7 +144,6 @@ public class Tuto : MonoBehaviour
         }
         _pushChariot.SetActive(false);
         _takeEnemy.SetActive(false);
-        _tutoEnemy.SetActive(false);
 
         _circleRocks.SetActive(false);
         _circleChariot.SetActive(false);

@@ -122,14 +122,19 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (passTuto && !_tuto.isInTuto)
         {
-            StartCoroutine(_lava.CooldownLava());
-            StartCoroutine(StartGame());
+            SkipTuto();
         }
         else
         {
             _tuto.startTuto = true;
         }
 
+    }
+
+    public void SkipTuto()
+    {
+        StartCoroutine(_lava.CooldownLava());
+        StartCoroutine(StartGame());
     }
 
     public IEnumerator StartGame()
