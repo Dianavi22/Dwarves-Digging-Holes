@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
         _p.GetRigidbody().useGravity = false;
         _p.GetRigidbody().velocity = Vector3.zero;
 
-        _p.EmptyPlayerFixedJoin();
+        _p.EmptyFixedJoin();
 
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
         if(_p.holdBy != null) {

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1113642333549338642}
   - component: {fileID: 6179455983456145342}
-  - component: {fileID: 2109833535917964985}
   - component: {fileID: -8380652321116023633}
+  - component: {fileID: 2109833535917964985}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
@@ -52,10 +52,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf0b954d17935e4287836b5ad63d606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoveryTime: 0.5
   _destroyGobPart: {fileID: 3691073475203754240}
   _gfx: {fileID: 2798564475521369069}
   _goldChariot: {fileID: 0}
   canSteal: 1
+--- !u!114 &-8380652321116023633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283635268358963526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9d6cf451b2447e4969190b1204df12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canFlip: 1
+  raycastDetectHitWall: {fileID: 5425338716920304939}
 --- !u!54 &2109833535917964985
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -83,20 +98,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &-8380652321116023633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283635268358963526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca9d6cf451b2447e4969190b1204df12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canFlip: 1
-  raycastDetectHitWall: {fileID: 5425338716920304939}
 --- !u!1 &1188561611238712796
 GameObject:
   m_ObjectHideFlags: 0
