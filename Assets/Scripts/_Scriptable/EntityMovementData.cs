@@ -9,6 +9,8 @@ public class EntityMovementData : ScriptableObject
     public float RunAcceleration; //Time (approx.) time we want it to take for the player to accelerate from 0 to the runMaxSpeed.
     public float RunDecceleration; //Time (approx.) we want it to take for the player to accelerate from runMaxSpeed to 0.
     public float VelocityPower;
+    [Range(0.01f, 1f)]
+    public float PushChariotSpeedReducer = 1f;
 
     [Header("Other Stats")]
     public float JumpForce;

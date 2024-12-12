@@ -129,7 +129,12 @@ public class PlayerMovements : EntityMovement
         _isDashingCooldown = true;
         _DashPart.Play();
         Vector3 dashDirection = flip ? Vector3.right : Vector3.left;
-        _p.GetRigidbody().velocity = new Vector3(dashDirection.x * _dashForce, _p.GetRigidbody().velocity.y, 0f);
+
+        float force = _dashForce;
+        if (_p.GetRigidbody().velocity.x < 0)
+            force -= _p.GetRigidbody().velocity.x;
+
+        _p.GetRigidbody().AddForce(dashDirection * force, ForceMode.Impulse);
 
         DOVirtual.DelayedCall(0.2f, () =>
         {

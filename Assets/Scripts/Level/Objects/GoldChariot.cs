@@ -10,6 +10,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private ParticleSystem _lostGoldPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] private EventReference chariotSound;
+
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
 

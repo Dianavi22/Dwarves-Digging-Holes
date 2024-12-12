@@ -8,6 +8,9 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     public bool IsGrabbed { get; protected set; }
     public float recoveryTime = 0.5f;
 
+    public FixedJoint Joint;
+    public bool HasJoint => Joint != null;
+
     private Tween recoveryTween;
 
     public virtual void HandleCarriedState(Player currentPlayer, bool isGrabbed)
@@ -46,5 +49,20 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    public void CreateFixedJoin(Rigidbody obj)
+    {
+        if (Joint != null) return;
+        _rb.mass = 20f;
+        Joint = gameObject.AddComponent<FixedJoint>();
+        Joint.connectedBody = obj;
+    }
+
+    public void EmptyFixedJoin()
+    {
+        _rb.mass = 1f;
+        Destroy(Joint);
+        Joint = null;
     }
 }
