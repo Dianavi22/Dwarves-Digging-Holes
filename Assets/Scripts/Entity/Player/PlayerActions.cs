@@ -214,7 +214,7 @@ public class PlayerActions : MonoBehaviour
         {
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
-            _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
+            _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
     }
@@ -331,7 +331,7 @@ public class PlayerActions : MonoBehaviour
 
         if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
         {
-            _p.EmptyPlayerFixedJoin();
+            _p.EmptyFixedJoin();
             chariot.HandleCarriedState(_p, false);
         } else
         {
