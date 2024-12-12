@@ -19,9 +19,12 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _circleEnemy;
     [SerializeField] GameObject _circleLava;
     [SerializeField] GameObject _wallLimitTuto;
+    [SerializeField] GameObject _tutoBubbleLava;
+
+    [SerializeField] GameManager _gameManager;
 
 
-    public bool startTuto; 
+    public bool startTuto;
     public bool isBreakRock;
     public bool isPushChariot;
     public bool isTakeEnemy;
@@ -47,12 +50,12 @@ public class Tuto : MonoBehaviour
         {
             PushChariot();
         }
-        
+
         if (isTakeEnemy)
         {
             TakeEnemy();
         }
-       
+
         if (isYeetEnemy)
         {
             YeetEnemy();
@@ -61,7 +64,7 @@ public class Tuto : MonoBehaviour
 
     private void TakePickaxe()
     {
-         _takePickaxe.isInTuto = true;
+        _takePickaxe.isInTuto = true;
     }
     private void BreakRock()
     {
@@ -106,17 +109,45 @@ public class Tuto : MonoBehaviour
         _circleEnemy.SetActive(isTakeEnemy);
         StartCoroutine(_lava.CooldownLava());
         _wallLimitTuto.SetActive(false);
-        Invoke("ActiveCircle", 2.5f);
+        _circleLava.SetActive(true);
+        _tutoBubbleLava.SetActive(true);
+
     }
 
-    private void ActiveCircle() { 
-        _circleLava.SetActive(true);
+    private void ActiveCircle()
+    {
     }
 
     public void StopTuto()
     {
         _bubbleLava.SetActive(false);
         _circleLava.SetActive(false);
+
+        startTuto = false;
+        isBreakRock = false;
+        isPushChariot = false;
+        isTakeEnemy = false;
+        isYeetEnemy = false;
+
+        try
+        {
+            _breakRock.SetActive(false);
+        }
+        catch
+        {
+            //
+        }
+        _pushChariot.SetActive(false);
+        _takeEnemy.SetActive(false);
+        _tutoEnemy.SetActive(false);
+
+        _circleRocks.SetActive(false);
+        _circleChariot.SetActive(false);
+        _circleEnemy.SetActive(false);
+        _wallLimitTuto.SetActive(false);
+        _tutoBubbleLava.SetActive(false);
+
+        StartCoroutine(_gameManager.StartGame());
     }
 
 }

@@ -13,6 +13,7 @@ public class Lava : MonoBehaviour
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
     [SerializeField] GameObject _tutoBubble;
+    [SerializeField] Tuto _tuto;
 
     private bool _isCoolDown = true;
     private void Start()
@@ -43,6 +44,12 @@ public class Lava : MonoBehaviour
         {
             Destroy(rock.gameObject);
         }
+
+        if (Utils.Component.TryGetInParent<Enemy>(other, out var enemy) && _tuto.isYeetEnemy)
+        {
+            _tuto.isYeetEnemy = false;
+        _tuto.StopTuto();
+        }
     }
     private void Update()
     {
@@ -63,7 +70,6 @@ public class Lava : MonoBehaviour
             yield return new WaitForSeconds(2.5f);
             _isStartLava = false;
             _rockFall.Stop();
-            _tutoBubble.SetActive(true);
             _isCoolDown = false;
         }
         

@@ -124,8 +124,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        _tuto.isYeetEnemy = false;
-        _tuto.StopTuto();
         _sc.ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;

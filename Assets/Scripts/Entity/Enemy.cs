@@ -95,10 +95,7 @@ public class Enemy : Entity
     } 
     override public void HandleDestroy()
     {
-        if (_tuto.isYeetEnemy)
-        {
-            StartCoroutine(_gameManager.StartGame());
-        }
+       
         StartCoroutine(DestroyByLava());
        
     }
