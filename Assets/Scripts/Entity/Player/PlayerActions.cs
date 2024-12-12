@@ -34,10 +34,12 @@ public class PlayerActions : MonoBehaviour
 
     private Player _p;
 
-    private bool canPickup = true;
+    private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
     private GameManager _gameManager;
+
+    private bool _isFirstCanPickup = true;
 
     private void Awake()
     {
@@ -63,6 +65,12 @@ public class PlayerActions : MonoBehaviour
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
             }
+        }
+
+        if(_isFirstCanPickup && GameManager.Instance.passTuto || _tuto.startTuto)
+        {
+            _isFirstCanPickup = false;
+            canPickup = true;
         }
     }
 
