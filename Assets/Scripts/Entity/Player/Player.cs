@@ -9,10 +9,6 @@ public class Player : Entity
     private UserInput input;
     
     [SerializeField] private Animator animator;
-
-    private FixedJoint _joint;
-
-    public bool HasJoint => _joint != null;
     //[HideInInspector] public bool IsCarried = false;
 
     protected override void Awake()
@@ -36,21 +32,6 @@ public class Player : Entity
     {
         base.HandleCarriedState(currentPlayer, isGrabbed);
         movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
-    }
-
-    public void CreatePlayerFixedJoin(Rigidbody obj)
-    {
-        if (_joint != null) return;
-        _rb.mass = 20f;
-        _joint = gameObject.AddComponent<FixedJoint>();
-        _joint.connectedBody = obj;
-    }
-
-    public void EmptyPlayerFixedJoin()
-    {
-        _rb.mass = 1f;
-        Destroy(_joint);
-        _joint = null;
     }
 
     public override void HandleDestroy()
