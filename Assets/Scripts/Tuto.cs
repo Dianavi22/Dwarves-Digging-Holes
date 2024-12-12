@@ -31,6 +31,7 @@ public class Tuto : MonoBehaviour
     public bool isTakeEnemy;
     public bool isYeetEnemy = false;
     public bool isInTuto = false;
+    [SerializeField] GameObject _skipTuto;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
@@ -125,6 +126,7 @@ public class Tuto : MonoBehaviour
 
     public void StopTuto()
     {
+        _takePickaxe.isInTuto = false;
         _bubbleLava.SetActive(false);
         _circleLava.SetActive(false);
 
@@ -150,6 +152,7 @@ public class Tuto : MonoBehaviour
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(false);
         isInTuto = false;
+        _skipTuto.SetActive(false);
         StartCoroutine(_gameManager.StartGame());
     }
 

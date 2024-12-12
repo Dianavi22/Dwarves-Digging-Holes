@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
     public bool passTuto = false;
+    [SerializeField] GameObject _skipTuto;
 
     //[SerializeField] List<GameObject> _tutoElements;
 
@@ -125,6 +126,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            _skipTuto.SetActive(true);
             _tuto.startTuto = true;
         }
 
@@ -133,6 +135,7 @@ public class GameManager : MonoBehaviour
     public void SkipTuto()
     {
         StartCoroutine(_lava.CooldownLava());
+        _skipTuto.SetActive(false);
         StartCoroutine(StartGame());
     }
 
