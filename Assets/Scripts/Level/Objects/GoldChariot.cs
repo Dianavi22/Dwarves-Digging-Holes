@@ -11,6 +11,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
     [SerializeField] private EventReference chariotSound;
+
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
 

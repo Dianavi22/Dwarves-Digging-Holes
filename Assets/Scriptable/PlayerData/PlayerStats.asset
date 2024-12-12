@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b65f89059c5a294696a0e28e7c20633, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  Speed: 6.5
-  JumpForce: 10
-  FallMultiplier: 5.25
+  RunMaxSpeed: 9
+  RunAcceleration: 9
+  RunDecceleration: 9
+  VelocityPower: 1.2
+  PushChariotSpeedReducer: 0.2
+  JumpForce: 12.5
+  DashForce: 60
+  FallMultiplier: 7.5

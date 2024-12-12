@@ -6,7 +6,6 @@ using System;
 public class PlayerMovements : EntityMovement
 {
     [SerializeField] private float lowJumpMultiplier = 2f;
-    [SerializeField] private float _dashForce;
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
     [SerializeField] private Transform _leftRay;
@@ -18,8 +17,6 @@ public class PlayerMovements : EntityMovement
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool _jumpButtonHeld = false;
-    private Animator _animator;
-    private Vector3 playerVelocity;
     public bool flip_vertical = false;
 
     public Action forceDetachFunction;
@@ -34,12 +31,18 @@ public class PlayerMovements : EntityMovement
     {
         GetBase = GetComponent<Player>();
     }
-    void Start()
+
+    private new void FixedUpdate()
     {
-        _animator = _p.GetAnimator();
+        base.FixedUpdate();
+
+        // If low jump, fall faster 
+        // Note: Dunno why but velocity.y on the chariot is > to 0
+        if (!isGrounded && _p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
+            FasterFalling(lowJumpMultiplier);
     }
 
-    override protected void Update()
+    protected new void Update()
     {
         base.Update();
 
@@ -49,41 +52,14 @@ public class PlayerMovements : EntityMovement
         }
     }
 
-    override protected void HandleMovement()
+    private bool PlayerCanMove(bool isInputActivated)
     {
-        if (!_isDashing)
-        {
-            bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
-            float xVelocity = _p.IsGrabbed ? _p.GetRigidbody().velocity.x : CalculateXVelocity(horizontalInput, isHoldingChariot);
-
-            _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
-
-            if (xVelocity != 0)
-            {
-                if (_movePart.isStopped) _movePart.Play();
-            }
-            else
-            {
-                _movePart.Stop();
-            }
-            _animator?.SetFloat("Run", Mathf.Abs(horizontalInput));
-        }
-    }
-
-    private float CalculateXVelocity(float horizontalInput, bool isHoldingChariot)
-    {
-        if (horizontalInput != 0 && !_isDashingCooldown && isHoldingChariot)
-        {
-            var fatigueReduced = _p.GetFatigue().ReduceCartsFatigue(
+        bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
+        if (isInputActivated && isHoldingChariot) 
+            return !_p.IsGrabbed && _p.GetFatigue().ReduceCartsFatigue(
                 GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
 
-            if (!fatigueReduced)
-            {
-                return _p.GetRigidbody().velocity.x;
-            }
-        }
-
-        return horizontalInput * Stats.Speed;
+        return !_p.IsGrabbed;
     }
 
     private void FlipFacingDirection()
@@ -107,7 +83,27 @@ public class PlayerMovements : EntityMovement
     }
 
     #region EVENTS
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Vector2 vector = context.ReadValue<Vector2>();
+        float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
+        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
 
+        CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
+        //Debug.Log(CanMove);
+        Move(_horizontal);
+
+        if (CanMove && Mathf.Abs(_horizontal) > 0)
+        {
+            if (_movePart.isStopped) _movePart.Play();
+        }
+        else
+        {
+            _movePart.Stop();
+        }
+
+        _p.GetAnimator().SetFloat("Run", _horizontal);
+    }
     public void OnJump(InputAction.CallbackContext context)
     {
         if (UIPauseManager.Instance.isPaused) return;
@@ -122,7 +118,7 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     _jumpButtonHeld = true;
-                    _p.GetRigidbody().AddForce(Vector3.up * Stats.JumpForce, ForceMode.Impulse);
+                    Jump();
                     _movePart.Stop();
                 }
                 break;
@@ -131,15 +127,6 @@ public class PlayerMovements : EntityMovement
                 break;
         }
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Vector2 vector = context.ReadValue<Vector2>();
-        horizontalInput = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
-        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
-        _animator.SetFloat("Run", horizontalInput);
-    }
-
     public void OnDash(InputAction.CallbackContext _)
     {
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
@@ -147,8 +134,8 @@ public class PlayerMovements : EntityMovement
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
-        Vector3 dashDirection = flip ? Vector3.right : Vector3.left;
-        _p.GetRigidbody().velocity = new Vector3(dashDirection.x * _dashForce, _p.GetRigidbody().velocity.y, 0f);
+
+        Dash();
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
@@ -163,14 +150,5 @@ public class PlayerMovements : EntityMovement
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
-    }
-
-    override protected void HandleJumpPhysics()
-    {
-        base.HandleJumpPhysics();
-        if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
-        {
-            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
     }
 }

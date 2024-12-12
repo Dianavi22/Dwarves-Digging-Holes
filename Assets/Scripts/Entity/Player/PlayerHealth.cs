@@ -72,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
         _p.GetRigidbody().useGravity = false;
         _p.GetRigidbody().velocity = Vector3.zero;
 
-        _p.EmptyPlayerFixedJoin();
+        _p.EmptyFixedJoin();
 
         DOVirtual.DelayedCall(2f, () =>
         {

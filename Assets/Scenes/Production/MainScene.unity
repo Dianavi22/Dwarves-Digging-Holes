@@ -373,11 +373,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 4392431218995717033, guid: ee6e5a103279fa34e9a4e576b03a72da, type: 3}
-  - {fileID: 8040244235202483511, guid: 7d1fdce96e3c68e45aa30222928fd272, type: 3}
-  - {fileID: 3794582845298295115, guid: cc5ea00376eba954db9687b85e1cada3, type: 3}
   - {fileID: 4176649569683192531, guid: 4f4cc3843398b4b4ca6fd369303b1431, type: 3}
-  - {fileID: 4176649569683192531, guid: 7e5fa88a8ef9515499cfe165bc7e57b7, type: 3}
+  - {fileID: 4176649569683192531, guid: d03d979ff82420b4e938308ec217ee09, type: 3}
+  - {fileID: 4176649569683192531, guid: 0adc6e24e0e87d04aab437e8bb5e8cb7, type: 3}
+  - {fileID: 4176649569683192531, guid: 8669a688c8383a74fb1a34455c63f30e, type: 3}
+  - {fileID: 4176649569683192531, guid: fb7bf079a330ba34c93765fd484bb504, type: 3}
   - {fileID: 4176649569683192531, guid: 9a347dc0b982d8c4b8a9b70fddb45f9f, type: 3}
+  - {fileID: 4176649569683192531, guid: 56411b48992b91e47bee25cbfc7ca0c4, type: 3}
+  - {fileID: 4176649569683192531, guid: 708ec198ae3111b4090d585984250965, type: 3}
+  - {fileID: 4176649569683192531, guid: 4bff8d7b688661f4ca8b5d660aaf7864, type: 3}
+  - {fileID: 8040244235202483511, guid: 7d1fdce96e3c68e45aa30222928fd272, type: 3}
+  - {fileID: 4176649569683192531, guid: 7e5fa88a8ef9515499cfe165bc7e57b7, type: 3}
+  - {fileID: 3794582845298295115, guid: fe19424d95d3fdd42b6a7eb9d5aba2a8, type: 3}
+  - {fileID: 4176649569683192531, guid: eeae445b98863904091aef6d986e7b22, type: 3}
+  - {fileID: 4176649569683192531, guid: d627cd6fbbefdb548bbea1ab23141a4b, type: 3}
+  - {fileID: 4176649569683192531, guid: 91c15e66f33b567448ff4c3fd6dc4a26, type: 3}
+  - {fileID: 4176649569683192531, guid: 4b57b3afbb89f57479d0c779aae838a7, type: 3}
+  - {fileID: 4176649569683192531, guid: 16a41c1efe55db14786cfcb1fc4761fc, type: 3}
+  - {fileID: 4176649569683192531, guid: e3d16bd1a33a470448cdb85aeb709fea, type: 3}
+  - {fileID: 4176649569683192531, guid: 51dd115d352568b4aa60f2b2875826b7, type: 3}
+  - {fileID: 4176649569683192531, guid: a45952ee06e24264abd5b410f172614f, type: 3}
+  - {fileID: 4176649569683192531, guid: 9ad1397403df29e43abfa59f9ac444cc, type: 3}
+  - {fileID: 4176649569683192531, guid: cc5e4bce705367042a9cc80f5598a235, type: 3}
   platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 0
@@ -1718,14 +1735,6 @@ PrefabInstance:
     - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_IsKinematic
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: _tuto
-      value: 
-      objectReference: {fileID: 1629107619}
-    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
@@ -3085,6 +3094,30 @@ PrefabInstance:
     - target: {fileID: 5215267216301217660, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
       propertyPath: m_Name
       value: PlatformFirst
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391841408403039486, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391841408403039486, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391841408403039486, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823871508863996322, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823871508863996322, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823871508863996322, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
