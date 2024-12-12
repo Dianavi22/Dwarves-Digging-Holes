@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; // A static reference to the GameManager instance
     public bool passTuto = false;
     [SerializeField] GameObject _skipTuto;
+    [SerializeField] Score _score;
 
     //[SerializeField] List<GameObject> _tutoElements;
 
@@ -141,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _score.isStartScore = true;
         _sc.ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
