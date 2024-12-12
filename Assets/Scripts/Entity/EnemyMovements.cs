@@ -19,7 +19,7 @@ public class EnemyMovements : EntityMovement
         SetStats(GameManager.Instance.Difficulty.GoblinStats);
     }
 
-    override protected void Update()
+    protected new void Update()
     {
         if (GameManager.Instance.isGameOver)
         {

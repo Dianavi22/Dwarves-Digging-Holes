@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class EntityMovement : MonoBehaviour
 {
@@ -20,19 +22,19 @@ public class EntityMovement : MonoBehaviour
         Stats = newStats;
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         HandleGround();
         HandleMovement();
-        HandleJumpPhysics();
+        if(!isGrounded && RB.velocity.y < 0) FasterFalling(Stats.FallMultiplier);
     }
 
-    protected virtual void Update()
+    protected void Update()
     {
         HandleFlip();
     }
 
-    protected virtual void HandleMovement()
+    protected void HandleMovement()
     {
         if (!CanMove) return;
 
@@ -57,8 +59,8 @@ public class EntityMovement : MonoBehaviour
     }
 
     protected void HandleGround() {
-        //Grounded
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        List<Collider> hits = DRayCast.Cone(transform.position, Vector3.down, 27.5f, 1.1f, 3, ~0);
+        isGrounded = hits.Count > 0;
         if (!isGrounded)
         {
             Vector3 velocity = Vector3.zero;
@@ -68,16 +70,9 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    protected virtual void HandleJumpPhysics()
+    protected void FasterFalling(float multiplier)
     {
-        if (!isGrounded)
-        {
-            // Faster falling
-            if (RB.velocity.y < 0)
-            {
-                RB.velocity += (Stats.FallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-            }
-        }
+        RB.AddForce(Physics.gravity.y * multiplier * Vector3.up);
     }
 
     private void HandleFlip()
@@ -90,17 +85,34 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    public virtual void Move(float horizontal)
+    #region Movement Action
+    public void Move(float horizontal)
     {
         horizontalInput = horizontal;
     }
 
-    public virtual void Jump()
+    public void Jump()
     {
         float force = Stats.JumpForce;
         if (RB.velocity.y < 0)
             force -= RB.velocity.y;
 
         RB.AddForce(Vector3.up * force, ForceMode.Impulse);
+    }
+
+    public void Dash()
+    {
+        float force = Stats.DashForce;
+        if (RB.velocity.x < 0)
+            force -= RB.velocity.x;
+
+        Vector3 dashDirection = flip ? Vector3.right : Vector3.left;
+        RB.AddForce(dashDirection * force, ForceMode.Impulse);
+    }
+    #endregion
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.1f);
     }
 }

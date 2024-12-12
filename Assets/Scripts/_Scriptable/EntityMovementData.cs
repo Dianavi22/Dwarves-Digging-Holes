@@ -14,6 +14,7 @@ public class EntityMovementData : ScriptableObject
 
     [Header("Other Stats")]
     public float JumpForce;
+    public float DashForce;
     public float FallMultiplier;
 
     private void OnValidate()

@@ -6,7 +6,6 @@ using System;
 public class PlayerMovements : EntityMovement
 {
     [SerializeField] private float lowJumpMultiplier = 2f;
-    [SerializeField] private float _dashForce;
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
     [SerializeField] private Transform _leftRay;
@@ -33,7 +32,17 @@ public class PlayerMovements : EntityMovement
         GetBase = GetComponent<Player>();
     }
 
-    override protected void Update()
+    private new void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        // If low jump, fall faster 
+        // Note: Dunno why but velocity.y on the chariot is > to 0
+        if (!isGrounded && _p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
+            FasterFalling(lowJumpMultiplier);
+    }
+
+    protected new void Update()
     {
         base.Update();
 
@@ -74,7 +83,27 @@ public class PlayerMovements : EntityMovement
     }
 
     #region EVENTS
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Vector2 vector = context.ReadValue<Vector2>();
+        float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
+        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
 
+        CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
+        //Debug.Log(CanMove);
+        Move(_horizontal);
+
+        if (CanMove && Mathf.Abs(_horizontal) > 0)
+        {
+            if (_movePart.isStopped) _movePart.Play();
+        }
+        else
+        {
+            _movePart.Stop();
+        }
+
+        _p.GetAnimator().SetFloat("Run", _horizontal);
+    }
     public void OnJump(InputAction.CallbackContext context)
     {
         if (UIPauseManager.Instance.isPaused) return;
@@ -98,29 +127,6 @@ public class PlayerMovements : EntityMovement
                 break;
         }
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Vector2 vector = context.ReadValue<Vector2>();
-        float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
-        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
-
-        CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
-        //Debug.Log(CanMove);
-        Move(_horizontal);
-
-        if (CanMove && Mathf.Abs(_horizontal) > 0)
-        {
-            if (_movePart.isStopped) _movePart.Play();
-        }
-        else
-        {
-            _movePart.Stop();
-        }
-
-        _p.GetAnimator().SetFloat("Run", _horizontal);
-    }
-
     public void OnDash(InputAction.CallbackContext _)
     {
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
@@ -128,13 +134,8 @@ public class PlayerMovements : EntityMovement
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
-        Vector3 dashDirection = flip ? Vector3.right : Vector3.left;
 
-        float force = _dashForce;
-        if (_p.GetRigidbody().velocity.x < 0)
-            force -= _p.GetRigidbody().velocity.x;
-
-        _p.GetRigidbody().AddForce(dashDirection * force, ForceMode.Impulse);
+        Dash();
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
@@ -149,14 +150,5 @@ public class PlayerMovements : EntityMovement
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
-    }
-
-    override protected void HandleJumpPhysics()
-    {
-        base.HandleJumpPhysics();
-        if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
-        {
-            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
-        }
     }
 }
