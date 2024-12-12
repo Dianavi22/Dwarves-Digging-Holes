@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8534444205981759030
+--- !u!114 &-9064545779818014238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/Closing
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/Closing
+  Guid:
+    Data1: 134371960
+    Data2: 1185639890
+    Data3: 935102865
+    Data4: -1873094816
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-9010870929458847549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15,14 +42,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-<<<<<<< HEAD
-  lastModified: 638690250788832225
-=======
-  lastModified: 638689889513233984
->>>>>>> dev
+  lastModified: 638696215156507722
   FileSizes: []
   Exists: 1
---- !u!114 &-8466940032903737664
+--- !u!114 &-8507922770666287317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32,16 +55,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Stealing coins
+  m_Name: event:/SFX/Beer/Fermentations
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Stealing coins
+  Path: event:/SFX/Beer/Fermentations
   Guid:
-    Data1: -1464306721
-    Data2: 1156208805
-    Data3: 1657382069
-    Data4: 894534166
+    Data1: -1160832311
+    Data2: 1092715431
+    Data3: -1501544316
+    Data4: -1289069898
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -49,7 +72,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-7072490082260618867
+--- !u!114 &-8186431910990270002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638696215156512770
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-8148949562967357597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,16 +100,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Lava/Several small lava sounds
+  m_Name: event:/SFX/Dwarf/Dash
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Lava/Several small lava sounds
+  Path: event:/SFX/Dwarf/Dash
   Guid:
-    Data1: 967057085
-    Data2: 1104315526
-    Data3: 1976472998
-    Data4: 1265857923
+    Data1: -1964938284
+    Data2: 1330227061
+    Data3: 1459481531
+    Data4: -1462720355
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -76,7 +117,88 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-7070299873532352361
+--- !u!114 &-7992819181665707322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Action confirmation/Positive confirmation
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Action confirmation/Positive confirmation
+  Guid:
+    Data1: 1647089357
+    Data2: 1201000447
+    Data3: -1952795500
+    Data4: 1309568741
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7920252436192474360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Lava/Constant lava sound
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Lava/Constant lava sound
+  Guid:
+    Data1: 1895020149
+    Data2: 1225686260
+    Data3: -1201794420
+    Data4: 1575285054
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 119170
+--- !u!114 &-7663488724900009478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Cavern/Constant cavern noise
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Cavern/Constant cavern noise
+  Guid:
+    Data1: -573465998
+    Data2: 1161632116
+    Data3: -1191465593
+    Data4: -845325500
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7427169313278546713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +222,7 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &-6807414688733360388
+--- !u!114 &-6971108193674065208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,16 +232,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Menu/Closing
+  m_Name: event:/Test
   m_EditorClassIdentifier: 
-  Path: event:/UI/Menu/Closing
+  Path: event:/Test
   Guid:
-    Data1: 134371960
-    Data2: 1185639890
-    Data3: 935102865
-    Data4: -1873094816
+    Data1: 422006891
+    Data2: 1083691904
+    Data3: -2014517091
+    Data4: 736952838
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -127,7 +249,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-5234501304820533024
+--- !u!114 &-6718622606131048651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,16 +259,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Damage received
+  m_Name: event:/SFX/Beer/Beer Explosion
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Damage received
+  Path: event:/SFX/Beer/Beer Explosion
   Guid:
-    Data1: 116119255
-    Data2: 1338231665
-    Data3: -982329439
-    Data4: 1806529955
+    Data1: -1529631636
+    Data2: 1178441247
+    Data3: -854882385
+    Data4: 1882261173
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -154,169 +276,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-3823225694343936439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Lava/Object thrown into lava
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Lava/Object thrown into lava
-  Guid:
-    Data1: 2014613190
-    Data2: 1340100124
-    Data3: -628569689
-    Data4: 1919475445
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2449857267149018354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Menu/Hovering over a button
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Menu/Hovering over a button
-  Guid:
-    Data1: -862295779
-    Data2: 1126071768
-    Data3: -1960964732
-    Data4: -1384339287
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2318630406103081488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/In-game notifications/Cart near lava
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/In-game notifications/Cart near lava
-  Guid:
-    Data1: -242361655
-    Data2: 1168264561
-    Data3: -1040985713
-    Data4: 1568642302
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2094909722153334785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Jump
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Jump
-  Guid:
-    Data1: -1828173959
-    Data2: 1222489996
-    Data3: 511360676
-    Data4: -1309290227
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2069660481835573309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Damage received
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Damage received
-  Guid:
-    Data1: -493878046
-    Data2: 1251395925
-    Data3: -292364100
-    Data4: -1302113805
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1847152039207724303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Death
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Death
-  Guid:
-    Data1: 1252742068
-    Data2: 1090477757
-    Data3: -898215532
-    Data4: 1587955008
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1120166416284669415
+--- !u!114 &-6315590206470304673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,7 +295,7 @@ MonoBehaviour:
     Data3: -239324787
     Data4: -2077089603
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -343,7 +303,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-937359995448283549
+--- !u!114 &-6038387349684432106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,16 +313,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Pickaxe/Mining
+  m_Name: event:/SFX/Goblins/running
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Pickaxe/Mining
+  Path: event:/SFX/Goblins/running
   Guid:
-    Data1: -169743164
-    Data2: 1096741032
-    Data3: -1707458895
-    Data4: -677242847
+    Data1: -699673238
+    Data2: 1192296656
+    Data3: 1498452153
+    Data4: -2103288319
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -370,7 +330,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-934743095349857474
+--- !u!114 &-4977532403496708653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,16 +340,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Menu/Opening
+  m_Name: event:/SFX/Dwarf/Mouth noises
   m_EditorClassIdentifier: 
-  Path: event:/UI/Menu/Opening
+  Path: event:/SFX/Dwarf/Mouth noises
   Guid:
-    Data1: 429826909
-    Data2: 1285466956
-    Data3: -1918826075
-    Data4: 178841889
+    Data1: -1236876471
+    Data2: 1219162029
+    Data3: 1289660861
+    Data4: -1995732321
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -397,7 +357,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-561139301642567805
+--- !u!114 &-4508285581400614599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,16 +367,151 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Dash
+  m_Name: event:/SFX/Dwarf/Strike
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Dash
+  Path: event:/SFX/Dwarf/Strike
   Guid:
-    Data1: -1964938284
-    Data2: 1330227061
-    Data3: 1459481531
-    Data4: -1462720355
+    Data1: 1634743845
+    Data2: 1157935079
+    Data3: 1311660174
+    Data4: 344388641
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4458756553105424935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Goblins/Laugh
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Goblins/Laugh
+  Guid:
+    Data1: -582121413
+    Data2: 1134978479
+    Data3: 174875795
+    Data4: 1247039704
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4429931373296328083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Goblins/Death
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Goblins/Death
+  Guid:
+    Data1: 1252742068
+    Data2: 1090477757
+    Data3: -898215532
+    Data4: 1587955008
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3796816695307648687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/Hovering over a button
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/Hovering over a button
+  Guid:
+    Data1: -862295779
+    Data2: 1126071768
+    Data3: -1960964732
+    Data4: -1384339287
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2903948857922558748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dwarf/Damage received
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dwarf/Damage received
+  Guid:
+    Data1: -493878046
+    Data2: 1251395925
+    Data3: -292364100
+    Data4: -1302113805
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-473235257452638861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/Selecting an element
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/Selecting an element
+  Guid:
+    Data1: 1023626430
+    Data2: 1306001614
+    Data3: 1594038424
+    Data4: 798773606
+  Banks:
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -437,59 +532,56 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 2893611023895499354}
-  - {fileID: -8534444205981759030}
-  - {fileID: 4415770603910744933}
+  - {fileID: -8186431910990270002}
+  - {fileID: -9010870929458847549}
+  - {fileID: 7071519187825572258}
   EditorEvents:
-  - {fileID: 7889515481018090745}
-  - {fileID: 2864410003275335482}
-  - {fileID: -2449857267149018354}
-  - {fileID: 7763238665279189417}
-  - {fileID: 1247678173004443359}
-  - {fileID: 6860610751608903284}
-  - {fileID: 4608444427594284763}
-  - {fileID: -934743095349857474}
-  - {fileID: 4167042166684467227}
-  - {fileID: 7529501454940387396}
-  - {fileID: 8117171212727951952}
-  - {fileID: 7741977195355120694}
-  - {fileID: 5247771474523293800}
-  - {fileID: 9167827588397943165}
-  - {fileID: -6807414688733360388}
-  - {fileID: 5743402848852692650}
-  - {fileID: -2094909722153334785}
-  - {fileID: 5186807950534688326}
-  - {fileID: 6712285036829518944}
-  - {fileID: 1367415617843188857}
-  - {fileID: 6714560496412321903}
-  - {fileID: -1847152039207724303}
-  - {fileID: -7072490082260618867}
-  - {fileID: 1258602592405109643}
-  - {fileID: 5237022224076087632}
-  - {fileID: 4173810520049734796}
-  - {fileID: -937359995448283549}
-  - {fileID: -3823225694343936439}
-  - {fileID: 1867197177249902388}
-  - {fileID: -1120166416284669415}
-  - {fileID: -2318630406103081488}
-  - {fileID: 8608061940170886242}
-  - {fileID: -561139301642567805}
-  - {fileID: -5234501304820533024}
-  - {fileID: -8466940032903737664}
-  - {fileID: -2069660481835573309}
+  - {fileID: 5522137514137766407}
+  - {fileID: 6668775872606935930}
+  - {fileID: -3796816695307648687}
+  - {fileID: 3253160795555660297}
+  - {fileID: -4508285581400614599}
+  - {fileID: 3946091600657412655}
+  - {fileID: -4458756553105424935}
+  - {fileID: -4977532403496708653}
+  - {fileID: 3740904796032616392}
+  - {fileID: -6038387349684432106}
+  - {fileID: -6971108193674065208}
+  - {fileID: 7738347480816555361}
+  - {fileID: -6718622606131048651}
+  - {fileID: -7663488724900009478}
+  - {fileID: -7920252436192474360}
+  - {fileID: -9064545779818014238}
+  - {fileID: 2883222522378365976}
+  - {fileID: 7178111643319952092}
+  - {fileID: 5275975867795453806}
+  - {fileID: 7579213429450239911}
+  - {fileID: 5464268861483726378}
+  - {fileID: 5408761650536691659}
+  - {fileID: -4429931373296328083}
+  - {fileID: 6093701330881504135}
+  - {fileID: 3156900139737499883}
+  - {fileID: -473235257452638861}
+  - {fileID: 7410975320878961487}
+  - {fileID: 8741523598202664640}
+  - {fileID: 1331309427220193463}
+  - {fileID: -8507922770666287317}
+  - {fileID: -6315590206470304673}
+  - {fileID: 7057017435811671610}
+  - {fileID: -7992819181665707322}
+  - {fileID: -8148949562967357597}
+  - {fileID: 9044028012172844217}
+  - {fileID: 8303828315812592357}
+  - {fileID: -2903948857922558748}
   EditorParameters:
-  - {fileID: -7070299873532352361}
+  - {fileID: -7427169313278546713}
   MasterBanks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   StringsBanks:
-  - {fileID: 2893611023895499354}
-<<<<<<< HEAD
-  cacheTime: 638690250788832225
-=======
-  cacheTime: 638689889513243954
->>>>>>> dev
+  - {fileID: -8186431910990270002}
+  cacheTime: 638696215156512770
   cacheVersion: 131620
---- !u!114 &1247678173004443359
+--- !u!114 &1331309427220193463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,16 +591,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Strike
+  m_Name: event:/SFX/Lava/Object thrown into lava
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Strike
+  Path: event:/SFX/Lava/Object thrown into lava
   Guid:
-    Data1: 1634743845
-    Data2: 1157935079
-    Data3: 1311660174
-    Data4: 344388641
+    Data1: 2014613190
+    Data2: 1340100124
+    Data3: -628569689
+    Data4: 1919475445
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -516,321 +608,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &1258602592405109643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Landing
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Landing
-  Guid:
-    Data1: -1596796995
-    Data2: 1079743896
-    Data3: -2021127254
-    Data4: -405004285
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1367415617843188857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Interaction/Throw
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Interaction/Throw
-  Guid:
-    Data1: 1963189162
-    Data2: 1332020082
-    Data3: 184867505
-    Data4: -28727300
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1867197177249902388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Beer/Fermentations
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Beer/Fermentations
-  Guid:
-    Data1: -1160832311
-    Data2: 1092715431
-    Data3: -1501544316
-    Data4: -1289069898
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2864410003275335482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Damage with lava
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Damage with lava
-  Guid:
-    Data1: -1045520613
-    Data2: 1212928136
-    Data3: -1793194849
-    Data4: 466732565
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &2893611023895499354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/StreamingAssets/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-<<<<<<< HEAD
-  lastModified: 638690250788832225
-=======
-  lastModified: 638689889513243954
->>>>>>> dev
-  FileSizes: []
-  Exists: 1
---- !u!114 &4167042166684467227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/running
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/running
-  Guid:
-    Data1: -699673238
-    Data2: 1192296656
-    Data3: 1498452153
-    Data4: -2103288319
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &4173810520049734796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Physical impacts
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Physical impacts
-  Guid:
-    Data1: -796428349
-    Data2: 1234227791
-    Data3: -1013578582
-    Data4: -608485115
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &4415770603910744933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Menu.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/StreamingAssets/Desktop/Menu.bank
-  Name: Menu
-  StudioPath: bank:/Menu
-<<<<<<< HEAD
-  lastModified: 638658385003903872
-=======
-  lastModified: 638657532384781774
->>>>>>> dev
-  FileSizes: []
-  Exists: 1
---- !u!114 &4608444427594284763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Dwarf/Mouth noises
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Dwarf/Mouth noises
-  Guid:
-    Data1: -1236876471
-    Data2: 1219162029
-    Data3: 1289660861
-    Data4: -1995732321
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5186807950534688326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Interaction/Pick up
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Interaction/Pick up
-  Guid:
-    Data1: 1136159633
-    Data2: 1325936352
-    Data3: -1342540645
-    Data4: -213270279
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5237022224076087632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Menu/Selecting an element
-  m_EditorClassIdentifier: 
-  Path: event:/UI/Menu/Selecting an element
-  Guid:
-    Data1: 1023626430
-    Data2: 1306001614
-    Data3: 1594038424
-    Data4: 798773606
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5247771474523293800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Cavern/Constant cavern noise
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Cavern/Constant cavern noise
-  Guid:
-    Data1: -573465998
-    Data2: 1161632116
-    Data3: -1191465593
-    Data4: -845325500
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5743402848852692650
+--- !u!114 &2883222522378365976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,7 +627,7 @@ MonoBehaviour:
     Data3: 471091891
     Data4: -2098612127
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -857,7 +635,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &6712285036829518944
+--- !u!114 &3156900139737499883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -867,43 +645,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Cart/Cart movements
+  m_Name: event:/SFX/Dwarf/Landing
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Cart/Cart movements
+  Path: event:/SFX/Dwarf/Landing
   Guid:
-    Data1: 1614653347
-    Data2: 1133231653
-    Data3: 59965104
-    Data4: -1644879758
+    Data1: -1596796995
+    Data2: 1079743896
+    Data3: -2021127254
+    Data4: -405004285
   Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 39072
---- !u!114 &6714560496412321903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Weapon sounds
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Weapon sounds
-  Guid:
-    Data1: -1632623436
-    Data2: 1282119702
-    Data3: -380541776
-    Data4: -1359833273
-  Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -911,88 +662,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &6860610751608903284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Laugh
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Laugh
-  Guid:
-    Data1: -582121413
-    Data2: 1134978479
-    Data3: 174875795
-    Data4: 1247039704
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7529501454940387396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Test
-  m_EditorClassIdentifier: 
-  Path: event:/Test
-  Guid:
-    Data1: 422006891
-    Data2: 1083691904
-    Data3: -2014517091
-    Data4: 736952838
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7741977195355120694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Beer/Beer Explosion
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Beer/Beer Explosion
-  Guid:
-    Data1: -1529631636
-    Data2: 1178441247
-    Data3: -854882385
-    Data4: 1882261173
-  Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7763238665279189417
+--- !u!114 &3253160795555660297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1011,7 +681,7 @@ MonoBehaviour:
     Data3: -1016019553
     Data4: 826316298
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1019,7 +689,142 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7889515481018090745
+--- !u!114 &3740904796032616392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Menu/Opening
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Menu/Opening
+  Guid:
+    Data1: 429826909
+    Data2: 1285466956
+    Data3: -1918826075
+    Data4: 178841889
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3946091600657412655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Pickaxe/Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Pickaxe/Rock destruction
+  Guid:
+    Data1: 117278513
+    Data2: 1301378247
+    Data3: 292855701
+    Data4: 1788079956
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5275975867795453806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Pick up
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Pick up
+  Guid:
+    Data1: 1136159633
+    Data2: 1325936352
+    Data3: -1342540645
+    Data4: -213270279
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5408761650536691659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Goblins/Weapon sounds
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Goblins/Weapon sounds
+  Guid:
+    Data1: -1632623436
+    Data2: 1282119702
+    Data3: -380541776
+    Data4: -1359833273
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5464268861483726378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Throw
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Throw
+  Guid:
+    Data1: 1963189162
+    Data2: 1332020082
+    Data3: 184867505
+    Data4: -28727300
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5522137514137766407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1038,7 +843,7 @@ MonoBehaviour:
     Data3: 1601300916
     Data4: 1162842047
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1046,7 +851,187 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8117171212727951952
+--- !u!114 &6093701330881504135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Lava/Several small lava sounds
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Lava/Several small lava sounds
+  Guid:
+    Data1: 967057085
+    Data2: 1104315526
+    Data3: 1976472998
+    Data4: 1265857923
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6668775872606935930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Goblins/Damage with lava
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Goblins/Damage with lava
+  Guid:
+    Data1: -1045520613
+    Data2: 1212928136
+    Data3: -1793194849
+    Data4: 466732565
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7057017435811671610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/In-game notifications/Cart near lava
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/In-game notifications/Cart near lava
+  Guid:
+    Data1: -242361655
+    Data2: 1168264561
+    Data3: -1040985713
+    Data4: 1568642302
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7071519187825572258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Menu.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Desktop/Menu.bank
+  Name: Menu
+  StudioPath: bank:/Menu
+  lastModified: 638658385003903872
+  FileSizes: []
+  Exists: 1
+--- !u!114 &7178111643319952092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dwarf/Jump
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dwarf/Jump
+  Guid:
+    Data1: -1828173959
+    Data2: 1222489996
+    Data3: 511360676
+    Data4: -1309290227
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7410975320878961487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Dwarf/Physical impacts
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Dwarf/Physical impacts
+  Guid:
+    Data1: -796428349
+    Data2: 1234227791
+    Data3: -1013578582
+    Data4: -608485115
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7579213429450239911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Cart/Cart movements
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Cart/Cart movements
+  Guid:
+    Data1: 1614653347
+    Data2: 1133231653
+    Data3: 59965104
+    Data4: -1644879758
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 39072
+--- !u!114 &7738347480816555361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1065,7 +1050,7 @@ MonoBehaviour:
     Data3: 215148678
     Data4: 14115473
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1073,7 +1058,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8608061940170886242
+--- !u!114 &8303828315812592357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1083,16 +1068,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/Action confirmation/Positive confirmation
+  m_Name: event:/SFX/Goblins/Stealing coins
   m_EditorClassIdentifier: 
-  Path: event:/UI/Action confirmation/Positive confirmation
+  Path: event:/SFX/Goblins/Stealing coins
   Guid:
-    Data1: 1647089357
-    Data2: 1201000447
-    Data3: -1952795500
-    Data4: 1309568741
+    Data1: -1464306721
+    Data2: 1156208805
+    Data3: 1657382069
+    Data4: 894534166
   Banks:
-  - {fileID: -8534444205981759030}
+  - {fileID: -9010870929458847549}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1100,7 +1085,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &9167827588397943165
+--- !u!114 &8741523598202664640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1110,20 +1095,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Lava/Constant lava sound
+  m_Name: event:/SFX/Pickaxe/Mining
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Lava/Constant lava sound
+  Path: event:/SFX/Pickaxe/Mining
   Guid:
-    Data1: 1895020149
-    Data2: 1225686260
-    Data3: -1201794420
-    Data4: 1575285054
+    Data1: -169743164
+    Data2: 1096741032
+    Data3: -1707458895
+    Data4: -677242847
   Banks:
-  - {fileID: -8534444205981759030}
-  IsStream: 1
+  - {fileID: -9010870929458847549}
+  IsStream: 0
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 119170
+  Length: 0
+--- !u!114 &9044028012172844217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Goblins/Damage received
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Goblins/Damage received
+  Guid:
+    Data1: 116119255
+    Data2: 1338231665
+    Data3: -982329439
+    Data4: 1806529955
+  Banks:
+  - {fileID: -9010870929458847549}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

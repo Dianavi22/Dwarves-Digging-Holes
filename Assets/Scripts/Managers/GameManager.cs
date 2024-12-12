@@ -61,8 +61,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tuto _tuto;
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
-
-    public bool passTuto;
+    public bool passTuto = false;
 
     //[SerializeField] List<GameObject> _tutoElements;
 

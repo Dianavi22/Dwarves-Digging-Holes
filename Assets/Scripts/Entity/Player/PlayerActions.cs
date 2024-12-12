@@ -102,6 +102,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
+
         if (_tuto.isInTuto)
         {
             if (_tuto.isYeetEnemy)
@@ -110,14 +111,13 @@ public class PlayerActions : MonoBehaviour
             }
             else
             {
-                _gameManager.SkipTuto();
+                GameManager.Instance.SkipTuto();
                 _tuto.StopTuto();
             }
         }
         else
         {
-            _gameManager.passTuto = true;
-
+            GameManager.Instance.passTuto = true;
         }
     }
 

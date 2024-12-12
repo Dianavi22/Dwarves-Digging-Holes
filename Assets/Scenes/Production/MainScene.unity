@@ -1732,10 +1732,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _tuto
+      value: 
+      objectReference: {fileID: 1629107619}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -1744,10 +1744,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 691050779}
-    - target: {fileID: 6842787643763117528, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.3
@@ -1787,10 +1783,6 @@ PrefabInstance:
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8792053908639858265, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2236,6 +2228,7 @@ MonoBehaviour:
   isPushChariot: 0
   isTakeEnemy: 0
   isYeetEnemy: 0
+  isInTuto: 0
 --- !u!1 &1630702525
 GameObject:
   m_ObjectHideFlags: 0

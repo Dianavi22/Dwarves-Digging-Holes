@@ -29,8 +29,8 @@ public class Tuto : MonoBehaviour
     public bool isBreakRock;
     public bool isPushChariot;
     public bool isTakeEnemy;
-    public bool isYeetEnemy;
-    public bool isInTuto;
+    public bool isYeetEnemy = false;
+    public bool isInTuto = false;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
@@ -144,7 +144,6 @@ public class Tuto : MonoBehaviour
         }
         _pushChariot.SetActive(false);
         _takeEnemy.SetActive(false);
-
         _circleRocks.SetActive(false);
         _circleChariot.SetActive(false);
         _circleEnemy.SetActive(false);
