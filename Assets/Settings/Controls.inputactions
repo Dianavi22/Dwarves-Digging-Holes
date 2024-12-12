@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PassTuto",
+                    "type": "Button",
+                    "id": "5d6c89b0-1a2e-4226-a106-91a9e014b3f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "6d471b8c-d991-4c4a-8a10-a0b5f3fdcb2b",
@@ -529,6 +538,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40db474f-b015-4f56-9286-31aefa42148f",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1;Gamepad",
+                    "action": "PassTuto",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1d89d70-4931-445a-abb1-350df1053294",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PassTuto",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

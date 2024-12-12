@@ -18,7 +18,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
-
+    [SerializeField] Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
@@ -34,18 +34,23 @@ public class PlayerActions : MonoBehaviour
 
     private Player _p;
 
-    private bool canPickup = true;
+    private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
+    private GameManager _gameManager;
+
+    private bool _isFirstCanPickup = true;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
+        _gameManager = GameManager.Instance;
     }
 
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
+        _tuto = FindObjectOfType<Tuto>();
     }
 
     private void Update()
@@ -61,13 +66,19 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
+
+        if(_isFirstCanPickup && GameManager.Instance.passTuto || _tuto.startTuto)
+        {
+            _isFirstCanPickup = false;
+            canPickup = true;
+        }
     }
 
     #region EVENTS 
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup)
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup )
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
@@ -94,6 +105,27 @@ public class PlayerActions : MonoBehaviour
             if (isTaunt) return;
 
             StartCoroutine(Taunt());
+        }
+    }
+
+    public void OnPassTuto(InputAction.CallbackContext context)
+    {
+
+        if (_tuto.isInTuto)
+        {
+            if (_tuto.isYeetEnemy)
+            {
+                _tuto.StopTuto();
+            }
+            else
+            {
+                GameManager.Instance.SkipTuto();
+                _tuto.StopTuto();
+            }
+        }
+        else
+        {
+            GameManager.Instance.passTuto = true;
         }
     }
 
@@ -210,7 +242,7 @@ public class PlayerActions : MonoBehaviour
             if (player.GetActions().IsHoldingObject) return;
             PickupObject(player.gameObject);
         }
-        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
+        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot) )
         {
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
@@ -282,6 +314,15 @@ public class PlayerActions : MonoBehaviour
         {
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
         }
+
+        //Tuto
+        if (heldObject.TryGetComponent<Pickaxe>(out var picaxe) && _tuto.startTuto)
+        {
+            _tuto.isBreakRock = true;
+        }
+
+       
+
     }
 
     private void LayerHandler(GameObject obj)
@@ -329,7 +370,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot) )
         {
             _p.EmptyFixedJoin();
             chariot.HandleCarriedState(_p, false);
@@ -338,6 +379,9 @@ public class PlayerActions : MonoBehaviour
             SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
+
+
+       
         EmptyHands();
     }
     #endregion

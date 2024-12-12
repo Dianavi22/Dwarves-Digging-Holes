@@ -6,6 +6,7 @@ using Utils;
 
 public class Score : MonoBehaviour
 {
+    public bool isStartScore = false;
     [SerializeField] private TMP_Text scoreText;
 
     [SerializeField] private int scoreToAddTimer = 10;
@@ -21,9 +22,13 @@ public class Score : MonoBehaviour
         get => score;
         set
         {
-            if (GameManager.Instance.isGameOver) return;
-            score = value;
-            UpdateScore();
+            if (isStartScore)
+            {
+                if (GameManager.Instance.isGameOver) return;
+                score = value;
+                UpdateScore();
+            }
+
         }
     }
     private bool _isNewRecord = false;
@@ -37,7 +42,7 @@ public class Score : MonoBehaviour
     private void UpdateScore()
     {
         scoreText.text = score.ToString();
-        if(int.Parse(_bestScoreTxt.text) < score && !_isNewRecord && int.Parse(_bestScoreTxt.text) != 0)
+        if (int.Parse(_bestScoreTxt.text) < score && !_isNewRecord && int.Parse(_bestScoreTxt.text) != 0)
         {
             _isNewRecord = true;
             NewRecord();
