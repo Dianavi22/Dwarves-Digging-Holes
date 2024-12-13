@@ -23,6 +23,8 @@ public class GamePadsController : MonoBehaviour
     public List<Player> PlayerList { private set; get; }
 
     public static GamePadsController Instance; // A static reference to the GameManager instance
+
+    private int index = 0;
     private void Start()
     {
         if (Instance == null) // If there is no instance already
@@ -49,7 +51,6 @@ public class GamePadsController : MonoBehaviour
             return;
         }
 
-        int index = 0;
         foreach (Gamepad gamepad in gamepads)
         {
             InstantiatePlayerUI("Gamepad", gamepad, index);
@@ -83,7 +84,7 @@ public class GamePadsController : MonoBehaviour
         PlayerList.Add(player);
     }
 
-    private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
+    private Player InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
     {
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
@@ -95,9 +96,13 @@ public class GamePadsController : MonoBehaviour
         //uiInfo.Initialize(player);
 
         // * Instantiate PlayerHeadFatigueBar UI
-        GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-        PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-        fatigueUI.Initialize(player);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
+            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
+            fatigueUI.Initialize(player);
+
+        }
 
         var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renders)
@@ -111,5 +116,14 @@ public class GamePadsController : MonoBehaviour
             playerInput.SwitchCurrentActionMap("UI");
             player.gameObject.transform.position = new(-100, -100, -100);
         }
+        return player;
+    }
+
+    public void AddNewPlayer(InputDevice device) {
+        if(PlayerInput.all.Count == 4) return;
+
+        Player newPlayer = InstantiatePlayerUI("Gamepad", device, index);
+        newPlayer.GetMovement().SetStats(GameManager.Instance.Difficulty.PlayerStats);
+        newPlayer.GetFatigue().DefineStats(GameManager.Instance.Difficulty.MiningFatigue, GameManager.Instance.Difficulty.PushCartFatigue);
     }
 }
