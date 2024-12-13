@@ -116,7 +116,7 @@ namespace Utils
             }
 
         }
-        
+
         #region FadeIn/FadeOut
         public static IEnumerator FadeIn(float t, CanvasGroup c)
         {
@@ -212,16 +212,26 @@ namespace Utils
             }
         }
 
-        private static void SetGlobalVolume(float value) {
+        private static void SetGlobalVolume(float value)
+        {
             _mainBus.setVolume(value);
         }
 
-        public static void SetGlobalVolumeExcept(float value, FMOD.Studio.Bus? exception) {
+        public static void SetGlobalVolumeExcept(float value, FMOD.Studio.Bus? exception)
+        {
             SetGlobalVolume(value);
 
-            if(exception != null) {
+            if (exception != null)
+            {
                 exception?.setVolume(1);
             }
         }
+    }
+    public enum StatsName
+    {
+        GoldMined,
+        MostDeath,
+        PlayerKill,
+        GoblinKill
     }
 }

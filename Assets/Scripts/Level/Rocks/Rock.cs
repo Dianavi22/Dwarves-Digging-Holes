@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utils;
 
 public class Rock : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Rock : MonoBehaviour
     [SerializeField] GameObject _gold;
     [SerializeField] Tuto _tuto;
 
+    private Player hitPlayer = null;
+
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
@@ -25,8 +28,10 @@ public class Rock : MonoBehaviour
         _tuto = FindObjectOfType<Tuto>();
     }
 
-    public void Hit()
+    public void Hit(Player player)
     {
+        if(hitPlayer != player) hitPlayer = player;
+
         _healthPoint -= 1;
         if (_healthPoint <= 0)
             StartCoroutine(Break());
@@ -45,6 +50,8 @@ public class Rock : MonoBehaviour
             TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
+
+            if(hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
         }
 
         _breakRockParticule.Play();
