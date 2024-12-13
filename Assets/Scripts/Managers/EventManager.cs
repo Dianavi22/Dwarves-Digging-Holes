@@ -28,10 +28,10 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        Invoke("LaunchEvent", 10);
+         
     }
 
-    private void LaunchEvent()
+    public void LaunchEvent()
     {
         _readyToEvent = true;
     }
@@ -40,7 +40,6 @@ public class EventManager : MonoBehaviour
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager)
         {
-            print("EventCoroutine");
             StartCoroutine(Event());
         }
         if (_isLavaMove)

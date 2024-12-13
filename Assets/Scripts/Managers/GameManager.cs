@@ -54,13 +54,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] Lava _lava;
+    [SerializeField] ShakyCame _sc;
     public bool isGameOver = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
+    [SerializeField] private Tuto _tuto;
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
+    public bool passTuto = false;
+    [SerializeField] GameObject _skipTuto;
+    [SerializeField] Score _score;
 
-    [SerializeField] List<GameObject> _tutoElements;
+    //[SerializeField] List<GameObject> _tutoElements;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -91,36 +97,58 @@ public class GameManager : MonoBehaviour
         GameStarted();
     }
 
-    private void StopTuto()
-    {
+    //private void StopTuto()
+    //{
 
-        for (int i = 0; i < _tutoElements.Count; i++)
-        {
-            try
-            {
-                _tutoElements[i].SetActive(false);
-            }
-            catch
-            {
-                //
-            }
-        }
-    }
+    //    for (int i = 0; i < _tutoElements.Count; i++)
+    //    {
+    //        try
+    //        {
+    //            _tutoElements[i].SetActive(false);
+    //        }
+    //        catch
+    //        {
+    //            //
+    //        }
+    //    }
+    //}
 
-    private IEnumerator StartGame()
+    private IEnumerator StartParty()
     {
         _baseSpeed = this.Difficulty.ScrollingSpeed;
         _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
         yield return new WaitForSeconds(1);
         StartCoroutine(_introGame.LadderIntro());
-        yield return new WaitForSeconds(3);
-        StartCoroutine(_lava.CooldownLava());
-        yield return new WaitForSeconds(1);
-        this.Difficulty.ScrollingSpeed = _baseSpeed;
-        yield return new WaitForSeconds(5);
-        StopTuto();
+        yield return new WaitForSeconds(2);
+        if (passTuto && !_tuto.isInTuto)
+        {
+            SkipTuto();
+        }
+        else
+        {
+            _skipTuto.SetActive(true);
+            _tuto.startTuto = true;
+        }
 
+    }
+
+    public void SkipTuto()
+    {
+        StartCoroutine(_lava.CooldownLava());
+        _skipTuto.SetActive(false);
+        StartCoroutine(StartGame());
+    }
+
+    public IEnumerator StartGame()
+    {
+        _score.isStartScore = true;
+        _sc.ShakyCameCustom(3f, 0.2f);
+        Invoke(nameof(InitPlatformSpawner), 3f);
+        this.Difficulty.ScrollingSpeed = _baseSpeed;
+        yield return new WaitForSeconds(70);
+        // StopTuto();
+        _eventManager.LaunchEvent();
     }
 
     void Update()
@@ -135,8 +163,7 @@ public class GameManager : MonoBehaviour
     {
         _GameOverCanvas.SetActive(false);
         Time.timeScale = 1.0f;
-        StartCoroutine(StartGame());
-        Invoke(nameof(InitPlatformSpawner), 3f);
+        StartCoroutine(StartParty());
     }
 
     private void InitPlatformSpawner()

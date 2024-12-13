@@ -11,6 +11,8 @@ public class Enemy : Entity
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
+    [SerializeField] Tuto _tuto;
+    [SerializeField] GameManager _gameManager;
 
     public bool IsTouchingChariot
     {
@@ -28,6 +30,8 @@ public class Enemy : Entity
     {
         base.Awake();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+        _tuto = FindAnyObjectByType<Tuto>();
+        _gameManager = GameManager.Instance;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -45,6 +49,11 @@ public class Enemy : Entity
         {
             IsTouchingChariot = false;
             if(!IsGrabbed){_rb.isKinematic = false; };
+
+            if (_tuto.isTakeEnemy)
+            {
+                _tuto.isYeetEnemy = true;
+            }
         }
     }
 
@@ -79,7 +88,12 @@ public class Enemy : Entity
         Destroy(this.gameObject);
     }
     public override void HandleCarriedState(Player player, bool grabbed) {
-        if(grabbed) {
+
+        if (_tuto.isTakeEnemy)
+        {
+            _tuto.isYeetEnemy = true;
+        }
+        if (grabbed) {
             IsTouchingChariot = false;
         }
         base.HandleCarriedState(player, grabbed);
@@ -88,7 +102,8 @@ public class Enemy : Entity
     } 
     override public void HandleDestroy()
     {
+       
         StartCoroutine(DestroyByLava());
-
+       
     }
 }
