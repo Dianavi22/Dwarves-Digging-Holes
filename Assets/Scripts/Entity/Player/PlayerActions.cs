@@ -39,8 +39,6 @@ public class PlayerActions : MonoBehaviour
     private Dictionary<int, int> previousLayer = new();
     
     private Animator _animator;
-    
-    private GameManager _gameManager;
 
     private bool _isFirstCanPickup = true;
 
@@ -48,7 +46,6 @@ public class PlayerActions : MonoBehaviour
     {
         _p = GetComponent<Player>();
         _animator = _p.GetAnimator();
-        _gameManager = GameManager.Instance;
     }
 
     private void Start()
@@ -71,7 +68,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if(_isFirstCanPickup && GameManager.Instance.passTuto || _tuto.startTuto)
+        if(_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
         {
             _isFirstCanPickup = false;
             canPickup = true;
@@ -82,7 +79,9 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup )
+        if(GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup )
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
@@ -104,6 +103,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
@@ -114,6 +114,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
 
         if (_tuto.isInTuto)
         {
@@ -135,7 +136,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (UIPauseManager.Instance.isPaused) return;
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
