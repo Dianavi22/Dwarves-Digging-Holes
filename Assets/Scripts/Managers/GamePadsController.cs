@@ -106,11 +106,10 @@ public class GamePadsController : MonoBehaviour
         }
 
         PlayerList.Add(player);
-        if (index == 0)
+        if (GameManager.Instance.isInMainMenu && index == 0)
         {
             playerInput.SwitchCurrentActionMap("UI");
             player.gameObject.transform.position = new(-100, -100, -100);
-
         }
     }
 }
