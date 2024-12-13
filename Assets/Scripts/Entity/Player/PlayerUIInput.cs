@@ -21,6 +21,7 @@ public class PlayerUIInput : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started)
             UIPauseManager.Instance.Pause(_p);
     }
@@ -32,6 +33,7 @@ public class PlayerUIInput : MonoBehaviour
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && UIPauseManager.Instance.isPaused)
             RuntimeManager.PlayOneShot(navigateEvent);
     }
@@ -39,6 +41,7 @@ public class PlayerUIInput : MonoBehaviour
     //! Les actions sont compliquées à gérer, il faudrait revoir ça
     public void OnSubmit(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Performed && UIPauseManager.Instance.isPaused && condition)
         {
             condition = false;

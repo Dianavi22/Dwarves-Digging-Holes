@@ -39,6 +39,8 @@ public class PlayerFatigue : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.isInMainMenu) return;
+        
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
 

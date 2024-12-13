@@ -54,10 +54,13 @@ public class PlayerMovements : EntityMovement
 
     private bool PlayerCanMove(bool isInputActivated)
     {
-        bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
-        if (isInputActivated && isHoldingChariot) 
-            return !_p.IsGrabbed && _p.GetFatigue().ReduceCartsFatigue(
-                GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
+            if (isInputActivated && isHoldingChariot)
+                return !_p.IsGrabbed && _p.GetFatigue().ReduceCartsFatigue(
+                    GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
+        }
 
         return !_p.IsGrabbed;
     }
@@ -106,7 +109,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (UIPauseManager.Instance.isPaused) return;
+        if (!GameManager.Instance.isInMainMenu && UIPauseManager.Instance.isPaused) return;
 
         if (_p.IsGrabbed)
         {

@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
     public bool passTuto = false;
+    public bool isInMainMenu = false;
+
     [SerializeField] GameObject _skipTuto;
     [SerializeField] Score _score;
 
@@ -83,8 +85,12 @@ public class GameManager : MonoBehaviour
 
         // Select the difficulty
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        _goldChariot.GoldCount = Difficulty.NbStartingGold;
+
+        if (!isInMainMenu)
+        {
+            _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+            _goldChariot.GoldCount = Difficulty.NbStartingGold;
+        }
 
         foreach (Player p in GamePadsController.Instance.PlayerList)
         {
@@ -94,7 +100,8 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-        GameStarted();
+
+        if(!isInMainMenu) GameStarted();
     }
 
     //private void StopTuto()
@@ -153,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
+        if (!isInMainMenu && _goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
         {
             StartCoroutine(GameOver(DeathMessage.NoGold));
         }
