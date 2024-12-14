@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     public bool isInMainMenu = false;
 
     [SerializeField] GameObject _skipTuto;
+    [SerializeField] GameObject _scoreText;
+    [SerializeField] GameObject _circleTransition;
     [SerializeField] Score _score;
 
     //[SerializeField] List<GameObject> _tutoElements;
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _circleTransition.SetActive(true);
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         // Select the difficulty
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
 
-        if(!isInMainMenu) GameStarted();
+        if (!isInMainMenu) GameStarted();
     }
 
     //private void StopTuto()
@@ -122,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartParty()
     {
+        yield return new WaitForSeconds(1.5f);
         _baseSpeed = this.Difficulty.ScrollingSpeed;
         _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
@@ -149,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _scoreText.SetActive(true);
         _score.isStartScore = true;
         _sc.ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);

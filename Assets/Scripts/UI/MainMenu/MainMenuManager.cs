@@ -10,9 +10,10 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject _settingsWindow;
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _closeButtonSettings;
+    [SerializeField] GameObject _circleTransition;
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(CircleTransition());
     }
 
     public void QuitGame()
@@ -33,5 +34,12 @@ public class MainMenuManager : MonoBehaviour
     {
         _settingsWindow.SetActive(true);
         _eventSystem.firstSelectedGameObject = _closeButtonSettings;
+    }
+
+    private IEnumerator CircleTransition()
+    {
+        _circleTransition.SetActive(true);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(1);
     }
 }
