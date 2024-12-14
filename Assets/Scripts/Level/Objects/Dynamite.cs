@@ -6,7 +6,11 @@ using UnityEngine;
 public class Dynamite : MonoBehaviour, IGrabbable
 {
     private Action throwOnDestroy;
-
+    [SerializeField] GameObject _hb;
+    private void Start()
+    {
+        print("Dynamite");
+    }
     public GameObject GetGameObject()
     {
         return gameObject;
@@ -29,5 +33,10 @@ public class Dynamite : MonoBehaviour, IGrabbable
             HandleDestroy();
             bigRock.DestroyBigRock();
         }
+
+        //if (Utils.Component.TryGetInChild<WallLimit>(collision.collider.gameObject, out var wall,1))
+        //{
+        //    this._hb.SetActive(true);
+        //}
     }
 }

@@ -74,7 +74,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 4));
+       // ChooseEvent(Random.Range(0, 4));
+        ChooseEvent(4);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -86,31 +87,26 @@ public class EventManager : MonoBehaviour
 
     private void ChooseEvent(int i)
     {
-        print(i);
         if (i == 0)
         {
-            //StartCoroutine(EventPickaxe());
-            _goblinWave.isWave = true;
+            StartCoroutine(EventPickaxe());
         }
         else if (i == 1)
         {
-            _goblinWave.isWave = true;
-            //StartCoroutine(EventGoldChariot());
+            StartCoroutine(EventGoldChariot());
         }
         else if (i == 2)
         {
-            //StartCoroutine(LavaGettingClose());
-            _goblinWave.isWave = true;
+            StartCoroutine(LavaGettingClose());
 
         }
         else if (i == 3)
         {
-            _goblinWave.isWave = true;
+            StartCoroutine(GoblinWave());
         }
         else
         {
             //
-            _goblinWave.isWave = true;
         }
 
     }
@@ -170,7 +166,14 @@ public class EventManager : MonoBehaviour
         _lavaRain.Stop();
         yield return new WaitForSeconds(4.5f);
         _isLavaMoveEndEvent = true;
+    }
 
+    private IEnumerator GoblinWave()
+    {
+        StartCoroutine(TextEvent("Goblin Wave !!!"));
+        yield return new WaitForSeconds(1);
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        _goblinWave.isWave = true;
 
     }
 }
