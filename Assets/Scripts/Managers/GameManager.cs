@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _scoreText;
     [SerializeField] GameObject _circleTransition;
     [SerializeField] Score _score;
+     public bool isInMenu;
 
     //[SerializeField] List<GameObject> _tutoElements;
 
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-
+        Time.timeScale = 1.0f;
         if (!isInMainMenu) GameStarted();
     }
 
@@ -174,7 +175,6 @@ public class GameManager : MonoBehaviour
     private void GameStarted()
     {
         _GameOverCanvas.SetActive(false);
-        Time.timeScale = 1.0f;
         StartCoroutine(StartParty());
     }
 

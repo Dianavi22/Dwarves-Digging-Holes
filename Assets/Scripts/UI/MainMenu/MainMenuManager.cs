@@ -11,6 +11,20 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _closeButtonSettings;
     [SerializeField] GameObject _circleTransition;
+    [SerializeField] GameObject _circleTransitionIn;
+
+    private void Start()
+    {
+        StartCoroutine(StartCanvas());
+    }
+
+    private IEnumerator StartCanvas()
+    {
+        Time.timeScale = 1;
+        _circleTransitionIn.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+      
+    }
     public void StartGame()
     {
         StartCoroutine(CircleTransition());
@@ -19,10 +33,10 @@ public class MainMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        
-        #if UNITY_EDITOR
+
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
     }
 
     public void LoadCreditScene()
