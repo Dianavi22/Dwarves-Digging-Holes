@@ -63,6 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1461554827953605327}
   - component: {fileID: 5903457587921858009}
+  - component: {fileID: 1512558019172261671}
   m_Layer: 0
   m_Name: Dynamite
   m_TagString: Throwable
@@ -114,6 +115,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
+--- !u!114 &1512558019172261671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428825487775635473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bad548f0f7999b43a86bede1ea81d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5490615967828576419
 PrefabInstance:
   m_ObjectHideFlags: 0

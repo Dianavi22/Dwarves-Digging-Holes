@@ -1,4 +1,5 @@
 using FMODUnity;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _inputCanvas;
 
     [SerializeField] private EventReference[] _stateMenuEvent;
+    [SerializeField] GameObject _circleTransition;
 
     public static UIPauseManager Instance; // A static reference to the GameManager instance
 
@@ -31,12 +33,26 @@ public class UIPauseManager : MonoBehaviour
 
     public void RetryGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine(FadeTransition(true));
+    }
+
+    private IEnumerator FadeTransition(bool isRetry)
+    {
+        _circleTransition.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        if (isRetry)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(FadeTransition(false));
     }
 
     public void Pause(Player _currentPlayer)
