@@ -12,6 +12,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject _closeButtonSettings;
     [SerializeField] GameObject _circleTransition;
     [SerializeField] GameObject _circleTransitionIn;
+    [SerializeField] GameObject _buttons;
+    [SerializeField] GameObject _title;
+    [SerializeField] GameObject _credits;
 
     private void Start()
     {
@@ -41,7 +44,17 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadCreditScene()
     {
+        _buttons.SetActive(false);
+        _title.SetActive(false);
+        _credits.SetActive(true);
+        Invoke("ActiveButtons", 20);
+    }
 
+    private void ActiveButtons()
+    {
+        _buttons.SetActive(true);
+        _title.SetActive(true);
+        _credits.SetActive(false);
     }
 
     public void LoadSettingScene()
