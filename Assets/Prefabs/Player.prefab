@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c12f00987472394ebca538d720aad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdBy: {fileID: 0}
   recoveryTime: 0.5
   Joint: {fileID: 0}
   animator: {fileID: 1766082382499409143}
@@ -789,7 +790,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5d6c89b0-1a2e-4226-a106-91a9e014b3f1
     m_ActionName: Player/PassTuto[/XInputControllerWindows/dpad/up,/Keyboard/z]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Player1
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

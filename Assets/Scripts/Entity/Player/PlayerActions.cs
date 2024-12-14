@@ -37,14 +37,15 @@ public class PlayerActions : MonoBehaviour
     private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
-    private GameManager _gameManager;
+    
+    private Animator _animator;
 
     private bool _isFirstCanPickup = true;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
-        _gameManager = GameManager.Instance;
+        _animator = _p.GetAnimator();
     }
 
     private void Start()
@@ -67,7 +68,7 @@ public class PlayerActions : MonoBehaviour
             }
         }
 
-        if(_isFirstCanPickup && GameManager.Instance.passTuto || _tuto.startTuto)
+        if(_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
         {
             _isFirstCanPickup = false;
             canPickup = true;
@@ -78,7 +79,9 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused && canPickup )
+        if(GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup )
         {
             if (IsHoldingObject) {
                 _p.GetActions().StopAnimation();
@@ -100,6 +103,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
@@ -110,6 +114,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
+        if(GameManager.Instance.isInMainMenu) return;
 
         if (_tuto.isInTuto)
         {
@@ -131,7 +136,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (UIPauseManager.Instance.isPaused) return;
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
@@ -149,43 +154,13 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        // Determine the target tween angle based on the current pivot angle
-        float targetAngle;
-        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
-        {
-            targetAngle = -75f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
-        {
-            targetAngle = 40f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
-        {
-            targetAngle = 75f;
-        }
-        else
-        {
-            // Default to 40 if pivot is not exactly -35, 0, or 35
-            targetAngle = 40f;
-        }
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
-            .SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Yoyo);
-        
-        _p.GetAnimator().SetBool("pickaxeHit", true);
+        _animator.SetBool("pickaxeHit", true);
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
-        // Stop the tween if it is active
-        if (rotationTween != null && rotationTween.IsActive())
-        {
-            rotationTween.Rewind();
-            rotationTween.Kill();
-        }
-        
-        _p.GetAnimator().SetBool("pickaxeHit", false);
+        _animator.SetBool("pickaxeHit", false);
     }
 
     private bool CheckHitRaycast(out List<Collider> hits)

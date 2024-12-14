@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Utils;
 
 public class Enemy : Entity
 {
@@ -72,6 +73,12 @@ public class Enemy : Entity
 
     public IEnumerator DestroyByLava()
     {
+        if(holdBy != null)
+        {
+            StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
+            holdBy = null;
+        };
+
         _rb.velocity = Vector3.zero;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;

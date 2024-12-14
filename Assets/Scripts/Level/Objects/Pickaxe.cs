@@ -14,6 +14,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] private Canvas _canvasPickaxe;
     [SerializeField] GameObject _pickaxeTutoCanvas;
     private bool _isCarried;
+    private Player holdingPlayer;
     public bool isInTuto = false;
     [SerializeField] GameObject _circleWhite;
 
@@ -41,6 +42,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
+        holdingPlayer = currentPlayer;
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
         _isCarried = isCarried;
@@ -48,6 +50,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             _pickaxeTutoCanvas.SetActive(false);
             throwOnDestroy = () => { 
+                holdingPlayer = null;
                 actions.EmptyHands();
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
@@ -120,7 +123,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void HandleRockHit(Rock rock)
     {
-        rock.Hit();
+        rock.Hit(holdingPlayer);
         if (rock.haveGold)
         {
             _hitGoldParts.Play();

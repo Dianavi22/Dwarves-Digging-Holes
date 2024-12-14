@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using Utils;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -21,16 +22,19 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        _respawnPoint = TargetManager.Instance.GetGameObject<RespawnPoint>(Target.RespawnPoint);
+        _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>(Target.RespawnPoint);
 
         IsAlive = true;
     }
 
     private void Update()
     {
-        if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
+        if (!GameManager.Instance.isInMainMenu)
         {
-            TriggerRespawnSequence();
+            if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
+            {
+                TriggerRespawnSequence();
+            }
         }
     }
 
@@ -50,7 +54,7 @@ public class PlayerHealth : MonoBehaviour
         _HurtPart.Play();
         _isHit = true;
         _p.GetMovement().enabled = false;
-        
+
         DOVirtual.DelayedCall(1f, () =>
         {
             _p.GetMovement().enabled = true;
@@ -60,8 +64,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void DeathPlayer()
     {
+
         IsAlive = false;
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f,0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
@@ -73,6 +78,13 @@ public class PlayerHealth : MonoBehaviour
         _p.GetRigidbody().velocity = Vector3.zero;
 
         _p.EmptyFixedJoin();
+
+        StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
+        if (_p.holdBy != null)
+        {
+            StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
+            _p.holdBy = null;
+        }
 
         DOVirtual.DelayedCall(2f, () =>
         {
