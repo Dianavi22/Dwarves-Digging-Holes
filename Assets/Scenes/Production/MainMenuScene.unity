@@ -2301,7 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a52c105375faad4191dd8f6bffa88eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 1
+  debugMode: 0
   isDisableEventManager: 1
   blockSpawner: {fileID: 0}
   holderPhysicMaterial: {fileID: 13400000, guid: 330616e083dfca646a4dfe403bd03c3a, type: 2}
@@ -2316,15 +2316,14 @@ MonoBehaviour:
   _lava: {fileID: 0}
   _sc: {fileID: 0}
   isGameOver: 0
+  isInMainMenu: 1
   _eventManager: {fileID: 0}
   _tuto: {fileID: 0}
   passTuto: 1
-  isInMainMenu: 1
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
-  _circleTransition: {fileID: 0}
+  _circleTransition: {fileID: 510074189}
   _score: {fileID: 0}
-  isInMenu: 1
 --- !u!1 &845407862
 GameObject:
   m_ObjectHideFlags: 0

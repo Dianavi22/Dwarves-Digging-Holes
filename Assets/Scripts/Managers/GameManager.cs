@@ -56,21 +56,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] Lava _lava;
     [SerializeField] ShakyCame _sc;
     public bool isGameOver = false;
+    public bool isInMainMenu = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
     [SerializeField] private Tuto _tuto;
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
     public bool passTuto = false;
-    public bool isInMainMenu = false;
 
     [SerializeField] GameObject _skipTuto;
     [SerializeField] GameObject _scoreText;
     [SerializeField] GameObject _circleTransition;
     [SerializeField] Score _score;
-     public bool isInMenu;
 
-    //[SerializeField] List<GameObject> _tutoElements;
 
     void Awake()
     {
@@ -84,7 +82,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        _circleTransition.SetActive(true);
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         // Select the difficulty
@@ -104,25 +101,11 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-        Time.timeScale = 1.0f;
         if (!isInMainMenu) GameStarted();
+        _circleTransition.SetActive(true);
+
     }
 
-    //private void StopTuto()
-    //{
-
-    //    for (int i = 0; i < _tutoElements.Count; i++)
-    //    {
-    //        try
-    //        {
-    //            _tutoElements[i].SetActive(false);
-    //        }
-    //        catch
-    //        {
-    //            //
-    //        }
-    //    }
-    //}
 
     private IEnumerator StartParty()
     {
@@ -160,7 +143,6 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
         yield return new WaitForSeconds(70);
-        // StopTuto();
         _eventManager.LaunchEvent();
     }
 
@@ -175,6 +157,7 @@ public class GameManager : MonoBehaviour
     private void GameStarted()
     {
         _GameOverCanvas.SetActive(false);
+        Time.timeScale = 1.0f;
         StartCoroutine(StartParty());
     }
 
