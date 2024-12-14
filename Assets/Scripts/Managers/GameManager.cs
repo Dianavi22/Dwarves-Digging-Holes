@@ -109,11 +109,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartParty()
     {
-        yield return new WaitForSeconds(1.5f);
         _baseSpeed = this.Difficulty.ScrollingSpeed;
         _eventManager.scrollSpeed = _baseSpeed;
         this.Difficulty.ScrollingSpeed = 0;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
         if (passTuto && !_tuto.isInTuto)

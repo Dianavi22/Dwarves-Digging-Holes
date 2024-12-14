@@ -25,6 +25,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _goldChariotPart;
     [SerializeField] ParticleSystem _goldChariotUIPart;
 
+    [SerializeField] GoblinWave _goblinWave;
+
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
@@ -72,7 +74,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 3));
+        ChooseEvent(Random.Range(0, 4));
+        //ChooseEvent(4);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -84,11 +87,9 @@ public class EventManager : MonoBehaviour
 
     private void ChooseEvent(int i)
     {
-        print(i);
         if (i == 0)
         {
             StartCoroutine(EventPickaxe());
-
         }
         else if (i == 1)
         {
@@ -96,8 +97,12 @@ public class EventManager : MonoBehaviour
         }
         else if (i == 2)
         {
-             StartCoroutine(LavaGettingClose());
+            StartCoroutine(LavaGettingClose());
 
+        }
+        else if (i == 3)
+        {
+            StartCoroutine(GoblinWave());
         }
         else
         {
@@ -161,7 +166,14 @@ public class EventManager : MonoBehaviour
         _lavaRain.Stop();
         yield return new WaitForSeconds(4.5f);
         _isLavaMoveEndEvent = true;
+    }
 
+    private IEnumerator GoblinWave()
+    {
+        StartCoroutine(TextEvent("Goblin Wave !!!"));
+        yield return new WaitForSeconds(1);
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        _goblinWave.isWave = true;
 
     }
 }
