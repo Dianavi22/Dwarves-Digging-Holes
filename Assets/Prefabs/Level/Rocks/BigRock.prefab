@@ -295,6 +295,7 @@ Transform:
   - {fileID: 3685070185580899160}
   - {fileID: 7454775872437508104}
   - {fileID: 8148060007681112511}
+  - {fileID: 1404092640930191674}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9054021821511569498
@@ -330,6 +331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fece17b91a20d19439211284ed3ab4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gfx: {fileID: 6754538053925629119}
+  _canva: {fileID: 7705280618114573873}
+  _collider: {fileID: 5682910980466887825}
+  _destroyPart: {fileID: 2067711004024145346}
+  _sc: {fileID: 0}
 --- !u!1 &7705280618114573873
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,4 +926,71 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee48d77d9417108408ca281c54d9a127, type: 3}
   m_PrefabInstance: {fileID: 7685239631080262072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8729765002514289562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2909157634121490671}
+    m_Modifications:
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8040303290443122634, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+      propertyPath: m_Name
+      value: DestroyBigRock_PART
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+--- !u!4 &1404092640930191674 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7663452925173303968, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+  m_PrefabInstance: {fileID: 8729765002514289562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2067711004024145346 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7320503576370271832, guid: 08f50c36564958442a2e37a006f388ee, type: 3}
+  m_PrefabInstance: {fileID: 8729765002514289562}
   m_PrefabAsset: {fileID: 0}

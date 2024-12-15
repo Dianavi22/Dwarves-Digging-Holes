@@ -76,12 +76,12 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
+        this.GetComponentInChildren<Collider>().enabled = false;
         if (holdBy != null)
         {
             StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
             holdBy = null;
         };
-        GetComponentInChildren<Collider>().isTrigger = true;
         _rb.velocity = Vector3.zero;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;

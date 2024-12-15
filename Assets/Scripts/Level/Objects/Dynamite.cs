@@ -28,7 +28,7 @@ public class Dynamite : MonoBehaviour, IGrabbable
         if (Utils.Component.TryGetInParent<BigRock>(collision.collider, out var bigRock))
         {
             HandleDestroy();
-            bigRock.DestroyBigRock();
+            StartCoroutine(bigRock.DestroyBigRock());
         }
     }
 
