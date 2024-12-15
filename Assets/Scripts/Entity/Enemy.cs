@@ -52,11 +52,6 @@ public class Enemy : Entity
 
            
         }
-
-        //if (_tuto.isTakeEnemy)
-        //{
-        //    _tuto.isYeetEnemy = true;
-        //}
     }
 
     public IEnumerator HitChariot()

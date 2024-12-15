@@ -20,8 +20,6 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _skipTuto;
 
     [Header("Circles")]
-    [SerializeField] GameObject _circleRocks;
-    [SerializeField] GameObject _circleChariot;
     [SerializeField] GameObject _circleLava;
     [SerializeField] GameObject _wallLimitTuto;
 
@@ -77,7 +75,6 @@ public class Tuto : MonoBehaviour
         _takePickaxe.isInTuto = false;
         startTuto = false;
         _breakRock.SetActive(true);
-        _circleRocks.SetActive(true);
     }
 
     private void PushChariot()
@@ -93,8 +90,6 @@ public class Tuto : MonoBehaviour
             //
         }
         _pushChariot.SetActive(true);
-        _circleRocks.SetActive(startTuto);
-        _circleChariot.SetActive(true);
 
     }
 
@@ -104,7 +99,6 @@ public class Tuto : MonoBehaviour
         _pushChariot.SetActive(isPushChariot);
         _tutoEnemy.SetActive(true);
         _takeEnemy.SetActive(true);
-        _circleChariot.SetActive(isPushChariot);
     }
 
     private void YeetEnemy()
@@ -139,8 +133,6 @@ public class Tuto : MonoBehaviour
         }
         _pushChariot.SetActive(false);
         _takeEnemy.SetActive(false);
-        _circleRocks.SetActive(false);
-        _circleChariot.SetActive(false);
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(false);
         isInTuto = false;
