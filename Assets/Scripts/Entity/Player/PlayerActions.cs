@@ -357,8 +357,6 @@ public class PlayerActions : MonoBehaviour
             SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
-
-
        
         EmptyHands();
     }
