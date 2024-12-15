@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2601921727472312880}
   - component: {fileID: 1279178676288860538}
   - component: {fileID: 8575831296492638162}
-  - component: {fileID: 3763870835020032777}
+  - component: {fileID: 4817969800479993210}
   m_Layer: 5
   m_Name: bubble
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &3763870835020032777
+--- !u!95 &4817969800479993210
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -85,9 +85,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2316913844010703867}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8ca8db4e7431f7040baaad42037b19bc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 27421bf685798d44d93c52abaf9e3860, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -455,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5358247605217734395, guid: a55fd8da4380405478de802545c0b35e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 5358247605217734395, guid: a55fd8da4380405478de802545c0b35e, type: 3}
       propertyPath: m_LocalRotation.w

@@ -15,13 +15,8 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _breakRock;
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
-    [SerializeField] GameObject _bubbleLava;
     [SerializeField] GameObject _tutoBubbleLava;
     [SerializeField] GameObject _skipTuto;
-
-    [Header("Circles")]
-    [SerializeField] GameObject _circleLava;
-    [SerializeField] GameObject _wallLimitTuto;
 
     [HideInInspector] public bool startTuto;
     [HideInInspector] public bool isBreakRock;
@@ -30,6 +25,7 @@ public class Tuto : MonoBehaviour
     [HideInInspector] public bool isYeetEnemy = false;
     [HideInInspector] public bool isInTuto = false;
 
+    [SerializeField] GameObject _wallLimitTuto;
     [SerializeField] GameObject _tutoEnemy;
 
     void Start()
@@ -107,16 +103,12 @@ public class Tuto : MonoBehaviour
         _takeEnemy.SetActive(isTakeEnemy);
         StartCoroutine(_lava.CooldownLava());
         _wallLimitTuto.SetActive(false);
-        _circleLava.SetActive(true);
         _tutoBubbleLava.SetActive(true);
     }
 
     public void StopTuto()
     {
         _takePickaxe.isInTuto = false;
-        _bubbleLava.SetActive(false);
-        _circleLava.SetActive(false);
-
         startTuto = false;
         isBreakRock = false;
         isPushChariot = false;
