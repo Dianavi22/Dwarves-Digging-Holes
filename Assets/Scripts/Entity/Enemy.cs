@@ -78,7 +78,7 @@ public class Enemy : Entity
             StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
             holdBy = null;
         };
-
+        GetComponentInChildren<Collider>().isTrigger = true;
         _rb.velocity = Vector3.zero;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;

@@ -6,7 +6,6 @@ using UnityEngine;
 public class Dynamite : MonoBehaviour, IGrabbable
 {
     private Action throwOnDestroy;
-    [SerializeField] GameObject _hb;
   
     public GameObject GetGameObject()
     {
