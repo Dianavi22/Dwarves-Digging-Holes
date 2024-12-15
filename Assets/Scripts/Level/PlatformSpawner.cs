@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class PlatformSpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] prefabList;
+    [SerializeField] GameObject[] prefabListTest;
     [SerializeField] string platformTrigger;
     [SerializeField] Transform spawnPoint;
     [SerializeField] bool destroyOnTriggerExit = true;
