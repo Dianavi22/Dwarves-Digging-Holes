@@ -5,39 +5,33 @@ using UnityEngine.InputSystem;
 
 public class Tuto : MonoBehaviour
 {
-
+    [Header("References")]
+    [SerializeField] Lava _lava;
+    [SerializeField] GoldChariot _goldChariot;
+    [SerializeField] GameManager _gameManager;
     [SerializeField] Pickaxe _takePickaxe;
+
+    [Header("Bubbles")]
     [SerializeField] GameObject _breakRock;
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
-    [SerializeField] GameObject _tutoEnemy;
-    [SerializeField] GameObject _bubbleLava;
-    [SerializeField] Lava _lava;
-    [SerializeField] GoldChariot _goldChariot;
-
-    [SerializeField] GameObject _circleRocks;
-    [SerializeField] GameObject _circleChariot;
-    [SerializeField] GameObject _circleEnemy;
-    [SerializeField] GameObject _circleLava;
-    [SerializeField] GameObject _wallLimitTuto;
     [SerializeField] GameObject _tutoBubbleLava;
-
-    [SerializeField] GameManager _gameManager;
-
-
-    public bool startTuto;
-    public bool isBreakRock;
-    public bool isPushChariot;
-    public bool isTakeEnemy;
-    public bool isYeetEnemy = false;
-    public bool isInTuto = false;
     [SerializeField] GameObject _skipTuto;
+
+    [HideInInspector] public bool startTuto;
+    [HideInInspector] public bool isBreakRock;
+    [HideInInspector] public bool isPushChariot;
+    [HideInInspector] public bool isTakeEnemy;
+    [HideInInspector] public bool isYeetEnemy = false;
+    [HideInInspector] public bool isInTuto = false;
+
+    [SerializeField] GameObject _wallLimitTuto;
+    [SerializeField] GameObject _tutoEnemy;
+
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
     }
-
-   
 
     void Update()
     {
@@ -77,7 +71,6 @@ public class Tuto : MonoBehaviour
         _takePickaxe.isInTuto = false;
         startTuto = false;
         _breakRock.SetActive(true);
-        _circleRocks.SetActive(true);
     }
 
     private void PushChariot()
@@ -93,8 +86,6 @@ public class Tuto : MonoBehaviour
             //
         }
         _pushChariot.SetActive(true);
-        _circleRocks.SetActive(startTuto);
-        _circleChariot.SetActive(true);
 
     }
 
@@ -104,32 +95,20 @@ public class Tuto : MonoBehaviour
         _pushChariot.SetActive(isPushChariot);
         _tutoEnemy.SetActive(true);
         _takeEnemy.SetActive(true);
-        _circleChariot.SetActive(isPushChariot);
-        _circleEnemy.SetActive(true);
     }
 
     private void YeetEnemy()
     {
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
-        _circleEnemy.SetActive(isTakeEnemy);
         StartCoroutine(_lava.CooldownLava());
         _wallLimitTuto.SetActive(false);
-        _circleLava.SetActive(true);
         _tutoBubbleLava.SetActive(true);
-
-    }
-
-    private void ActiveCircle()
-    {
     }
 
     public void StopTuto()
     {
         _takePickaxe.isInTuto = false;
-        _bubbleLava.SetActive(false);
-        _circleLava.SetActive(false);
-
         startTuto = false;
         isBreakRock = false;
         isPushChariot = false;
@@ -146,9 +125,6 @@ public class Tuto : MonoBehaviour
         }
         _pushChariot.SetActive(false);
         _takeEnemy.SetActive(false);
-        _circleRocks.SetActive(false);
-        _circleChariot.SetActive(false);
-        _circleEnemy.SetActive(false);
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(false);
         isInTuto = false;

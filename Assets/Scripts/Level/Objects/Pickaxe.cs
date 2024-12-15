@@ -11,12 +11,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
-    [SerializeField] private Canvas _canvasPickaxe;
-    [SerializeField] GameObject _pickaxeTutoCanvas;
     private bool _isCarried;
     private Player holdingPlayer;
-    public bool isInTuto = false;
-    [SerializeField] GameObject _circleWhite;
+    public bool isInTuto;
+    [SerializeField] GameObject _tutoTarget;
+    public GameObject myTarget;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -37,8 +36,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Start()
     {
         StartCoroutine(CdParticule());
-        _canvasPickaxe.worldCamera = FindObjectOfType<Camera>(); // Trouver une autre solution que FindObjectOfType
-       
+        myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
+        myTarget.GetComponent<FollowTarget>().target = transform;
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
@@ -48,7 +47,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         _isCarried = isCarried;
         if (isCarried)
         {
-            _pickaxeTutoCanvas.SetActive(false);
             throwOnDestroy = () => { 
                 holdingPlayer = null;
                 actions.EmptyHands();
@@ -68,22 +66,20 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     {
         //if (_isCarried)
         //{
-        //    _pickaxeTutoCanvas.SetActive(false);
+        //    myTarget.SetActive(false);
         //}
         //else
         //{
-        //    _pickaxeTutoCanvas.SetActive(true);
-        //}
+        //    myTarget.SetActive(true);
 
+        //}
         if (isInTuto)
         {
-            _pickaxeTutoCanvas.SetActive(true);
-            _circleWhite.SetActive(true);
+            myTarget.SetActive(true);
         }
         else
         {
-            _pickaxeTutoCanvas.SetActive(false);
-            _circleWhite.SetActive(false);
+            myTarget.SetActive(false);
 
         }
     }

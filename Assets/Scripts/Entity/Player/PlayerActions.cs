@@ -296,7 +296,10 @@ public class PlayerActions : MonoBehaviour
             _tuto.isBreakRock = true;
         }
 
-       
+        if (heldObject.TryGetComponent<Enemy>(out var enemy) && _tuto.isTakeEnemy)
+        {
+            _tuto.isYeetEnemy = true;
+        }
 
     }
 
