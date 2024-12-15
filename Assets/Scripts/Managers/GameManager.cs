@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
     [SerializeField] private Tuto _tuto;
+        
     private float _baseSpeed;
     public static GameManager Instance; // A static reference to the GameManager instance
     public bool passTuto = false;
@@ -109,9 +110,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartParty()
     {
-        _baseSpeed = this.Difficulty.ScrollingSpeed;
-        _eventManager.scrollSpeed = _baseSpeed;
-        this.Difficulty.ScrollingSpeed = 0;
+            _baseSpeed = this.Difficulty.ScrollingSpeed;
+        if (!isInMainMenu)
+        {
+            _eventManager.scrollSpeed = _baseSpeed;
+            this.Difficulty.ScrollingSpeed = 0;
+        }
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
@@ -141,6 +145,7 @@ public class GameManager : MonoBehaviour
         _sc.ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
+        print(_baseSpeed);
         yield return new WaitForSeconds(70);
         _eventManager.LaunchEvent();
     }
