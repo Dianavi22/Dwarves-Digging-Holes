@@ -8,16 +8,24 @@ public class GoblinWave : MonoBehaviour
 
     [SerializeField] GameObject _gob;
     [SerializeField] GameObject _spawn;
+    [SerializeField] List<GameObject> _rocks;
     public bool isWave;
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<Rock>(other, out var rock) && isWave)
+
+        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            Destroy(rock.gameObject);
+            _rocks.Add(other.gameObject);
         }
     }
 
-    private void Wave() {
+    private void OnTriggerExit(Collider other)
+    {
+        _rocks.Remove(other.gameObject);
+    }
+
+    private void Wave()
+    {
         for (int i = 0; i < 7; i++)
         {
             Instantiate(_gob, _spawn.transform.position, Quaternion.identity);
@@ -28,6 +36,17 @@ public class GoblinWave : MonoBehaviour
     {
         if (isWave)
         {
+            for (int i = 0; i < _rocks.Count; i++)
+            {
+                try
+                {
+                    Destroy(_rocks[i].GetComponentInParent<Rock>().gameObject);
+                }
+                catch
+                {
+                    //
+                }
+            }
             isWave = false;
             Wave();
         }
