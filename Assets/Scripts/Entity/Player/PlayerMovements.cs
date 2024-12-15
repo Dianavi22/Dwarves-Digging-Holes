@@ -65,6 +65,14 @@ public class PlayerMovements : EntityMovement
         return !_p.IsGrabbed;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && _isDashing)
+        {
+            enemy.HandleDestroy();
+        }
+    }
+
     private void FlipFacingDirection()
     {
         if (GameManager.Instance.isGameOver) return;
