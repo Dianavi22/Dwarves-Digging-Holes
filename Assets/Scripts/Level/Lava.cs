@@ -45,11 +45,7 @@ public class Lava : MonoBehaviour
             Destroy(rock.gameObject);
         }
 
-        if (Utils.Component.TryGetInParent<Enemy>(other, out var enemy) && _tuto.isYeetEnemy)
-        {
-            _tuto.isYeetEnemy = false;
-        _tuto.StopTuto();
-        }
+        
     }
     private void Update()
     {

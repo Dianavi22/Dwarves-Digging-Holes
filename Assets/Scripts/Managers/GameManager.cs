@@ -145,7 +145,6 @@ public class GameManager : MonoBehaviour
         _sc.ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
-        print(_baseSpeed);
         yield return new WaitForSeconds(70);
         _eventManager.LaunchEvent();
     }

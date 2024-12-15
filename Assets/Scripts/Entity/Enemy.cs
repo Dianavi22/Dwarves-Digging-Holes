@@ -13,7 +13,8 @@ public class Enemy : Entity
     [HideInInspector] public bool canSteal = true;
     [SerializeField] Tuto _tuto;
     [SerializeField] GameManager _gameManager;
-
+    [SerializeField] Lava _lava;
+    private bool _isDead = false;
     public bool IsTouchingChariot
     {
         get => _isTouchChariot;
@@ -56,10 +57,14 @@ public class Enemy : Entity
 
     public IEnumerator HitChariot()
     {
-        _goldChariot.GoldCount -= 1;
-        canSteal = false;
-        yield return new WaitForSeconds(1);
-        canSteal = true;
+        if (!_isDead)
+        {
+            _goldChariot.GoldCount -= 1;
+            canSteal = false;
+            _goldChariot.oneLostPart.Play();
+            yield return new WaitForSeconds(1);
+            canSteal = true;
+        }
     }
 
     public void KillGobs()
@@ -70,7 +75,8 @@ public class Enemy : Entity
 
     public IEnumerator DestroyByLava()
     {
-        if(holdBy != null)
+        _isDead = true;
+        if (holdBy != null)
         {
             StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
             holdBy = null;
@@ -99,7 +105,16 @@ public class Enemy : Entity
     } 
     override public void HandleDestroy()
     {
-       
+        if (_tuto.isYeetEnemy)
+        {
+            _tuto.isYeetEnemy = false;
+            _tuto.StopTuto();
+        }
+        if(_tuto.isTakeEnemy)
+        {
+            _tuto.StopTuto();
+            _gameManager.SkipTuto();
+        }
         StartCoroutine(DestroyByLava());
        
     }
