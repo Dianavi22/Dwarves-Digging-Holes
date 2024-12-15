@@ -8,8 +8,8 @@ public class GoblinWave : MonoBehaviour
 
     [SerializeField] GameObject _gob;
     [SerializeField] GameObject _spawn;
-    [SerializeField] List<GameObject> _rocks;
-    public bool isWave;
+    private List<GameObject> _rocks;
+    [HideInInspector] public bool isWave;
     private void OnTriggerEnter(Collider other)
     {
 
