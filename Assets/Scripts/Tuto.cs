@@ -5,39 +5,39 @@ using UnityEngine.InputSystem;
 
 public class Tuto : MonoBehaviour
 {
-
+    [Header("References")]
+    [SerializeField] Lava _lava;
+    [SerializeField] GoldChariot _goldChariot;
+    [SerializeField] GameManager _gameManager;
     [SerializeField] Pickaxe _takePickaxe;
+
+    [Header("Bubbles")]
     [SerializeField] GameObject _breakRock;
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
     [SerializeField] GameObject _tutoEnemy;
     [SerializeField] GameObject _bubbleLava;
-    [SerializeField] Lava _lava;
-    [SerializeField] GoldChariot _goldChariot;
+    [SerializeField] GameObject _tutoBubbleLava;
+    [SerializeField] GameObject _skipTuto;
 
+    [Header("Circles")]
     [SerializeField] GameObject _circleRocks;
     [SerializeField] GameObject _circleChariot;
     [SerializeField] GameObject _circleEnemy;
     [SerializeField] GameObject _circleLava;
     [SerializeField] GameObject _wallLimitTuto;
-    [SerializeField] GameObject _tutoBubbleLava;
 
-    [SerializeField] GameManager _gameManager;
+    [HideInInspector] public bool startTuto;
+    [HideInInspector] public bool isBreakRock;
+    [HideInInspector] public bool isPushChariot;
+    [HideInInspector] public bool isTakeEnemy;
+    [HideInInspector] public bool isYeetEnemy = false;
+    [HideInInspector] public bool isInTuto = false;
 
-
-    public bool startTuto;
-    public bool isBreakRock;
-    public bool isPushChariot;
-    public bool isTakeEnemy;
-    public bool isYeetEnemy = false;
-    public bool isInTuto = false;
-    [SerializeField] GameObject _skipTuto;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
     }
-
-   
 
     void Update()
     {
@@ -118,10 +118,6 @@ public class Tuto : MonoBehaviour
         _circleLava.SetActive(true);
         _tutoBubbleLava.SetActive(true);
 
-    }
-
-    private void ActiveCircle()
-    {
     }
 
     public void StopTuto()
