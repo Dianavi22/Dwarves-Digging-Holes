@@ -15,7 +15,6 @@ public class Tuto : MonoBehaviour
     [SerializeField] GameObject _breakRock;
     [SerializeField] GameObject _pushChariot;
     [SerializeField] GameObject _takeEnemy;
-    [SerializeField] GameObject _tutoEnemy;
     [SerializeField] GameObject _bubbleLava;
     [SerializeField] GameObject _tutoBubbleLava;
     [SerializeField] GameObject _skipTuto;
@@ -23,7 +22,6 @@ public class Tuto : MonoBehaviour
     [Header("Circles")]
     [SerializeField] GameObject _circleRocks;
     [SerializeField] GameObject _circleChariot;
-    [SerializeField] GameObject _circleEnemy;
     [SerializeField] GameObject _circleLava;
     [SerializeField] GameObject _wallLimitTuto;
 
@@ -33,6 +31,8 @@ public class Tuto : MonoBehaviour
     [HideInInspector] public bool isTakeEnemy;
     [HideInInspector] public bool isYeetEnemy = false;
     [HideInInspector] public bool isInTuto = false;
+
+    [SerializeField] GameObject _tutoEnemy;
 
     void Start()
     {
@@ -105,19 +105,16 @@ public class Tuto : MonoBehaviour
         _tutoEnemy.SetActive(true);
         _takeEnemy.SetActive(true);
         _circleChariot.SetActive(isPushChariot);
-        _circleEnemy.SetActive(true);
     }
 
     private void YeetEnemy()
     {
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
-        _circleEnemy.SetActive(isTakeEnemy);
         StartCoroutine(_lava.CooldownLava());
         _wallLimitTuto.SetActive(false);
         _circleLava.SetActive(true);
         _tutoBubbleLava.SetActive(true);
-
     }
 
     public void StopTuto()
@@ -144,7 +141,6 @@ public class Tuto : MonoBehaviour
         _takeEnemy.SetActive(false);
         _circleRocks.SetActive(false);
         _circleChariot.SetActive(false);
-        _circleEnemy.SetActive(false);
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(false);
         isInTuto = false;

@@ -50,11 +50,13 @@ public class Enemy : Entity
             IsTouchingChariot = false;
             if(!IsGrabbed){_rb.isKinematic = false; };
 
-            if (_tuto.isTakeEnemy)
-            {
-                _tuto.isYeetEnemy = true;
-            }
+           
         }
+
+        //if (_tuto.isTakeEnemy)
+        //{
+        //    _tuto.isYeetEnemy = true;
+        //}
     }
 
     public IEnumerator HitChariot()
