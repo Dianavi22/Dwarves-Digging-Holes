@@ -5,6 +5,7 @@ using UnityEngine;
 public class RockFall : MonoBehaviour
 {
     [SerializeField] GameObject _gfx;
+    [SerializeField] ParticleSystem _breakPart;
     private bool _isDestroyed = false;
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,6 +38,7 @@ public class RockFall : MonoBehaviour
         _isDestroyed = true;
         _gfx.SetActive(false);
         this.GetComponent<Collider>().isTrigger = true;
+        _breakPart.Play();
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }

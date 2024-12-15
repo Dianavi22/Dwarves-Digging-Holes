@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7898447719240306538
+--- !u!1 &6331581752645641563
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7614805611531736384}
-  - component: {fileID: 7022234744875241598}
+  - component: {fileID: 1545002481970600171}
+  - component: {fileID: 8606326695061028876}
   m_Layer: 0
-  m_Name: SpawnRock
-  m_TagString: Rock
+  m_Name: SpawnDynamite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7614805611531736384
+--- !u!4 &1545002481970600171
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898447719240306538}
+  m_GameObject: {fileID: 6331581752645641563}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 682.3403, y: 288.77167, z: -11.926424}
+  m_LocalPosition: {x: 28.300339, y: 2.7710755, z: 1.6377898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7022234744875241598
+--- !u!114 &8606326695061028876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7898447719240306538}
+  m_GameObject: {fileID: 6331581752645641563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b765b8e2fed62740a7548b71e4a26b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 21ac84de1e35ad24b9f6d184244d93dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rock: {fileID: 2088300149948175130, guid: 71ba68b6d6d5bd842b019dea2f533536, type: 3}
+  _dynamite: {fileID: 3428825487775635473, guid: f3fb3acd2fdb20e41a3a6d4e16adfa20, type: 3}
