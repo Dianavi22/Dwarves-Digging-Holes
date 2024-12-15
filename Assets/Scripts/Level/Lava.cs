@@ -45,10 +45,10 @@ public class Lava : MonoBehaviour
             Destroy(rock.gameObject);
         }
 
-        if (Utils.Component.TryGetInParent<Enemy>(other, out var enemy) && _tuto.isYeetEnemy)
+        if (Utils.Component.TryGetInParent<Dynamite>(other, out var dynamite))
         {
-            _tuto.isYeetEnemy = false;
-        _tuto.StopTuto();
+            dynamite.GetComponent<Dynamite>().Spawn();
+            Destroy(dynamite.gameObject);
         }
     }
     private void Update()

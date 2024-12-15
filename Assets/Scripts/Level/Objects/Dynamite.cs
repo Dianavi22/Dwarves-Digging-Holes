@@ -6,7 +6,8 @@ using UnityEngine;
 public class Dynamite : MonoBehaviour, IGrabbable
 {
     private Action throwOnDestroy;
-  
+    public GameObject spawnPoint;
+
     public GameObject GetGameObject()
     {
         return gameObject;
@@ -27,7 +28,12 @@ public class Dynamite : MonoBehaviour, IGrabbable
         if (Utils.Component.TryGetInParent<BigRock>(collision.collider, out var bigRock))
         {
             HandleDestroy();
-            bigRock.DestroyBigRock();
+            StartCoroutine(bigRock.DestroyBigRock());
         }
+    }
+
+    public void Spawn()
+    {
+        spawnPoint.GetComponent<SpawnDynamite>().SpawnTnt();
     }
 }
