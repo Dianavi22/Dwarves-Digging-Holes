@@ -9,7 +9,6 @@ public class EventManager : MonoBehaviour
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
     private ShakyCame _sc;
-    public float scrollSpeed;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
@@ -50,7 +49,7 @@ public class EventManager : MonoBehaviour
         }
         if (_isLavaMoveEndEvent)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * scrollSpeed / 2);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * GameManager.Instance.CurrentScrollingSpeed / 2);
             if (_lava.transform.position.x <= _lavaPosition.x)
             {
                 _isLavaMoveEndEvent = false;
