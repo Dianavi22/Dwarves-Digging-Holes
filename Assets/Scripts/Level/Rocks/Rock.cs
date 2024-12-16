@@ -57,7 +57,7 @@ public class Rock : MonoBehaviour
             TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
-            if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+            if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 5);
        
         }
 

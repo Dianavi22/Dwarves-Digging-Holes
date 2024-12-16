@@ -77,47 +77,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
         }
 
-
-        if (_currentGoldCount > 10)
+        for (int i = 0; i < _goldEtages.Count; i++)
         {
-            _goldEtages[0].SetActive(true);
-        }
-        else
-        {
-            _goldEtages[0].SetActive(false);
-        }
-
-        if (_currentGoldCount > 20)
-        {
-            _goldEtages[1].SetActive(true);
-        }
-        else
-        {
-            _goldEtages[1].SetActive(false);
-        }
-        if (_currentGoldCount > 30)
-        {
-            _goldEtages[2].SetActive(true);
-        }
-        else
-        {
-            _goldEtages[2].SetActive(false);
-        }
-        if (_currentGoldCount > 40)
-        {
-            _goldEtages[3].SetActive(true);
-        }
-        else
-        {
-            _goldEtages[3].SetActive(false);
-        }
-        if (_currentGoldCount > 40)
-        {
-            _goldEtages[4].SetActive(true);
-        }
-        else
-        {
-            _goldEtages[4].SetActive(false);
+            _goldEtages[i].SetActive(_currentGoldCount > (i + 1) * 10);
         }
     }
 
@@ -239,6 +201,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
 
     }
-   
+
+    public void LostGoldByRock()
+    {
+        
+        _currentGoldCount = _currentGoldCount - 5;
+        UpdateText();
+
+
+    }
+
 
 }
