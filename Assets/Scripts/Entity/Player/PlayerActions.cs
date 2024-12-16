@@ -37,10 +37,12 @@ public class PlayerActions : MonoBehaviour
     private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
-    
+
     private Animator _animator;
 
     private bool _isFirstCanPickup = true;
+
+    private Tween buildingPickaxe;
 
     private void Awake()
     {
@@ -56,7 +58,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (IsBaseActionActivated && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && IsHoldingObject && CheckHitRaycast(out var hits))
         {
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
@@ -67,8 +69,26 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
+        else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
+            if (hitColliders.Any())
+            {
+                buildingPickaxe ??= DOTween.Sequence()
+                    .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
+                        .SetAutoKill(false))
+                    //.AppendInterval(1f) // Wait for 1 second
+                    .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
+                    .AppendCallback(() =>
+                    {
+                        hitColliders[0].GetComponent<Forge>().BuildPickaxe();
+                    })
+                    .OnKill(() => gameObject.transform.DOLocalRotate(Vector3.zero, 0f));
 
-        if(_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
+            }
+        }
+
+        if (_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
         {
             _isFirstCanPickup = false;
             canPickup = true;
@@ -79,11 +99,12 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
 
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup )
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
-            if (IsHoldingObject) {
+            if (IsHoldingObject)
+            {
                 _p.GetActions().StopAnimation();
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
@@ -103,7 +124,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
+        if (GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
@@ -114,7 +135,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
+        if (GameManager.Instance.isInMainMenu) return;
 
         if (_tuto.isInTuto)
         {
@@ -146,6 +167,12 @@ public class PlayerActions : MonoBehaviour
         if (context.canceled) //the key has been released
         {
             IsBaseActionActivated = false;
+            if (buildingPickaxe != null)
+            {
+                buildingPickaxe.Kill();
+                buildingPickaxe = null;
+            }
+
             StopAnimation();
         }
     }
@@ -210,14 +237,14 @@ public class PlayerActions : MonoBehaviour
             .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
             .FirstOrDefault();
 
-        if(mostImportant == null) return;
+        if (mostImportant == null) return;
 
         if (Utils.Component.TryGetInParent<Player>(mostImportant, out var player))
         {
             if (player.GetActions().IsHoldingObject) return;
             PickupObject(player.gameObject);
         }
-        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot) )
+        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
@@ -348,16 +375,17 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (heldObject.TryGetComponent<GoldChariot>(out var chariot) )
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
         {
             _p.EmptyFixedJoin();
             chariot.HandleCarriedState(_p, false);
-        } else
+        }
+        else
         {
             SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
-       
+
         EmptyHands();
     }
     #endregion
