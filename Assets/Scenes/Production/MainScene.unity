@@ -638,7 +638,7 @@ PrefabInstance:
     - target: {fileID: 7734975784440393395, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1063148027}
+      objectReference: {fileID: 0}
     - target: {fileID: 8020769644812200558, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabList:
-  - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+  - {fileID: 4530288849336194290, guid: b6eaf229ec513b441b5523712ddad853, type: 3}
   prefabListTest: []
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
@@ -1681,11 +1681,6 @@ MeshRenderer:
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8716234137461731712, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1063148027 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7391841408403039486, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
-  m_PrefabInstance: {fileID: 5198746579383756246}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &1129223526 stripped
 MeshRenderer:
@@ -2478,7 +2473,7 @@ PrefabInstance:
     - target: {fileID: 7734975784440393395, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1063148027}
+      objectReference: {fileID: 0}
     - target: {fileID: 8020769644812200558, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3349,6 +3344,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9167122006342882592, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: _lava
+      value: 
+      objectReference: {fileID: 687599869}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4439310256315721046, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
@@ -3357,7 +3356,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
 --- !u!114 &5198746579383756247 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2352899172519426268, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9167122006342882592, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
   m_PrefabInstance: {fileID: 5198746579383756246}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
