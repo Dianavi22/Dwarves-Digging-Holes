@@ -23,7 +23,7 @@ public class GamePadsController : MonoBehaviour
     public List<Player> PlayerList { private set; get; }
 
     public static GamePadsController Instance; // A static reference to the GameManager instance
-    private void Awake()
+    private void Start()
     {
         if (Instance == null) // If there is no instance already
         {
@@ -33,15 +33,16 @@ public class GamePadsController : MonoBehaviour
             Destroy(gameObject);
 
         PlayerList = new List<Player>();
-        
+
         var gamepads = Gamepad.all;
         // Debug.Log($"Number of gamepads: {gamepads.Count}");
 
-        if(IsDebugMode) {
+        if (IsDebugMode)
+        {
 
             m_DebugPlayerCount = Mathf.Clamp(m_DebugPlayerCount, 1, 4);
 
-            for(int i = 0; i < m_DebugPlayerCount; i++)
+            for (int i = 0; i < m_DebugPlayerCount; i++)
             {
                 InstantiateDebugPlayer(i);
             }
@@ -49,8 +50,8 @@ public class GamePadsController : MonoBehaviour
         }
 
         int index = 0;
-        foreach ( Gamepad gamepad in gamepads )
-        {   
+        foreach (Gamepad gamepad in gamepads)
+        {
             InstantiatePlayerUI("Gamepad", gamepad, index);
             index++;
             nbPlayer = index;
@@ -63,17 +64,17 @@ public class GamePadsController : MonoBehaviour
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         // * Instantiate Player UI
-        GameObject ui = Instantiate(m_UICanvas[playerNumber], m_MainCanvas.transform);
-        PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-        uiInfo.Initialize(player);
+        //GameObject ui = Instantiate(m_UICanvas[playerNumber], m_MainCanvas.transform);
+        //PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
+        //uiInfo.Initialize(player);
 
         // * Instantiate PlayerHeadFatigueBar UI
         GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
         PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
         fatigueUI.Initialize(player);
-        
+
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
-        
+
         var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renders)
         {
@@ -105,5 +106,10 @@ public class GamePadsController : MonoBehaviour
         }
 
         PlayerList.Add(player);
+        if (GameManager.Instance.isInMainMenu && index == 0)
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+            player.gameObject.transform.position = new(-100, -100, -100);
+        }
     }
 }

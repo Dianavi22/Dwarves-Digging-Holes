@@ -1,15 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum DeathMessage
+public enum Message
 {
     NoGold,
-    Lava
+    Lava,
+    PickaxeEvent,
+    TaxeEvent,
+    LavaEvent,
+    GoblinEvent
 }
 public class StringManager : MonoBehaviour
 {
+    [Header("GameOver Message")]
     [SerializeField] string _goblinDeathCondition;
     [SerializeField] string _lavaDeathCondition;
+
+    [Header("Event Message")]
+    [SerializeField] string _pickaxeIssue;
+    [SerializeField] string _taxeDay;
+    [SerializeField] string _approachingLava;
+    [SerializeField] string _goblinWave;
 
     public static StringManager Instance; // A static reference to the TargetManager instance
 
@@ -25,12 +36,16 @@ public class StringManager : MonoBehaviour
         }
     }
 
-    public string GetDeathMessage(DeathMessage target)
+    public string GetSentence(Message target)
     {
         return target switch
         {
-            DeathMessage.NoGold => _goblinDeathCondition,
-            DeathMessage.Lava => _lavaDeathCondition,
+            Message.NoGold => _goblinDeathCondition,
+            Message.Lava => _lavaDeathCondition,
+            Message.PickaxeEvent => _pickaxeIssue,
+            Message.TaxeEvent => _taxeDay,
+            Message.LavaEvent => _approachingLava,
+            Message.GoblinEvent => _goblinWave,
             _ => null,
         };
     }

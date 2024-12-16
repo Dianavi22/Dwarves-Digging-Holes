@@ -8,8 +8,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
+   public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
+    [SerializeField] Tuto _tuto;
     [SerializeField] private EventReference chariotSound;
+
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
 
@@ -48,10 +51,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-
-
         if (_rb.velocity.x > 0)
         {
+           
             PlayChariotSound();
         }
         else
@@ -63,18 +65,19 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void UpdateText()
     {
         _goldCountText.text = GoldCount.ToString();
+        oneLostPart.Play();
     }
 
     private void UpdateParticle()
     {
-        if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
-        {
-            _lostGoldPart.Play();
-        }
-        else if (_nbGolbinOnChariot <= 0)
-        {
-            _lostGoldPart.Stop();
-        }
+        //if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
+        //{
+        //    _lostGoldPart.Play();
+        //}
+        //else if (_nbGolbinOnChariot <= 0)
+        //{
+        //    _lostGoldPart.Stop();
+        //}
         //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
@@ -119,15 +122,21 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
     #endregion
+    
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+
+        if (_tuto.isPushChariot)
+        {
+            _tuto.isTakeEnemy = true;
+        }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
     }
 
     public void HandleDestroy()
     {
-        GameManager.Instance.GameOver(DeathMessage.Lava);
+        StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
     }
     public void HideGfx()
     {
@@ -139,21 +148,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HideChariotText()
     {
         _lostGoldPart.Stop();
-
     }
 
     public void GoldEvent()
     {
-        if (_currentGoldCount <= 1)
-        {
-            return;
-        }
+        if (_currentGoldCount <= 1) return;
         else
         {
             _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
             UpdateText();
         }
     }
-  
-    
 }

@@ -1,18 +1,20 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Utils;
 
 public class Enemy : Entity
 {
-    [SerializeField] private float jumpForce = 0.5f;
-    [SerializeField] public GameObject raycastDetectHitWall;
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
-
+    [SerializeField] Tuto _tuto;
+    [SerializeField] GameManager _gameManager;
+    [SerializeField] Lava _lava;
+    private bool _isDead = false;
     public bool IsTouchingChariot
     {
         get => _isTouchChariot;
@@ -29,6 +31,8 @@ public class Enemy : Entity
     {
         base.Awake();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+        _tuto = FindAnyObjectByType<Tuto>();
+        _gameManager = GameManager.Instance;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -46,15 +50,21 @@ public class Enemy : Entity
         {
             IsTouchingChariot = false;
             if(!IsGrabbed){_rb.isKinematic = false; };
+
+           
         }
     }
 
     public IEnumerator HitChariot()
     {
-        _goldChariot.GoldCount -= 1;
-        canSteal = false;
-        yield return new WaitForSeconds(1);
-        canSteal = true;
+        if (!_isDead)
+        {
+            _goldChariot.GoldCount -= 1;
+            canSteal = false;
+            _goldChariot.oneLostPart.Play();
+            yield return new WaitForSeconds(1);
+            canSteal = true;
+        }
     }
 
     public void KillGobs()
@@ -65,6 +75,13 @@ public class Enemy : Entity
 
     public IEnumerator DestroyByLava()
     {
+        _isDead = true;
+        this.GetComponentInChildren<Collider>().enabled = false;
+        if (holdBy != null)
+        {
+            StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
+            holdBy = null;
+        };
         _rb.velocity = Vector3.zero;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;
@@ -74,19 +91,31 @@ public class Enemy : Entity
         Destroy(this.gameObject);
     }
     public override void HandleCarriedState(Player player, bool grabbed) {
-        if(grabbed) {
+
+        if (_tuto.isTakeEnemy)
+        {
+            _tuto.isYeetEnemy = true;
+        }
+        if (grabbed) {
             IsTouchingChariot = false;
-            base.HandleCarriedState(player, grabbed);
         }
-        else {
-            DOVirtual.DelayedCall(1f, () =>  base.HandleCarriedState(player, grabbed));
-        }
+        base.HandleCarriedState(player, grabbed);
         
         _rb.mass = grabbed ? 1f : 5f;
     } 
     override public void HandleDestroy()
     {
+        if (_tuto.isYeetEnemy)
+        {
+            _tuto.isYeetEnemy = false;
+            _tuto.StopTuto();
+        }
+        if(_tuto.isTakeEnemy)
+        {
+            _tuto.StopTuto();
+            _gameManager.SkipTuto();
+        }
         StartCoroutine(DestroyByLava());
-
+       
     }
 }

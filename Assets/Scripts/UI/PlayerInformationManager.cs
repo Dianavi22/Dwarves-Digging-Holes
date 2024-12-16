@@ -28,8 +28,8 @@ public class PlayerInformationManager : MonoBehaviour
             _player.GetFatigue().onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
             _player.GetFatigue().onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
 
-            UpdateCartsFatigueUI(_player.GetFatigue().currentCartsFatigue, _player.GetFatigue().maxCartsFatigue);
-            UpdateMiningFatigueUI(_player.GetFatigue().currentMiningFatigue, _player.GetFatigue().maxMiningFatigue);
+            UpdateCartsFatigueUI(_player.GetFatigue().currentCartsFatigue, _player.GetFatigue().MaxPushCartFatigue);
+            UpdateMiningFatigueUI(_player.GetFatigue().currentMiningFatigue, _player.GetFatigue().MaxMiningFatigue);
         }
     }
 

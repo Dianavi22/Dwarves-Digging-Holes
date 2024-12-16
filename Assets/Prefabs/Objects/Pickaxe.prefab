@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 8597900755164968550}
   m_Layer: 0
   m_Name: Pickaxe
-  m_TagString: Throwable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +136,8 @@ MonoBehaviour:
   _hitPickaxe: {fileID: 7981846774811726670}
   _breakPickaxe: {fileID: 4043671546489261189}
   _gfx: {fileID: 3064132443434634387}
+  _canvasPickaxe: {fileID: 0}
+  _tutoTarget: {fileID: 2656352416795162393, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
 --- !u!1001 &718499954312285746
 PrefabInstance:
   m_ObjectHideFlags: 0

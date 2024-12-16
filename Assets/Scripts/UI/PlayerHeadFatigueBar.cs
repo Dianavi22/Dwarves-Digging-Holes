@@ -8,7 +8,7 @@ using System;
 public class PlayerHeadFatigueBar : MonoBehaviour
 {
     [Header("UI Offset")]
-    [SerializeField] private Vector3 offset = new (0, 1f, 0);
+    [SerializeField] private Vector3 offset = new(0, 1f, 0);
 
     [Header("CanvasGroups")]
     [SerializeField] private CanvasGroup cartsFatigueCanvasGroup;
@@ -38,7 +38,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private bool isBlinkingMining = false;
 
     private Player _player;
-    
+
     private void Awake()
     {
         if (cartsFatigueCanvasGroup != null)
@@ -67,8 +67,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
             _f.onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
             _f.onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
 
-            UpdateCartsFatigueUI(_f.currentCartsFatigue, _f.maxCartsFatigue);
-            UpdateMiningFatigueUI(_f.currentMiningFatigue, _f.maxMiningFatigue);
+            UpdateCartsFatigueUI(_f.currentCartsFatigue, _f.MaxPushCartFatigue);
+            UpdateMiningFatigueUI(_f.currentMiningFatigue, _f.MaxMiningFatigue);
         }
     }
 
@@ -91,8 +91,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         PlayerFatigue _f = _player.GetFatigue();
 
-        if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.maxCartsFatigue);
-        if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.maxMiningFatigue);
+        if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.MaxPushCartFatigue);
+        if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.MaxMiningFatigue);
     }
 
     public void UpdateCartsFatigueUI(float currentFatigue, float maxFatigue)
@@ -116,7 +116,8 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                     isBlinkingCarts = true;
                     StartCoroutine(BlinkCartsFatigue());
                 }
-            } else if (isBlinkingCarts)
+            }
+            else if (isBlinkingCarts)
             {
                 isBlinkingCarts = false;
             }

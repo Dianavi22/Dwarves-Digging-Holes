@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PassTuto",
+                    "type": "Button",
+                    "id": "5d6c89b0-1a2e-4226-a106-91a9e014b3f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "6d471b8c-d991-4c4a-8a10-a0b5f3fdcb2b",
@@ -127,19 +136,8 @@
                 },
                 {
                     "name": "",
-                    "id": "aed19771-43bc-4067-b26d-a284d079aa29",
-                    "path": "<XInputController>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad;Player1",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "94e1fa4d-c03e-4151-b18d-f09f7a353a54",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1;Gamepad",
@@ -446,17 +444,6 @@
                 },
                 {
                     "name": "",
-                    "id": "92561c3e-ae41-40b9-9aaa-fa803917fac4",
-                    "path": "<XInputController>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player1;Gamepad",
-                    "action": "GrabAndThrow",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1bd31dea-6f43-44e0-9ccd-9e0d60a2915b",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -469,7 +456,7 @@
                 {
                     "name": "",
                     "id": "c9912173-2cbe-45ba-be1c-b86450ce8121",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -485,28 +472,6 @@
                     "processors": "",
                     "groups": "Player1;Gamepad",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "43c4e40e-0810-4c3a-afaf-6e3b4a911805",
-                    "path": "<XInputController>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player1;Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "84cf8e8d-746f-42d9-ad9c-2a5a874aeb11",
-                    "path": "<XInputController>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player1;Gamepad",
-                    "action": "BaseAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -546,7 +511,7 @@
                 {
                     "name": "",
                     "id": "78cb8243-f453-40e3-b187-e8e3b0536c10",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -573,6 +538,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40db474f-b015-4f56-9286-31aefa42148f",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1;Gamepad",
+                    "action": "PassTuto",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1d89d70-4931-445a-abb1-350df1053294",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PassTuto",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

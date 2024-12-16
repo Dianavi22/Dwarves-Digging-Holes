@@ -11,6 +11,10 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
+    private Player holdingPlayer;
+    public bool isInTuto;
+    [SerializeField] GameObject _tutoTarget;
+    public GameObject myTarget;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -22,8 +26,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             _healthPoint = value;
             if (_healthPoint <= 0 && !_isDying)
-                StartCoroutine(BreakPickaxe());
-               
+                // StartCoroutine(BreakPickaxe());
+                return;
         }
     }
 
@@ -31,15 +35,18 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Start()
     {
         StartCoroutine(CdParticule());
+        myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
+        myTarget.GetComponent<FollowTarget>().target = transform;
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
+        holdingPlayer = isCarried ? currentPlayer : null;
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
-
         if (isCarried)
         {
             throwOnDestroy = () => { 
+                holdingPlayer = null;
                 actions.EmptyHands();
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
@@ -53,6 +60,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
+    private void Update()
+    {
+        myTarget.SetActive(isInTuto);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!_isPartPlayed)
@@ -63,13 +75,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
-   private IEnumerator CdParticule()
+    private IEnumerator CdParticule()
     {
         yield return new WaitForSeconds(1);
         _isPartPlayed = false;
     }
-
-
 
     public void Hit(GameObject hit)
     {
@@ -87,7 +97,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void HandleRockHit(Rock rock)
     {
-        rock.Hit();
+        rock.Hit(holdingPlayer);
         if (rock.haveGold)
         {
             _hitGoldParts.Play();
@@ -110,7 +120,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         StartCoroutine(BreakPickaxe());
     }
 
-    public GameObject GetGameObject() { return gameObject; }
+    public GameObject GetGameObject() => gameObject;
 
     private void OnDestroy()
     {
@@ -127,5 +137,4 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }
-
 }

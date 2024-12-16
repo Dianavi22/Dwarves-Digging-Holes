@@ -18,7 +18,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
-
+    [SerializeField] Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
@@ -34,32 +34,64 @@ public class PlayerActions : MonoBehaviour
 
     private Player _p;
 
-    private bool canPickup = true;
+    private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
+
+    private Animator _animator;
+
+    private bool _isFirstCanPickup = true;
+
+    private Tween buildingPickaxe;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
+        _animator = _p.GetAnimator();
     }
 
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
+        _tuto = FindObjectOfType<Tuto>();
     }
 
     private void Update()
     {
-        if (IsBaseActionActivated && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && IsHoldingObject && CheckHitRaycast(out var hits))
         {
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
                 && Time.time - _lastCheckBaseAction >= GameManager.Instance.Difficulty.MiningSpeed
-                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.PlayerMiningFatigueReducer))
+                && _p.GetFatigue().ReduceMiningFatigue(GameManager.Instance.Difficulty.MiningFatigue.ActionReducer))
             {
                 pickaxe.Hit(hits.Last().gameObject);
                 _lastCheckBaseAction = Time.time;
             }
+        }
+        else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
+            if (hitColliders.Any())
+            {
+                buildingPickaxe ??= DOTween.Sequence()
+                    .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
+                        .SetAutoKill(false))
+                    //.AppendInterval(1f) // Wait for 1 second
+                    .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
+                    .AppendCallback(() =>
+                    {
+                        hitColliders[0].GetComponent<Forge>().BuildPickaxe();
+                    })
+                    .OnKill(() => gameObject.transform.DOLocalRotate(Vector3.zero, 0f));
+
+            }
+        }
+
+        if (_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
+        {
+            _isFirstCanPickup = false;
+            canPickup = true;
         }
     }
 
@@ -67,7 +99,9 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
             if (IsHoldingObject) {
                 if (Physics.Raycast(origin: transform.position, direction: -transform.right, maxDistance: 0.33f, layerMask: ~(LayerMask.GetMask("Default") |  LayerMask.GetMask("Grabbed")))) return;
@@ -81,17 +115,18 @@ public class PlayerActions : MonoBehaviour
         }
 
         // The grab for the goldchariot is kept while the button is pressed
-        if (context.canceled && IsHoldingObject && heldObject.TryGetComponent<GoldChariot>(out var goldChariot)) //the key has been released
+        if (context.canceled && IsHoldingObject) //the key has been released
         {
-            _p.EmptyPlayerFixedJoin();
-            goldChariot.GetComponent<IGrabbable>()?.HandleCarriedState(_p, false);
-            EmptyHands();
+            _p.GetActions().StopAnimation();
+            _p.GetActions().CancelInvoke();
+            ThrowObject();
         }
     }
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !_p.IsCarried && !UIPauseManager.Instance.isPaused)
+        if (GameManager.Instance.isInMainMenu) return;
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
 
@@ -99,9 +134,31 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    public void OnPassTuto(InputAction.CallbackContext context)
+    {
+        if (GameManager.Instance.isInMainMenu) return;
+
+        if (_tuto.isInTuto)
+        {
+            if (_tuto.isYeetEnemy)
+            {
+                _tuto.StopTuto();
+            }
+            else
+            {
+                GameManager.Instance.SkipTuto();
+                _tuto.StopTuto();
+            }
+        }
+        else
+        {
+            GameManager.Instance.passTuto = true;
+        }
+    }
+
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (UIPauseManager.Instance.isPaused) return;
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
@@ -111,6 +168,12 @@ public class PlayerActions : MonoBehaviour
         if (context.canceled) //the key has been released
         {
             IsBaseActionActivated = false;
+            if (buildingPickaxe != null)
+            {
+                buildingPickaxe.Kill();
+                buildingPickaxe = null;
+            }
+
             StopAnimation();
         }
     }
@@ -119,43 +182,13 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        // Determine the target tween angle based on the current pivot angle
-        float targetAngle;
-        if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 325f))
-        {
-            targetAngle = -75f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 0f))
-        {
-            targetAngle = 40f;
-        }
-        else if (Mathf.Approximately(pivot.transform.localEulerAngles.z, 35f))
-        {
-            targetAngle = 75f;
-        }
-        else
-        {
-            // Default to 40 if pivot is not exactly -35, 0, or 35
-            targetAngle = 40f;
-        }
-        rotationTween = pivot.transform.DOLocalRotate(new Vector3(0, 0, targetAngle), 0.2f, RotateMode.Fast)
-            .SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Yoyo);
-        
-        _p.GetAnimator().SetBool("pickaxeHit", true);
+        _animator.SetBool("pickaxeHit", true);
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
-        // Stop the tween if it is active
-        if (rotationTween != null && rotationTween.IsActive())
-        {
-            rotationTween.Rewind();
-            rotationTween.Kill();
-        }
-        
-        _p.GetAnimator().SetBool("pickaxeHit", false);
+        _animator.SetBool("pickaxeHit", false);
     }
 
     private bool CheckHitRaycast(out List<Collider> hits)
@@ -205,7 +238,7 @@ public class PlayerActions : MonoBehaviour
             .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
             .FirstOrDefault();
 
-        if(mostImportant == null) return;
+        if (mostImportant == null) return;
 
         if (Utils.Component.TryGetInParent<Player>(mostImportant, out var player))
         {
@@ -216,7 +249,7 @@ public class PlayerActions : MonoBehaviour
         {
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
-            _p.CreatePlayerFixedJoin(chariot.GetComponent<Rigidbody>());
+            _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
     }
@@ -235,16 +268,16 @@ public class PlayerActions : MonoBehaviour
     // <param name="forced"></param>
     private void SetObjectInHand(GameObject obj, bool isGrabbed, bool forced = false)
     {
-        if (obj.TryGetComponent<Renderer>(out var objRenderer))
-        {
-            objRenderer.enabled = !isGrabbed;
-        }
+        // if (obj.TryGetComponent<Renderer>(out var objRenderer))
+        // {
+        //     objRenderer.enabled = !isGrabbed;
+        // }
 
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = isGrabbed;
-
             rb.collisionDetectionMode = isGrabbed ? CollisionDetectionMode.Continuous : CollisionDetectionMode.Discrete;
+
             if (forced)
             {
                 rb.AddForce(transform.up * (throwForce * 0.25f), ForceMode.Impulse);
@@ -284,6 +317,18 @@ public class PlayerActions : MonoBehaviour
         {
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
         }
+
+        //Tuto
+        if (heldObject.TryGetComponent<Pickaxe>(out var picaxe) && _tuto.startTuto)
+        {
+            _tuto.isBreakRock = true;
+        }
+
+        if (heldObject.TryGetComponent<Enemy>(out var enemy) && _tuto.isTakeEnemy)
+        {
+            _tuto.isYeetEnemy = true;
+        }
+
     }
 
     private void LayerHandler(GameObject obj)
@@ -331,9 +376,18 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        SetObjectInHand(heldObject, false, forced);
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
+        {
+            _p.EmptyFixedJoin();
+            chariot.HandleCarriedState(_p, false);
+        }
+        else
+        {
+            SetObjectInHand(heldObject, false, forced);
+            DOVirtual.DelayedCall(1f, () => canPickup = true);
+        }
+
         EmptyHands();
-        DOVirtual.DelayedCall(1f, () => canPickup = true);
     }
     #endregion
 

@@ -39,8 +39,8 @@ public class OldPlayerInformationManager : MonoBehaviour
             playerFatigue.onCartsFatigueChanged.AddListener(UpdateCartsFatigueUI);
             playerFatigue.onMiningFatigueChanged.AddListener(UpdateMiningFatigueUI);
 
-            UpdateCartsFatigueUI(playerFatigue.currentCartsFatigue, playerFatigue.maxCartsFatigue);
-            UpdateMiningFatigueUI(playerFatigue.currentMiningFatigue, playerFatigue.maxMiningFatigue);
+            UpdateCartsFatigueUI(playerFatigue.currentCartsFatigue, playerFatigue.MaxPushCartFatigue);
+            UpdateMiningFatigueUI(playerFatigue.currentMiningFatigue, playerFatigue.MaxMiningFatigue);
         }
     }
 

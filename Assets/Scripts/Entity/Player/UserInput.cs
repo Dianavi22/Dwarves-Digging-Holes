@@ -40,6 +40,8 @@ public class UserInput : MonoBehaviour
     }
     private void UpdateInput()
     {
+        if(PlayerInput.currentActionMap.name == "UI") return;
+
         JumpJustPressed = _jumpAction.WasPressedThisFrame();
         GrabThrowJustPressed = _grabThrowAction.WasPressedThisFrame();
         BaseActionJustPressed = _baseAction.WasPressedThisFrame();
