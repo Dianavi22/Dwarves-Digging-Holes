@@ -706,6 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goldCountText: {fileID: 9219658797423398484}
   _lostGoldPart: {fileID: 4159188239862836962}
+  _lavaPosition: {fileID: 0}
   oneLostPart: {fileID: 323299233056145027, guid: 5342f75ea0fb0e14fad79112888a2b39, type: 3}
   _gfx: {fileID: 1351085718703704695}
   _tuto: {fileID: 0}
@@ -723,7 +724,6 @@ MonoBehaviour:
       Data3: 59965104
       Data4: -1644879758
     Path: event:/SFX/Cart/Cart movements
-  goldUnite: 0
 --- !u!54 &415383790900409220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1819,11 +1819,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.6373641
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.181318
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -1848,11 +1848,11 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[0]
       value: 
-      objectReference: {fileID: 4493082516887153115}
+      objectReference: {fileID: 161218178836090271}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1679076017858068578}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[2]
       value: 
@@ -1860,15 +1860,15 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4493082516887153115}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8975057608469020394}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2168,11 +2168,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.6089219
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.1955391
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -2197,11 +2197,11 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[0]
       value: 
-      objectReference: {fileID: 946826103123451977}
+      objectReference: {fileID: 161218178836090271}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1679076017858068578}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[2]
       value: 
@@ -2209,15 +2209,15 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4493082516887153115}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8975057608469020394}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2325,11 +2325,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.66580576
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.16709717
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -2351,6 +2351,22 @@ PrefabInstance:
       propertyPath: _goldPStage.Array.data[0]
       value: 
       objectReference: {fileID: 161218178836090271}
+    - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
+      propertyPath: _goldPStage.Array.data[1]
+      value: 
+      objectReference: {fileID: 1679076017858068578}
+    - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
+      propertyPath: _goldPStage.Array.data[3]
+      value: 
+      objectReference: {fileID: 4493082516887153115}
+    - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
+      propertyPath: _goldPStage.Array.data[4]
+      value: 
+      objectReference: {fileID: 8975057608469020394}
+    - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
+      propertyPath: _goldPStage.Array.data[5]
+      value: 
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2450,11 +2466,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.61603224
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.19198392
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -2479,11 +2495,11 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[0]
       value: 
-      objectReference: {fileID: 1679076017858068578}
+      objectReference: {fileID: 161218178836090271}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1679076017858068578}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[2]
       value: 
@@ -2491,15 +2507,15 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4493082516887153115}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8975057608469020394}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2674,11 +2690,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.5591484
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.22042586
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -2703,11 +2719,11 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[0]
       value: 
-      objectReference: {fileID: 8975057608469020394}
+      objectReference: {fileID: 161218178836090271}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1679076017858068578}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[2]
       value: 
@@ -2715,15 +2731,15 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4493082516887153115}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8975057608469020394}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2831,11 +2847,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Size.y
-      value: 1.0000001
+      value: 0.5733695
       objectReference: {fileID: 0}
     - target: {fileID: 1081915384408783884, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.21331531
       objectReference: {fileID: 0}
     - target: {fileID: 3265486296309523125, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Name
@@ -2860,11 +2876,11 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[0]
       value: 
-      objectReference: {fileID: 6183505946223058311}
+      objectReference: {fileID: 161218178836090271}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1679076017858068578}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[2]
       value: 
@@ -2872,15 +2888,15 @@ PrefabInstance:
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4493082516887153115}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8975057608469020394}
     - target: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: _goldPStage.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6183505946223058311}
     - target: {fileID: 7595472520244681918, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

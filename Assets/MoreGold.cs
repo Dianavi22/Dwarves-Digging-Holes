@@ -9,9 +9,9 @@ public class MoreGold : MonoBehaviour
     [SerializeField] List<GameObject> _goldPStage;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Rock"))
+        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
         {
-          
+            print("FALL ROCK");
             for (int i = 0; i < _goldPStage.Count; i++)
             {
                 if (i >= _idGoldPart && _goldPStage[i].activeSelf)
