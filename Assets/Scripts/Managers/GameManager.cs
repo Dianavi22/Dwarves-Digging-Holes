@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
             _goldChariot.HideChariotText();
             _goldChariot.HideGfx();
             _eventManager.enabled = false;
-            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
+            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
             levelCompleteManager.blockSpawner.SetActive(false);
             levelCompleteManager.lavaGFX.SetActive(false);
             yield return new WaitForSeconds(5.5f);
