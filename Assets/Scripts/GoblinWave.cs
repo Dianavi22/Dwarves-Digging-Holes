@@ -15,13 +15,27 @@ public class GoblinWave : MonoBehaviour
 
         if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            _rocks.Add(other.gameObject);
+            try
+            {
+                _rocks.Add(other.gameObject);
+            }
+            catch
+            {
+                //
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _rocks.Remove(other.gameObject);
+        try
+        {
+            _rocks.Remove(other.gameObject);
+        }
+        catch
+        {
+            //
+        }
     }
 
     private void Wave()
