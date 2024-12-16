@@ -6,7 +6,6 @@ using UnityEngine;
 public class Lava : MonoBehaviour
 {
     [SerializeField] private Collider _lavaCollider;
-    [SerializeField] private ShakyCame _sc;
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
     [SerializeField] ParticleSystem _rockFall;
@@ -32,7 +31,7 @@ public class Lava : MonoBehaviour
 
         if (other.CompareTag("EndingCondition"))
         {
-            StartCoroutine(GameManager.Instance.GameOver(DeathMessage.Lava));
+            StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
         }
 
         /*
@@ -45,10 +44,10 @@ public class Lava : MonoBehaviour
             Destroy(rock.gameObject);
         }
 
-        if (Utils.Component.TryGetInParent<Enemy>(other, out var enemy) && _tuto.isYeetEnemy)
+        if (Utils.Component.TryGetInParent<Dynamite>(other, out var dynamite))
         {
-            _tuto.isYeetEnemy = false;
-        _tuto.StopTuto();
+            dynamite.GetComponent<Dynamite>().Spawn();
+            Destroy(dynamite.gameObject);
         }
     }
     private void Update()
@@ -64,7 +63,7 @@ public class Lava : MonoBehaviour
         if (_isCoolDown)
         {
             _rockFall.Play();
-            _sc.ShakyCameCustom(2, 0.2f);
+            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(2, 0.2f);
             _lavaCollider.enabled = true;
             _isStartLava = true;
             yield return new WaitForSeconds(2.5f);

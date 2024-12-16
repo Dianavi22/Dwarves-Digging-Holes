@@ -480,6 +480,11 @@ MonoBehaviour:
   - {fileID: 4176649569683192531, guid: a45952ee06e24264abd5b410f172614f, type: 3}
   - {fileID: 4176649569683192531, guid: 9ad1397403df29e43abfa59f9ac444cc, type: 3}
   - {fileID: 4176649569683192531, guid: cc5e4bce705367042a9cc80f5598a235, type: 3}
+  - {fileID: 4392431218995717033, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+  - {fileID: 4176649569683192531, guid: 6010ab645e7278c469b4b4b5ca6d859f, type: 3}
+  - {fileID: 4176649569683192531, guid: 811e7d9aba84321458cb808513b2f1cf, type: 3}
+  - {fileID: 4176649569683192531, guid: 46fce0879a7d81b4996fbbecde742d3d, type: 3}
+  prefabListTest: []
   platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 0
@@ -891,6 +896,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6179455983456145342, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
+      propertyPath: _lava
+      value: 
+      objectReference: {fileID: 687599869}
     - target: {fileID: 6179455983456145342, guid: c956015fa80afc1489816dc3c81ef868, type: 3}
       propertyPath: _tuto
       value: 
@@ -1326,6 +1335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+  prefabListTest: []
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
@@ -1898,6 +1908,14 @@ PrefabInstance:
       propertyPath: _tuto
       value: 
       objectReference: {fileID: 1629107619}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: oneLostPart
+      value: 
+      objectReference: {fileID: 323299233056145027, guid: 5342f75ea0fb0e14fad79112888a2b39, type: 3}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _oneLostPart
+      value: 
+      objectReference: {fileID: 323299233056145027, guid: 5342f75ea0fb0e14fad79112888a2b39, type: 3}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot

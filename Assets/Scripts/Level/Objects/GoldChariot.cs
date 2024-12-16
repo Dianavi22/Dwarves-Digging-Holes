@@ -8,6 +8,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
+   public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
     [SerializeField] private EventReference chariotSound;
@@ -64,18 +65,19 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void UpdateText()
     {
         _goldCountText.text = GoldCount.ToString();
+        oneLostPart.Play();
     }
 
     private void UpdateParticle()
     {
-        if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
-        {
-            _lostGoldPart.Play();
-        }
-        else if (_nbGolbinOnChariot <= 0)
-        {
-            _lostGoldPart.Stop();
-        }
+        //if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
+        //{
+        //    _lostGoldPart.Play();
+        //}
+        //else if (_nbGolbinOnChariot <= 0)
+        //{
+        //    _lostGoldPart.Stop();
+        //}
         //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
@@ -134,7 +136,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        StartCoroutine(GameManager.Instance.GameOver(DeathMessage.Lava));
+        StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
     }
     public void HideGfx()
     {

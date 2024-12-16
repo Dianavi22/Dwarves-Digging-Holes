@@ -17,7 +17,7 @@ public class Platform : MonoBehaviour
     private void FixedUpdate()
     {
         Physics.SyncTransforms();
-        Vector3 goalDestination = GameManager.Instance.Difficulty.ScrollingSpeed * _speedModifier * Time.fixedDeltaTime * Vector3.left;
+        Vector3 goalDestination = GameManager.Instance.CurrentScrollingSpeed * _speedModifier * Time.fixedDeltaTime * Vector3.left;
         _rb.MovePosition(transform.position + goalDestination);
         if (GameManager.Instance.isGameOver)
         {

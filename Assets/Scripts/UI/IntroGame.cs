@@ -6,21 +6,16 @@ public class IntroGame : MonoBehaviour
 {
     [SerializeField] List<GameObject> _ladderPart;
     [SerializeField] Lava _lava;
-    [SerializeField] ShakyCame _sc;
 
-    private void Start()
-    {
-    }
     public IEnumerator LadderIntro()
     {
-        
+        ShakyCame sc = TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame);
         for (int i = 0; i < _ladderPart.Count; i++)
         {
-            _sc.ShakyCameCustom(0.2f, 0.2f);
-                StartCoroutine(DestroyPart(i));
+            sc.ShakyCameCustom(0.2f, 0.2f);
+            StartCoroutine(DestroyPart(i));
             yield return new WaitForSeconds(0.3f);
         }
-
     }
 
     private IEnumerator DestroyPart(int i)
@@ -29,6 +24,5 @@ public class IntroGame : MonoBehaviour
         _ladderPart[i].GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(3);
         Destroy(_ladderPart[i]);
-
     }
 }
