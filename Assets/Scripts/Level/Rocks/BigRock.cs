@@ -14,7 +14,7 @@ public class BigRock : MonoBehaviour
     {
         _gfx.SetActive(false);
         _canva.SetActive(false);
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f, 0.4f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.4f);
         _destroyPart.Play();
         _collider.enabled = false;
         yield return new WaitForSeconds(1);

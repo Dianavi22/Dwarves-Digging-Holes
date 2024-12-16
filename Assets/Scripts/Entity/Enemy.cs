@@ -13,7 +13,6 @@ public class Enemy : Entity
     [HideInInspector] public bool canSteal = true;
     [SerializeField] Tuto _tuto;
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Lava _lava;
     private bool _isDead = false;
     public bool IsTouchingChariot
     {
@@ -30,7 +29,7 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _tuto = FindAnyObjectByType<Tuto>();
         _gameManager = GameManager.Instance;
     }
@@ -83,7 +82,7 @@ public class Enemy : Entity
             holdBy = null;
         };
         _rb.velocity = Vector3.zero;
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;
         _gfx.SetActive(false);
         _destroyGobPart.Play();

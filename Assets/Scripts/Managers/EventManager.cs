@@ -28,8 +28,8 @@ public class EventManager : MonoBehaviour
 
     void Start()
     {
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-        _sc = TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame);
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
+        _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
     }
 
     public void LaunchEvent()

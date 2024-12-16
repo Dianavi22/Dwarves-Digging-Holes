@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>(Target.RespawnPoint);
+        _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>();
 
         IsAlive = true;
     }
@@ -66,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
     {
 
         IsAlive = false;
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.2f, 0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
         _playerGFX.SetActive(false);
