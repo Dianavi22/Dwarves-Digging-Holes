@@ -192,6 +192,30 @@ public class GameManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(_retryButton);
         }
     }
+    
+    public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
+    {
+        if (!isGameOver)
+        {
+            Debug.Log("LevelComplete");
+            isGameOver = true;
+            _goldChariot.HideChariotText();
+            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
+            _eventManager.enabled = false;
+            yield return new WaitForSeconds(3.5f);
+            _goldChariot.HideGfx();
+            yield return new WaitForSeconds(2f);
+            levelCompleteManager.canvas.SetActive(true);
+            Difficulty.ScrollingSpeed = _baseSpeed;
+            EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
+            
+            // // ? Activer un message / effet si record battu
+            // bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
+            // this.Difficulty.ScrollingSpeed = _baseSpeed;
+            // EventSystem.current.SetSelectedGameObject(_retryButton);
+
+        }
+    }
 
     /// <summary>
     /// This function is called when the MonoBehaviour will be destroyed.
