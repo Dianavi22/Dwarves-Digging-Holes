@@ -89,6 +89,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             _goldEtages[i].SetActive(_currentGoldCount > (i + 1) * 10);
         }
+
+        if (isSpawn)
+        {
+            SpawnPepite();
+        }
     }
 
     private void NearDeathExperience()
@@ -97,7 +102,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out ColorGrading colorGrading))
         {
             Sequence _nearDeathExperienceColorGrading = AnimSequence.Chariot.NearDeathSequenceColorGrading(colorGrading);
-            
+
             _nearDeathExperienceSequence.Add(_nearDeathExperienceColorGrading);
         }
 
@@ -215,21 +220,61 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
         print(goldLostValue);
-        if(goldLostValue == 0) { goldLostValue = 10; }
+        if (goldLostValue == 0) { goldLostValue = 10; }
         _currentGoldCount = _currentGoldCount - goldLostValue;
         UpdateText();
-
-
     }
 
     public void LostGoldByRock()
     {
-        
         _currentGoldCount = _currentGoldCount - 5;
         UpdateText();
-
-
     }
 
+    public void AddGoldPepite()
+    {
+        _currentGoldCount = _currentGoldCount + 1;
+        UpdateText();
+    }
 
+    private void SpawnPepite()
+    {
+        isSpawn = false;
+        for (int i = 0; i < 5; i++)
+        {
+            SpawnObject();
+        }
+    }
+
+    [SerializeField] bool isSpawn = false;
+    public Transform spawnPoint;
+    public GameObject objectPrefab;
+    public float spawnForceMin = 10f;
+    public float spawnForceMax = 30f;
+    public float angleRange = 15f;
+
+    public void SpawnObject()
+    {
+        GameObject spawnedObject = Instantiate(objectPrefab, spawnPoint.position, Quaternion.identity);
+
+        Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = GetRandomDirectionInCone(spawnPoint.forward, angleRange);
+            rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
+        }
+    }
+
+    private Vector3 GetRandomDirectionInCone(Vector3 forward, float angleRange)
+    {
+        float angleInRad = angleRange;
+
+        float randomHorizontalAngle = Random.Range(-angleInRad, angleInRad);
+        float randomVerticalAngle = Random.Range(0, angleInRad);
+
+        Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
+        Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
+
+        return (horizontalRotation * verticalRotation) * forward;
+    }
 }
