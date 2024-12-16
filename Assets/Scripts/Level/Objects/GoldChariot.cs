@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using FMODUnity;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Utils;
@@ -11,7 +12,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
    public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
+    [SerializeField] List<GameObject> _goldEtages;
     [SerializeField] private EventReference chariotSound;
+    public int goldUnite;
 
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
@@ -59,6 +62,48 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         else
         {
             PauseChariotSound();
+        }
+
+        if (_currentGoldCount > 10)
+        {
+            _goldEtages[0].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[0].SetActive(false);
+        }
+
+        if (_currentGoldCount > 20)
+        {
+            _goldEtages[1].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[1].SetActive(false);
+        }
+        if (_currentGoldCount > 30)
+        {
+            _goldEtages[2].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[2].SetActive(false);
+        }
+        if (_currentGoldCount > 40)
+        {
+            _goldEtages[3].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[3].SetActive(false);
+        }
+        if (_currentGoldCount > 40)
+        {
+            _goldEtages[4].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[4].SetActive(false);
         }
     }
 
@@ -159,4 +204,23 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateText();
         }
     }
+
+    public void LostGoldStage()
+    {
+        _currentGoldCount = _currentGoldCount - goldUnite;
+        goldUnite = 0;
+        UpdateText();
+    }
+    public void LostGoldFullStage()
+    {
+        _currentGoldCount = _currentGoldCount - 10;
+        UpdateText();
+    }
+    public void Test()
+    {
+        _currentGoldCount = 10;
+        goldUnite = 0;
+        UpdateText();
+    }
+
 }

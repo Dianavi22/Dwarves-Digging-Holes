@@ -49,11 +49,16 @@ public class Rock : MonoBehaviour
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
-            TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 1;
+            TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 5;
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
-
-            if(hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+            TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).goldUnite +=5;
+            if (TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).goldUnite >= 10)
+            {
+                TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).goldUnite = 0;
+            }
+            if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+       
         }
 
         _breakRockParticule.Play();

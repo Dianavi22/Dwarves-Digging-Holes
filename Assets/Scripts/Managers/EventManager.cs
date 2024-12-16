@@ -77,8 +77,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        //ChooseEvent(Random.Range(0, 5));
-        ChooseEvent(5);
+        ChooseEvent(Random.Range(0, 4));
+       // ChooseEvent(5);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -108,10 +108,7 @@ public class EventManager : MonoBehaviour
         {
             StartCoroutine(GoblinWave());
         }
-        else if (i == 4)
-        {
-            StartCoroutine(DurabilityRocks());
-        }
+       
         else
         {
             //
