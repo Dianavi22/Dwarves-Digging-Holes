@@ -7,7 +7,6 @@ using UnityEngine.Rendering.PostProcessing;
 using Utils;
 using DG.Tweening;
 using System.Linq;
-using System.Collections.Generic;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {

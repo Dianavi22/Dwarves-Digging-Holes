@@ -5,25 +5,22 @@ using System;
 
 public class PlayerMovements : EntityMovement
 {
-    [SerializeField] private float lowJumpMultiplier = 2f;
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
-    [SerializeField] private Transform _leftRay;
-    [SerializeField] private Transform _rightRay;
-
+    [Header("Particle effect")]
     [SerializeField] ParticleSystem _DashPart;
+    [SerializeField] ParticleSystem _groundedPart;
+    [SerializeField] ParticleSystem _movePart;
 
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
-    public bool flip_vertical = false;
+    private bool flip_vertical = false;
 
     public Action forceDetachFunction;
 
     Player _p => (Player)GetBase;
 
     private bool _playGroundedPart = true;
-    [SerializeField] ParticleSystem _groundedPart;
-    [SerializeField] ParticleSystem _movePart;
 
     void Awake()
     {

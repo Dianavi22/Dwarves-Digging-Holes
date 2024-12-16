@@ -3,14 +3,15 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IGrabbable
 {
-    protected Rigidbody _rb;
-
-    public bool IsGrabbed { get; protected set; }
-
-    [HideInInspector] public Player holdBy; 
+    [Header("Entity Params")]
     public float recoveryTime = 0.5f;
 
-    public FixedJoint Joint;
+    protected Rigidbody _rb;
+    public bool IsGrabbed { get; protected set; }
+
+    [HideInInspector] public Player holdBy;
+
+    [HideInInspector] public FixedJoint Joint;
     public bool HasJoint => Joint != null;
 
     private Tween recoveryTween;
