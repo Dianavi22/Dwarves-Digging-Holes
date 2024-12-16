@@ -13,7 +13,7 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    private Score _score;
+    [SerializeField] private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
@@ -25,9 +25,14 @@ public class Rock : MonoBehaviour
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
-        _score = TargetManager.Instance.GetGameObject<Score>();
         _tuto = FindObjectOfType<Tuto>();
         _eventManager = FindObjectOfType<EventManager>();
+        _spawnGold = this.transform;
+    }
+
+    private void Start()
+    {
+        _score = TargetManager.Instance.GetGameObject<Score>();
     }
 
     public void Hit(Player player)
