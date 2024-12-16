@@ -223,14 +223,22 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
 
     public int goldLostValue;
-    public void LostGoldStage(int id)
+    public void LostGoldStage()
     {
         print(goldLostValue);
         goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
-        if (goldLostValue == 0 && id != 0) { goldLostValue = 10; }
-        _currentGoldCount = _currentGoldCount - goldLostValue;
+        if (goldLostValue == 0) { goldLostValue = 10; }
+        if (_currentGoldCount - goldLostValue < 10)
+        {
+            _currentGoldCount = 10;
+        }
+        else
+        {
+            _currentGoldCount = _currentGoldCount - goldLostValue;
+        }
         UpdateText();
     }
+   
 
     public void LostGoldByRock()
     {

@@ -18,5 +18,11 @@ public class Pepite : MonoBehaviour
             _gc.AddGoldPepite();
             Destroy(gameObject);
         }
+
+        if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
+        {
+            _isDestroy = true;
+            Destroy(gameObject);
+        }
     }
 }

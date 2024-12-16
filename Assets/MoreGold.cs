@@ -18,16 +18,19 @@ public class MoreGold : MonoBehaviour
     private float spawnForceMax = 30f;
     private float angleRange = 15f;
 
+    private bool _canSpawn = true;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
         {
+            
             for (int i = 0; i < _goldStage.Count; i++)
             {
                 if (i >= _idGoldPart && _goldStage[i].GetComponent<MoreGold>().isActive)
                 {
                     DespawnBlock(_goldStage[i]);
-                    _gc.LostGoldStage(_idGoldPart);
+                    _gc.LostGoldStage();
                     _nbPepites = _gc.goldLostValue;
                     _goldStage[i].GetComponent<MoreGold>().isSpawn = true;
 
@@ -65,11 +68,20 @@ public class MoreGold : MonoBehaviour
 
     private void Update()
     {
-        if (isSpawn)
+        if (isSpawn && _canSpawn)
         {
             isSpawn= false;
+            StartCoroutine(CdSpawn());
             SpawnPepite();
         }
+    }
+
+    private IEnumerator CdSpawn()
+    {
+        _canSpawn = false;
+
+        yield return new WaitForSeconds(3);
+        _canSpawn = true;
     }
 
    
