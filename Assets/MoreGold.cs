@@ -11,22 +11,17 @@ public class MoreGold : MonoBehaviour
     {
         if (collision.collider.CompareTag("Rock"))
         {
-            //if (_goldPStage[1].activeSelf)
-            //{
-            //    _gc.Test();
-            //}
+          
             for (int i = 0; i < _goldPStage.Count; i++)
+            {
+                if (i >= _idGoldPart && _goldPStage[i].activeSelf)
                 {
-                    if (i >= _idGoldPart && _goldPStage[i].activeSelf)
-                    {
-                        _goldPStage[i].SetActive(false);
-                       _gc.LostGoldFullStage();
-                        
-                    }
+                    _goldPStage[i].SetActive(false);
+                    _gc.LostGoldStage();
 
                 }
-            
-            _gc.LostGoldStage();
+
+            }
             gameObject.SetActive(false);
 
         }

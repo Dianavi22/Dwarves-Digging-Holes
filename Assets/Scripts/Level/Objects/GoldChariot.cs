@@ -14,7 +14,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] Tuto _tuto;
     [SerializeField] List<GameObject> _goldEtages;
     [SerializeField] private EventReference chariotSound;
-    public int goldUnite;
 
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
@@ -207,20 +206,14 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void LostGoldStage()
     {
-        _currentGoldCount = _currentGoldCount - goldUnite;
-        goldUnite = 0;
+        int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
+        print(goldLostValue);
+        if(goldLostValue == 0) { goldLostValue = 10; }
+        _currentGoldCount = _currentGoldCount - goldLostValue;
         UpdateText();
+
+
     }
-    public void LostGoldFullStage()
-    {
-        _currentGoldCount = _currentGoldCount - 10;
-        UpdateText();
-    }
-    public void Test()
-    {
-        _currentGoldCount = 10;
-        goldUnite = 0;
-        UpdateText();
-    }
+   
 
 }
