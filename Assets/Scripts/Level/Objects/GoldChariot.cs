@@ -90,16 +90,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         //& Color Grading
         if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out ColorGrading colorGrading))
         {
-            Sequence _nearDeathExperienceColorGrading = AnimSequence.Chariot.NearDeathSequenceColorGrading(colorGrading)
-            .OnKill(() => colorGrading.temperature.value = 10).SetAutoKill(false);
-
+            Sequence _nearDeathExperienceColorGrading = AnimSequence.Chariot.NearDeathSequenceColorGrading(colorGrading);
+            
             _nearDeathExperienceSequence.Add(_nearDeathExperienceColorGrading);
         }
 
         //& Vignette
         if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out Vignette vignette))
         {
-        Sequence _nearDeathExperienceVignette = AnimSequence.Chariot.NearDeathSequenceVignette(vignette);
+            Sequence _nearDeathExperienceVignette = AnimSequence.Chariot.NearDeathSequenceVignette(vignette);
             _nearDeathExperienceVignette.SetLoops(-1);
             _nearDeathExperienceVignette.OnKill(() => vignette.intensity.value = 0.35f);
 

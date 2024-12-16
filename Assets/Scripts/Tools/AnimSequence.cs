@@ -49,9 +49,17 @@ public static class AnimSequence
             return DOTween.Sequence().Append(DOTween.To(
                 () => colorGrading.temperature.value,
                 x => colorGrading.temperature.value = x,
-                50f,
-                1f
-            ).SetEase(Ease.InQuart));
+                75f,
+                0.5f
+            ).SetEase(Ease.InQuart))
+            .OnKill(() =>
+            {
+                DOTween.To(
+                        () => colorGrading.temperature.value,
+                        x => colorGrading.temperature.value = x,
+                        10f,
+                        0.5f).SetEase(Ease.OutQuad);
+            }).SetAutoKill(false);
         }
     }
 }
