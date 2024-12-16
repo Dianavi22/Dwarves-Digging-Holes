@@ -640,8 +640,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6263bf6d402054d4db91c760887fb297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDuration: 60
   canvas: {fileID: 266375968}
   mainMenuButton: {fileID: 829471497}
+  blockSpawner: {fileID: 184080652}
+  lavaGFX: {fileID: 954418099}
 --- !u!1001 &406910749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1663,6 +1666,11 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2778579007021002597, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
   m_PrefabInstance: {fileID: 937345132}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &954418099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4542482403024737499, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+  m_PrefabInstance: {fileID: 5436758355274485485}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &965745287 stripped
 GameObject:
@@ -3465,6 +3473,10 @@ PrefabInstance:
       propertyPath: holderPhysicMaterial
       value: 
       objectReference: {fileID: 13400000, guid: 330616e083dfca646a4dfe403bd03c3a, type: 2}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _levelCompleteManager
+      value: 
+      objectReference: {fileID: 269999183}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _textGameOverCondition
       value: 

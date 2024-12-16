@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _circleTransition;
     [SerializeField] Score _score;
 
+    [SerializeField] LevelCompleteManager _levelCompleteManager;
+
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _levelCompleteManager.StartGame();
         _scoreText.SetActive(true);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(3f, 0.2f);
@@ -190,11 +193,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("LevelComplete");
             isGameOver = true;
             _goldChariot.HideChariotText();
-            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
-            _eventManager.enabled = false;
-            yield return new WaitForSeconds(3.5f);
             _goldChariot.HideGfx();
-            yield return new WaitForSeconds(2f);
+            _eventManager.enabled = false;
+            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(5.5f, 0.2f);
+            levelCompleteManager.blockSpawner.SetActive(false);
+            levelCompleteManager.lavaGFX.SetActive(false);
+            yield return new WaitForSeconds(5.5f);
             levelCompleteManager.canvas.SetActive(true);
             CurrentScrollingSpeed = 0f;
             EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
