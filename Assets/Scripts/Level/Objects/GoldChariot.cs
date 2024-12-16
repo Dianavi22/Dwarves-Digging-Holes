@@ -136,7 +136,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        StartCoroutine(GameManager.Instance.GameOver(DeathMessage.Lava));
+        StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
     }
     public void HideGfx()
     {

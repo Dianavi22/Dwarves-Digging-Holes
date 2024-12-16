@@ -11,7 +11,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
-    private bool _isCarried;
     private Player holdingPlayer;
     public bool isInTuto;
     [SerializeField] GameObject _tutoTarget;
@@ -41,10 +40,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
-        holdingPlayer = currentPlayer;
+        holdingPlayer = isCarried ? currentPlayer : null;
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
-        _isCarried = isCarried;
         if (isCarried)
         {
             throwOnDestroy = () => { 
@@ -64,26 +62,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        //if (_isCarried)
-        //{
-        //    myTarget.SetActive(false);
-        //}
-        //else
-        //{
-        //    myTarget.SetActive(true);
-
-        //}
-        if (isInTuto)
-        {
-            myTarget.SetActive(true);
-        }
-        else
-        {
-            myTarget.SetActive(false);
-
-        }
+        myTarget.SetActive(isInTuto);
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -95,13 +75,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
-   private IEnumerator CdParticule()
+    private IEnumerator CdParticule()
     {
         yield return new WaitForSeconds(1);
         _isPartPlayed = false;
     }
-
-
 
     public void Hit(GameObject hit)
     {
@@ -142,7 +120,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         StartCoroutine(BreakPickaxe());
     }
 
-    public GameObject GetGameObject() { return gameObject; }
+    public GameObject GetGameObject() => gameObject;
 
     private void OnDestroy()
     {
@@ -159,5 +137,4 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }
-
 }
