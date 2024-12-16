@@ -65,7 +65,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void UpdateText()
     {
         _goldCountText.text = GoldCount.ToString();
-        oneLostPart.Play();
+        // oneLostPart.Play();
     }
 
     private void UpdateParticle()

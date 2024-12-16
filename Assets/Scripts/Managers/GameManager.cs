@@ -196,24 +196,9 @@ public class GameManager : MonoBehaviour
             _goldChariot.HideGfx();
             yield return new WaitForSeconds(2f);
             levelCompleteManager.canvas.SetActive(true);
-            Difficulty.ScrollingSpeed = _baseSpeed;
+            CurrentScrollingSpeed = 0f;
             EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
-            
-            // // ? Activer un message / effet si record battu
-            // bool newBest = TargetManager.Instance.GetGameObject<Score>(Target.Score).CheckBestScore();
-            // this.Difficulty.ScrollingSpeed = _baseSpeed;
-            // EventSystem.current.SetSelectedGameObject(_retryButton);
-
+            yield return null;
         }
-    }
-
-    /// <summary>
-    /// This function is called when the MonoBehaviour will be destroyed.
-    /// </summary>
-    void OnDestroy()
-    {
-        this.Difficulty.ScrollingSpeed = _baseSpeed;
-        holderPhysicMaterial.dynamicFriction = 1;
-        holderPhysicMaterial.staticFriction = 1;
     }
 }
