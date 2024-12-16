@@ -246,7 +246,7 @@ public class PlayerActions : MonoBehaviour
         }
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
-            if(transform.position.y > chariot.transform.position.y + 0.5f) return;
+            if(transform.position.y > chariot.transform.position.y + 0.75f) return;
             
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);

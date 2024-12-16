@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using FMODUnity;
+using UnityEngine.Rendering.PostProcessing;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +15,11 @@ public class GameManager : MonoBehaviour
     public bool debugMode;
     public bool isDisableEventManager;
 
+    public PostProcessVolume postProcessVolume;
+
     [SerializeField] private PlatformSpawner blockSpawner;
+
+    [SerializeField] private Light _lavaLight;
 
     [SerializeField] private PhysicMaterial holderPhysicMaterial;
 
@@ -110,6 +116,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
+        _lavaLight.DOIntensity(4f, 1f);
         if (passTuto && !_tuto.isInTuto)
         {
             SkipTuto();
