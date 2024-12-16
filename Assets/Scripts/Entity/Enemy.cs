@@ -8,9 +8,9 @@ using FMODUnity;
 public class Enemy : Entity
 {
     [SerializeField] private EventReference goblinLaughSound;
+    [SerializeField] private EventReference goblinStealingSound;
     [SerializeField] private EventReference goblinDeadSound;
     [SerializeField] private EventReference goblinPeriodicSound;
-    private Coroutine periodicSoundCoroutine;
 
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
@@ -45,35 +45,19 @@ public class Enemy : Entity
     private void Start()
     {
         StartCoroutine(PlayGoblinLaughWithDelay());
-        periodicSoundCoroutine = StartCoroutine(PeriodicSoundLoop());
-
-    }
-
-
-    private IEnumerator PlayGoblinLaughWithDelay()
-    {
-        float randomDelay = Random.Range(0f, 1f);
-        yield return new WaitForSeconds(randomDelay);
-
-        EventInstance laughInstance = RuntimeManager.CreateInstance(goblinLaughSound);
-        RuntimeManager.AttachInstanceToGameObject(laughInstance, transform, GetComponent<Rigidbody>());
-        laughInstance.start();
-        laughInstance.release();
+        StartCoroutine(PeriodicSoundLoop());
     }
 
     private IEnumerator PeriodicSoundLoop()
     {
         while (!_isDead)
         {
-            float randomDelay = Random.Range(5f, 10f);
+            float randomDelay = Random.Range(3f, 7f);
             yield return new WaitForSeconds(randomDelay);
 
             if (!_isDead)
             {
-                EventInstance periodicInstance = RuntimeManager.CreateInstance(goblinPeriodicSound);
-                RuntimeManager.AttachInstanceToGameObject(periodicInstance, transform, GetComponent<Rigidbody>());
-                periodicInstance.start();
-                periodicInstance.release();
+                PeriodicSound();
             }
         }
     }
@@ -94,8 +78,6 @@ public class Enemy : Entity
         {
             IsTouchingChariot = false;
             if(!IsGrabbed){_rb.isKinematic = false; };
-
-           
         }
     }
 
@@ -106,6 +88,10 @@ public class Enemy : Entity
             _goldChariot.GoldCount -= 1;
             canSteal = false;
             _goldChariot.oneLostPart.Play();
+            
+            StealingSound();
+            LaughSound();
+
             yield return new WaitForSeconds(1);
             canSteal = true;
         }
@@ -121,20 +107,24 @@ public class Enemy : Entity
     {
         _isDead = true;
         this.GetComponentInChildren<Collider>().enabled = false;
+
         if (holdBy != null)
         {
             StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
             holdBy = null;
         };
+
         _rb.velocity = Vector3.zero;
         TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.3f, 0.3f);
         _rb.isKinematic = true;
         _gfx.SetActive(false);
         _destroyGobPart.Play();
+
         DeadSound();
         yield return new WaitForSeconds(2);
         Destroy(this.gameObject);
     }
+
     public override void HandleCarriedState(Player player, bool grabbed) {
 
         if (_tuto.isTakeEnemy)
@@ -150,6 +140,8 @@ public class Enemy : Entity
     } 
     override public void HandleDestroy()
     {
+        if (_isDead) return;
+
         if (_tuto.isYeetEnemy)
         {
             _tuto.isYeetEnemy = false;
@@ -160,8 +152,41 @@ public class Enemy : Entity
             _tuto.StopTuto();
             _gameManager.SkipTuto();
         }
+        
         StartCoroutine(DestroyByLava());
-       
+    }
+
+
+    private IEnumerator PlayGoblinLaughWithDelay()
+    {
+        float randomDelay = Random.Range(0f, 2f);
+        yield return new WaitForSeconds(randomDelay);
+
+        LaughSound();
+    }
+
+    private void LaughSound()
+    {  
+        EventInstance laughInstance = RuntimeManager.CreateInstance(goblinLaughSound);
+        RuntimeManager.AttachInstanceToGameObject(laughInstance, transform, GetComponent<Rigidbody>());
+        laughInstance.start();
+        laughInstance.release();
+    }
+
+    private void PeriodicSound()
+    {  
+        EventInstance periodicInstance = RuntimeManager.CreateInstance(goblinPeriodicSound);
+        RuntimeManager.AttachInstanceToGameObject(periodicInstance, transform, GetComponent<Rigidbody>());
+        periodicInstance.start();
+        periodicInstance.release();
+    }
+
+    private void StealingSound()
+    {  
+        EventInstance stealingInstance = RuntimeManager.CreateInstance(goblinStealingSound);
+        RuntimeManager.AttachInstanceToGameObject(stealingInstance, transform, GetComponent<Rigidbody>());
+        stealingInstance.start();
+        stealingInstance.release();
     }
 
     private void DeadSound()
@@ -170,6 +195,5 @@ public class Enemy : Entity
         RuntimeManager.AttachInstanceToGameObject(deadInstance, transform, GetComponent<Rigidbody>());
         deadInstance.start();
         deadInstance.release();
-        Debug.Log("DeadSound");
     }
 }
