@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    // Add global reference from the editor
     [SerializeField] private GoldChariot goldChariot;
     [SerializeField] private RespawnPoint respawnPoint;
     [SerializeField] private ShakyCame shakyCame;
@@ -19,6 +20,7 @@ public class TargetManager : MonoBehaviour
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
     }
 
+    // Then add the new reference into this list
     private List<MonoBehaviour> GetTargetList()
     {
         List<MonoBehaviour> list = new()
