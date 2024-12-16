@@ -76,13 +76,12 @@ public class PlayerActions : MonoBehaviour
             {
                 buildingPickaxe ??= DOTween.Sequence()
                     .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
-                        .SetAutoKill(false)) // Prevent the tween from being killed after it completes
+                        .SetAutoKill(false))
                     //.AppendInterval(1f) // Wait for 1 second
                     .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
                     .AppendCallback(() =>
                     {
-                        // Call BuildPickaxe after delay
-                        hitColliders[0].GetComponent<Forge>().BuildPickaxe(this);
+                        hitColliders[0].GetComponent<Forge>().BuildPickaxe();
                     })
                     .OnKill(() => gameObject.transform.DOLocalRotate(Vector3.zero, 0f));
 

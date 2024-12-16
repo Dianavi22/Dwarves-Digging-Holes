@@ -25,10 +25,9 @@ public class Forge : MonoBehaviour
         }
     }
 
-    public void BuildPickaxe(PlayerActions _player)
+    public void BuildPickaxe()
     {
         var _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
         _gameManager.AddPickaxe(_createdPickaxe);
-        _player.TryPickUpObject();
     }
 }
