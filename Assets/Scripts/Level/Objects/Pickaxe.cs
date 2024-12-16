@@ -20,6 +20,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private Player holdingPlayer;
     public bool isInTuto;
     [SerializeField] GameObject _tutoTarget;
+    [SerializeField] GoldChariot _gc;
     public GameObject myTarget;
 
     // In case the set of HealthPoint want to destroy the pickaxe
@@ -43,6 +44,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         StartCoroutine(CdParticule());
         myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
         myTarget.GetComponent<FollowTarget>().target = transform;
+        _gc = FindObjectOfType<GoldChariot>();
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {

@@ -9,6 +9,9 @@ public class EventManager : MonoBehaviour
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
     private ShakyCame _sc;
+    public float scrollSpeed;
+    public float rocksHealth;
+    public float rocksWithGoldHealth;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
@@ -25,6 +28,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _goldChariotUIPart;
 
     [SerializeField] GoblinWave _goblinWave;
+    public bool  isRockEvent = false;
 
     void Start()
     {
@@ -74,7 +78,7 @@ public class EventManager : MonoBehaviour
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
         ChooseEvent(Random.Range(0, 4));
-        //ChooseEvent(4);
+       // ChooseEvent(5);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -83,6 +87,7 @@ public class EventManager : MonoBehaviour
     //Event 2 : if gold is > 10 : gold/2
     //Event 3 : Lava getting close
     //Event 4 : Too many goblins
+    //Event 5 : Unbreackables Rocks
 
     private void ChooseEvent(int i)
     {
@@ -103,6 +108,7 @@ public class EventManager : MonoBehaviour
         {
             StartCoroutine(GoblinWave());
         }
+       
         else
         {
             //
@@ -172,6 +178,18 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.isWave = true;
+
+    }
+
+    private IEnumerator DurabilityRocks()
+    {
+        StartCoroutine(TextEvent("Durability Rocks"));
+        yield return new WaitForSeconds(1);
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        isRockEvent = true;
+        yield return new WaitForSeconds(10);
+        isRockEvent = false;
+
 
     }
 }
