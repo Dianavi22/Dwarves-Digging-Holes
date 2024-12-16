@@ -13,7 +13,7 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    [SerializeField] Score _score;
+    private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
@@ -25,7 +25,7 @@ public class Rock : MonoBehaviour
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
-        _score = FindObjectOfType<Score>();
+        _score = TargetManager.Instance.GetGameObject<Score>();
         _tuto = FindObjectOfType<Tuto>();
         _eventManager = FindObjectOfType<EventManager>();
     }
@@ -46,10 +46,10 @@ public class Rock : MonoBehaviour
         {
             _tuto.isPushChariot = true;
         }
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(0.1f, 0.1f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
-            TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot).GoldCount += 5;
+            TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
             if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);

@@ -3,12 +3,16 @@ using FMODUnity;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using Utils;
+using DG.Tweening;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
+
+    [SerializeField] private GameObject _lavaPosition;
    public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
@@ -17,6 +21,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private bool _isSoundPlaying = false;
     private EventInstance _chariotEventInstance;
+    private Sequence _nearDeathExperience;
 
     private Rigidbody _rb;
 
@@ -62,6 +67,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             PauseChariotSound();
         }
+        if(Vector3.Distance(transform.position, _lavaPosition.transform.position) - 4 < 5 || GoldCount <= 3) {
+            if(_nearDeathExperience == null) NearDeathExperience();
+        }
+        else {
+            if(_nearDeathExperience != null) {
+                _nearDeathExperience.Kill();
+                _nearDeathExperience = null;
+            }
+        }
+
 
         if (_currentGoldCount > 10)
         {
@@ -106,10 +121,20 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
+    private void NearDeathExperience() {
+        if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out Vignette vignette))
+        {
+            _nearDeathExperience = AnimSequence.Chariot.NearDeathSequence(vignette);
+            _nearDeathExperience.OnKill(() => vignette.intensity.value = 0.35f);
+            _nearDeathExperience.SetLoops(-1);
+        }
+
+    }
+
     private void UpdateText()
     {
         _goldCountText.text = GoldCount.ToString();
-        oneLostPart.Play();
+        // oneLostPart.Play();
     }
 
     private void UpdateParticle()
