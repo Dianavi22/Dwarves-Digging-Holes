@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 public class Tuto : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Lava _lava;
-    [SerializeField] GoldChariot _goldChariot;
-    [SerializeField] GameManager _gameManager;
     [SerializeField] Pickaxe _takePickaxe;
 
     [Header("Bubbles")]
@@ -75,7 +72,7 @@ public class Tuto : MonoBehaviour
 
     private void PushChariot()
     {
-        _goldChariot.GetComponent<GoldChariot>().enabled = true;
+        TargetManager.Instance.GetGameObject<GoldChariot>().enabled = true;
         isBreakRock = startTuto;
         try
         {
@@ -101,7 +98,7 @@ public class Tuto : MonoBehaviour
     {
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
-        StartCoroutine(_lava.CooldownLava());
+        StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.SetActive(true);
     }
@@ -129,7 +126,7 @@ public class Tuto : MonoBehaviour
         _tutoBubbleLava.SetActive(false);
         isInTuto = false;
         _skipTuto.SetActive(false);
-        StartCoroutine(_gameManager.StartGame());
+        StartCoroutine(GameManager.Instance.StartGame());
     }
 
 }

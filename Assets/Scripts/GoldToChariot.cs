@@ -12,7 +12,7 @@ public class GoldToChariot : MonoBehaviour
     [SerializeField] Vector3 _direction;
     void Start()
     {
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         StartCoroutine(GoldPosition());
     }
 

@@ -17,7 +17,7 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        _typeSentence = TargetManager.Instance.GetGameObject<TypeSentence>(Target.TypeSentence);
+        _typeSentence = TargetManager.Instance.GetGameObject<TypeSentence>();
         StartCoroutine(Dialog());
     }
 

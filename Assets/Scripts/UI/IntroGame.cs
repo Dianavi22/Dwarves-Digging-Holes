@@ -5,11 +5,10 @@ using UnityEngine;
 public class IntroGame : MonoBehaviour
 {
     [SerializeField] List<GameObject> _ladderPart;
-    [SerializeField] Lava _lava;
 
     public IEnumerator LadderIntro()
     {
-        ShakyCame sc = TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame);
+        ShakyCame sc = TargetManager.Instance.GetGameObject<ShakyCame>();
         for (int i = 0; i < _ladderPart.Count; i++)
         {
             sc.ShakyCameCustom(0.2f, 0.2f);

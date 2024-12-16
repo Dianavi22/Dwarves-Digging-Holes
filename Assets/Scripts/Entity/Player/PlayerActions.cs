@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using Utils;
 
 public class PlayerActions : MonoBehaviour
 {
+    private Coroutine swingCoroutine;
+    [SerializeField] private EventReference swingSoundEvent;
+
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
@@ -37,10 +41,12 @@ public class PlayerActions : MonoBehaviour
     private bool canPickup = false;
 
     private Dictionary<int, int> previousLayer = new();
-    
+
     private Animator _animator;
 
     private bool _isFirstCanPickup = true;
+
+    private Tween buildingPickaxe;
 
     private void Awake()
     {
@@ -56,7 +62,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (IsBaseActionActivated && CheckHitRaycast(out var hits))
+        if (IsBaseActionActivated && IsHoldingObject && CheckHitRaycast(out var hits))
         {
             // Pickaxe
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out var pickaxe)
@@ -67,8 +73,26 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
+        else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
+            if (hitColliders.Any())
+            {
+                buildingPickaxe ??= DOTween.Sequence()
+                    .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
+                        .SetAutoKill(false))
+                    //.AppendInterval(1f) // Wait for 1 second
+                    .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
+                    .AppendCallback(() =>
+                    {
+                        hitColliders[0].GetComponent<Forge>().BuildPickaxe();
+                    })
+                    .OnKill(() => gameObject.transform.DOLocalRotate(Vector3.zero, 0f));
 
-        if(_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
+            }
+        }
+
+        if (_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
         {
             _isFirstCanPickup = false;
             canPickup = true;
@@ -79,11 +103,12 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
 
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup )
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
-            if (IsHoldingObject) {
+            if (IsHoldingObject)
+            {
                 _p.GetActions().StopAnimation();
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
@@ -103,7 +128,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
+        if (GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
         {
             if (isTaunt) return;
@@ -114,7 +139,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
+        if (GameManager.Instance.isInMainMenu) return;
 
         if (_tuto.isInTuto)
         {
@@ -137,15 +162,33 @@ public class PlayerActions : MonoBehaviour
     public void OnBaseAction(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+        
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) StartAnimation();
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) 
+            {
+                StartAnimation();
+
+                if (!CheckHitRaycast(out var hits) || hits.Count == 0)
+                {
+                    EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+                    RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+                    swingSoundInstance.start();
+                    swingSoundInstance.release();
+                }
+            }
         }
 
         if (context.canceled) //the key has been released
         {
             IsBaseActionActivated = false;
+            if (buildingPickaxe != null)
+            {
+                buildingPickaxe.Kill();
+                buildingPickaxe = null;
+            }
+
             StopAnimation();
         }
     }
@@ -155,13 +198,43 @@ public class PlayerActions : MonoBehaviour
     public void StartAnimation()
     {
         _animator.SetBool("pickaxeHit", true);
+
+        if (swingCoroutine == null)
+        {
+            swingCoroutine = StartCoroutine(WooshLoop());
+        }
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
         _animator.SetBool("pickaxeHit", false);
+
+        if (swingCoroutine != null)
+        {
+            StopCoroutine(swingCoroutine);
+            swingCoroutine = null;
+        }
+
     }
+
+    private IEnumerator WooshLoop()
+    {
+        while (IsBaseActionActivated)
+        {
+            yield return new WaitForSeconds(0.33f);
+
+            if (!CheckHitRaycast(out var hits) || hits.Count == 0)
+            {
+                EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+                RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+                swingSoundInstance.start();
+                swingSoundInstance.release();
+            }
+        }
+        swingCoroutine = null;
+    }
+
 
     private bool CheckHitRaycast(out List<Collider> hits)
     {
@@ -210,15 +283,17 @@ public class PlayerActions : MonoBehaviour
             .ThenBy(collider => Vector3.Distance(transform.position, collider.transform.position))
             .FirstOrDefault();
 
-        if(mostImportant == null) return;
+        if (mostImportant == null) return;
 
         if (Utils.Component.TryGetInParent<Player>(mostImportant, out var player))
         {
             if (player.GetActions().IsHoldingObject) return;
             PickupObject(player.gameObject);
         }
-        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot) )
+        else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
+            if(transform.position.y > chariot.transform.position.y + 0.75f) return;
+            
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
             _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
@@ -348,16 +423,17 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
-        if (heldObject.TryGetComponent<GoldChariot>(out var chariot) )
+        if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
         {
             _p.EmptyFixedJoin();
             chariot.HandleCarriedState(_p, false);
-        } else
+        }
+        else
         {
             SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
-       
+
         EmptyHands();
     }
     #endregion
