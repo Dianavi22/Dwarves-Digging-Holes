@@ -103,14 +103,15 @@ public class PlayerActions : MonoBehaviour
 
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
-            if (IsHoldingObject)
-            {
+            if (IsHoldingObject) {
+                if (Physics.Raycast(origin: transform.position, direction: -transform.right, maxDistance: 0.33f, layerMask: ~(LayerMask.GetMask("Default") |  LayerMask.GetMask("Grabbed")))) return;
                 _p.GetActions().StopAnimation();
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
             }
             else if (canPickup)
                 TryPickUpObject();
+            return;
         }
 
         // The grab for the goldchariot is kept while the button is pressed
