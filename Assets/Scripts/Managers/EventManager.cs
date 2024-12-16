@@ -9,7 +9,6 @@ public class EventManager : MonoBehaviour
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
     private ShakyCame _sc;
-    public float scrollSpeed;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
@@ -50,7 +49,7 @@ public class EventManager : MonoBehaviour
         }
         if (_isLavaMoveEndEvent)
         {
-            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * scrollSpeed / 2);
+            _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * GameManager.Instance.CurrentScrollingSpeed / 2);
             if (_lava.transform.position.x <= _lavaPosition.x)
             {
                 _isLavaMoveEndEvent = false;
@@ -113,7 +112,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator EventPickaxe()
     {
-        StartCoroutine(TextEvent("PICKAXE ISSUE!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
@@ -139,7 +138,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator EventGoldChariot()
     {
-        StartCoroutine(TextEvent("TAXE DAY!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
         yield return new WaitForSeconds(0.5f);
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
@@ -152,8 +151,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator LavaGettingClose()
     {
-
-        StartCoroutine(TextEvent("RUN!! LAVAAA"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
         _lavaPartUI.Play();
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
@@ -170,7 +168,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator GoblinWave()
     {
-        StartCoroutine(TextEvent("GOBLIN WAVE!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
         yield return new WaitForSeconds(1);
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.isWave = true;
