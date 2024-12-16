@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] Lava _lava;
-    [SerializeField] ShakyCame _sc;
     public bool isGameOver = false;
     public bool isInMainMenu = false;
     [SerializeField] EventManager _eventManager;
@@ -142,7 +141,7 @@ public class GameManager : MonoBehaviour
     {
         _scoreText.SetActive(true);
         _score.isStartScore = true;
-        _sc.ShakyCameCustom(3f, 0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(3f, 0.2f);
         Invoke(nameof(InitPlatformSpawner), 3f);
         this.Difficulty.ScrollingSpeed = _baseSpeed;
         yield return new WaitForSeconds(70);
