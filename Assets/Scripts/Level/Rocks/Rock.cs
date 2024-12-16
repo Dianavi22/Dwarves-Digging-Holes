@@ -13,19 +13,26 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    private Score _score;
+    [SerializeField] private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
     [SerializeField] Tuto _tuto;
-
+    [SerializeField] EventManager _eventManager;
+    private int _baseHp;
     private Player hitPlayer = null;
 
     private void Awake()
     {       
         _rockCollider = GetComponentInChildren<Collider>();
-        _score = TargetManager.Instance.GetGameObject<Score>();
         _tuto = FindObjectOfType<Tuto>();
+        _eventManager = FindObjectOfType<EventManager>();
+        _spawnGold = this.transform;
+    }
+
+    private void Start()
+    {
+        _score = TargetManager.Instance.GetGameObject<Score>();
     }
 
     public void Hit(Player player)
@@ -50,8 +57,8 @@ public class Rock : MonoBehaviour
             TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
-
-            if(hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+            if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+       
         }
 
         _breakRockParticule.Play();
@@ -59,5 +66,23 @@ public class Rock : MonoBehaviour
         _rockCollider.enabled = false;
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        if (_eventManager.isRockEvent)
+        {
+            EventRock();
+        }
+        else
+        {
+            _healthPoint = _baseHp;
+        }
+    }
+
+    private void EventRock()
+    {
+        _baseHp = _healthPoint;
+        _healthPoint += 1;
     }
 }

@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using FMODUnity;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -17,6 +18,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
+    [SerializeField] List<GameObject> _goldEtages;
     [SerializeField] private EventReference chariotSound;
 
     private bool _isSoundPlaying = false;
@@ -83,6 +85,48 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
         }
 
+
+        if (_currentGoldCount > 10)
+        {
+            _goldEtages[0].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[0].SetActive(false);
+        }
+
+        if (_currentGoldCount > 20)
+        {
+            _goldEtages[1].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[1].SetActive(false);
+        }
+        if (_currentGoldCount > 30)
+        {
+            _goldEtages[2].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[2].SetActive(false);
+        }
+        if (_currentGoldCount > 40)
+        {
+            _goldEtages[3].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[3].SetActive(false);
+        }
+        if (_currentGoldCount > 40)
+        {
+            _goldEtages[4].SetActive(true);
+        }
+        else
+        {
+            _goldEtages[4].SetActive(false);
+        }
     }
 
     private void NearDeathExperience()
@@ -205,4 +249,17 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateText();
         }
     }
+
+    public void LostGoldStage()
+    {
+        int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
+        print(goldLostValue);
+        if(goldLostValue == 0) { goldLostValue = 10; }
+        _currentGoldCount = _currentGoldCount - goldLostValue;
+        UpdateText();
+
+
+    }
+   
+
 }
