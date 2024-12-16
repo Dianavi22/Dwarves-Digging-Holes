@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         if (!isInMainMenu)
         {
             _eventManager.scrollSpeed = _baseSpeed;
+            _eventManager.rocksWithGoldHealth = _baseSpeed;
+            _eventManager.rocksHealth = _baseSpeed;
             this.Difficulty.ScrollingSpeed = 0;
         }
         yield return new WaitForSeconds(2.5f);

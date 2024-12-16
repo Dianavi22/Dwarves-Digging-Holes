@@ -18,7 +18,8 @@ public class Rock : MonoBehaviour
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
     [SerializeField] Tuto _tuto;
-
+    [SerializeField] EventManager _eventManager;
+    private int _baseHp;
     private Player hitPlayer = null;
 
     private void Awake()
@@ -26,6 +27,7 @@ public class Rock : MonoBehaviour
         _rockCollider = GetComponentInChildren<Collider>();
         _score = FindObjectOfType<Score>();
         _tuto = FindObjectOfType<Tuto>();
+        _eventManager = FindObjectOfType<EventManager>();
     }
 
     public void Hit(Player player)
@@ -59,5 +61,23 @@ public class Rock : MonoBehaviour
         _rockCollider.enabled = false;
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        if (_eventManager.isRockEvent)
+        {
+            EventRock();
+        }
+        else
+        {
+            _healthPoint = _baseHp;
+        }
+    }
+
+    private void EventRock()
+    {
+        _baseHp = _healthPoint;
+        _healthPoint += 1;
     }
 }
