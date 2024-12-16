@@ -21,7 +21,14 @@ public class GoblinWave : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        _rocks.Remove(other.gameObject);
+        try
+        {
+            _rocks.Remove(other.gameObject);
+        }
+        catch
+        {
+            //
+        }
     }
 
     private void Wave()

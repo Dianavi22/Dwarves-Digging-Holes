@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Utils;
@@ -7,6 +8,7 @@ public class Enemy : Entity
 {
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
+    [SerializeField] List<Collider> _collider = new List<Collider>();
 
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
@@ -76,7 +78,10 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
-        this.GetComponentInChildren<Collider>().enabled = false;
+        for (int i = 0; i < _collider.Count; i++)
+        {
+            _collider[i].enabled = false;
+        }
         if (holdBy != null)
         {
             StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
