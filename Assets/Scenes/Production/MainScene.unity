@@ -1244,6 +1244,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1350171885310916765, guid: 3621ffe7910e3460283210536c24c6bc, type: 3}
   m_PrefabInstance: {fileID: 1885485112}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &721283734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3416025391799331258, guid: 71dd2dc14c51fc04386ab30600071b3a, type: 3}
+  m_PrefabInstance: {fileID: 2127139668072522401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &751059648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabList:
-  - {fileID: 4530288849336194290, guid: b6eaf229ec513b441b5523712ddad853, type: 3}
+  - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
   prefabListTest: []
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
@@ -1911,6 +1922,10 @@ PrefabInstance:
       propertyPath: _oneLostPart
       value: 
       objectReference: {fileID: 323299233056145027, guid: 5342f75ea0fb0e14fad79112888a2b39, type: 3}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _lavaPosition
+      value: 
+      objectReference: {fileID: 687599867}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -2838,6 +2853,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1222737240315994372, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2000013864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9167122006342882592, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+  m_PrefabInstance: {fileID: 5198746579383756246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845f3d1180ae0904ca92c351535e586a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2027746481 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7004690741861576819, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -2931,7 +2957,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3327
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -3344,27 +3370,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9167122006342882592, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
-      propertyPath: _lava
-      value: 
-      objectReference: {fileID: 687599869}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4439310256315721046, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
---- !u!114 &5198746579383756247 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9167122006342882592, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
-  m_PrefabInstance: {fileID: 5198746579383756246}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 845f3d1180ae0904ca92c351535e586a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5436758355274485485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3373,9 +3384,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2305859957335798269, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2572176601379811770, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_Name
       value: Lava
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572176601379811770, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3162418925132033664, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029334497058021868, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101682472638323637, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190977056234401473, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501238518804405014, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542482403024737499, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3417,6 +3460,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5442601741662954930, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993662558542159240, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182897746648665752, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: _sc
       value: 
@@ -3432,6 +3487,10 @@ PrefabInstance:
     - target: {fileID: 7387956291186287059, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: _tutoBubble
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8478405002185266689, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3477,7 +3536,7 @@ PrefabInstance:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _introGame
       value: 
-      objectReference: {fileID: 5198746579383756247}
+      objectReference: {fileID: 2000013864}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _lavaLight
       value: 
@@ -3510,6 +3569,10 @@ PrefabInstance:
       propertyPath: _circleTransition
       value: 
       objectReference: {fileID: 1853674622}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: postProcessVolume
+      value: 
+      objectReference: {fileID: 721283734}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: holderPhysicMaterial
       value: 
