@@ -80,19 +80,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void NearDeathExperience() {
         if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out Vignette vignette))
         {
-            StartHeartbeatEffect(vignette);
-        }
-
-    }
-
-    private void StartHeartbeatEffect(Vignette vignette)
-    {
-        if (vignette != null)
-        {
             _nearDeathExperience = AnimSequence.Chariot.NearDeathSequence(vignette);
             _nearDeathExperience.OnKill(() => vignette.intensity.value = 0.35f);
             _nearDeathExperience.SetLoops(-1);
         }
+
     }
 
     private void UpdateText()
