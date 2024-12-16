@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using Utils;
 
 public class PlayerActions : MonoBehaviour
 {
+    private Coroutine swingCoroutine;
+    [SerializeField] private EventReference swingSoundEvent;
+
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
@@ -137,10 +141,22 @@ public class PlayerActions : MonoBehaviour
     public void OnBaseAction(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+        
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) StartAnimation();
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) 
+            {
+                StartAnimation();
+
+                if (!CheckHitRaycast(out var hits) || hits.Count == 0)
+                {
+                    EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+                    RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+                    swingSoundInstance.start();
+                    swingSoundInstance.release();
+                }
+            }
         }
 
         if (context.canceled) //the key has been released
@@ -155,13 +171,43 @@ public class PlayerActions : MonoBehaviour
     public void StartAnimation()
     {
         _animator.SetBool("pickaxeHit", true);
+
+        if (swingCoroutine == null)
+        {
+            swingCoroutine = StartCoroutine(WooshLoop());
+        }
     }
 
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
         _animator.SetBool("pickaxeHit", false);
+
+        if (swingCoroutine != null)
+        {
+            StopCoroutine(swingCoroutine);
+            swingCoroutine = null;
+        }
+
     }
+
+    private IEnumerator WooshLoop()
+    {
+        while (IsBaseActionActivated)
+        {
+            yield return new WaitForSeconds(0.33f);
+
+            if (!CheckHitRaycast(out var hits) || hits.Count == 0)
+            {
+                EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+                RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+                swingSoundInstance.start();
+                swingSoundInstance.release();
+            }
+        }
+        swingCoroutine = null;
+    }
+
 
     private bool CheckHitRaycast(out List<Collider> hits)
     {

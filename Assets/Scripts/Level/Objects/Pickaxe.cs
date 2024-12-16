@@ -1,9 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
+    [SerializeField] private EventReference mineSoundEvent;
+    [SerializeField] private EventReference swingSoundEvent;
+
+
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
@@ -115,11 +121,25 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             HandlePlayerHit(player);
         }
+        else
+        {
+            EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+            RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+            swingSoundInstance.start();
+            swingSoundInstance.release();
+        }
     }
 
     private void HandleRockHit(Rock rock)
     {
         rock.Hit(holdingPlayer);
+
+        EventInstance miningSoundInstance = RuntimeManager.CreateInstance(mineSoundEvent);
+        RuntimeManager.AttachInstanceToGameObject(miningSoundInstance, transform, GetComponent<Rigidbody>());
+        miningSoundInstance.start();
+        miningSoundInstance.release();
+
+
         if (rock.haveGold)
         {
             _hitGoldParts.Play();
