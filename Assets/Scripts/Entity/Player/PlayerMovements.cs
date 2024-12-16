@@ -13,10 +13,8 @@ public class PlayerMovements : EntityMovement
 
     [SerializeField] ParticleSystem _DashPart;
 
-    private float _vertical = 0f;
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
-    private bool _jumpButtonHeld = false;
     public bool flip_vertical = false;
 
     public Action forceDetachFunction;
@@ -32,21 +30,11 @@ public class PlayerMovements : EntityMovement
         GetBase = GetComponent<Player>();
     }
 
-    private new void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        // If low jump, fall faster 
-        // Note: Dunno why but velocity.y on the chariot is > to 0
-        if (!isGrounded && _p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
-            FasterFalling(lowJumpMultiplier);
-    }
-
     protected new void Update()
     {
         base.Update();
 
-        if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
+        if ((_moveInput.y != 0 && !flip_vertical) || (_moveInput.y == 0 && flip_vertical))
         {
             FlipHoldObject();
         }
@@ -82,15 +70,15 @@ public class PlayerMovements : EntityMovement
 
     private void FlipHoldObject()
     {
-        float targetZRotation = -Math.Sign(_vertical) * 35f;
+        float targetZRotation = -Math.Sign(_moveInput.y) * 35f;
 
         if (_p.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
 
         //_p.GetActions().StopAnimation();
         //_p.GetActions().CancelInvoke();
         _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
-        _p.GetActions().vertical = _vertical;
-        flip_vertical = _vertical != 0;
+        _p.GetActions().vertical = _moveInput.y;
+        flip_vertical = _moveInput.y != 0;
     }
 
     #region EVENTS
@@ -98,11 +86,11 @@ public class PlayerMovements : EntityMovement
     {
         Vector2 vector = context.ReadValue<Vector2>();
         float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
-        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
+        float _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
 
         CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
         //Debug.Log(CanMove);
-        Move(_horizontal);
+        Move(new Vector2(_horizontal, _vertical));
 
         if (CanMove && Mathf.Abs(_horizontal) > 0)
         {
@@ -128,13 +116,13 @@ public class PlayerMovements : EntityMovement
             case InputActionPhase.Performed:
                 if (isGrounded && !_isDashing)
                 {
-                    _jumpButtonHeld = true;
+                    IsPerformingJump = true;
                     Jump();
                     _movePart.Stop();
                 }
                 break;
             case InputActionPhase.Canceled:
-                _jumpButtonHeld = false;
+                IsPerformingJump = false;
                 break;
         }
     }
