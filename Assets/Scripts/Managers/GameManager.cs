@@ -115,8 +115,8 @@ public class GameManager : MonoBehaviour
         CurrentScrollingSpeed = 0;
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
+        _lavaLight.DOIntensity(4f, 2f);
         yield return new WaitForSeconds(2);
-        _lavaLight.DOIntensity(4f, 1f);
         if (passTuto && !_tuto.isInTuto)
         {
             SkipTuto();
