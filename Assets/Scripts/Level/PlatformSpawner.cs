@@ -50,6 +50,7 @@ public class PlatformSpawner : MonoBehaviour
         }
         while ((selectedPlatform.blockDifficulty + currentDifficulty) >= maximumDifficulty + 0.2f);
 
+        Debug.Log("Instanciate bloc " + randIndex);
         Instantiate(prefabList[randIndex], new Vector3(spawnPoint.transform.position.x + 2, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
         currentDifficulty += selectedPlatform.blockDifficulty;
     }
