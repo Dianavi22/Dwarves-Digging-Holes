@@ -63,7 +63,7 @@ public class Lava : MonoBehaviour
         if (_isCoolDown)
         {
             _rockFall.Play();
-            TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(2, 0.2f);
+            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
             _lavaCollider.enabled = true;
             _isStartLava = true;
             yield return new WaitForSeconds(2.5f);

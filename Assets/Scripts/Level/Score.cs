@@ -54,7 +54,7 @@ public class Score : MonoBehaviour
     {
         _newRecordText.gameObject.SetActive(true);
         _bestScoreTxt.gameObject.SetActive(false);
-        TargetManager.Instance.GetGameObject<ShakyCame>(Target.ShakyCame).ShakyCameCustom(1, 0.3f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(1, 0.3f);
         _newRecordPart.Play();
     }
 
