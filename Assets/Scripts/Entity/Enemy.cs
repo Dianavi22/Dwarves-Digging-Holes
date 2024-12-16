@@ -8,20 +8,23 @@ using FMODUnity;
 
 public class Enemy : Entity
 {
+    [Header("Sound effect")]
     [SerializeField] private EventReference goblinLaughSound;
     [SerializeField] private EventReference goblinStealingSound;
     [SerializeField] private EventReference goblinDeadSound;
     [SerializeField] private EventReference goblinPeriodicSound;
 
+    [Header("Particle effect")]
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
-    [SerializeField] List<Collider> _collider = new List<Collider>();
+
+    [SerializeField] Tuto _tuto;
 
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
-    [SerializeField] Tuto _tuto;
-    [SerializeField] GameManager _gameManager;
+
+    private GameManager _gameManager;
     private bool _isDead = false;
     public bool IsTouchingChariot
     {
