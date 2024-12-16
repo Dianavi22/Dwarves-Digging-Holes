@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isInMainMenu && _goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
         {
-            StartCoroutine(GameOver(DeathMessage.NoGold));
+            StartCoroutine(GameOver(Message.NoGold));
         }
     }
 
@@ -168,13 +168,13 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
-    public IEnumerator GameOver(DeathMessage deathMessage)
+    public IEnumerator GameOver(Message deathMessage)
     {
         if (!isGameOver)
         {
             StatsManager.Instance.EndGame();
 
-            _textGameOverCondition.text = StringManager.Instance.GetDeathMessage(deathMessage);
+            _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
             _gameOverPart.gameObject.SetActive(true);
             isGameOver = true;
             _goldChariot.HideChariotText();

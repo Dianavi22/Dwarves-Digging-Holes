@@ -113,7 +113,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator EventPickaxe()
     {
-        StartCoroutine(TextEvent("PICKAXE ISSUE!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
@@ -139,7 +139,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator EventGoldChariot()
     {
-        StartCoroutine(TextEvent("TAXE DAY!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
         yield return new WaitForSeconds(0.5f);
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
@@ -152,8 +152,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator LavaGettingClose()
     {
-
-        StartCoroutine(TextEvent("RUN!! LAVAAA"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
         _lavaPartUI.Play();
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
@@ -170,7 +169,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator GoblinWave()
     {
-        StartCoroutine(TextEvent("GOBLIN WAVE!!"));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
         yield return new WaitForSeconds(1);
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.isWave = true;
