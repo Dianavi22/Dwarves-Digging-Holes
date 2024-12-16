@@ -17,6 +17,8 @@ public class MoreGold : MonoBehaviour
     private float spawnForceMin = 10f;
     private float spawnForceMax = 30f;
     private float angleRange = 15f;
+    [SerializeField] ParticleSystem _spawnPart;
+    private bool _partPlay = false;
 
     private bool _canSpawn = true;
 
@@ -48,12 +50,18 @@ public class MoreGold : MonoBehaviour
         go.GetComponent<Collider>().enabled = false;
         go.GetComponent <MoreGold>().gfx.SetActive(false);
         isActive = false;
+        _partPlay = false ;
     }
 
     public void SpawnBlock(GameObject go)
     {
         go.GetComponent<Collider>().enabled = true;
         go.GetComponent<MoreGold>().gfx.SetActive(true);
+        if (!_partPlay)
+        {
+            _partPlay = true;
+            _spawnPart.Play();
+        }
         isActive = true;
 
     }
