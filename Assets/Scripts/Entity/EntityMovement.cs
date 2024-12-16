@@ -65,7 +65,7 @@ public class EntityMovement : MonoBehaviour
         {
             Vector3 velocity = Vector3.zero;
             velocity.y = -2f;
-            velocity.y += -9.81f * Time.deltaTime;
+            velocity.y += Physics.gravity.y * Time.deltaTime;
             RB.AddForce(velocity * Time.deltaTime);
         }
     }

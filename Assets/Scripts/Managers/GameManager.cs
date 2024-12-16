@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     
     private Score _score;
 
+    [SerializeField] LevelCompleteManager _levelCompleteManager;
+
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _levelCompleteManager.StartGame();
         _scoreText.SetActive(true);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
@@ -189,6 +192,26 @@ public class GameManager : MonoBehaviour
             bool newBest = _score.CheckBestScore();
             CurrentScrollingSpeed = 0f;
             EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
+    }
+    
+    public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
+    {
+        if (!isGameOver)
+        {
+            Debug.Log("LevelComplete");
+            isGameOver = true;
+            _goldChariot.HideChariotText();
+            _goldChariot.HideGfx();
+            _eventManager.enabled = false;
+            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
+            levelCompleteManager.blockSpawner.SetActive(false);
+            levelCompleteManager.lavaGFX.SetActive(false);
+            yield return new WaitForSeconds(5.5f);
+            levelCompleteManager.canvas.SetActive(true);
+            CurrentScrollingSpeed = 0f;
+            EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
+            yield return null;
         }
     }
 }

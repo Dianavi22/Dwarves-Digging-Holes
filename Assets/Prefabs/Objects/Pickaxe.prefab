@@ -131,13 +131,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff5c80702a779640a674aae05b8a816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mineSoundEvent:
+    Guid:
+      Data1: -169743164
+      Data2: 1096741032
+      Data3: -1707458895
+      Data4: -677242847
+    Path: event:/SFX/Pickaxe/Mining
+  swingSoundEvent:
+    Guid:
+      Data1: -892129172
+      Data2: 1139827379
+      Data3: 215148678
+      Data4: 14115473
+    Path: event:/SFX/Pickaxe/Swing in the air
   _hitRockParts: {fileID: 459388813842371500}
   _hitGoldParts: {fileID: 4912528635472121466}
   _hitPickaxe: {fileID: 7981846774811726670}
   _breakPickaxe: {fileID: 4043671546489261189}
   _gfx: {fileID: 3064132443434634387}
-  _canvasPickaxe: {fileID: 0}
+  isInTuto: 0
   _tutoTarget: {fileID: 2656352416795162393, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
+  myTarget: {fileID: 0}
 --- !u!1001 &718499954312285746
 PrefabInstance:
   m_ObjectHideFlags: 0
