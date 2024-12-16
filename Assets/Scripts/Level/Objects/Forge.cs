@@ -4,8 +4,6 @@ using UnityEngine;
 public class Forge : MonoBehaviour
 {
     [SerializeField] private Pickaxe pickaxePrefab;
-
-    private Player _player;
     private GameManager _gameManager;
     [SerializeField] private GameObject _bubblePickaxe;
 
@@ -27,29 +25,10 @@ public class Forge : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (UIPauseManager.Instance.isPaused) return;
-        if (_gameManager.CanCreatePickaxe && _player == null && Utils.Component.TryGetInParent<Player>(other, out var player) && !player.HasJoint)
-        {
-            _player = player;
-            Invoke(nameof(BuildPickaxe), 1f);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (_player != null && Utils.Component.TryGetInParent<Player>(other, out _))
-        {
-            _player = null;
-            CancelInvoke();
-        }
-    }
-
-    public void BuildPickaxe()
+    public void BuildPickaxe(PlayerActions _player)
     {
         var _createdPickaxe = Instantiate(pickaxePrefab, transform.position, Quaternion.identity);
         _gameManager.AddPickaxe(_createdPickaxe);
-        _player.GetActions().TryPickUpObject();
+        _player.TryPickUpObject();
     }
 }
