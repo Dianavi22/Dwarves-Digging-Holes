@@ -20,6 +20,7 @@ public class MoreGold : MonoBehaviour
     [SerializeField] ParticleSystem _spawnPart;
     [SerializeField] ParticleSystem _destroyPart;
     private bool _partPlay = false;
+    private bool _partDestroyPlay = true;
 
     private bool _canSpawn = true;
     private ShakyCame _sc;
@@ -33,8 +34,7 @@ public class MoreGold : MonoBehaviour
     {
         if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
         {
-            _sc.ShakyCameCustom(0.3f, 0.5f);
-            _destroyPart.Play();
+
 
             for (int i = 0; i < _goldStage.Count; i++)
             {
@@ -57,9 +57,16 @@ public class MoreGold : MonoBehaviour
     public void DespawnBlock(GameObject go)
     {
         go.GetComponent<Collider>().enabled = false;
-        go.GetComponent <MoreGold>().gfx.SetActive(false);
+        go.GetComponent<MoreGold>().gfx.SetActive(false);
         isActive = false;
-        _partPlay = false ;
+        _partPlay = false;
+        if (!_partDestroyPlay)
+        {
+            _partDestroyPlay = true;
+            _sc.ShakyCameCustom(0.3f, 0.5f);
+            _destroyPart.Play();
+        }
+
     }
 
     public void SpawnBlock(GameObject go)
@@ -72,6 +79,7 @@ public class MoreGold : MonoBehaviour
             _spawnPart.Play();
         }
         isActive = true;
+        _partDestroyPlay = false;
 
     }
 
@@ -87,7 +95,7 @@ public class MoreGold : MonoBehaviour
     {
         if (isSpawn && _canSpawn)
         {
-            isSpawn= false;
+            isSpawn = false;
             StartCoroutine(CdSpawn());
             SpawnPepite();
         }
@@ -101,7 +109,7 @@ public class MoreGold : MonoBehaviour
         _canSpawn = true;
     }
 
-   
+
     public void SpawnObject()
     {
         GameObject spawnedObject = Instantiate(objectPrefab, spawnPoint.position, Quaternion.identity);

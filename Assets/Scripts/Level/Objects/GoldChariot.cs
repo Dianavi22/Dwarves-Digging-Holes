@@ -224,7 +224,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public int goldLostValue;
     public void LostGoldStage()
     {
-        print(goldLostValue);
         goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
         if (goldLostValue == 0) { goldLostValue = 10; }
         if (_currentGoldCount - goldLostValue < 10)
