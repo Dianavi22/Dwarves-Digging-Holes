@@ -241,6 +241,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void LostGoldByRock()
     {
         _currentGoldCount = _currentGoldCount - 5;
+        _eventManager.SpawnPepite(5);
         UpdateText();
     }
 

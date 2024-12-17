@@ -33,7 +33,6 @@ public class EntityMovement : MonoBehaviour
         }
         
         DefineGroundState();
-        HandleGround();
         HandleMovement();
 
         //Much higher gravity if holding down
