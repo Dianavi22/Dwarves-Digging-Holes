@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2752945893467999895}
   - component: {fileID: 4901307179824296338}
   - component: {fileID: 582048765061509571}
+  - component: {fileID: 2775746880329335668}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -79,7 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   isDisableEventManager: 0
+  postProcessVolume: {fileID: 0}
   blockSpawner: {fileID: 0}
+  _lavaLight: {fileID: 0}
   holderPhysicMaterial: {fileID: 0}
   m_DifficultyList:
   - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
@@ -89,7 +92,6 @@ MonoBehaviour:
   _textGameOverCondition: {fileID: 0}
   _gameOverPart: {fileID: 0}
   _introGame: {fileID: 0}
-  _lava: {fileID: 0}
   isGameOver: 0
   isInMainMenu: 0
   _eventManager: {fileID: 0}
@@ -98,7 +100,7 @@ MonoBehaviour:
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
   _circleTransition: {fileID: 0}
-  _score: {fileID: 0}
+  _levelCompleteManager: {fileID: 0}
 --- !u!114 &7177857267881942841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +137,7 @@ MonoBehaviour:
   shakyCame: {fileID: 0}
   typeSentence: {fileID: 0}
   score: {fileID: 0}
+  lava: {fileID: 0}
 --- !u!114 &4901307179824296338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0
+  rocksHealth: 0
+  rocksWithGoldHealth: 0
   _lava: {fileID: 0}
   _showTextPart: {fileID: 0}
   _eventText: {fileID: 0}
@@ -176,3 +181,25 @@ MonoBehaviour:
   _goldChariotPart: {fileID: 0}
   _goldChariotUIPart: {fileID: 0}
   _goblinWave: {fileID: 0}
+  isRockEvent: 0
+--- !u!114 &2775746880329335668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697e28cae49433440834fbac6a88846a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statisticsText:
+  - Key: 0
+    Value: {fileID: 0}
+  - Key: 1
+    Value: {fileID: 0}
+  - Key: 2
+    Value: {fileID: 0}
+  - Key: 3
+    Value: {fileID: 0}
