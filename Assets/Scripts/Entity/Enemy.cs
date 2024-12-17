@@ -174,6 +174,8 @@ public class Enemy : Entity
         LaughSound();
     }
 
+
+    #region Sounds
     private void LaughSound()
     {  
         EventInstance laughInstance = RuntimeManager.CreateInstance(goblinLaughSound);
@@ -205,4 +207,8 @@ public class Enemy : Entity
         deadInstance.start();
         deadInstance.release();
     }
+
+    #endregion
 }
+
+

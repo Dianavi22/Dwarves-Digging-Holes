@@ -101,24 +101,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             HandlePlayerHit(player);
         }
-        else
-        {
-            EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
-            RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
-            swingSoundInstance.start();
-            swingSoundInstance.release();
-        }
     }
 
     private void HandleRockHit(Rock rock)
     {
         rock.Hit(holdingPlayer);
 
-        EventInstance miningSoundInstance = RuntimeManager.CreateInstance(mineSoundEvent);
-        RuntimeManager.AttachInstanceToGameObject(miningSoundInstance, transform, GetComponent<Rigidbody>());
-        miningSoundInstance.start();
-        miningSoundInstance.release();
-
+        MineSound();
 
         if (rock.haveGold)
         {
@@ -159,4 +148,15 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }
+
+    #region Sound
+    private void MineSound()
+    {  
+        EventInstance miningSoundInstance = RuntimeManager.CreateInstance(mineSoundEvent);
+        RuntimeManager.AttachInstanceToGameObject(miningSoundInstance, transform, GetComponent<Rigidbody>());
+        miningSoundInstance.start();
+        miningSoundInstance.release();
+    }
+
+    #endregion
 }
