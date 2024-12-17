@@ -1,44 +1,43 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IGrabbable
 {
-    [Header("Entity Params")]
-    public float recoveryTime = 0.5f;
-
     protected Rigidbody _rb;
+    protected EntityMovement movements;
     public bool IsGrabbed { get; protected set; }
 
     [HideInInspector] public Player holdBy;
-
     [HideInInspector] public FixedJoint Joint;
     public bool HasJoint => Joint != null;
 
     private Tween recoveryTween;
 
+    [HideInInspector] public bool CanMoveAfterGrab = true;
+
     public virtual void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+        IsGrabbed = isGrabbed;
         if (isGrabbed)
         {
             holdBy = currentPlayer;
-            HandleTween();
-            IsGrabbed = isGrabbed;
+            CanMoveAfterGrab = false;
         }
         else
         {
-            HandleTween();
-            recoveryTween = DOVirtual.DelayedCall(recoveryTime, () => { IsGrabbed = isGrabbed; recoveryTween = null; holdBy = null; });
+            StartCoroutine(DefineCanMoveAfterGrab());
         }
-
     }
 
-    private void HandleTween()
+    private IEnumerator DefineCanMoveAfterGrab()
     {
-        if (recoveryTween != null)
+        yield return new WaitForFixedUpdate();
+        while (Mathf.Abs(_rb.velocity.x) - GameManager.Instance.CurrentScrollingSpeed > movements.Stats.VelocityTresholdAfterThrow)
         {
-            recoveryTween.Kill();
-            recoveryTween = null;
+            yield return null;
         }
+        CanMoveAfterGrab = !IsGrabbed; // In case the entity is re grabbed
     }
 
     public virtual void HandleDestroy()
@@ -49,10 +48,12 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     public GameObject GetGameObject() => gameObject;
 
     public Rigidbody GetRigidbody() => _rb;
+    public EntityMovement GetMovement() => movements;
 
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        movements = GetComponent<EntityMovement>();
     }
 
     public void CreateFixedJoin(Rigidbody obj)

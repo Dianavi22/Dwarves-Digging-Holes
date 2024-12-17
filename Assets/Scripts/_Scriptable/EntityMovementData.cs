@@ -30,6 +30,7 @@ public class EntityMovementData : ScriptableObject
 
     [Header("Other Stats")]
     public float DashForce;
+    public float VelocityTresholdAfterThrow;
 
     private void OnValidate()
     {
