@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 510074191}
   - component: {fileID: 510074190}
   m_Layer: 5
-  m_Name: CircleIn
+  m_Name: CircleOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2127,7 +2127,7 @@ GameObject:
   - component: {fileID: 696577187}
   - component: {fileID: 696577188}
   m_Layer: 5
-  m_Name: CircleOut
+  m_Name: CircleIn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2468,7 +2468,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   isDisableEventManager: 1
+  postProcessVolume: {fileID: 0}
   blockSpawner: {fileID: 0}
+  _lavaLight: {fileID: 0}
   holderPhysicMaterial: {fileID: 13400000, guid: 330616e083dfca646a4dfe403bd03c3a, type: 2}
   m_DifficultyList:
   - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
@@ -2478,8 +2480,6 @@ MonoBehaviour:
   _textGameOverCondition: {fileID: 0}
   _gameOverPart: {fileID: 0}
   _introGame: {fileID: 0}
-  _lava: {fileID: 0}
-  _sc: {fileID: 0}
   isGameOver: 0
   isInMainMenu: 1
   _eventManager: {fileID: 0}
@@ -2488,7 +2488,7 @@ MonoBehaviour:
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
   _circleTransition: {fileID: 510074189}
-  _score: {fileID: 0}
+  _levelCompleteManager: {fileID: 0}
 --- !u!1 &845407862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,6 +3957,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3966632210961684270, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4013223740042579975, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3991,17 +3995,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2416069139183362151, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1741483594}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
---- !u!4 &1570739719 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2416069139183362151, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
-  m_PrefabInstance: {fileID: 1570739718}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1616540134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4721,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1570739719}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5358247605217734395, guid: a55fd8da4380405478de802545c0b35e, type: 3}
       propertyPath: m_LocalScale.x
@@ -4792,11 +4788,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a55fd8da4380405478de802545c0b35e, type: 3}
---- !u!4 &1741483594 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5358247605217734395, guid: a55fd8da4380405478de802545c0b35e, type: 3}
-  m_PrefabInstance: {fileID: 1741483593}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1755792335
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,3 +5514,4 @@ SceneRoots:
   - {fileID: 342309451}
   - {fileID: 624566578}
   - {fileID: 1308611478}
+  - {fileID: 1741483593}
