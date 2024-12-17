@@ -26,6 +26,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
+    [SerializeField] EventManager _eventManager;
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -215,6 +216,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         else
         {
             _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
+            _eventManager.SpawnPepite(_currentGoldCount);
             UpdateText();
         }
     }
