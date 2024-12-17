@@ -2430,6 +2430,11 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4288338710822261411, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1727161786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3227137274779561242, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+  m_PrefabInstance: {fileID: 1393171042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1748244956 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3021991548114562397, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
@@ -3751,6 +3756,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 687599867}
     - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _nugget
+      value: 
+      objectReference: {fileID: 6300461437630616702, guid: f231daa3c6cb7ed48b41fcbd5b6163c8, type: 3}
+    - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _lavaRain
       value: 
       objectReference: {fileID: 1061910991}
@@ -3766,6 +3775,10 @@ PrefabInstance:
       propertyPath: _lavaPartUI
       value: 
       objectReference: {fileID: 1847977602}
+    - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _spawnNugget
+      value: 
+      objectReference: {fileID: 1727161786}
     - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _showTextPart
       value: 
