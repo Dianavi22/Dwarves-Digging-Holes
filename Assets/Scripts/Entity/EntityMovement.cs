@@ -6,13 +6,13 @@ public class EntityMovement : MonoBehaviour
 {
     [HideInInspector] public bool canFlip = true;
 
-    protected bool isGrounded;
+    [HideInInspector] public bool isGrounded;
     protected bool flip;
 
     protected bool IsPerformingJump = false;
     protected bool CanMove = true;
     protected Entity GetBase;
-    protected EntityMovementData Stats;
+    public EntityMovementData Stats;
 
     protected Vector2 _moveInput;
 
@@ -68,7 +68,7 @@ public class EntityMovement : MonoBehaviour
 
     protected void HandleMovement()
     {
-        if (!CanMove) return;
+        if (!CanMove || !GetBase.CanMoveAfterGrab) return;
 
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = _moveInput.x * Stats.RunMaxSpeed;

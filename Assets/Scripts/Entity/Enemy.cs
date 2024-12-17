@@ -26,7 +26,6 @@ public class Enemy : Entity
 
     [SerializeField] List<Collider> _colliders;
 
-    private GameManager _gameManager;
     private bool _isDead = false;
     public bool IsTouchingChariot
     {
@@ -43,13 +42,12 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _tuto = FindAnyObjectByType<Tuto>();
-        _gameManager = GameManager.Instance;
     }
 
     private void Start()
     {
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         StartCoroutine(PlayGoblinLaughWithDelay());
         StartCoroutine(PeriodicSoundLoop());
     }
@@ -159,7 +157,7 @@ public class Enemy : Entity
         if(_tuto.isTakeEnemy)
         {
             _tuto.StopTuto();
-            _gameManager.SkipTuto();
+            GameManager.Instance.SkipTuto();
         }
         
         StartCoroutine(DestroyByLava());
