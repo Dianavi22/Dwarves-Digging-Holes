@@ -221,4 +221,8 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public void SetScrollingSpeed(float value) {
+        CurrentScrollingSpeed = value;
+    }
 }
