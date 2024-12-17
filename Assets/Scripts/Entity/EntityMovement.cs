@@ -24,6 +24,13 @@ public class EntityMovement : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        if (GameManager.Instance.isGameOver)
+        {
+            RB.velocity = Vector3.zero;
+            RB.angularVelocity = Vector3.zero;
+            RB.isKinematic = true;
+        }
+        
         HandleGround();
         HandleMovement();
         if(!isGrounded && RB.velocity.y < 0) FasterFalling(Stats.FallMultiplier);
