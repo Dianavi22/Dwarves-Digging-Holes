@@ -11,6 +11,17 @@ using System;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
+    [Header("Sound effect")]
+    [SerializeField] private EventReference chariotSound;
+    [SerializeField] private EventReference chariotSound2;
+    private EventInstance _chariotEventInstance;
+    private EventInstance _chariotEventInstance2;
+    private bool _isSoundPlaying = false;
+    private float currentVolume = 0f;
+    private float targetVolume = 0f;
+    [SerializeField] private float fadeTime = 0.2f;
+
+
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
@@ -19,10 +30,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _gfx;
     [SerializeField] Tuto _tuto;
     [SerializeField] List<GameObject> _goldEtages;
-    [SerializeField] private EventReference chariotSound;
 
-    private bool _isSoundPlaying = false;
-    private EventInstance _chariotEventInstance;
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
@@ -58,15 +66,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        if (_rb.velocity.x > 0)
-        {
+        ChariotSound();
 
-            PlayChariotSound();
-        }
-        else
-        {
-            PauseChariotSound();
-        }
+
         if (Vector3.Distance(transform.position, _lavaPosition.transform.position) - 4 < 5 || GoldCount <= 3)
         {
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
@@ -96,8 +98,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
             }
         }
-
-       
     }
 
     private void NearDeathExperience()
@@ -141,46 +141,73 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
-    #region SFX
-    private void PlayChariotSound()
+    #region Sound
+    public void ChariotSound()
     {
-        if (!_isSoundPlaying)
+        float speed = Mathf.Abs(_rb.velocity.x);
+
+        Debug.Log("currentVolume : " + currentVolume);
+        Debug.Log("speed : " + speed);
+
+        if (speed > 0.5f)
         {
-            if (!_chariotEventInstance.isValid())
+            if (!_isSoundPlaying)
             {
-                _chariotEventInstance = RuntimeManager.CreateInstance(chariotSound);
-                _chariotEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
-                _chariotEventInstance.start();
-            }
-            else
-            {
-                StartCoroutine(Sound.UnpauseWithFade(_chariotEventInstance, 0.1f));
+                if (!_chariotEventInstance.isValid())
+                {
+                    _chariotEventInstance = RuntimeManager.CreateInstance(chariotSound);
+                    _chariotEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+                    _chariotEventInstance.start();
+
+                    _chariotEventInstance2 = RuntimeManager.CreateInstance(chariotSound2);
+                    _chariotEventInstance2.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+                    _chariotEventInstance2.start();
+                }
+                else
+                {
+                    _chariotEventInstance.setPaused(false);
+                    _chariotEventInstance2.setPaused(false);
+                }
+
+                _isSoundPlaying = true;
             }
 
-            _isSoundPlaying = true;
+            targetVolume = (speed - 0.5f) / (4f - 0.5f);
         }
-    }
-    public void PauseChariotSound()
-    {
-        if (_isSoundPlaying)
+        else
         {
-            FMOD.RESULT result = _chariotEventInstance.getPaused(out bool isPaused);
-            if (result == FMOD.RESULT.OK && !isPaused)
+            targetVolume = 0f;
+        }
+
+        if (_chariotEventInstance.isValid())
+        {
+            currentVolume = Mathf.MoveTowards(currentVolume, targetVolume, Time.deltaTime * (1f / fadeTime));
+            _chariotEventInstance.setParameterByName("Volume", currentVolume);
+            _chariotEventInstance2.setParameterByName("Volume", currentVolume);
+
+            if (currentVolume == 0f && _isSoundPlaying)
             {
-                StartCoroutine(Sound.PauseWithFade(_chariotEventInstance, 0.1f));
+                _chariotEventInstance.setPaused(true);
+                _chariotEventInstance2.setPaused(true);
                 _isSoundPlaying = false;
             }
         }
+
     }
+
     public void StopChariotSound()
     {
         if (_chariotEventInstance.isValid())
         {
             _chariotEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             _chariotEventInstance.release();
+
+            _chariotEventInstance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _chariotEventInstance2.release();
             _isSoundPlaying = false;
         }
     }
+
     #endregion
 
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
