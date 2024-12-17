@@ -18,15 +18,24 @@ public class MoreGold : MonoBehaviour
     private float spawnForceMax = 30f;
     private float angleRange = 15f;
     [SerializeField] ParticleSystem _spawnPart;
+    [SerializeField] ParticleSystem _destroyPart;
     private bool _partPlay = false;
 
     private bool _canSpawn = true;
+    private ShakyCame _sc;
 
+
+    private void Start()
+    {
+        _sc = FindObjectOfType<ShakyCame>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
         {
-            
+            _sc.ShakyCameCustom(0.3f, 0.5f);
+            _destroyPart.Play();
+
             for (int i = 0; i < _goldStage.Count; i++)
             {
                 if (i >= _idGoldPart && _goldStage[i].GetComponent<MoreGold>().isActive)

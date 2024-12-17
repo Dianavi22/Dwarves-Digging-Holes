@@ -24,5 +24,11 @@ public class Pepite : MonoBehaviour
             _isDestroy = true;
             Destroy(gameObject);
         }
+
+        if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
+        {
+            _isDestroy = true;
+            Destroy(gameObject);
+        }
     }
 }
