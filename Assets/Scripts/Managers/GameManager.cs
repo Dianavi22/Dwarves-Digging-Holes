@@ -109,10 +109,16 @@ public class GameManager : MonoBehaviour
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
         if (!isInMainMenu) GameStarted();
+
+        if (!isInMainMenu)
+        {
+            _score = TargetManager.Instance.GetGameObject<Score>();
+        }
         _circleTransition.SetActive(true);
 
-        _score = TargetManager.Instance.GetGameObject<Score>();
     }
+
+  
 
     private IEnumerator StartParty()
     {

@@ -23,21 +23,24 @@ public class Rock : MonoBehaviour
     private Player hitPlayer = null;
 
     private void Awake()
-    {       
+    {
         _rockCollider = GetComponentInChildren<Collider>();
-        _tuto = FindObjectOfType<Tuto>();
         _eventManager = FindObjectOfType<EventManager>();
         _spawnGold = this.transform;
+        _tuto = FindObjectOfType<Tuto>();
     }
 
     private void Start()
     {
-        _score = TargetManager.Instance.GetGameObject<Score>();
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            _score = TargetManager.Instance.GetGameObject<Score>();
+        }
     }
 
     public void Hit(Player player)
     {
-        if(hitPlayer != player) hitPlayer = player;
+        if (hitPlayer != player) hitPlayer = player;
 
         _healthPoint -= 1;
         if (_healthPoint <= 0)
@@ -58,7 +61,7 @@ public class Rock : MonoBehaviour
             _score.ScoreCounter += _goldScore;
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
             if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 5);
-       
+
         }
 
         _breakRockParticule.Play();
@@ -70,14 +73,18 @@ public class Rock : MonoBehaviour
 
     private void Update()
     {
-        if (_eventManager.isRockEvent)
+        if (!GameManager.Instance.isInMainMenu)
         {
-            EventRock();
+            if (_eventManager.isRockEvent)
+            {
+                EventRock();
+            }
+            else
+            {
+                _healthPoint = _baseHp;
+            }
         }
-        else
-        {
-            _healthPoint = _baseHp;
-        }
+
     }
 
     private void EventRock()
