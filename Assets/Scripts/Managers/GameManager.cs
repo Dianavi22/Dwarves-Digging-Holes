@@ -109,10 +109,16 @@ public class GameManager : MonoBehaviour
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
         if (!isInMainMenu) GameStarted();
+
+        if (!isInMainMenu)
+        {
+            _score = TargetManager.Instance.GetGameObject<Score>();
+        }
         _circleTransition.SetActive(true);
 
-        _score = TargetManager.Instance.GetGameObject<Score>();
     }
+
+  
 
     private IEnumerator StartParty()
     {
@@ -124,6 +130,7 @@ public class GameManager : MonoBehaviour
         if (passTuto && !_tuto.isInTuto)
         {
             SkipTuto();
+            StartCoroutine(StartGame());
         }
         else
         {
@@ -137,7 +144,6 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _skipTuto.SetActive(false);
-        StartCoroutine(StartGame());
     }
 
     public IEnumerator StartGame()
@@ -146,7 +152,8 @@ public class GameManager : MonoBehaviour
         _scoreText.SetActive(true);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
-        Invoke(nameof(InitPlatformSpawner), 3f);
+        //Invoke(nameof(InitPlatformSpawner), 3f);
+        blockSpawner.SpawnPlatform();
         CurrentScrollingSpeed = this.Difficulty.ScrollingSpeed;
         yield return new WaitForSeconds(70);
         _eventManager.LaunchEvent();

@@ -8,7 +8,7 @@ public static class AnimSequence
 {
     public static class Chariot
     {
-        public static Sequence NearDeathSequence(Vignette vignette)
+        public static Sequence NearDeathSequenceVignette(Vignette vignette)
         {
             return DOTween.Sequence()
                 .Append(
@@ -43,6 +43,23 @@ public static class AnimSequence
                         0.2f
                     ).SetEase(Ease.OutQuad)
                 );
+        }
+        public static Sequence NearDeathSequenceColorGrading(ColorGrading colorGrading)
+        {
+            return DOTween.Sequence().Append(DOTween.To(
+                () => colorGrading.temperature.value,
+                x => colorGrading.temperature.value = x,
+                75f,
+                0.5f
+            ).SetEase(Ease.InQuart))
+            .OnKill(() =>
+            {
+                DOTween.To(
+                        () => colorGrading.temperature.value,
+                        x => colorGrading.temperature.value = x,
+                        10f,
+                        0.5f).SetEase(Ease.OutQuad);
+            }).SetAutoKill(false);
         }
     }
 }

@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf0b954d17935e4287836b5ad63d606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdBy: {fileID: 0}
   recoveryTime: 0.5
+  holdBy: {fileID: 0}
   Joint: {fileID: 0}
   goblinLaughSound:
     Guid:
@@ -85,11 +85,12 @@ MonoBehaviour:
     Path: event:/SFX/Goblins/Mouth noises
   _destroyGobPart: {fileID: 3691073475203754240}
   _gfx: {fileID: 2798564475521369069}
+  _tuto: {fileID: 0}
   _goldChariot: {fileID: 0}
   canSteal: 1
-  _tuto: {fileID: 0}
-  _gameManager: {fileID: 0}
-  _lava: {fileID: 0}
+  _colliders:
+  - {fileID: 6569176779758444608}
+  - {fileID: 4528714144444697031}
 --- !u!114 &-8380652321116023633
 MonoBehaviour:
   m_ObjectHideFlags: 0

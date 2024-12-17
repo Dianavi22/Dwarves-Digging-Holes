@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using Utils;
@@ -7,19 +8,25 @@ using FMODUnity;
 
 public class Enemy : Entity
 {
+    [Header("Sound effect")]
     [SerializeField] private EventReference goblinLaughSound;
     [SerializeField] private EventReference goblinStealingSound;
     [SerializeField] private EventReference goblinDeadSound;
     [SerializeField] private EventReference goblinPeriodicSound;
 
+    [Header("Particle effect")]
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
+
+    [SerializeField] Tuto _tuto;
 
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
-    [SerializeField] Tuto _tuto;
-    [SerializeField] GameManager _gameManager;
+
+    [SerializeField] List<Collider> _colliders;
+
+    private GameManager _gameManager;
     private bool _isDead = false;
     public bool IsTouchingChariot
     {
@@ -105,7 +112,10 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
-        this.GetComponentInChildren<Collider>().enabled = false;
+        for (int i = 0; i < _colliders.Count; i++)
+        {
+            _colliders[i].enabled = false;
+        }
 
         if (holdBy != null)
         {

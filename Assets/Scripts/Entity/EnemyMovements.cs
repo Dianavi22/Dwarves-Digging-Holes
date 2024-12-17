@@ -1,13 +1,11 @@
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 
 public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
     Enemy _e => (Enemy)GetBase;
-    private bool canJump = true;
-
-    private bool hitWall = false;
 
     void Awake()
     {
@@ -32,15 +30,20 @@ public class EnemyMovements : EntityMovement
 
             OnMove();
 
-            if (isGrounded)
+            bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+
+            if (hitWall)
             {
-                hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
-                if (hitWall && canJump)
+                if (isGrounded)
                 {
-                    SetCanJump();
-                    Invoke(nameof(SetCanJump), 0.25f);
+                    IsPerformingJump = true;
                     Jump();
                 }
+            }
+            // If it also hit a wall while jumping, it will do a long jump
+            else if((!hitWall || GetBase.GetRigidbody().velocity.y < 0) && IsPerformingJump)
+            {
+                IsPerformingJump = false;
             }
 
             //lost Gold function
@@ -59,10 +62,6 @@ public class EnemyMovements : EntityMovement
             _horizontal = 0f;
 
         CanMove = !_e.IsTouchingChariot;
-        Move(_horizontal);
-    }
-
-    private void SetCanJump() {
-        canJump = !canJump;
+        Move(_horizontal * Vector2.right);
     }
 }

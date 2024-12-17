@@ -9,11 +9,12 @@ public class EntityMovement : MonoBehaviour
     protected bool isGrounded;
     protected bool flip;
 
+    protected bool IsPerformingJump = false;
     protected bool CanMove = true;
     protected Entity GetBase;
     protected EntityMovementData Stats;
 
-    private float horizontalInput;
+    protected Vector2 _moveInput;
 
     private Rigidbody RB => GetBase.GetRigidbody();
 
@@ -31,9 +32,29 @@ public class EntityMovement : MonoBehaviour
             RB.isKinematic = true;
         }
         
+        DefineGroundState();
         HandleGround();
         HandleMovement();
-        if(!isGrounded && RB.velocity.y < 0) FasterFalling(Stats.FallMultiplier);
+
+        //Much higher gravity if holding down
+        if (!isGrounded && RB.velocity.y < 0 && _moveInput.y < 0)
+            GravityScaler(Stats.FastFalling);
+
+        // If low jump, fall faster 
+        // Note: Dunno why but velocity.y on the chariot is > to 0
+        else if (!isGrounded && RB.velocity.y > 0 && !IsPerformingJump)
+            GravityScaler(Stats.JumpCut);
+
+        //Reducing Gravity when reaching the apex of the jump
+        else if (Mathf.Abs(RB.velocity.y) < Stats.JumpHangTimeTreshold)
+            GravityScaler(Stats.JumpHangAir);
+
+        //Simple falling
+        else if (RB.velocity.y < 0)
+            GravityScaler(Stats.BasicFalling);
+
+        else
+            GravityScaler(1f);
     }
 
     protected void Update()
@@ -41,12 +62,17 @@ public class EntityMovement : MonoBehaviour
         HandleFlip();
     }
 
+    protected void GravityScaler(float multiplier)
+    {
+        RB.AddForce(Physics.gravity.y * multiplier * Vector3.up);
+    }
+
     protected void HandleMovement()
     {
         if (!CanMove) return;
 
         //Calculate the direction we want to move in and our desired velocity
-        float targetSpeed = horizontalInput * Stats.RunMaxSpeed;
+        float targetSpeed = _moveInput.x * Stats.RunMaxSpeed;
 
         //Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - RB.velocity.x;
@@ -65,27 +91,16 @@ public class EntityMovement : MonoBehaviour
             RB.AddForce(movement * Vector3.right);
     }
 
-    protected void HandleGround() {
+    private void DefineGroundState()
+    {
         List<Collider> hits = DRayCast.Cone(transform.position, Vector3.down, 27.5f, 1.1f, 3, ~0);
         isGrounded = hits.Count > 0;
-        if (!isGrounded)
-        {
-            Vector3 velocity = Vector3.zero;
-            velocity.y = -2f;
-            velocity.y += Physics.gravity.y * Time.deltaTime;
-            RB.AddForce(velocity * Time.deltaTime);
-        }
-    }
-
-    protected void FasterFalling(float multiplier)
-    {
-        RB.AddForce(Physics.gravity.y * multiplier * Vector3.up);
     }
 
     private void HandleFlip()
     {
         if (GameManager.Instance.isGameOver) return;
-        if ((horizontalInput < 0 && flip && canFlip) || (horizontalInput > 0 && !flip && canFlip))
+        if ((_moveInput.x < 0 && flip && canFlip) || (_moveInput.x > 0 && !flip && canFlip))
         {
             flip = !flip;
             transform.rotation = Quaternion.Euler(0, flip ? 180 : 0, 0);
@@ -93,9 +108,9 @@ public class EntityMovement : MonoBehaviour
     }
 
     #region Movement Action
-    public void Move(float horizontal)
+    public void Move(Vector2 movementInput)
     {
-        horizontalInput = horizontal;
+        _moveInput = movementInput;
     }
 
     public void Jump()
@@ -117,9 +132,4 @@ public class EntityMovement : MonoBehaviour
         RB.AddForce(dashDirection * force, ForceMode.Impulse);
     }
     #endregion
-
-    private void OnDrawGizmos()
-    {
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.1f);
-    }
 }

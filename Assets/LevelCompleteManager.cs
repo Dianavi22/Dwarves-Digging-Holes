@@ -25,7 +25,7 @@ public class LevelCompleteManager : MonoBehaviour
         if (gameIsStarted)
         {
             elapsedTime += Time.deltaTime;
-            Debug.Log("progress: " + Mathf.Round(elapsedTime/levelDuration * 100) + "%");
+           // Debug.Log("progress: " + Mathf.Round(elapsedTime/levelDuration * 100) + "%");
             
             if (elapsedTime >= levelDuration || Input.GetKeyDown(KeyCode.T))
             {

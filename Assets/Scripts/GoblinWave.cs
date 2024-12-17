@@ -8,20 +8,34 @@ public class GoblinWave : MonoBehaviour
 
     [SerializeField] GameObject _gob;
     [SerializeField] GameObject _spawn;
-    private List<GameObject> _rocks;
-    [HideInInspector] public bool isWave;
+    [SerializeField] List<GameObject> _rocks;
+     public bool isWave;
     private void OnTriggerEnter(Collider other)
     {
 
         if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            _rocks.Add(other.gameObject);
+            try
+            {
+                _rocks.Add(other.gameObject);
+            }
+            catch
+            {
+                //
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _rocks.Remove(other.gameObject);
+        try
+        {
+            _rocks.Remove(other.gameObject);
+        }
+        catch
+        {
+            //
+        }
     }
 
     private void Wave()

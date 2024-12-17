@@ -9,6 +9,9 @@ public class EventManager : MonoBehaviour
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
     private ShakyCame _sc;
+    public float scrollSpeed;
+    public float rocksHealth;
+    public float rocksWithGoldHealth;
     [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
@@ -25,6 +28,14 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _goldChariotUIPart;
 
     [SerializeField] GoblinWave _goblinWave;
+
+    [SerializeField] GameObject _nugget;
+    [SerializeField] GameObject _spawnNugget;
+    public bool  isRockEvent = false;
+
+    private float spawnForceMin = 10f;
+    private float spawnForceMax = 30f;
+    private float angleRange = 15f;
 
     void Start()
     {
@@ -73,8 +84,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 4));
-        //ChooseEvent(4);
+        //ChooseEvent(Random.Range(0, 4));
+        ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -83,6 +94,7 @@ public class EventManager : MonoBehaviour
     //Event 2 : if gold is > 10 : gold/2
     //Event 3 : Lava getting close
     //Event 4 : Too many goblins
+    //Event 5 : Unbreackables Rocks
 
     private void ChooseEvent(int i)
     {
@@ -103,6 +115,7 @@ public class EventManager : MonoBehaviour
         {
             StartCoroutine(GoblinWave());
         }
+       
         else
         {
             //
@@ -173,5 +186,51 @@ public class EventManager : MonoBehaviour
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.isWave = true;
 
+    }
+
+    private IEnumerator DurabilityRocks()
+    {
+        StartCoroutine(TextEvent("Durability Rocks"));
+        yield return new WaitForSeconds(1);
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        isRockEvent = true;
+        yield return new WaitForSeconds(10);
+        isRockEvent = false;
+
+
+    }
+
+
+    public void SpawnPepite(int nbNugget)
+    {
+        for (int i = 0; i <= nbNugget; i++)
+        {
+            SpawnObject();
+        }
+    }
+
+    public void SpawnObject()
+    {
+        GameObject spawnedObject = Instantiate(_nugget, _spawnNugget.transform.position, Quaternion.identity);
+
+        Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = GetRandomDirectionInCone(_spawnNugget.transform.forward, angleRange);
+            rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
+        }
+    }
+
+    private Vector3 GetRandomDirectionInCone(Vector3 forward, float angleRange)
+    {
+        float angleInRad = angleRange;
+
+        float randomHorizontalAngle = Random.Range(-angleInRad, angleInRad);
+        float randomVerticalAngle = Random.Range(0, angleInRad);
+
+        Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
+        Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
+
+        return (horizontalRotation * verticalRotation) * forward;
     }
 }
