@@ -7,6 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 using Utils;
 using DG.Tweening;
 using System.Linq;
+using System;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
@@ -43,11 +44,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         get => _currentGoldCount;
         set
         {
-            if (_currentGoldCount > 0)
-            {
-                _currentGoldCount = value;
-                UpdateText();
-            }
+            _currentGoldCount = Math.Max(0, value);
+            UpdateText();
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
