@@ -81,6 +81,8 @@ public class PlayerMovements : EntityMovement
     #region EVENTS
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!CanDoAnything()) return;
+
         Vector2 vector = context.ReadValue<Vector2>();
         float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
         float _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
@@ -102,8 +104,8 @@ public class PlayerMovements : EntityMovement
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!GameManager.Instance.isInMainMenu && UIPauseManager.Instance.isPaused) return;
-
+        if (!CanDoAnything()) return;
+        
         if (_p.IsGrabbed)
         {
             forceDetachFunction?.Invoke();
@@ -125,6 +127,8 @@ public class PlayerMovements : EntityMovement
     }
     public void OnDash(InputAction.CallbackContext _)
     {
+        if (!CanDoAnything()) return;
+
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
         _isDashing = true;
@@ -146,5 +150,10 @@ public class PlayerMovements : EntityMovement
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
+    }
+
+    private bool CanDoAnything()
+    {
+        return !GameManager.Instance.isGameOver && !GameManager.Instance.isInMainMenu && !UIPauseManager.Instance.isPaused;
     }
 }

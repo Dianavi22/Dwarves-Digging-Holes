@@ -16,6 +16,8 @@ public class Score : MonoBehaviour
     [SerializeField] TMP_Text _newRecordText;
     [SerializeField] ParticleSystem _newRecordPart;
 
+    private int scoreNextStep = 200;
+
     private int score = 0;
     public int ScoreCounter
     {
@@ -61,6 +63,11 @@ public class Score : MonoBehaviour
     private void AddScoreTimer()
     {
         ScoreCounter += scoreToAddTimer;
+        if (ScoreCounter >= scoreNextStep)
+        {
+           GameManager.Instance.SetScrollingSpeed(GameManager.Instance.CurrentScrollingSpeed + 0.1f);
+            scoreNextStep += 200;
+        }
     }
 
     public bool CheckBestScore()

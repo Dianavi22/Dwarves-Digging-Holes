@@ -25,17 +25,18 @@ public class MoreGold : MonoBehaviour
     private bool _canSpawn = true;
     private ShakyCame _sc;
 
+    public GameObject myPlateform;
+
 
     private void Start()
     {
         _sc = FindObjectOfType<ShakyCame>();
     }
-    private void OnCollisionEnter(Collision collision)
+  
+    private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
+        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-
-
             for (int i = 0; i < _goldStage.Count; i++)
             {
                 if (i >= _idGoldPart && _goldStage[i].GetComponent<MoreGold>().isActive)
@@ -44,19 +45,16 @@ public class MoreGold : MonoBehaviour
                     _gc.LostGoldStage();
                     _nbPepites = _gc.goldLostValue;
                     _goldStage[i].GetComponent<MoreGold>().isSpawn = true;
-
-
                 }
-
             }
             DespawnBlock(gameObject);
-
         }
     }
 
     public void DespawnBlock(GameObject go)
     {
         go.GetComponent<Collider>().enabled = false;
+        go.GetComponent<MoreGold>().myPlateform.SetActive(false);
         go.GetComponent<MoreGold>().gfx.SetActive(false);
         isActive = false;
         _partPlay = false;
@@ -72,6 +70,7 @@ public class MoreGold : MonoBehaviour
     public void SpawnBlock(GameObject go)
     {
         go.GetComponent<Collider>().enabled = true;
+        go.GetComponent<MoreGold>().myPlateform.SetActive(true);
         go.GetComponent<MoreGold>().gfx.SetActive(true);
         if (!_partPlay)
         {
