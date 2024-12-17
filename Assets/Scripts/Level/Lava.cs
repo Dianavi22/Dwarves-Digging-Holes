@@ -74,6 +74,7 @@ public class Lava : MonoBehaviour
         
     }
 
+    #region Sound
     private void PlayLavaSound()
     {
         if (!_lavaEventInstance.isValid())
@@ -102,4 +103,7 @@ public class Lava : MonoBehaviour
     {
         StopLavaSound();
     }
+
+    #endregion
+    
 }

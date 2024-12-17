@@ -172,10 +172,7 @@ public class PlayerActions : MonoBehaviour
 
                 if (!CheckHitRaycast(out var hits) || hits.Count == 0)
                 {
-                    EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
-                    RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
-                    swingSoundInstance.start();
-                    swingSoundInstance.release();
+                    SwingSound();
                 }
             }
         }
@@ -226,10 +223,7 @@ public class PlayerActions : MonoBehaviour
 
             if (!CheckHitRaycast(out var hits) || hits.Count == 0)
             {
-                EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
-                RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
-                swingSoundInstance.start();
-                swingSoundInstance.release();
+                SwingSound();
             }
         }
         swingCoroutine = null;
@@ -446,4 +440,15 @@ public class PlayerActions : MonoBehaviour
         _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y + 0.3f, _scale.localScale.z);
         isTaunt = false;
     }
+
+    #region Sound
+    private void SwingSound()
+    {  
+        EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
+        RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
+        swingSoundInstance.start();
+        swingSoundInstance.release();
+    }
+
+    #endregion
 }
