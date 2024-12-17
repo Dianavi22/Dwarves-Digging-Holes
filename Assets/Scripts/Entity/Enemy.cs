@@ -24,6 +24,8 @@ public class Enemy : Entity
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
 
+    [SerializeField] List<Collider> _colliders;
+
     private GameManager _gameManager;
     private bool _isDead = false;
     public bool IsTouchingChariot
@@ -110,7 +112,10 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
-        this.GetComponentInChildren<Collider>().enabled = false;
+        for (int i = 0; i < _colliders.Count; i++)
+        {
+            _colliders[i].enabled = false;
+        }
 
         if (holdBy != null)
         {

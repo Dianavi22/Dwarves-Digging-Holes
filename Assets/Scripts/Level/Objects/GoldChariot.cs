@@ -86,8 +86,19 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         for (int i = 0; i < _goldEtages.Count; i++)
         {
-            _goldEtages[i].SetActive(_currentGoldCount > (i + 1) * 10);
+            if(_currentGoldCount > (i + 1) * 10)
+            {
+                _goldEtages[i].GetComponent<MoreGold>().SpawnBlock(_goldEtages[i]);
+
+            }
+            else
+            {
+                _goldEtages[i].GetComponent<MoreGold>().DespawnBlock(_goldEtages[i]);
+
+            }
         }
+
+       
     }
 
     private void NearDeathExperience()
@@ -96,7 +107,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out ColorGrading colorGrading))
         {
             Sequence _nearDeathExperienceColorGrading = AnimSequence.Chariot.NearDeathSequenceColorGrading(colorGrading);
-            
+
             _nearDeathExperienceSequence.Add(_nearDeathExperienceColorGrading);
         }
 
@@ -210,25 +221,34 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
+    public int goldLostValue;
     public void LostGoldStage()
     {
-        int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
-        print(goldLostValue);
-        if(goldLostValue == 0) { goldLostValue = 10; }
-        _currentGoldCount = _currentGoldCount - goldLostValue;
+        goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
+        if (goldLostValue == 0) { goldLostValue = 10; }
+        if (_currentGoldCount - goldLostValue < 10)
+        {
+            _currentGoldCount = 10;
+        }
+        else
+        {
+            _currentGoldCount = _currentGoldCount - goldLostValue;
+        }
         UpdateText();
-
-
     }
+   
 
     public void LostGoldByRock()
     {
-        
         _currentGoldCount = _currentGoldCount - 5;
         UpdateText();
-
-
     }
 
+    public void AddGoldPepite()
+    {
+        _currentGoldCount = _currentGoldCount + 1;
+        UpdateText();
+    }
 
+   
 }
