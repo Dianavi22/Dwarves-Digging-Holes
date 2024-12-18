@@ -24,6 +24,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
+    [SerializeField] private ParticleSystem _sparksPart;
 
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
@@ -33,6 +34,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private Rigidbody _rb;
     [SerializeField] EventManager _eventManager;
+    private bool _isPlayed = false;
+
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -71,10 +74,20 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
+            if (!_isPlayed)
+            {
+                _isPlayed = true;
+                _sparksPart.Play();
+
+            }
+            print("HERE");
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
         else
         {
+            _isPlayed = false;
+            _sparksPart.Stop();
+
             if (_nearDeathExperienceSequence.Any())
             {
                 foreach (Sequence item in _nearDeathExperienceSequence)
