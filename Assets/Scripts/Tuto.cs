@@ -32,31 +32,36 @@ public class Tuto : MonoBehaviour
 
     void Update()
     {
-        if (startTuto)
+        if (isInTuto)
         {
-            isInTuto = true;
-            TakePickaxe();
-        }
+            print("isInTuto : " + isInTuto);
+            if (startTuto)
+            {
+                isInTuto = true;
+                TakePickaxe();
+            }
 
-        if (isBreakRock)
-        {
-            BreakRock();
-        }
+            if (isBreakRock)
+            {
+                BreakRock();
+            }
 
-        if (isPushChariot)
-        {
-            PushChariot();
-        }
+            if (isPushChariot)
+            {
+                PushChariot();
+            }
 
-        if (isTakeEnemy)
-        {
-            TakeEnemy();
-        }
+            if (isTakeEnemy)
+            {
+                TakeEnemy();
+            }
 
-        if (isYeetEnemy)
-        {
-            YeetEnemy();
+            if (isYeetEnemy)
+            {
+                YeetEnemy();
+            }
         }
+      
     }
 
     private void TakePickaxe()
@@ -105,6 +110,7 @@ public class Tuto : MonoBehaviour
 
     public void StopTuto()
     {
+        print("PASS TUTO");
         _takePickaxe.isInTuto = false;
         startTuto = false;
         isBreakRock = false;

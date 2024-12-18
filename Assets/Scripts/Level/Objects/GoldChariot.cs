@@ -158,8 +158,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         float speed = Mathf.Abs(_rb.velocity.x);
 
-        Debug.Log("currentVolume : " + currentVolume);
-        Debug.Log("speed : " + speed);
+     //   Debug.Log("currentVolume : " + currentVolume);
+     //   Debug.Log("speed : " + speed);
 
         if (speed > 0.5f)
         {

@@ -22,6 +22,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GoldChariot _gc;
     public GameObject myTarget;
     [SerializeField] GameObject _pickaxePart;
+    private bool _isShowTuto = false;
+    private bool _isCarried = false;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -53,6 +55,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
         if (isCarried)
         {
+            _isCarried = true;
             throwOnDestroy = () => { 
                 holdingPlayer = null;
                 actions.EmptyHands();
@@ -60,20 +63,39 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
                 actions.IsBaseActionActivated = false;
             };
+            if (!isInTuto && GameManager.Instance.isGameStarted)
+            {
+                _isShowTuto = false;
+            }
         }
         else
         {
+            _isCarried = false;
             actions.StopAnimation();
             actions.IsBaseActionActivated = false;
+            if (!isInTuto)
+            {
+                StartCoroutine(TutoInGame());
+            }
+        }
+    }
+
+    private IEnumerator TutoInGame()
+    {
+        yield return new WaitForSeconds(3);
+        if (!_isCarried)
+        {
+            _isShowTuto = true;
+        }
+        else
+        {
+            yield return null;
         }
     }
 
     private void Update()
     {
-        myTarget.SetActive(isInTuto);
-
-      
-        
+        myTarget.SetActive(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted);
     }
 
     private void OnCollisionEnter(Collision collision)

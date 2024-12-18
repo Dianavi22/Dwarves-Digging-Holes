@@ -6,6 +6,11 @@ public class FollowTarget : MonoBehaviour
     private float _followSpeed = 100f;
     [SerializeField] Vector3 _offset = new Vector3(0, 1, 0);
 
+    private void Start()
+    {
+        
+    }
+
     void Update()
     {
         if (target != null)

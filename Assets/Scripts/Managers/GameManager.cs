@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     private Score _score;
 
     [SerializeField] LevelCompleteManager _levelCompleteManager;
-
+    public bool isGameStarted = false;
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -136,6 +136,8 @@ public class GameManager : MonoBehaviour
         else
         {
             _skipTuto.SetActive(true);
+            _tuto.isInTuto = true;
+
             _tuto.startTuto = true;
         }
 
@@ -145,10 +147,12 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _skipTuto.SetActive(false);
+        _tuto.isInTuto = false;
     }
 
     public IEnumerator StartGame()
     {
+        isGameStarted = true;
         _levelCompleteManager.StartGame();
         _scoreText.SetActive(true);
         _score.isStartScore = true;
