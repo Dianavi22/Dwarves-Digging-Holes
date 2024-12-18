@@ -148,11 +148,12 @@ MonoBehaviour:
   _hitRockParts: {fileID: 459388813842371500}
   _hitGoldParts: {fileID: 4912528635472121466}
   _hitPickaxe: {fileID: 7981846774811726670}
-  _breakPickaxe: {fileID: 4043671546489261189}
   _gfx: {fileID: 3064132443434634387}
   isInTuto: 0
   _tutoTarget: {fileID: 2656352416795162393, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
+  _gc: {fileID: 0}
   myTarget: {fileID: 0}
+  pickaxePart: {fileID: 5301456047371304044, guid: 7547eb2283808904db6ecedc3b5344a2, type: 3}
 --- !u!1001 &718499954312285746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -593,11 +594,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b72222e726884d34fb9ac594f4d45a05, type: 3}
---- !u!198 &4043671546489261189 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7004275230418335887, guid: b72222e726884d34fb9ac594f4d45a05, type: 3}
-  m_PrefabInstance: {fileID: 6424999421875729418}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7049217872179712906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4105581506333075328, guid: b72222e726884d34fb9ac594f4d45a05, type: 3}

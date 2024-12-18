@@ -13,7 +13,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
-    [SerializeField] ParticleSystem _breakPickaxe;
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
@@ -22,6 +21,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _tutoTarget;
     [SerializeField] GoldChariot _gc;
     public GameObject myTarget;
+    [SerializeField] GameObject _pickaxePart;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -71,6 +71,10 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void Update()
     {
         myTarget.SetActive(isInTuto);
+
+      
+            HandleDestroy();
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -143,9 +147,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         _isDying = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        _breakPickaxe.Play();
-        yield return new WaitForSeconds(0.5f);
+        GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(3f);
+        Destroy(myBreakPart);
         Destroy(this.gameObject);
     }
 
