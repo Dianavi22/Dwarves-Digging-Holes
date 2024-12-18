@@ -216,21 +216,8 @@ public class EventManager : MonoBehaviour
         Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = GetRandomDirectionInCone(_spawnNugget.transform.forward, angleRange);
+            Vector3 direction = DRandom.DirectionInCone(_spawnNugget.transform.forward, angleRange);
             rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
         }
-    }
-
-    private Vector3 GetRandomDirectionInCone(Vector3 forward, float angleRange)
-    {
-        float angleInRad = angleRange;
-
-        float randomHorizontalAngle = Random.Range(-angleInRad, angleInRad);
-        float randomVerticalAngle = Random.Range(0, angleInRad);
-
-        Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
-        Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
-
-        return (horizontalRotation * verticalRotation) * forward;
     }
 }
