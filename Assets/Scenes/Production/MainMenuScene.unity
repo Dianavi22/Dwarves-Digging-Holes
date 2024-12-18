@@ -912,7 +912,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817935183}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: SetSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &342309448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,8 +1334,8 @@ RectTransform:
   m_GameObject: {fileID: 534430879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 18.038122, y: 9.247, z: 9.247}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10.56, y: 5.4134417, z: 5.4134417}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1509769266}
   - {fileID: 275412133}
@@ -2164,6 +2176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 682673839}
   - component: {fileID: 682673840}
+  - component: {fileID: 682673841}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -2220,6 +2233,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &682673841
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682673838}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 1
 --- !u!1 &696577183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,6 +2545,7 @@ MonoBehaviour:
   _buttons: {fileID: 682673838}
   _title: {fileID: 40383287}
   _credits: {fileID: 679979393}
+  _buttonsCanvaGroup: {fileID: 682673841}
 --- !u!114 &817935183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2537,6 +2563,7 @@ MonoBehaviour:
   SettingsWindow: {fileID: 534430879}
   _eventSystem: {fileID: 1641043410}
   _settingsButtonMM: {fileID: 575330527}
+  _buttonsCanvaGroup: {fileID: 682673841}
 --- !u!114 &817935184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2905,7 +2932,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817935183}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: SetFullScreen
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1096855222
 GameObject:
@@ -3591,6 +3630,7 @@ GameObject:
   - component: {fileID: 1439894645}
   - component: {fileID: 1439894644}
   - component: {fileID: 1439894643}
+  - component: {fileID: 1439894646}
   m_Layer: 5
   m_Name: Template
   m_TagString: Untagged
@@ -3687,6 +3727,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439894641}
   m_CullTransparentMesh: 1
+--- !u!114 &1439894646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439894641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2226243ed7a734841bda183f570ee583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 0}
+  dropdownContent: {fileID: 0}
 --- !u!1 &1486565616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3873,7 +3927,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 817935183}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: SetResolution
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1509769268
 MonoBehaviour:
@@ -5403,10 +5469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
