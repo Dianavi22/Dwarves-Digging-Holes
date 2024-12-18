@@ -9,12 +9,12 @@ public class Lava : MonoBehaviour
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
     [SerializeField] ParticleSystem _rockFall;
-    private EventInstance _lavaEventInstance;
-    private bool _isStartLava;
     [SerializeField] GameObject _tutoBubble;
     [SerializeField] Tuto _tuto;
 
     private bool _isCoolDown = true;
+    private EventInstance _lavaEventInstance;
+    private bool _isStartLava;
     private void Start()
     {
         _lavaCollider.enabled = false;
