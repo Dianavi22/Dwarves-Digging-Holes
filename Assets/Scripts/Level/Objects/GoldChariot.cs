@@ -28,7 +28,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private GameObject _lavaPosition;
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
-    [SerializeField] Tuto _tuto;
     [SerializeField] List<GameObject> _goldEtages;
 
     private List<Sequence> _nearDeathExperienceSequence = new();
@@ -212,10 +211,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-
-        if (_tuto.isPushChariot)
+        Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
+        if (tuto.isPushChariot)
         {
-            _tuto.isTakeEnemy = true;
+            tuto.isTakeEnemy = true;
         }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);

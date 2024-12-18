@@ -17,7 +17,6 @@ public class Rock : MonoBehaviour
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
-    [SerializeField] Tuto _tuto;
     [SerializeField] EventManager _eventManager;
     private int _baseHp;
     private Player hitPlayer = null;
@@ -27,7 +26,6 @@ public class Rock : MonoBehaviour
         _rockCollider = GetComponentInChildren<Collider>();
         _eventManager = FindObjectOfType<EventManager>();
         _spawnGold = this.transform;
-        _tuto = FindObjectOfType<Tuto>();
     }
 
     private void Start()
@@ -49,10 +47,10 @@ public class Rock : MonoBehaviour
 
     public IEnumerator Break()
     {
-
-        if (_tuto.isBreakRock)
+        Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
+        if (tuto.isBreakRock)
         {
-            _tuto.isPushChariot = true;
+            tuto.isPushChariot = true;
         }
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)

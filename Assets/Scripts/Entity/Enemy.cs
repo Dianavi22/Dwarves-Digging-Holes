@@ -18,7 +18,7 @@ public class Enemy : Entity
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
-    [SerializeField] Tuto _tuto;
+    private Tuto _tuto;
 
     [HideInInspector] public GoldChariot _goldChariot;
     private bool _isTouchChariot;
@@ -39,15 +39,10 @@ public class Enemy : Entity
         }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        _tuto = FindAnyObjectByType<Tuto>();
-    }
-
     private void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
+        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         StartCoroutine(PlayGoblinLaughWithDelay());
         StartCoroutine(PeriodicSoundLoop());
     }

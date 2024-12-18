@@ -10,7 +10,6 @@ public class Lava : MonoBehaviour
     [SerializeField] private EventReference lavaBurntSound;
     [SerializeField] ParticleSystem _rockFall;
     [SerializeField] GameObject _tutoBubble;
-    [SerializeField] Tuto _tuto;
 
     private bool _isCoolDown = true;
     private EventInstance _lavaEventInstance;
