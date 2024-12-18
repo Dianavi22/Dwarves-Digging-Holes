@@ -34,7 +34,6 @@ public class Tuto : MonoBehaviour
     {
         if (isInTuto)
         {
-            print("isInTuto : " + isInTuto);
             if (startTuto)
             {
                 isInTuto = true;
@@ -72,7 +71,7 @@ public class Tuto : MonoBehaviour
     {
         _takePickaxe.isInTuto = false;
         startTuto = false;
-        _breakRock.SetActive(true);
+        _breakRock.GetComponent<FollowTarget>().OpenTuto();
     }
 
     private void PushChariot()
@@ -81,7 +80,7 @@ public class Tuto : MonoBehaviour
         isBreakRock = startTuto;
         try
         {
-            _breakRock.SetActive(startTuto);
+            _breakRock.GetComponent<FollowTarget>().CloseTuto();
         }
         catch
         {
@@ -94,9 +93,9 @@ public class Tuto : MonoBehaviour
     private void TakeEnemy()
     {
         isPushChariot = false;
-        _pushChariot.SetActive(isPushChariot);
-        _tutoEnemy.SetActive(true);
-        _takeEnemy.SetActive(true);
+        _pushChariot.GetComponent<FollowTarget>().CloseTuto();
+        _tutoEnemy.GetComponent<FollowTarget>().OpenTuto();
+        _takeEnemy.GetComponent<FollowTarget>().OpenTuto();
     }
 
     private void YeetEnemy()
@@ -104,8 +103,8 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
-        _wallLimitTuto.SetActive(false);
-        _tutoBubbleLava.SetActive(true);
+        _wallLimitTuto.GetComponent<FollowTarget>().CloseTuto();
+        _tutoBubbleLava.GetComponent<FollowTarget>().OpenTuto();
     }
 
     public void StopTuto()
@@ -126,10 +125,10 @@ public class Tuto : MonoBehaviour
         {
             //
         }
-        _pushChariot.SetActive(false);
-        _takeEnemy.SetActive(false);
-        _wallLimitTuto.SetActive(false);
-        _tutoBubbleLava.SetActive(false);
+        _pushChariot.GetComponent<FollowTarget>().CloseTuto();
+        _takeEnemy.GetComponent<FollowTarget>().CloseTuto();
+        _wallLimitTuto.GetComponent<FollowTarget>().CloseTuto();
+        _tutoBubbleLava.GetComponent<FollowTarget>().CloseTuto();
         isInTuto = false;
         _skipTuto.SetActive(false);
         StartCoroutine(GameManager.Instance.StartGame());

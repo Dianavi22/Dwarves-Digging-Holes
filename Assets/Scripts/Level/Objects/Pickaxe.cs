@@ -95,7 +95,14 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        myTarget.SetActive(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted);
+        if(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
+        {
+            print("is in tuto");
+            myTarget.GetComponent<FollowTarget>().OpenTuto();
+        }
+        else {
+            myTarget.GetComponent<FollowTarget>().CloseTuto();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
