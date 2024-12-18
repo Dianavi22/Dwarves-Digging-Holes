@@ -351,23 +351,17 @@ public class PlayerActions : MonoBehaviour
         //canPickup = forced;
 
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
-        {
             obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
-            // Reset pickaxe scale when throw to avoid scaling issues
-            if (!isGrabbed) obj.transform.localScale = new Vector3(1f, 1f, 1f);
-        }
         else
-        {
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
-        }
 
         //Tuto
-        if (heldObject.TryGetComponent<Pickaxe>(out var picaxe) && _tuto.startTuto)
+        if (heldObject.TryGetComponent<Pickaxe>(out _) && _tuto.startTuto)
         {
             _tuto.isBreakRock = true;
         }
 
-        if (heldObject.TryGetComponent<Enemy>(out var enemy) && _tuto.isTakeEnemy)
+        if (heldObject.TryGetComponent<Enemy>(out _) && _tuto.isTakeEnemy)
         {
             _tuto.isYeetEnemy = true;
         }

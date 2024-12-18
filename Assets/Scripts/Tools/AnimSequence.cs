@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-public static class AnimSequence
+namespace AnimSequence
 {
     public static class Chariot
     {

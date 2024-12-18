@@ -20,6 +20,7 @@ public class Dynamite : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
+        Spawn();
         Destroy(gameObject);
     }
 
