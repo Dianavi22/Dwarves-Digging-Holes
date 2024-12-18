@@ -13,6 +13,7 @@ public class MoreGold : MonoBehaviour
     [SerializeField] ParticleSystem _spawnPart;
     [SerializeField] ParticleSystem _destroyPart;
     private ShakyCame _sc;
+    private GoldChariot _gc;
 
     public GameObject myPlateform;
 
@@ -21,6 +22,7 @@ public class MoreGold : MonoBehaviour
     private void Start()
     {
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
+        _gc = TargetManager.Instance.GetGameObject<GoldChariot>();
     }
 
     public void Instanciate(int currentID)
@@ -29,26 +31,25 @@ public class MoreGold : MonoBehaviour
         _spawnPart.Play();
     }
 
-    //private void Update()
-    //{
-    //    if (isSpawn && _canSpawn)
-    //    {
-    //        isSpawn = false;
-    //        StartCoroutine(CdSpawn());
-    //        SpawnPepite();
-    //    }
-    //}
+    private void Update()
+    {
+        if (isActive && _gc.GetHighestIndexStepList < IDGoldStep)
+            WillDestroyStep();
+
+        //if (isSpawn && _canSpawn)
+        //{
+        //    isSpawn = false;
+        //    StartCoroutine(CdSpawn());
+        //    SpawnPepite();
+        //}
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!isActive) return;
 
         if (Utils.Component.TryGetInParent<Rock>(other, out _))
-        {
-            // Test without cooldown when losing gold
-            TargetManager.Instance.GetGameObject<GoldChariot>().LostGoldStage();
-            DespawnBlock();
-        }
+            WillDestroyStep();
     }
 
     //private IEnumerator CdSpawn()
@@ -58,6 +59,13 @@ public class MoreGold : MonoBehaviour
     //    yield return new WaitForSeconds(3);
     //    _canSpawn = true;
     //}
+
+    private void WillDestroyStep()
+    {
+        // Test without cooldown when losing gold
+        _gc.LostGoldStage(IDGoldStep);
+        StartCoroutine(DespawnBlock());
+    }
 
     public IEnumerator DespawnBlock()
     {

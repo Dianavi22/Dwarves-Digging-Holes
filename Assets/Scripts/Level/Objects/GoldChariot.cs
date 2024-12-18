@@ -74,6 +74,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
 
     private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
+    public int GetHighestIndexStepList => _goldStepList.Count - 1;
 
     private void Start()
     {
@@ -246,7 +247,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             SpawnMultipleNugget(GoldCount, NuggetSpawnPoint);
         }
     }
-    public void LostGoldStage()
+    public void LostGoldStage(int idStep)
     {
         int goldLostValue = Mathf.Abs(GoldCount) % 10;
         if (goldLostValue == 0) 
@@ -256,7 +257,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         else
             GoldCount -= goldLostValue;
 
-        SpawnMultipleNugget(goldLostValue, NuggetSpawnPoint);
+        SpawnMultipleNugget(goldLostValue, _goldStepList[idStep].GetSpawnPoint);
     }
 
     public void SpawnMultipleNugget(int nb, Transform position)
