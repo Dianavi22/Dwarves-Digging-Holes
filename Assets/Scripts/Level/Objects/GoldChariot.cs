@@ -45,6 +45,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
+    public int goldLostValue;
+
     private int _currentGoldCount = 10;
     public int GoldCount
     {
@@ -93,7 +95,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             else
             {
                 _goldEtages[i].GetComponent<MoreGold>().DespawnBlock(_goldEtages[i]);
-
             }
         }
     }
@@ -245,8 +246,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateText();
         }
     }
-
-    public int goldLostValue;
     public void LostGoldStage()
     {
         goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
@@ -260,20 +259,5 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _currentGoldCount = _currentGoldCount - goldLostValue;
         }
         UpdateText();
-    }
-   
-
-    public void LostGoldByRock()
-    {
-        _currentGoldCount = _currentGoldCount - 5;
-        UpdateText();
-    }
-
-    public void AddGoldPepite()
-    {
-        _currentGoldCount = _currentGoldCount + 1;
-        UpdateText();
-    }
-
-   
+    }   
 }

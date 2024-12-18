@@ -11,7 +11,7 @@ public class Pepite : MonoBehaviour
         if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
         {
             _isDestroy = true;
-            TargetManager.Instance.GetGameObject<GoldChariot>().AddGoldPepite();
+            TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount++;
             Destroy(gameObject);
         }
 
