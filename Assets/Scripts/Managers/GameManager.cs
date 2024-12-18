@@ -113,10 +113,10 @@ public class GameManager : MonoBehaviour
         if (!isInMainMenu)
         {
             _score = TargetManager.Instance.GetGameObject<Score>();
+            _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         }
         _circleTransition.SetActive(true);
 
-        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
     }
 
   

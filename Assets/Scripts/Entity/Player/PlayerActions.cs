@@ -57,6 +57,8 @@ public class PlayerActions : MonoBehaviour
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
+        if(GameManager.Instance.isInMainMenu) return;
+        
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
     }
 
