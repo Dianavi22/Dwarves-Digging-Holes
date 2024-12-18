@@ -73,7 +73,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         myTarget.SetActive(isInTuto);
 
       
-            HandleDestroy();
         
     }
 
