@@ -8,14 +8,13 @@ public class EventManager : MonoBehaviour
 {
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
+    private Lava _lava;
+    private Vector3 _lavaOldPosition;
     private ShakyCame _sc;
-    public float scrollSpeed;
     public float rocksHealth;
     public float rocksWithGoldHealth;
-    [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
-    private Vector3 _lavaPosition;
     [SerializeField] ParticleSystem _showTextPart;
     [SerializeField] TMP_Text _eventText;
 
@@ -41,6 +40,7 @@ public class EventManager : MonoBehaviour
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
+        _lava = TargetManager.Instance.GetGameObject<Lava>();
     }
 
     public void LaunchEvent()
@@ -61,7 +61,7 @@ public class EventManager : MonoBehaviour
         if (_isLavaMoveEndEvent)
         {
             _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * GameManager.Instance.CurrentScrollingSpeed / 2);
-            if (_lava.transform.position.x <= _lavaPosition.x)
+            if (_lava.transform.position.x <= _lavaOldPosition.x)
             {
                 _isLavaMoveEndEvent = false;
             }
@@ -170,7 +170,7 @@ public class EventManager : MonoBehaviour
         _sc.ShakyCameCustom(0.2f, 0.2f);
         yield return new WaitForSeconds(2);
         _sc.ShakyCameCustom(4f, 0.2f);
-        _lavaPosition = _lava.transform.position;
+        _lavaOldPosition = _lava.transform.position;
         _isLavaMove = true;
         yield return new WaitForSeconds(4.5f);
         _isLavaMove = false;

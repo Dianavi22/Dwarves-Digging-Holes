@@ -25,7 +25,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
-    [SerializeField] private GameObject _lavaPosition;
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
     [SerializeField] List<GameObject> _goldEtages;
@@ -68,7 +67,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         ChariotSound();
 
 
-        if (Vector3.Distance(transform.position, _lavaPosition.transform.position) - 4 < 5 || GoldCount <= 3)
+        if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }

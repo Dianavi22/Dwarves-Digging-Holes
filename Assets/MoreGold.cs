@@ -30,7 +30,7 @@ public class MoreGold : MonoBehaviour
 
     private void Start()
     {
-        _sc = FindObjectOfType<ShakyCame>();
+        _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
     }
   
     private void OnTriggerEnter(Collider other)
