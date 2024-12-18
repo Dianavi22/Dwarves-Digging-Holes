@@ -97,7 +97,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     {
         if(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
         {
-            print("is in tuto");
             myTarget.GetComponent<FollowTarget>().OpenTuto();
         }
         else {

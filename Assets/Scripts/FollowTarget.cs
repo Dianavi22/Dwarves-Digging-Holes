@@ -32,36 +32,51 @@ public class FollowTarget : MonoBehaviour
             transform.rotation = Quaternion.identity;
         }
 
-        if (_isOpen)
-        {
-            print("Open");
-            for (int i = 0; i < _images.Count; i++)
-            {
-                _images[i].GetComponent<Image>().color = Color.Lerp(alphaZero, alpha, .2f);
-            }
-            _circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alphaZero, alpha, .2f);
-        }
-        else
-        {
-            print("Close");
+        //if (_isOpen)
+        //{
+        //    print("Open");
+        //    for (int i = 0; i < _images.Count; i++)
+        //    {
+        //        _images[i].GetComponent<Image>().color = Color.Lerp(alphaZero, alpha, .2f);
+        //    }
+        //    _circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alphaZero, alpha, .2f);
+        //}
+        //else
+        //{
+        //    print("Close");
 
-            for (int i = 0; i < _images.Count; i++)
-            {
-                _images[i].GetComponent<Image>().color = Color.Lerp(alpha, alphaZero, .2f);
-            }
-            _circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alpha, alphaZero, .2f);
-        }
+        //    for (int i = 0; i < _images.Count; i++)
+        //    {
+        //        _images[i].GetComponent<Image>().color = Color.Lerp(alpha, alphaZero, .2f);
+        //    }
+        //    _circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alpha, alphaZero, .2f);
+        //}
 
     }
 
     public void OpenTuto()
     {
+
+        for (int i = 0; i < _images.Count; i++)
+        {
+         //   _images[i].GetComponent<Image>().color = Color.Lerp(alphaZero, alpha, .2f);
+            _images[i].SetActive(true);
+        }
+        //_circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alphaZero, alpha, .2f);
+        _circle.SetActive(true);
         _isOpen = true;
     }
 
     public void CloseTuto()
     {
         _isOpen = false;
+        for (int i = 0; i < _images.Count; i++)
+        {
+            //   _images[i].GetComponent<Image>().color = Color.Lerp(alphaZero, alpha, .2f);
+            _images[i].SetActive(false);
+        }
+        //_circle.GetComponent<SpriteRenderer>().color = Color.Lerp(alphaZero, alpha, .2f);
+        _circle.SetActive(false);
 
     }
 }

@@ -86,7 +86,7 @@ public class Tuto : MonoBehaviour
         {
             //
         }
-        _pushChariot.SetActive(true);
+        _pushChariot.GetComponent<FollowTarget>().OpenTuto();
 
     }
 
@@ -94,7 +94,7 @@ public class Tuto : MonoBehaviour
     {
         isPushChariot = false;
         _pushChariot.GetComponent<FollowTarget>().CloseTuto();
-        _tutoEnemy.GetComponent<FollowTarget>().OpenTuto();
+        _tutoEnemy.SetActive(true);
         _takeEnemy.GetComponent<FollowTarget>().OpenTuto();
     }
 
@@ -103,7 +103,7 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
-        _wallLimitTuto.GetComponent<FollowTarget>().CloseTuto();
+        _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.GetComponent<FollowTarget>().OpenTuto();
     }
 
@@ -127,7 +127,7 @@ public class Tuto : MonoBehaviour
         }
         _pushChariot.GetComponent<FollowTarget>().CloseTuto();
         _takeEnemy.GetComponent<FollowTarget>().CloseTuto();
-        _wallLimitTuto.GetComponent<FollowTarget>().CloseTuto();
+        _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.GetComponent<FollowTarget>().CloseTuto();
         isInTuto = false;
         _skipTuto.SetActive(false);
