@@ -80,7 +80,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 _sparksPart.Play();
 
             }
-            print("HERE");
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
         else

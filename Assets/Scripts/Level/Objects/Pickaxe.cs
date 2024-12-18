@@ -93,6 +93,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
+    private bool isFirstTime = true;
     private void Update()
     {
         if(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
@@ -100,7 +101,15 @@ public class Pickaxe : MonoBehaviour, IGrabbable
             myTarget.GetComponent<FollowTarget>().OpenTuto();
         }
         else {
-            myTarget.GetComponent<FollowTarget>().CloseTuto();
+            if (isFirstTime)
+            {
+                isFirstTime = false;
+                myTarget.GetComponent<FollowTarget>().TotalClose();
+            }
+            else
+            {
+                myTarget.GetComponent<FollowTarget>().CloseTuto();
+            }
         }
     }
 

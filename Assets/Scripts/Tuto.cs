@@ -109,7 +109,6 @@ public class Tuto : MonoBehaviour
 
     public void StopTuto()
     {
-        print("PASS TUTO");
         _takePickaxe.isInTuto = false;
         startTuto = false;
         isBreakRock = false;
