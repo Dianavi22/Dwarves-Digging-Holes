@@ -1,10 +1,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 using FMODUnity;
 using FMOD.Studio;
 
@@ -87,6 +84,20 @@ namespace Utils
                 }
             }
             return allhits;
+        }
+    }
+
+    public class DRandom
+    {
+        public static Vector3 DirectionInCone(Vector3 direction, float range)
+        {
+            float randomHorizontalAngle = UnityEngine.Random.Range(-range, range);
+            float randomVerticalAngle = UnityEngine.Random.Range(0, range);
+
+            Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
+            Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
+
+            return (horizontalRotation * verticalRotation) * direction;
         }
     }
 

@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject _settingsWindow;
-    [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _closeButtonSettings;
     [SerializeField] GameObject _circleTransition;
     [SerializeField] GameObject _circleTransitionIn;
     [SerializeField] GameObject _buttons;
     [SerializeField] GameObject _title;
     [SerializeField] GameObject _credits;
+    [SerializeField] private CanvasGroup _buttonsCanvaGroup;
 
     private void Start()
     {
@@ -59,8 +61,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadSettingScene()
     {
+        _buttonsCanvaGroup.interactable = false;
         _settingsWindow.SetActive(true);
-        _eventSystem.firstSelectedGameObject = _closeButtonSettings;
+        EventSystem.current.SetSelectedGameObject(_closeButtonSettings);
     }
 
     private IEnumerator CircleTransition()

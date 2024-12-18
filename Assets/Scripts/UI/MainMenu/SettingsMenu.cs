@@ -11,8 +11,9 @@ public class SettingsMenu : MonoBehaviour
     Resolution[] resolutions;
     [SerializeField] TMP_Dropdown resolutionDropDown;
     [SerializeField] private GameObject SettingsWindow;
-    [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GameObject _settingsButtonMM;
+
+    [SerializeField] private CanvasGroup _buttonsCanvaGroup;
 
     private void Start()
     {
@@ -57,9 +58,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void CloseSettings()
     {
+        _buttonsCanvaGroup.interactable = true;
+        EventSystem.current.SetSelectedGameObject(_settingsButtonMM);
         SettingsWindow.SetActive(false);
-        _eventSystem.firstSelectedGameObject = _settingsButtonMM;
-
-
     }
 }

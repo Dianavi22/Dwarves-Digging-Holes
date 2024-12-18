@@ -21,7 +21,7 @@ public class RockFall : MonoBehaviour
             {
                 _isDestroyed = true;
                 StartCoroutine(DestroyRock());
-                goldChariot.LostGoldByRock();
+                goldChariot.GoldCount -= 5;
             }
 
             if (Utils.Component.TryGetInParent<Platform>(collision.collider, out var platform))

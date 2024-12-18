@@ -81,6 +81,7 @@ public class PlayerMovements : EntityMovement
     #region EVENTS
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log(CanDoAnything());
         if (!CanDoAnything()) return;
 
         Vector2 vector = context.ReadValue<Vector2>();
@@ -154,6 +155,7 @@ public class PlayerMovements : EntityMovement
 
     private bool CanDoAnything()
     {
-        return !GameManager.Instance.isGameOver && !GameManager.Instance.isInMainMenu && !UIPauseManager.Instance.isPaused;
+        if(GameManager.Instance.isInMainMenu) return true;
+        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
     }
 }

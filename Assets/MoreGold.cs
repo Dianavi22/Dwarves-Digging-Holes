@@ -30,7 +30,7 @@ public class MoreGold : MonoBehaviour
 
     private void Start()
     {
-        _sc = FindObjectOfType<ShakyCame>();
+        _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
     }
   
     private void OnTriggerEnter(Collider other)
@@ -116,22 +116,8 @@ public class MoreGold : MonoBehaviour
         Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = GetRandomDirectionInCone(spawnPoint.forward, angleRange);
+            Vector3 direction = Utils.DRandom.DirectionInCone(spawnPoint.forward, angleRange);
             rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
         }
     }
-
-    private Vector3 GetRandomDirectionInCone(Vector3 forward, float angleRange)
-    {
-        float angleInRad = angleRange;
-
-        float randomHorizontalAngle = Random.Range(-angleInRad, angleInRad);
-        float randomVerticalAngle = Random.Range(0, angleInRad);
-
-        Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
-        Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
-
-        return (horizontalRotation * verticalRotation) * forward;
-    }
-
 }

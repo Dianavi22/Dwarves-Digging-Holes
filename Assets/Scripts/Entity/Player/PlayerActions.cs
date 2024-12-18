@@ -22,7 +22,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
-    [SerializeField] Tuto _tuto;
+    private Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
     private Tween rotationTween;
@@ -57,7 +57,9 @@ public class PlayerActions : MonoBehaviour
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
-        _tuto = FindObjectOfType<Tuto>();
+        if(GameManager.Instance.isInMainMenu) return;
+        
+        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
     }
 
     private void Update()
