@@ -479,9 +479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e49306a12886c49a1f9789daef1609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _goldCountText: {fileID: 9219658797423398484}
-  _lostGoldPart: {fileID: 4159188239862836962}
-  _gfx: {fileID: 0}
   chariotSound:
     Guid:
       Data1: 1614653347
@@ -489,6 +486,23 @@ MonoBehaviour:
       Data3: 59965104
       Data4: -1644879758
     Path: event:/SFX/Cart/Cart movements
+  chariotSound2:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  fadeTime: 0.2
+  _goldCountText: {fileID: 9219658797423398484}
+  _lostGoldPart: {fileID: 4159188239862836962}
+  _lavaPosition: {fileID: 0}
+  oneLostPart: {fileID: 0}
+  _gfx: {fileID: 0}
+  _tuto: {fileID: 0}
+  _goldEtages: []
+  _eventManager: {fileID: 0}
+  goldLostValue: 0
 --- !u!54 &415383790900409220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -631,59 +645,6 @@ Transform:
   - {fileID: 970899501527632934}
   m_Father: {fileID: 6615897131944225686}
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
---- !u!1 &5108152184688381427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4170726029106147713}
-  - component: {fileID: 290876174428856369}
-  m_Layer: 0
-  m_Name: EndingConditionHitBox
-  m_TagString: EndingCondition
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4170726029106147713
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5108152184688381427}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1541311940828771721}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &290876174428856369
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5108152184688381427}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.21757752, y: 0.17780423, z: 0.41546947}
-  m_Center: {x: 0.10250648, y: -0.021447964, z: -0.015794938}
 --- !u!1 &5165539626580509433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickaxePrefab: {fileID: 8597900755164968550, guid: f59d7194d7724444daa65fd06437ead0, type: 3}
+  _bubblePickaxe: {fileID: 0}
 --- !u!1 &7703613045244103729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,8 +1407,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4170726029106147713}
+  m_Children: []
   m_Father: {fileID: 7016933003152741732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8792053908639858265
