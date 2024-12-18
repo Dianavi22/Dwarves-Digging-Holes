@@ -33,13 +33,10 @@ public class DialogManager : MonoBehaviour
         _typeSentence.WriteMachinEffect(dialogList[i], _dialogText, 0.05f);
         StartCoroutine(Dialog());
         _dwarfHead.gameObject.SetActive(true);
-        _dwarfHead.sprite = _dwarfHeadSprite[Random.Range(0,_gpController.nbPlayer)];
+        _dwarfHead.sprite = _dwarfHeadSprite[Random.Range(0,_gpController.NbPlayer)];
         yield return new WaitForSeconds(10);
         _dialogText.text = "";
         _dwarfHead.gameObject.SetActive(false);
-
-
-
     }
 
     private void TextChoice()

@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class GamePadsController : MonoBehaviour
 {
-    public int nbPlayer;
-
     [Header("Player Instance")]
     [SerializeField] private Player m_PlayerPrefab;
     [SerializeField] List<Material> m_PlayerMAT = new();
@@ -22,8 +20,10 @@ public class GamePadsController : MonoBehaviour
 
     public List<Player> PlayerList { private set; get; }
 
+    public int NbPlayer => PlayerList.Count;
+
     public static GamePadsController Instance; // A static reference to the GameManager instance
-    private void Start()
+    private void Awake()
     {
         if (Instance == null) // If there is no instance already
         {
@@ -39,7 +39,6 @@ public class GamePadsController : MonoBehaviour
 
         if (IsDebugMode)
         {
-
             m_DebugPlayerCount = Mathf.Clamp(m_DebugPlayerCount, 1, 4);
 
             for (int i = 0; i < m_DebugPlayerCount; i++)
@@ -54,7 +53,6 @@ public class GamePadsController : MonoBehaviour
         {
             InstantiatePlayerUI("Gamepad", gamepad, index);
             index++;
-            nbPlayer = index;
         }
     }
 
