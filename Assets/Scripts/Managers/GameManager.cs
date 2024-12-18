@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     public bool isInMainMenu = false;
     [SerializeField] EventManager _eventManager;
     private GoldChariot _goldChariot;
-    [SerializeField] private Tuto _tuto;
+    private Tuto _tuto;
     public bool passTuto = false;
 
     [SerializeField] GameObject _skipTuto;
@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
         }
         _circleTransition.SetActive(true);
 
+        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
     }
 
   

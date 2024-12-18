@@ -9,12 +9,11 @@ public class Lava : MonoBehaviour
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
     [SerializeField] ParticleSystem _rockFall;
-    private EventInstance _lavaEventInstance;
-    private bool _isStartLava;
     [SerializeField] GameObject _tutoBubble;
-    [SerializeField] Tuto _tuto;
 
     private bool _isCoolDown = true;
+    private EventInstance _lavaEventInstance;
+    private bool _isStartLava;
     private void Start()
     {
         _lavaCollider.enabled = false;
@@ -29,21 +28,12 @@ public class Lava : MonoBehaviour
             grabbable.HandleDestroy();
         }
 
-        if (other.CompareTag("EndingCondition"))
-        {
-            StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
-        }
-
-        /*
-         * Todo: Need to unify this condition
-         * Why checking for all this tag when you can just destroy everything that enter in collision ? (exept some gameobject like player or chariot)
-         */
-
         if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
             Destroy(rock.gameObject);
         }
 
+        // @todo set this in IGrabbale.HandleDestroy instead
         if (Utils.Component.TryGetInParent<Dynamite>(other, out var dynamite))
         {
             dynamite.GetComponent<Dynamite>().Spawn();

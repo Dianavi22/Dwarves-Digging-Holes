@@ -10,6 +10,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private TypeSentence typeSentence;
     [SerializeField] private Score score;
     [SerializeField] private Lava lava;
+    [SerializeField] private Tuto tuto;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
     void Awake()
@@ -30,7 +31,8 @@ public class TargetManager : MonoBehaviour
             shakyCame,
             typeSentence,
             score,
-            lava
+            lava,
+            tuto
         };
         return list;
     }

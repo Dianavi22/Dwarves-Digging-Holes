@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 public class EventManager : MonoBehaviour
 {
     private bool _readyToEvent = false;
     private GoldChariot _goldChariot;
+    private Lava _lava;
+    private Vector3 _lavaOldPosition;
     private ShakyCame _sc;
-    public float scrollSpeed;
     public float rocksHealth;
     public float rocksWithGoldHealth;
-    [SerializeField] GameObject _lava;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
-    private Vector3 _lavaPosition;
     [SerializeField] ParticleSystem _showTextPart;
     [SerializeField] TMP_Text _eventText;
 
@@ -41,6 +41,7 @@ public class EventManager : MonoBehaviour
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
+        _lava = TargetManager.Instance.GetGameObject<Lava>();
     }
 
     public void LaunchEvent()
@@ -61,7 +62,7 @@ public class EventManager : MonoBehaviour
         if (_isLavaMoveEndEvent)
         {
             _lava.transform.position = Vector3.Lerp(_lava.transform.position, new Vector3(_lava.transform.position.x - 4, _lava.transform.position.y, _lava.transform.position.z), Time.deltaTime * GameManager.Instance.CurrentScrollingSpeed / 2);
-            if (_lava.transform.position.x <= _lavaPosition.x)
+            if (_lava.transform.position.x <= _lavaOldPosition.x)
             {
                 _isLavaMoveEndEvent = false;
             }
@@ -170,7 +171,7 @@ public class EventManager : MonoBehaviour
         _sc.ShakyCameCustom(0.2f, 0.2f);
         yield return new WaitForSeconds(2);
         _sc.ShakyCameCustom(4f, 0.2f);
-        _lavaPosition = _lava.transform.position;
+        _lavaOldPosition = _lava.transform.position;
         _isLavaMove = true;
         yield return new WaitForSeconds(4.5f);
         _isLavaMove = false;
@@ -216,21 +217,8 @@ public class EventManager : MonoBehaviour
         Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = GetRandomDirectionInCone(_spawnNugget.transform.forward, angleRange);
+            Vector3 direction = DRandom.DirectionInCone(_spawnNugget.transform.forward, angleRange);
             rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
         }
-    }
-
-    private Vector3 GetRandomDirectionInCone(Vector3 forward, float angleRange)
-    {
-        float angleInRad = angleRange;
-
-        float randomHorizontalAngle = Random.Range(-angleInRad, angleInRad);
-        float randomVerticalAngle = Random.Range(0, angleInRad);
-
-        Quaternion horizontalRotation = Quaternion.AngleAxis(randomHorizontalAngle * Mathf.Rad2Deg, Vector3.up);
-        Quaternion verticalRotation = Quaternion.AngleAxis(randomVerticalAngle * Mathf.Rad2Deg, Vector3.right);
-
-        return (horizontalRotation * verticalRotation) * forward;
     }
 }

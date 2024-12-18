@@ -25,10 +25,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
 
-    [SerializeField] private GameObject _lavaPosition;
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
-    [SerializeField] Tuto _tuto;
     [SerializeField] List<GameObject> _goldEtages;
 
     private List<Sequence> _nearDeathExperienceSequence = new();
@@ -46,6 +44,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             //  UpdateParticle();
         }
     }
+
+    public int goldLostValue;
 
     private int _currentGoldCount = 10;
     public int GoldCount
@@ -69,7 +69,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         ChariotSound();
 
 
-        if (Vector3.Distance(transform.position, _lavaPosition.transform.position) - 4 < 5 || GoldCount <= 3)
+        if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
@@ -95,7 +95,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             else
             {
                 _goldEtages[i].GetComponent<MoreGold>().DespawnBlock(_goldEtages[i]);
-
             }
         }
     }
@@ -212,10 +211,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-
-        if (_tuto.isPushChariot)
+        Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
+        if (tuto.isPushChariot)
         {
-            _tuto.isTakeEnemy = true;
+            tuto.isTakeEnemy = true;
         }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
@@ -247,8 +246,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateText();
         }
     }
-
-    public int goldLostValue;
     public void LostGoldStage()
     {
         goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
@@ -262,20 +259,5 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _currentGoldCount = _currentGoldCount - goldLostValue;
         }
         UpdateText();
-    }
-   
-
-    public void LostGoldByRock()
-    {
-        _currentGoldCount = _currentGoldCount - 5;
-        UpdateText();
-    }
-
-    public void AddGoldPepite()
-    {
-        _currentGoldCount = _currentGoldCount + 1;
-        UpdateText();
-    }
-
-   
+    }   
 }

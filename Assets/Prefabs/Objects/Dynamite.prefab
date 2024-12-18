@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4541767137051122599}
   - component: {fileID: 654670256966459482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 1461554827953605327}
   - component: {fileID: 5903457587921858009}
   - component: {fileID: 1512558019172261671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dynamite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bad548f0f7999b43a86bede1ea81d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hb: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!1 &6478680407300367205
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5915266543753066854}
   - component: {fileID: 6556476410592028799}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 6093681407721527164}
   - component: {fileID: 3571349206867309900}
   - component: {fileID: 5775893479858121418}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DynamiteSparks_PART (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5072,6 +5072,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1461554827953605327}
     m_Modifications:
+    - target: {fileID: -8720714624813872038, guid: 26ed4079b5c98734caef5f44bc7883ea, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26ed4079b5c98734caef5f44bc7883ea, type: 3}
       propertyPath: m_LocalScale.x
       value: 453.55002
@@ -5136,9 +5140,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 27d3ab5be62ccf148a14c7e045c40784, type: 2}
+    - target: {fileID: 674107068742599374, guid: 26ed4079b5c98734caef5f44bc7883ea, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 26ed4079b5c98734caef5f44bc7883ea, type: 3}
       propertyPath: m_Name
       value: Tnt
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26ed4079b5c98734caef5f44bc7883ea, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5161,6 +5173,10 @@ PrefabInstance:
     - target: {fileID: 6724234257710332778, guid: 54d237cd8e60c1c48a3eaa39241163c2, type: 3}
       propertyPath: m_Name
       value: DynamiteSparks_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724234257710332778, guid: 54d237cd8e60c1c48a3eaa39241163c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8725581246291779781, guid: 54d237cd8e60c1c48a3eaa39241163c2, type: 3}
       propertyPath: m_LocalPosition.x
