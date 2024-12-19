@@ -27,7 +27,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private const float DISPLAY_THRESHOLD = 0.5f;
     private const float CRITICAL_THRESHOLD = 0.2f;
 
-    [SerializeField] private float blinkDuration = 0.3f;
+    [SerializeField] private float blinkDuration = 0.15f;
 
     [Header("Color Settings")]
     [SerializeField] private Color normalColor = Color.blue;
@@ -142,14 +142,17 @@ public class PlayerHeadFatigueBar : MonoBehaviour
                 StartCoroutine(Anim.FadeIn(fadeDuration, miningFatigueCanvasGroup));
             }
 
-            if (ratio < CRITICAL_THRESHOLD && !isBlinkingMining)
+            if (ratio < CRITICAL_THRESHOLD)
             {
-                isBlinkingCarts = true;
-                StartCoroutine(BlinkMiningFatigue());
+                if (!isBlinkingMining)
+                {
+                    isBlinkingMining = true;
+                    StartCoroutine(BlinkMiningFatigue());
+                }
             }
-            else if (isBlinkingCarts)
+            else if (isBlinkingMining )
             {
-                isBlinkingCarts = false;
+                isBlinkingMining  = false;
             }
         }
         else if (miningFatigueCanvasGroup.isActiveAndEnabled)
@@ -187,6 +190,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
     private IEnumerator BlinkMiningFatigue()
     {
+        isBlinkingMining = true;
         while (isBlinkingMining)
         {
             miningFatigueCanvasGroup.alpha = Mathf.PingPong(Time.time * (1f / blinkDuration), 1f);

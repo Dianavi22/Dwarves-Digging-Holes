@@ -77,6 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec486de249b94b2aa7eb4b73c1a5c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rockExplosionSound:
+    Guid:
+      Data1: 604939614
+      Data2: 1230442057
+      Data3: 725948544
+      Data4: 2068674129
+    Path: event:/SFX/Rock/Gold Rock destruction
   _healthPoint: 2
   haveGold: 1
   _breakRockParticule: {fileID: 2581523678156346455}
@@ -85,6 +92,8 @@ MonoBehaviour:
   _goldScore: 10
   _spawnGold: {fileID: 3816739818359022616}
   _gold: {fileID: 6593851591752231226, guid: f448c8649a4242a4499e9d49d54e7405, type: 3}
+  _tuto: {fileID: 0}
+  _eventManager: {fileID: 0}
 --- !u!114 &-4643059896975039049
 MonoBehaviour:
   m_ObjectHideFlags: 0
