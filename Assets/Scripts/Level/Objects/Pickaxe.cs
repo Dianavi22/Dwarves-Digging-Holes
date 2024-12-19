@@ -56,7 +56,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         if (isCarried)
         {
             _isCarried = true;
-            throwOnDestroy = () => { 
+            throwOnDestroy = () =>
+            {
                 holdingPlayer = null;
                 actions.EmptyHands();
                 actions.StopAnimation();
@@ -98,21 +99,26 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private bool isFirstTime = true;
     private void Update()
     {
-        if(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
+        if (!_isDying)
         {
-            myTarget.GetComponent<FollowTarget>().OpenTuto();
-        }
-        else {
-            if (isFirstTime)
+            if (isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
             {
-                isFirstTime = false;
-                myTarget.GetComponent<FollowTarget>().TotalClose();
+                myTarget.GetComponent<FollowTarget>().OpenTuto();
             }
             else
             {
-                myTarget.GetComponent<FollowTarget>().CloseTuto();
+                if (isFirstTime)
+                {
+                    isFirstTime = false;
+                    myTarget.GetComponent<FollowTarget>().TotalClose();
+                }
+                else
+                {
+                    myTarget.GetComponent<FollowTarget>().CloseTuto();
+                }
             }
         }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -136,9 +142,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         if (Utils.Component.TryGetInParent<Rock>(hit, out var rock))
         {
             HandleRockHit(rock);
-            
+
         }
-        
+
         else if (Utils.Component.TryGetInParent<Player>(hit, out var player))
         {
             HandlePlayerHit(player);
@@ -181,8 +187,10 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         throwOnDestroy?.Invoke();
     }
 
-    private IEnumerator BreakPickaxe() {
+    private IEnumerator BreakPickaxe()
+    {
         _isDying = true;
+        Destroy(myTarget);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);
         GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
@@ -193,7 +201,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     #region Sound
     private void MineSound()
-    {  
+    {
         EventInstance miningSoundInstance = RuntimeManager.CreateInstance(mineSoundEvent);
         RuntimeManager.AttachInstanceToGameObject(miningSoundInstance, transform, GetComponent<Rigidbody>());
         miningSoundInstance.start();
