@@ -238,6 +238,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
     public void HideGfx()
     {
+        for (int i = 0; i < _goldEtages.Count; i++)
+        {
+            _goldEtages[i].SetActive(false);
+        }
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
     }
