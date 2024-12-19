@@ -19,7 +19,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private bool _isSoundPlaying = false;
     private float currentVolume = 0f;
     private float targetVolume = 0f;
-    [SerializeField] private float fadeTime = 0.2f;
+    [SerializeField] private float fadeInTime = 0.1f;
+    [SerializeField] private float fadeOutTime = 1f;
 
     [SerializeField] private TMP_Text _goldCountText;
 
@@ -189,6 +190,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
 
             targetVolume = (speed - 0.5f) / (4f - 0.5f);
+            targetVolume = Mathf.Clamp01(targetVolume);
         }
         else
         {
@@ -197,7 +199,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (_chariotEventInstance.isValid())
         {
-            currentVolume = Mathf.MoveTowards(currentVolume, targetVolume, Time.deltaTime * (1f / fadeTime));
+            float fadeDuration = (targetVolume > currentVolume) ? fadeInTime : fadeOutTime;
+
+            currentVolume = Mathf.MoveTowards(currentVolume, targetVolume, Time.deltaTime * (1f / fadeDuration));
             _chariotEventInstance.setParameterByName("Volume", currentVolume);
             _chariotEventInstance2.setParameterByName("Volume", currentVolume);
 
@@ -208,7 +212,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 _isSoundPlaying = false;
             }
         }
-
     }
 
     public void StopChariotSound()
@@ -241,6 +244,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HandleDestroy()
     {
         StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
+        StopChariotSound();
     }
     public GameObject GetGameObject() { return gameObject; }
     #endregion

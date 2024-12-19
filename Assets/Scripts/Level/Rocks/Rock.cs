@@ -5,9 +5,13 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using Utils;
+using FMODUnity;
+using FMOD.Studio;
 
 public class Rock : MonoBehaviour
 {
+    [SerializeField] private EventReference rockExplosionSound;
+
     [SerializeField] int _healthPoint = 5;
     public bool haveGold;
     [SerializeField] ParticleSystem _breakRockParticule;
@@ -60,6 +64,8 @@ public class Rock : MonoBehaviour
 
         }
 
+        PlayRockExplosionSound(gameObject.transform.position);
+
         _breakRockParticule.Play();
         _gfx.SetActive(false);
         _rockCollider.enabled = false;
@@ -87,5 +93,10 @@ public class Rock : MonoBehaviour
     {
         _baseHp = _healthPoint;
         _healthPoint += 1;
+    }
+
+    private void PlayRockExplosionSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(rockExplosionSound, position);
     }
 }

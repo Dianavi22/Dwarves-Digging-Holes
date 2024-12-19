@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class IntroGame : MonoBehaviour
 {
+    [SerializeField] private EventReference woodExplosionSound;
+
     [SerializeField] List<GameObject> _ladderPart;
 
     public IEnumerator LadderIntro()
@@ -19,9 +23,16 @@ public class IntroGame : MonoBehaviour
 
     private IEnumerator DestroyPart(GameObject ladderPart)
     {
+        RuntimeManager.PlayOneShot(woodExplosionSound, ladderPart.transform.position);
+
         ladderPart.GetComponentInChildren<ParticleSystem>().Play();
         ladderPart.GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(3);
         Destroy(ladderPart);
+    }
+
+    private void PlayWoodExplosionSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(woodExplosionSound, position);
     }
 }

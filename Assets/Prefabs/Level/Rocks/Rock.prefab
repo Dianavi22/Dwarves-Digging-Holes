@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9119546368410082369}
-  - component: {fileID: 2822610105523294936}
   - component: {fileID: 8412689860316798538}
   - component: {fileID: -4374784394661799315}
   m_Layer: 6
@@ -37,33 +36,6 @@ Transform:
   - {fileID: 3165505793349710923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2822610105523294936
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3803979287644941330}
-  serializedVersion: 4
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 2
 --- !u!114 &8412689860316798538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec486de249b94b2aa7eb4b73c1a5c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rockExplosionSound:
+    Guid:
+      Data1: 2143965465
+      Data2: 1338670877
+      Data3: 1840485530
+      Data4: 1117553814
+    Path: event:/SFX/Rock/Rock destruction
   _healthPoint: 1
   haveGold: 0
   _breakRockParticule: {fileID: 4022188921834413446}
