@@ -22,6 +22,7 @@ public class FollowTarget : MonoBehaviour
     private Tuto _tuto;
     private void Start()
     {
+        //_images.ForEach(i => Debug.Log(i.name));
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         TotalClose(); // Initialisation à l'état totalement fermé
     }
@@ -61,6 +62,7 @@ public class FollowTarget : MonoBehaviour
     {
         foreach (var image in _images)
         {
+            if (image == null) continue;
             image.color = color;
         }
 
