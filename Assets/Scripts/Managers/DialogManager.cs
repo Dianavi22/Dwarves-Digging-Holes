@@ -11,7 +11,6 @@ public class DialogManager : MonoBehaviour
     [SerializeField] TMP_Text _dialogText;
     [SerializeField] Image _dwarfHead;
     [SerializeField] List<Sprite> _dwarfHeadSprite;
-    [SerializeField] GamePadsController _gpController;
     private TypeSentence _typeSentence;
     private int i;
 
@@ -33,7 +32,7 @@ public class DialogManager : MonoBehaviour
         _typeSentence.WriteMachinEffect(dialogList[i], _dialogText, 0.05f);
         StartCoroutine(Dialog());
         _dwarfHead.gameObject.SetActive(true);
-        _dwarfHead.sprite = _dwarfHeadSprite[Random.Range(0,_gpController.NbPlayer)];
+        _dwarfHead.sprite = _dwarfHeadSprite[Random.Range(0,GamePadsController.Instance.NbPlayer)];
         yield return new WaitForSeconds(10);
         _dialogText.text = "";
         _dwarfHead.gameObject.SetActive(false);

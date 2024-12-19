@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class TargetManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private Score score;
     [SerializeField] private Lava lava;
     [SerializeField] private Tuto tuto;
+    [SerializeField] private PostProcessVolume postProcessVolume;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
     void Awake()
@@ -32,7 +34,8 @@ public class TargetManager : MonoBehaviour
             typeSentence,
             score,
             lava,
-            tuto
+            tuto,
+            postProcessVolume
         };
         return list;
     }

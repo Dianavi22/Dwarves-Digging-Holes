@@ -22,24 +22,27 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private float fadeTime = 0.2f;
 
     [SerializeField] private TMP_Text _goldCountText;
+
+    [Header("Particle System")]
     [SerializeField] private ParticleSystem _lostGoldPart;
     [SerializeField] private ParticleSystem _sparksPart;
-
     public ParticleSystem oneLostPart;
-    [SerializeField] GameObject _gfx;
+
+    [Header("Gold Pile")]
     [SerializeField] int _maxGoldStep;
     [SerializeField] MoreGold _goldStepPrefab;
     [SerializeField] Transform _defaultSpawnNuggetPosition;
     [SerializeField] Pepite nugget;
+
+    [Header("Other")]
+    [SerializeField] GameObject _gfx;
 
     private List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
     [SerializeField] EventManager _eventManager;
-    [SerializeField] Transform _spawnNugget;
     private bool _isPlayed = false;
-
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -73,10 +76,14 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
                 _goldStepList.RemoveAt(_goldStepList.Count - 1);
             }
+
+            // GameOver
+            GameManager gm = GameManager.Instance;
+            if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
+                StartCoroutine(gm.GameOver(Message.NoGold));
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
-
     private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
     public int GetHighestIndexStepList => _goldStepList.Count - 1;
 
@@ -89,14 +96,12 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         ChariotSound();
 
-
         if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
             if (!_isPlayed)
             {
                 _isPlayed = true;
                 _sparksPart.Play();
-
             }
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
@@ -116,7 +121,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void NearDeathExperience()
     {
         //& Color Grading
-        if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out ColorGrading colorGrading))
+        if (TargetManager.Instance.GetGameObject<PostProcessVolume>().profile.TryGetSettings(out ColorGrading colorGrading))
         {
             Sequence _nearDeathExperienceColorGrading = AnimSequence.Chariot.NearDeathSequenceColorGrading(colorGrading);
 
@@ -124,7 +129,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
 
         //& Vignette
-        if (GameManager.Instance.postProcessVolume.profile.TryGetSettings(out Vignette vignette))
+        if (TargetManager.Instance.GetGameObject<PostProcessVolume>().profile.TryGetSettings(out Vignette vignette))
         {
             Sequence _nearDeathExperienceVignette = AnimSequence.Chariot.NearDeathSequenceVignette(vignette);
             _nearDeathExperienceVignette.SetLoops(-1);
@@ -295,21 +300,5 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             rb.AddForce(direction * UnityEngine.Random.Range(10f, 30f), ForceMode.Impulse);
         }
         UpdateText();
-    }
-   
-
-    public void LostGoldByRock()
-    {
-        _currentGoldCount = _currentGoldCount - 5;
-        SpawnMultipleNugget(5, _spawnNugget);
-        UpdateText();
-    }
-
-    public void AddGoldPepite()
-    {
-        _currentGoldCount = _currentGoldCount + 1;
-        UpdateText();
-    }
-
-   
+    }   
 }
