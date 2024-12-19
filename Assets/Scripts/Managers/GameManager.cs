@@ -2,12 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
-using FMODUnity;
-using UnityEngine.Rendering.PostProcessing;
-using DG.Tweening;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -20,11 +16,6 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool isInMainMenu = false;
     public bool passTuto = false;
-
-    [SerializeField] private PlatformSpawner blockSpawner;
-
-    // @todo maybe set this in lava script instead
-    [SerializeField] private Light _lavaLight;
 
     #region Difficulty
     [Header("Difficulty")]
@@ -77,6 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> _playerStats;
 
     [Header("Other")]
+    [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] EventManager _eventManager;
@@ -135,7 +127,6 @@ public class GameManager : MonoBehaviour
         CurrentScrollingSpeed = 0;
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
-        _lavaLight.DOIntensity(4f, 2f);
         yield return new WaitForSeconds(2);
         if (passTuto && !_tuto.isInTuto)
         {

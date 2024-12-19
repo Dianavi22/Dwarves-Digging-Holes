@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FMOD.Studio;
 using FMODUnity;
 using System.Collections;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
+    [SerializeField] private Light _lavaLight;
     [SerializeField] private Collider _lavaCollider;
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
@@ -45,6 +47,7 @@ public class Lava : MonoBehaviour
     {
         if (_isCoolDown)
         {
+            _lavaLight.DOIntensity(4f, 2f);
             _rockFall.Play();
             TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
             _lavaCollider.enabled = true;
@@ -54,7 +57,6 @@ public class Lava : MonoBehaviour
             _rockFall.Stop();
             _isCoolDown = false;
         }
-        
     }
 
     #region Sound
