@@ -14,6 +14,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private GameObject _settingsButtonMM;
 
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
+    [SerializeField] private MainMenuManager _mmm;
 
     private void Start()
     {
@@ -58,6 +59,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void CloseSettings()
     {
+        _mmm.ShowButtons();
         _buttonsCanvaGroup.interactable = true;
         EventSystem.current.SetSelectedGameObject(_settingsButtonMM);
         SettingsWindow.SetActive(false);

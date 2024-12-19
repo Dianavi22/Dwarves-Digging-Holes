@@ -54,13 +54,20 @@ public class MainMenuManager : MonoBehaviour
 
     private void ActiveButtons()
     {
+        ShowButtons();
+        _credits.SetActive(false);
+    }
+
+    public void ShowButtons()
+    {
         _buttons.SetActive(true);
         _title.SetActive(true);
-        _credits.SetActive(false);
     }
 
     public void LoadSettingScene()
     {
+        _title.gameObject.SetActive(false);
+        _buttons.gameObject.SetActive(false);
         _buttonsCanvaGroup.interactable = false;
         _settingsWindow.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_closeButtonSettings);
