@@ -700,7 +700,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &3588309023502915711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,9 +713,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c12f00987472394ebca538d720aad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoveryTime: 0.5
   holdBy: {fileID: 0}
   Joint: {fileID: 0}
+  CanMoveAfterGrab: 1
   animator: {fileID: 1766082382499409143}
 --- !u!114 &6831975214807127632
 MonoBehaviour:
@@ -730,6 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canFlip: 1
+  isGrounded: 0
+  Stats: {fileID: 0}
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _DashPart: {fileID: 6319271055205663220}
   _groundedPart: {fileID: 8238030346643257469}
@@ -997,7 +999,6 @@ MonoBehaviour:
       Data3: 184867505
       Data4: -28727300
     Path: event:/SFX/Interaction/Throw
-  _tuto: {fileID: 0}
   heldObject: {fileID: 0}
   IsBaseActionActivated: 0
   pivot: {fileID: 3808914129422552221}
