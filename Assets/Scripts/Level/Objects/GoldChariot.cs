@@ -33,11 +33,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] Pepite nugget;
 
     private List<MoreGold> _goldStepList = new();
-
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
     [SerializeField] EventManager _eventManager;
+    [SerializeField] Transform _spawnNugget;
     private bool _isPlayed = false;
 
 
@@ -105,7 +105,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _isPlayed = false;
             _sparksPart.Stop();
 
-            if (_nearDeathExperienceSequence.Any())
+            foreach (Sequence item in _nearDeathExperienceSequence)
             {
                 item.Kill();
             }
@@ -243,9 +243,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HideGfx()
     {
-        for (int i = 0; i < _goldEtages.Count; i++)
+        for (int i = 0; i < _goldStepList.Count; i++)
         {
-            _goldEtages[i].SetActive(false);
+            _goldStepList[i].GetComponent<GameObject>().SetActive(false);
         }
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
@@ -301,7 +301,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void LostGoldByRock()
     {
         _currentGoldCount = _currentGoldCount - 5;
-        _eventManager.SpawnPepite(5);
+        SpawnMultipleNugget(5, _spawnNugget);
         UpdateText();
     }
 
