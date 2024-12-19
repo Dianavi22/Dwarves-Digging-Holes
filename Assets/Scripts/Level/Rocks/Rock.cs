@@ -17,14 +17,12 @@ public class Rock : MonoBehaviour
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
-    [SerializeField] EventManager _eventManager;
     private int _baseHp;
     private Player hitPlayer = null;
 
     private void Awake()
     {
         _rockCollider = GetComponentInChildren<Collider>();
-        _eventManager = FindObjectOfType<EventManager>();
         _spawnGold = this.transform;
     }
 
@@ -73,7 +71,7 @@ public class Rock : MonoBehaviour
     {
         if (!GameManager.Instance.isInMainMenu)
         {
-            if (_eventManager.isRockEvent)
+            if (EventManager.Instance.isRockEvent)
             {
                 EventRock();
             }

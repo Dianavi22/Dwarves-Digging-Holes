@@ -748,12 +748,13 @@ MonoBehaviour:
   fadeTime: 0.2
   _goldCountText: {fileID: 9219658797423398484}
   _lostGoldPart: {fileID: 4159188239862836962}
+  _sparksPart: {fileID: 0}
   oneLostPart: {fileID: 323299233056145027, guid: 5342f75ea0fb0e14fad79112888a2b39, type: 3}
-  _gfx: {fileID: 1351085718703704695}
   _maxGoldStep: 6
   _goldStepPrefab: {fileID: 6498901134442231530, guid: 9a45e4782575504439f5e878c8db9d71, type: 3}
   _defaultSpawnNuggetPosition: {fileID: 2277580496668718134}
   nugget: {fileID: 182930455591863055, guid: f231daa3c6cb7ed48b41fcbd5b6163c8, type: 3}
+  _gfx: {fileID: 1351085718703704695}
 --- !u!54 &415383790900409220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -780,7 +781,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &5506279447446415639
 GameObject:
   m_ObjectHideFlags: 0

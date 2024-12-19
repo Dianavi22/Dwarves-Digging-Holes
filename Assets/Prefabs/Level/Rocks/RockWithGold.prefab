@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6871278959994187326}
   - component: {fileID: 5240119379322174540}
-  - component: {fileID: 8110452125874359559}
   - component: {fileID: -4643059896975039049}
+  - component: {fileID: 8110452125874359559}
   m_Layer: 6
   m_Name: RockWithGold
   m_TagString: Rock
@@ -64,27 +64,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!114 &8110452125874359559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365725604392612219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec486de249b94b2aa7eb4b73c1a5c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthPoint: 2
-  haveGold: 1
-  _breakRockParticule: {fileID: 2581523678156346455}
-  _gfx: {fileID: 7212093183657113754}
-  _score: {fileID: 0}
-  _goldScore: 10
-  _spawnGold: {fileID: 3816739818359022616}
-  _gold: {fileID: 6593851591752231226, guid: f448c8649a4242a4499e9d49d54e7405, type: 3}
+  m_CollisionDetection: 2
 --- !u!114 &-4643059896975039049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +86,25 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 900b23f0e57da56468ea8c5ee387cb79, type: 2}
   _gfx: {fileID: 7212093183657113754}
   _meshRenderer: {fileID: 3986819178745378556}
+--- !u!114 &8110452125874359559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365725604392612219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec486de249b94b2aa7eb4b73c1a5c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthPoint: 2
+  haveGold: 1
+  _breakRockParticule: {fileID: 2581523678156346455}
+  _gfx: {fileID: 7212093183657113754}
+  _goldScore: 10
+  _spawnGold: {fileID: 3816739818359022616}
+  _gold: {fileID: 6593851591752231226, guid: f448c8649a4242a4499e9d49d54e7405, type: 3}
 --- !u!1 &4081046395422051196
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,9 +18,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private bool _isDying = false;
     private Player holdingPlayer;
     public bool isInTuto;
-    [SerializeField] GameObject _tutoTarget;
-    [SerializeField] GoldChariot _gc;
-    public GameObject myTarget;
+    [SerializeField] FollowTarget _tutoTarget;
+    public FollowTarget myTarget;
     [SerializeField] GameObject _pickaxePart;
     private bool _isShowTuto = false;
     private bool _isCarried = false;
@@ -45,8 +44,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     {
         StartCoroutine(CdParticule());
         myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
-        myTarget.GetComponent<FollowTarget>().target = transform;
-        _gc = FindObjectOfType<GoldChariot>();
+        myTarget.target = transform;
     }
     public void HandleCarriedState(Player currentPlayer, bool isCarried)
     {
@@ -103,18 +101,18 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             if (isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
             {
-                myTarget.GetComponent<FollowTarget>().OpenTuto();
+                myTarget.OpenTuto();
             }
             else
             {
                 if (isFirstTime)
                 {
                     isFirstTime = false;
-                    myTarget.GetComponent<FollowTarget>().TotalClose();
+                    myTarget.TotalClose();
                 }
                 else
                 {
-                    myTarget.GetComponent<FollowTarget>().CloseTuto();
+                    myTarget.CloseTuto();
                 }
             }
         }

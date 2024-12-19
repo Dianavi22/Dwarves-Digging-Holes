@@ -2,12 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
-using FMODUnity;
-using UnityEngine.Rendering.PostProcessing;
-using DG.Tweening;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -16,15 +12,13 @@ public class GameManager : MonoBehaviour
     public bool debugMode;
     public bool isDisableEventManager;
 
-    public PostProcessVolume postProcessVolume;
-
-    [SerializeField] private PlatformSpawner blockSpawner;
-
-    [SerializeField] private Light _lavaLight;
-
-    [SerializeField] private PhysicMaterial holderPhysicMaterial;
+    public bool isGameStarted = false;
+    public bool isGameOver = false;
+    public bool isInMainMenu = false;
+    public bool passTuto = false;
 
     #region Difficulty
+    [Header("Difficulty")]
     // The difficulty have to be listed from the easiest to the hardest
     [SerializeField] private List<Difficulty> m_DifficultyList;
     public Difficulty Difficulty { private set; get; }
@@ -53,30 +47,39 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public float CurrentScrollingSpeed { private set; get; }
+
+    public void SetScrollingSpeed(float value)
+    {
+        CurrentScrollingSpeed = value;
+    }
     #endregion
 
+    [Header("Canvas")]
     [SerializeField] private GameObject _GameOverCanvas;
     [SerializeField] GameObject _retryButton;
-
     [SerializeField] TMP_Text _textGameOverCondition;
-
-    [SerializeField] ParticleSystem _gameOverPart;
-    [SerializeField] IntroGame _introGame;
-    public bool isGameOver = false;
-    public bool isInMainMenu = false;
-    [SerializeField] EventManager _eventManager;
-    private GoldChariot _goldChariot;
-    private Tuto _tuto;
-    public bool passTuto = false;
 
     [SerializeField] GameObject _skipTuto;
     [SerializeField] GameObject _scoreText;
     [SerializeField] GameObject _circleTransition;
-    
-    private Score _score;
+
+    [SerializeField] Button _backButton;
+    [SerializeField] GameObject _gameOverCanva;
+
+    [SerializeField] List<GameObject> _playerStats;
+
+    [Header("Other")]
+    [SerializeField] private PlatformSpawner blockSpawner;
+    [SerializeField] ParticleSystem _gameOverPart;
+    [SerializeField] IntroGame _introGame;
 
     [SerializeField] LevelCompleteManager _levelCompleteManager;
-    public bool isGameStarted = false;
+
+    private Score _score;
+    private GoldChariot _goldChariot;
+    private Tuto _tuto;
+    private EventManager _eventManager;
+
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -95,12 +98,6 @@ public class GameManager : MonoBehaviour
         // Select the difficulty
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
 
-        if (!isInMainMenu)
-        {
-            _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-            _goldChariot.GoldCount = Difficulty.NbStartingGold;
-        }
-
         foreach (Player p in GamePadsController.Instance.PlayerList)
         {
             p.GetMovement().SetStats(Difficulty.PlayerStats);
@@ -109,25 +106,27 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-        if (!isInMainMenu) GameStarted();
+
 
         if (!isInMainMenu)
         {
+            _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
+            _goldChariot.GoldCount = Difficulty.NbStartingGold;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
+            _eventManager = EventManager.Instance;
+
+            GameStarted();
         }
+
         _circleTransition.SetActive(true);
-
     }
-
-  
 
     private IEnumerator StartParty()
     {
         CurrentScrollingSpeed = 0;
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
-        _lavaLight.DOIntensity(4f, 2f);
         yield return new WaitForSeconds(2);
         if (passTuto && !_tuto.isInTuto)
         {
@@ -158,19 +157,10 @@ public class GameManager : MonoBehaviour
         _scoreText.SetActive(true);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
-        //Invoke(nameof(InitPlatformSpawner), 3f);
         blockSpawner.SpawnPlatform();
         CurrentScrollingSpeed = this.Difficulty.ScrollingSpeed;
         yield return new WaitForSeconds(70);
         _eventManager.LaunchEvent();
-    }
-
-    void Update()
-    {
-        if (!isInMainMenu && _goldChariot.GoldCount <= 0 && !isGameOver && !debugMode)
-        {
-            StartCoroutine(GameOver(Message.NoGold));
-        }
     }
 
     private void GameStarted()
@@ -180,35 +170,26 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartParty());
     }
 
-    private void InitPlatformSpawner()
-    {
-        blockSpawner.SpawnPlatform();
-    }
-
-    [SerializeField] List<GameObject> _playerStats;
-    [SerializeField] Button _backButton;
-    [SerializeField] GameObject _gameOverCanva;
     public IEnumerator GameOver(Message deathMessage)
     {
-        if (!isGameOver)
-        {
-            StatsManager.Instance.EndGame();
+        if (isGameOver) yield break;
 
-            _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
-            _gameOverPart.gameObject.SetActive(true);
-            isGameOver = true;
-            _goldChariot.HideChariotText();
-            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-            _eventManager.enabled = false;
-            yield return new WaitForSeconds(3.5f);
-            _goldChariot.HideGfx();
-            yield return new WaitForSeconds(2f);
-            _GameOverCanvas.SetActive(true);
-            // ? Activer un message / effet si record battu
-            bool newBest = _score.CheckBestScore();
-            CurrentScrollingSpeed = 0f;
-            EventSystem.current.SetSelectedGameObject(_retryButton);
-        }
+        StatsManager.Instance.EndGame();
+
+        _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
+        _gameOverPart.gameObject.SetActive(true);
+        isGameOver = true;
+        _goldChariot.HideChariotText();
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
+        _eventManager.enabled = false;
+        yield return new WaitForSeconds(3.5f);
+        _goldChariot.HideGfx();
+        yield return new WaitForSeconds(2f);
+        _GameOverCanvas.SetActive(true);
+        // ? Activer un message / effet si record battu
+        bool newBest = _score.CheckBestScore();
+        CurrentScrollingSpeed = 0f;
+        EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
     public void ShowCardsFunc()
@@ -235,31 +216,26 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < _playerStats.Count; i++)
         {
             _playerStats[i].SetActive(true);
-        yield return new WaitForSecondsRealtime(0.35f);
+            yield return new WaitForSecondsRealtime(0.35f);
         }
     }
     
     public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
     {
-        if (!isGameOver)
-        {
-            Debug.Log("LevelComplete");
-            isGameOver = true;
-            _goldChariot.HideChariotText();
-            _goldChariot.HideGfx();
-            _eventManager.enabled = false;
-            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-            levelCompleteManager.blockSpawner.SetActive(false);
-            levelCompleteManager.lavaGFX.SetActive(false);
-            yield return new WaitForSeconds(5.5f);
-            levelCompleteManager.canvas.SetActive(true);
-            CurrentScrollingSpeed = 0f;
-            EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
-            yield return null;
-        }
-    }
+        if (isGameOver) yield break;
 
-    public void SetScrollingSpeed(float value) {
-        CurrentScrollingSpeed = value;
+        Debug.Log("LevelComplete");
+        isGameOver = true;
+        _goldChariot.HideChariotText();
+        _goldChariot.HideGfx();
+        _eventManager.enabled = false;
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
+        levelCompleteManager.blockSpawner.SetActive(false);
+        levelCompleteManager.lavaGFX.SetActive(false);
+        yield return new WaitForSeconds(5.5f);
+        levelCompleteManager.canvas.SetActive(true);
+        CurrentScrollingSpeed = 0f;
+        EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
+        yield return null;
     }
 }

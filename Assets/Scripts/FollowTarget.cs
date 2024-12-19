@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class FollowTarget : MonoBehaviour
 {
     public Transform target;
-    private float _followSpeed = 100f;
     [SerializeField] Vector3 _offset = new Vector3(0, 1, 0);
+    [SerializeField] float _followSpeed = 100f;
 
-    [SerializeField] List<GameObject> _images;
-    [SerializeField] GameObject _circle;
+    [SerializeField] List<Image> _images;
+    [SerializeField] SpriteRenderer _circle;
 
     private bool _isOpen = false;
 
@@ -22,7 +22,7 @@ public class FollowTarget : MonoBehaviour
     private Tuto _tuto;
     private void Start()
     {
-        _tuto = FindObjectOfType<Tuto>();
+        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         TotalClose(); // Initialisation à l'état totalement fermé
     }
 
@@ -46,73 +46,34 @@ public class FollowTarget : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, targetPosition, _followSpeed * Time.deltaTime);
             transform.rotation = Quaternion.identity;
         }
-        if(GameManager.Instance.isGameStarted || _tuto.isInTuto)
+
+
+        if (GameManager.Instance.isGameStarted || _tuto.isInTuto)
         {
-            if (_isOpen)
-            {
-                foreach (var image in _images)
-                {
-                    var img = image.GetComponent<Image>();
-                    if (img != null)
-                    {
-                        img.color = Color.Lerp(alphaZero, alpha, t);
-                    }
-                }
+            Color lerp = _isOpen
+                ? Color.Lerp(alphaZero, alpha, t)
+                : Color.Lerp(alpha, alphaZero, t);
+            SetImageAlphaColor(lerp);
+        }
+    }
 
-                if (_circle != null)
-                {
-                    var spriteRenderer = _circle.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer != null)
-                    {
-                        spriteRenderer.color = Color.Lerp(alphaZero, alpha, t);
-                    }
-                }
-            }
-            else
-            {
-                foreach (var image in _images)
-                {
-                    var img = image.GetComponent<Image>();
-                    if (img != null)
-                    {
-                        img.color = Color.Lerp(alpha, alphaZero, t);
-                    }
-                }
-
-                if (_circle != null)
-                {
-                    var spriteRenderer = _circle.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer != null)
-                    {
-                        spriteRenderer.color = Color.Lerp(alpha, alphaZero, t);
-                    }
-                }
-            }
+    private void SetImageAlphaColor(Color color)
+    {
+        foreach (var image in _images)
+        {
+            image.color = color;
         }
 
-        
+        if (_circle != null)
+        {
+            _circle.color = color;
+        }
     }
 
     public void TotalClose()
     {
         // Forcer toutes les couleurs à alphaZero immédiatement
-        foreach (var image in _images)
-        {
-            var img = image.GetComponent<Image>();
-            if (img != null)
-            {
-                img.color = alphaZero;
-            }
-        }
-
-        if (_circle != null)
-        {
-            var spriteRenderer = _circle.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.color = alphaZero;
-            }
-        }
+        SetImageAlphaColor(alphaZero);
 
         // Réinitialiser les variables d'état
         _isOpen = false;

@@ -7,9 +7,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class GoldToChariot : MonoBehaviour
 {
-    [SerializeField] GoldChariot _goldChariot;
     [SerializeField] float _speed;
     [SerializeField] Vector3 _direction;
+
+    private GoldChariot _goldChariot;
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
