@@ -24,7 +24,7 @@ public class EnemyMovements : EntityMovement
             _e.KillGobs();
             return;
         }
-        if (!_e.IsGrabbed)
+        if (!_e.IsGrabbed && !GameManager.Instance.isGameOver)
         {
             base.Update();
 
