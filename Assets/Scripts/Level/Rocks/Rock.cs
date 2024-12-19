@@ -13,7 +13,7 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    [SerializeField] private Score _score;
+    private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;

@@ -21,14 +21,18 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private float targetVolume = 0f;
     [SerializeField] private float fadeTime = 0.2f;
 
-
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
     [SerializeField] private ParticleSystem _sparksPart;
 
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
-    [SerializeField] List<GameObject> _goldEtages;
+    [SerializeField] int _maxGoldStep;
+    [SerializeField] MoreGold _goldStepPrefab;
+    [SerializeField] Transform _defaultSpawnNuggetPosition;
+    [SerializeField] Pepite nugget;
+
+    private List<MoreGold> _goldStepList = new();
 
     private List<Sequence> _nearDeathExperienceSequence = new();
 
@@ -48,8 +52,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
-    public int goldLostValue;
-
     private int _currentGoldCount = 10;
     public int GoldCount
     {
@@ -58,9 +60,25 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             _currentGoldCount = Math.Max(0, value);
             UpdateText();
+
+            if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
+            {
+                Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
+                MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
+                g.Instanciate(_goldStepList.Count);
+                _goldStepList.Add(g);
+            }
+            else if (_currentGoldCount <= _goldStepList.Count * 10)
+            {
+                StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
+                _goldStepList.RemoveAt(_goldStepList.Count - 1);
+            }
         }
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
+
+    private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
+    public int GetHighestIndexStepList => _goldStepList.Count - 1;
 
     private void Start()
     {
@@ -82,32 +100,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
-        else
+        else if (_nearDeathExperienceSequence.Any())
         {
             _isPlayed = false;
             _sparksPart.Stop();
 
             if (_nearDeathExperienceSequence.Any())
             {
-                foreach (Sequence item in _nearDeathExperienceSequence)
-                {
-                    item.Kill();
-                }
-                _nearDeathExperienceSequence = new();
+                item.Kill();
             }
-        }
-
-        for (int i = 0; i < _goldEtages.Count; i++)
-        {
-            if(_currentGoldCount > (i + 1) * 10)
-            {
-                _goldEtages[i].GetComponent<MoreGold>().SpawnBlock(_goldEtages[i]);
-
-            }
-            else
-            {
-                _goldEtages[i].GetComponent<MoreGold>().DespawnBlock(_goldEtages[i]);
-            }
+            _nearDeathExperienceSequence = new();
         }
     }
 
@@ -131,7 +133,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _nearDeathExperienceSequence.Add(_nearDeathExperienceVignette);
         }
     }
-
 
     private void UpdateText()
     {
@@ -221,6 +222,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     #endregion
 
+    #region IGrabbable
     public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
@@ -236,6 +238,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
     }
+    public GameObject GetGameObject() { return gameObject; }
+    #endregion
+
     public void HideGfx()
     {
         for (int i = 0; i < _goldEtages.Count; i++)
@@ -245,8 +250,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
     }
-    public GameObject GetGameObject() { return gameObject; }
-
     public void HideChariotText()
     {
         _lostGoldPart.Stop();
@@ -254,25 +257,42 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void GoldEvent()
     {
-        if (_currentGoldCount <= 1) return;
+        if (GoldCount <= 1) return;
         else
         {
-            _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
-            _eventManager.SpawnPepite(_currentGoldCount);
-            UpdateText();
+            GoldCount = (int)Mathf.Round(GoldCount / 2);
+            SpawnMultipleNugget(GoldCount, NuggetSpawnPoint);
         }
     }
-    public void LostGoldStage()
+    public void LostGoldStage(int idStep)
     {
-        goldLostValue = Mathf.Abs(_currentGoldCount) % 10;
-        if (goldLostValue == 0) { goldLostValue = 10; }
-        if (_currentGoldCount - goldLostValue < 10)
-        {
-            _currentGoldCount = 10;
-        }
+        int goldLostValue = Mathf.Abs(GoldCount) % 10;
+        if (goldLostValue == 0) 
+            goldLostValue = 10;
+        if (GoldCount - goldLostValue < 10)
+            GoldCount = 10;
         else
+            GoldCount -= goldLostValue;
+
+        SpawnMultipleNugget(goldLostValue, _goldStepList[idStep].GetSpawnPoint);
+    }
+
+    public void SpawnMultipleNugget(int nb, Transform position)
+    {
+        for (int i = 0; i <= nb; i++)
         {
-            _currentGoldCount = _currentGoldCount - goldLostValue;
+            SpawnNugget(position);
+        }
+    }
+
+    public void SpawnNugget(Transform transform)
+    {
+        Pepite spawnedObject = Instantiate(nugget, transform.position, Quaternion.identity);
+
+        if (spawnedObject.TryGetComponent<Rigidbody>(out var rb))
+        {
+            Vector3 direction = DRandom.DirectionInCone(transform.forward, 15f);
+            rb.AddForce(direction * UnityEngine.Random.Range(10f, 30f), ForceMode.Impulse);
         }
         UpdateText();
     }

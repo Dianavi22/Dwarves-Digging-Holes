@@ -29,13 +29,7 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] GoblinWave _goblinWave;
 
-    [SerializeField] GameObject _nugget;
-    [SerializeField] GameObject _spawnNugget;
     public bool  isRockEvent = false;
-
-    private float spawnForceMin = 10f;
-    private float spawnForceMax = 30f;
-    private float angleRange = 15f;
 
     void Start()
     {
@@ -199,26 +193,5 @@ public class EventManager : MonoBehaviour
         isRockEvent = false;
 
 
-    }
-
-
-    public void SpawnPepite(int nbNugget)
-    {
-        for (int i = 0; i <= nbNugget; i++)
-        {
-            SpawnObject();
-        }
-    }
-
-    public void SpawnObject()
-    {
-        GameObject spawnedObject = Instantiate(_nugget, _spawnNugget.transform.position, Quaternion.identity);
-
-        Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            Vector3 direction = DRandom.DirectionInCone(_spawnNugget.transform.forward, angleRange);
-            rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
-        }
     }
 }

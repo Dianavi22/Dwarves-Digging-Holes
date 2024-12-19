@@ -63,6 +63,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
                 actions.IsBaseActionActivated = false;
             };
+            // Reset pickaxe scale when throw to avoid scaling issues
+            transform.localScale = new Vector3(1f, 1f, 1f);
             if (!isInTuto && GameManager.Instance.isGameStarted)
             {
                 _isShowTuto = false;

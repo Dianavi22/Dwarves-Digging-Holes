@@ -4,120 +4,80 @@ using UnityEngine;
 
 public class MoreGold : MonoBehaviour
 {
-    [SerializeField] GoldChariot _gc;
-    public bool isActive = false;
+    private bool isActive = true;
     public GameObject gfx;
-    [SerializeField] int _idGoldPart;
-    [SerializeField] List<GameObject> _goldStage;
-    private int _nbPepites;
 
-    public bool isSpawn = false;
+    public int IDGoldStep { get; private set; }
+
     [SerializeField] Transform spawnPoint;
-    [SerializeField] GameObject objectPrefab;
-    private float spawnForceMin = 10f;
-    private float spawnForceMax = 30f;
-    private float angleRange = 15f;
     [SerializeField] ParticleSystem _spawnPart;
     [SerializeField] ParticleSystem _destroyPart;
-    private bool _partPlay = false;
-    private bool _partDestroyPlay = true;
-
-    private bool _canSpawn = true;
     private ShakyCame _sc;
+    private GoldChariot _gc;
 
     public GameObject myPlateform;
 
+    public Transform GetSpawnPoint => spawnPoint;
 
     private void Start()
     {
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
-    }
-  
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
-        {
-            for (int i = 0; i < _goldStage.Count; i++)
-            {
-                if (i >= _idGoldPart && _goldStage[i].GetComponent<MoreGold>().isActive)
-                {
-                    DespawnBlock(_goldStage[i]);
-                    _gc.LostGoldStage();
-                    _nbPepites = _gc.goldLostValue;
-                    _goldStage[i].GetComponent<MoreGold>().isSpawn = true;
-                }
-            }
-            DespawnBlock(gameObject);
-        }
+        _gc = TargetManager.Instance.GetGameObject<GoldChariot>();
     }
 
-    public void DespawnBlock(GameObject go)
+    public void Instanciate(int currentID)
     {
-        go.GetComponent<Collider>().enabled = false;
-        go.GetComponent<MoreGold>().myPlateform.SetActive(false);
-        go.GetComponent<MoreGold>().gfx.SetActive(false);
-        isActive = false;
-        _partPlay = false;
-        if (!_partDestroyPlay)
-        {
-            _partDestroyPlay = true;
-            _sc.ShakyCameCustom(0.3f, 0.5f);
-            _destroyPart.Play();
-        }
-
-    }
-
-    public void SpawnBlock(GameObject go)
-    {
-        go.GetComponent<Collider>().enabled = true;
-        go.GetComponent<MoreGold>().myPlateform.SetActive(true);
-        go.GetComponent<MoreGold>().gfx.SetActive(true);
-        if (!_partPlay)
-        {
-            _partPlay = true;
-            _spawnPart.Play();
-        }
-        isActive = true;
-        _partDestroyPlay = false;
-
-    }
-
-    private void SpawnPepite()
-    {
-        for (int i = 0; i <= _nbPepites; i++)
-        {
-            SpawnObject();
-        }
+        IDGoldStep = currentID;
+        _spawnPart.Play();
     }
 
     private void Update()
     {
-        if (isSpawn && _canSpawn)
-        {
-            isSpawn = false;
-            StartCoroutine(CdSpawn());
-            SpawnPepite();
-        }
+        if (isActive && _gc.GetHighestIndexStepList < IDGoldStep)
+            WillDestroyStep();
+
+        //if (isSpawn && _canSpawn)
+        //{
+        //    isSpawn = false;
+        //    StartCoroutine(CdSpawn());
+        //    SpawnPepite();
+        //}
     }
 
-    private IEnumerator CdSpawn()
+    private void OnTriggerEnter(Collider other)
     {
-        _canSpawn = false;
+        if (!isActive) return;
 
-        yield return new WaitForSeconds(3);
-        _canSpawn = true;
+        if (Utils.Component.TryGetInParent<Rock>(other, out _))
+            WillDestroyStep();
     }
 
+    //private IEnumerator CdSpawn()
+    //{
+    //    _canSpawn = false;
 
-    public void SpawnObject()
+    //    yield return new WaitForSeconds(3);
+    //    _canSpawn = true;
+    //}
+
+    private void WillDestroyStep()
     {
-        GameObject spawnedObject = Instantiate(objectPrefab, spawnPoint.position, Quaternion.identity);
+        // Test without cooldown when losing gold
+        _gc.LostGoldStage(IDGoldStep);
+        StartCoroutine(DespawnBlock());
+    }
 
-        Rigidbody rb = spawnedObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            Vector3 direction = Utils.DRandom.DirectionInCone(spawnPoint.forward, angleRange);
-            rb.AddForce(direction * Random.Range(spawnForceMin, spawnForceMax), ForceMode.Impulse);
-        }
+    public IEnumerator DespawnBlock()
+    {
+        GetComponent<Collider>().enabled = false;
+        myPlateform.SetActive(false);
+        gfx.SetActive(false);
+        isActive = false;
+
+        _sc.ShakyCameCustom(0.3f, 0.5f);
+        _destroyPart.Play();
+
+        yield return new WaitForSeconds(_destroyPart.main.duration + 0.1f);
+        Destroy(gameObject);
     }
 }

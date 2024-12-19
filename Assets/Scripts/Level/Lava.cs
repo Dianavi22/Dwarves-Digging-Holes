@@ -32,13 +32,6 @@ public class Lava : MonoBehaviour
         {
             Destroy(rock.gameObject);
         }
-
-        // @todo set this in IGrabbale.HandleDestroy instead
-        if (Utils.Component.TryGetInParent<Dynamite>(other, out var dynamite))
-        {
-            dynamite.GetComponent<Dynamite>().Spawn();
-            Destroy(dynamite.gameObject);
-        }
     }
     private void Update()
     {

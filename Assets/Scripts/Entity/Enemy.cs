@@ -172,7 +172,7 @@ public class Enemy : Entity
     private void LaughSound()
     {  
         EventInstance laughInstance = RuntimeManager.CreateInstance(goblinLaughSound);
-        RuntimeManager.AttachInstanceToGameObject(laughInstance, transform, GetComponent<Rigidbody>());
+        RuntimeManager.AttachInstanceToGameObject(laughInstance, transform, GetRigidbody());
         laughInstance.start();
         laughInstance.release();
     }
@@ -180,7 +180,7 @@ public class Enemy : Entity
     private void PeriodicSound()
     {  
         EventInstance periodicInstance = RuntimeManager.CreateInstance(goblinPeriodicSound);
-        RuntimeManager.AttachInstanceToGameObject(periodicInstance, transform, GetComponent<Rigidbody>());
+        RuntimeManager.AttachInstanceToGameObject(periodicInstance, transform, GetRigidbody());
         periodicInstance.start();
         periodicInstance.release();
     }
@@ -188,7 +188,7 @@ public class Enemy : Entity
     private void StealingSound()
     {  
         EventInstance stealingInstance = RuntimeManager.CreateInstance(goblinStealingSound);
-        RuntimeManager.AttachInstanceToGameObject(stealingInstance, transform, GetComponent<Rigidbody>());
+        RuntimeManager.AttachInstanceToGameObject(stealingInstance, transform, GetRigidbody());
         stealingInstance.start();
         stealingInstance.release();
     }
@@ -196,7 +196,7 @@ public class Enemy : Entity
     private void DeadSound()
     {  
         EventInstance deadInstance = RuntimeManager.CreateInstance(goblinDeadSound);
-        RuntimeManager.AttachInstanceToGameObject(deadInstance, transform, GetComponent<Rigidbody>());
+        RuntimeManager.AttachInstanceToGameObject(deadInstance, transform, GetRigidbody());
         deadInstance.start();
         deadInstance.release();
     }
