@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9030586282513498176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Throw BIT
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Throw BIT
+  Guid:
+    Data1: -271756972
+    Data2: 1132985130
+    Data3: -296516173
+    Data4: 1123611940
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8899815108979524834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ladder/Wood Explosion
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ladder/Wood Explosion
+  Guid:
+    Data1: -926564442
+    Data2: 1155369935
+    Data3: -1441341307
+    Data4: -1592243944
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-8872620006344271336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +267,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-5790827278907325319
+--- !u!114 &-5467502703519501131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,14 +277,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Weapon sounds
+  m_Name: event:/SFX/Rock/Rock destruction
   m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Weapon sounds
+  Path: event:/SFX/Rock/Rock destruction
   Guid:
-    Data1: -1632623436
-    Data2: 1282119702
-    Data3: -380541776
-    Data4: -1359833273
+    Data1: 2143965465
+    Data2: 1338670877
+    Data3: 1840485530
+    Data4: 1117553814
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
@@ -337,36 +391,9 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638701504441426376
+  lastModified: 638702277925957450
   FileSizes: []
   Exists: 1
---- !u!114 &-4442375952779050451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Cart/Wheel
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Cart/Wheel
-  Guid:
-    Data1: 1348773751
-    Data2: 1239202339
-    Data3: 2074796679
-    Data4: -1259888932
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-4160706711718696405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +421,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4107189344772630317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Rock/Gold Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Rock/Gold Rock destruction
+  Guid:
+    Data1: 604939614
+    Data2: 1230442057
+    Data3: 725948544
+    Data4: 2068674129
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4102883701541388306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Pick up BIT
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Pick up BIT
+  Guid:
+    Data1: -1427600207
+    Data2: 1189378597
+    Data3: -932457281
+    Data4: -945441039
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3994369897487482344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,33 +493,6 @@ MonoBehaviour:
     Data2: 1157935079
     Data3: 1311660174
     Data4: 344388641
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-3984579488449141298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/running
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/running
-  Guid:
-    Data1: -699673238
-    Data2: 1192296656
-    Data3: 1498452153
-    Data4: -2103288319
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
@@ -476,6 +530,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 39072
+--- !u!114 &-3425642894765715396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Rock/Big Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Rock/Big Rock destruction
+  Guid:
+    Data1: 117278513
+    Data2: 1301378247
+    Data3: 292855701
+    Data4: 1788079956
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3402052330149307086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,33 +581,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-3177783890018737669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Pickaxe/Rock destruction
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Pickaxe/Rock destruction
-  Guid:
-    Data1: 117278513
-    Data2: 1301378247
-    Data3: 292855701
-    Data4: 1788079956
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-2821906350717738045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,15 +788,12 @@ MonoBehaviour:
   - {fileID: 6449422329951250102}
   EditorEvents:
   - {fileID: 1688720440447442889}
-  - {fileID: 76994132472183272}
   - {fileID: -2821906350717738045}
   - {fileID: -7240163182546736944}
   - {fileID: -3994369897487482344}
-  - {fileID: -3177783890018737669}
   - {fileID: 7945653518377825672}
   - {fileID: -2641217248565968812}
   - {fileID: -8495853331758987838}
-  - {fileID: -3984579488449141298}
   - {fileID: 8467882385934704765}
   - {fileID: 7377039875351809070}
   - {fileID: 358572206285444184}
@@ -754,7 +805,6 @@ MonoBehaviour:
   - {fileID: 5173851857135364615}
   - {fileID: -3623123611155998495}
   - {fileID: -910026058046108924}
-  - {fileID: -5790827278907325319}
   - {fileID: 1220263381329304597}
   - {fileID: -6973158503050731056}
   - {fileID: 901958893292014840}
@@ -771,43 +821,21 @@ MonoBehaviour:
   - {fileID: -708698979490610558}
   - {fileID: 7155470817975943712}
   - {fileID: 3365501646917452286}
-  - {fileID: -4442375952779050451}
   - {fileID: -8872620006344271336}
+  - {fileID: -5467502703519501131}
+  - {fileID: -3425642894765715396}
+  - {fileID: -9030586282513498176}
+  - {fileID: -4107189344772630317}
+  - {fileID: -8899815108979524834}
+  - {fileID: -4102883701541388306}
   EditorParameters:
   - {fileID: -8355119490927434066}
   MasterBanks:
   - {fileID: -4715502524361304872}
   StringsBanks:
   - {fileID: 5912528199748081772}
-  cacheTime: 638701504441436384
+  cacheTime: 638702277926037447
   cacheVersion: 131620
---- !u!114 &76994132472183272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Goblins/Damage with lava
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Goblins/Damage with lava
-  Guid:
-    Data1: -1045520613
-    Data2: 1212928136
-    Data3: -1793194849
-    Data4: 466732565
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &358572206285444184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,7 +1148,7 @@ MonoBehaviour:
     Data4: 1575285054
   Banks:
   - {fileID: -4715502524361304872}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters: []
@@ -1193,7 +1221,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638701504441436384
+  lastModified: 638702277926037447
   FileSizes: []
   Exists: 1
 --- !u!114 &5921125712737930264
@@ -1238,7 +1266,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Menu.bank
   Name: Menu
   StudioPath: bank:/Menu
-  lastModified: 638658385003903872
+  lastModified: 638657532384781774
   FileSizes: []
   Exists: 1
 --- !u!114 &7155470817975943712
