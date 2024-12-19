@@ -5,65 +5,38 @@ using UnityEngine;
 
 public class GoblinWave : MonoBehaviour
 {
+    [SerializeField] int _nbGoblin;
+    [SerializeField] Enemy _gob;
+    [SerializeField] Transform _spawnPoint;
 
-    [SerializeField] GameObject _gob;
-    [SerializeField] GameObject _spawn;
-    [SerializeField] List<GameObject> _rocks;
-     public bool isWave;
+    private List<Rock> _rocks;
+
     private void OnTriggerEnter(Collider other)
     {
-
         if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            try
-            {
-                _rocks.Add(other.gameObject);
-            }
-            catch
-            {
-                //
-            }
+            _rocks.Add(rock);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        try
+        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            _rocks.Remove(other.gameObject);
-        }
-        catch
-        {
-            //
+            _rocks.Remove(rock);
         }
     }
 
-    private void Wave()
+    public void GenerateWave()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < _rocks.Count; i++)
         {
-            Instantiate(_gob, _spawn.transform.position, Quaternion.identity);
+            Destroy(_rocks[i].gameObject);
+        }
+
+        for (int i = 0; i < _nbGoblin; i++)
+        {
+            Instantiate(_gob, _spawnPoint.position, Quaternion.identity);
         }
     }
-
-    private void Update()
-    {
-        if (isWave)
-        {
-            for (int i = 0; i < _rocks.Count; i++)
-            {
-                try
-                {
-                    Destroy(_rocks[i].GetComponentInParent<Rock>().gameObject);
-                }
-                catch
-                {
-                    //
-                }
-            }
-            isWave = false;
-            Wave();
-        }
-    }
-
 }

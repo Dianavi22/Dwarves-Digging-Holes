@@ -179,8 +179,7 @@ public class EventManager : MonoBehaviour
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
         yield return new WaitForSeconds(1);
         _sc.ShakyCameCustom(0.3f, 0.2f);
-        _goblinWave.isWave = true;
-
+        _goblinWave.GenerateWave();
     }
 
     private IEnumerator DurabilityRocks()
