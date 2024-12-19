@@ -8,6 +8,7 @@ using System.Collections;
 using FMODUnity;
 using UnityEngine.Rendering.PostProcessing;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
     private Score _score;
 
     [SerializeField] LevelCompleteManager _levelCompleteManager;
-
+    public bool isGameStarted = false;
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -136,6 +137,8 @@ public class GameManager : MonoBehaviour
         else
         {
             _skipTuto.SetActive(true);
+            _tuto.isInTuto = true;
+
             _tuto.startTuto = true;
         }
 
@@ -145,10 +148,12 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _skipTuto.SetActive(false);
+        _tuto.isInTuto = false;
     }
 
     public IEnumerator StartGame()
     {
+        isGameStarted = true;
         _levelCompleteManager.StartGame();
         _scoreText.SetActive(true);
         _score.isStartScore = true;
@@ -180,6 +185,9 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
+    [SerializeField] List<GameObject> _playerStats;
+    [SerializeField] Button _backButton;
+    [SerializeField] GameObject _gameOverCanva;
     public IEnumerator GameOver(Message deathMessage)
     {
         if (!isGameOver)
@@ -200,6 +208,34 @@ public class GameManager : MonoBehaviour
             bool newBest = _score.CheckBestScore();
             CurrentScrollingSpeed = 0f;
             EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
+    }
+
+    public void ShowCardsFunc()
+    {
+        _gameOverCanva.SetActive(false);
+        StartCoroutine(ShowStats());
+    }
+
+    public void HideCards()
+    {
+        _gameOverCanva.SetActive(true);
+        _backButton.gameObject.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
+        for (int i = 0; i < _playerStats.Count; i++)
+        {
+            _playerStats[i].SetActive(false);
+        }
+    }
+
+    private IEnumerator ShowStats()
+    {
+        _backButton.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
+        for (int i = 0; i < _playerStats.Count; i++)
+        {
+            _playerStats[i].SetActive(true);
+        yield return new WaitForSecondsRealtime(0.35f);
         }
     }
     

@@ -13,7 +13,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
-    [SerializeField] ParticleSystem _breakPickaxe;
     [SerializeField] GameObject _gfx;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
@@ -22,6 +21,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] GameObject _tutoTarget;
     [SerializeField] GoldChariot _gc;
     public GameObject myTarget;
+    [SerializeField] GameObject _pickaxePart;
+    private bool _isShowTuto = false;
+    private bool _isCarried = false;
 
     // In case the set of HealthPoint want to destroy the pickaxe
     // _healthPoint is update in GameManager
@@ -53,6 +55,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
         if (isCarried)
         {
+            _isCarried = true;
             throwOnDestroy = () => { 
                 holdingPlayer = null;
                 actions.EmptyHands();
@@ -62,17 +65,54 @@ public class Pickaxe : MonoBehaviour, IGrabbable
             };
             // Reset pickaxe scale when throw to avoid scaling issues
             transform.localScale = new Vector3(1f, 1f, 1f);
+            if (!isInTuto && GameManager.Instance.isGameStarted)
+            {
+                _isShowTuto = false;
+            }
         }
         else
         {
+            _isCarried = false;
             actions.StopAnimation();
             actions.IsBaseActionActivated = false;
+            if (!isInTuto)
+            {
+                StartCoroutine(TutoInGame());
+            }
         }
     }
 
+    private IEnumerator TutoInGame()
+    {
+        yield return new WaitForSeconds(3);
+        if (!_isCarried)
+        {
+            _isShowTuto = true;
+        }
+        else
+        {
+            yield return null;
+        }
+    }
+
+    private bool isFirstTime = true;
     private void Update()
     {
-        myTarget.SetActive(isInTuto);
+        if(isInTuto || _isShowTuto && GameManager.Instance.isGameStarted)
+        {
+            myTarget.GetComponent<FollowTarget>().OpenTuto();
+        }
+        else {
+            if (isFirstTime)
+            {
+                isFirstTime = false;
+                myTarget.GetComponent<FollowTarget>().TotalClose();
+            }
+            else
+            {
+                myTarget.GetComponent<FollowTarget>().CloseTuto();
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -145,9 +185,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         _isDying = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        _breakPickaxe.Play();
-        yield return new WaitForSeconds(0.5f);
+        GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(3f);
+        Destroy(myBreakPart);
         Destroy(this.gameObject);
     }
 

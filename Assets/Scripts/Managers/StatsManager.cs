@@ -32,7 +32,7 @@ public class StatsManager : MonoBehaviour
     private void Start()
     {
         _statNames = GetAllStatNames();
-        InitializePlayerStatistics();
+       // InitializePlayerStatistics();
     }
 
     private void InitializePlayerStatistics()

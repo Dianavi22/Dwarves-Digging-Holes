@@ -81,7 +81,7 @@ public class PlayerMovements : EntityMovement
     #region EVENTS
     public void OnMove(InputAction.CallbackContext context)
     {
-        //Debug.Log(CanDoAnything());
+       // Debug.Log(CanDoAnything());
         if (!CanDoAnything()) return;
 
         Vector2 vector = context.ReadValue<Vector2>();

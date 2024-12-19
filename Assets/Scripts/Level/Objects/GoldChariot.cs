@@ -23,6 +23,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     [SerializeField] private TMP_Text _goldCountText;
     [SerializeField] private ParticleSystem _lostGoldPart;
+    [SerializeField] private ParticleSystem _sparksPart;
 
     public ParticleSystem oneLostPart;
     [SerializeField] GameObject _gfx;
@@ -36,6 +37,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
+    [SerializeField] EventManager _eventManager;
+    private bool _isPlayed = false;
+
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -88,11 +92,20 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
+            if (!_isPlayed)
+            {
+                _isPlayed = true;
+                _sparksPart.Play();
+
+            }
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
         else if (_nearDeathExperienceSequence.Any())
         {
-            foreach (Sequence item in _nearDeathExperienceSequence)
+            _isPlayed = false;
+            _sparksPart.Stop();
+
+            if (_nearDeathExperienceSequence.Any())
             {
                 item.Kill();
             }
@@ -145,8 +158,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         float speed = Mathf.Abs(_rb.velocity.x);
 
-        //Debug.Log("currentVolume : " + currentVolume);
-        //Debug.Log("speed : " + speed);
+     //   Debug.Log("currentVolume : " + currentVolume);
+     //   Debug.Log("speed : " + speed);
 
         if (speed > 0.5f)
         {
@@ -230,6 +243,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HideGfx()
     {
+        for (int i = 0; i < _goldEtages.Count; i++)
+        {
+            _goldEtages[i].SetActive(false);
+        }
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
     }
@@ -277,5 +294,22 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             Vector3 direction = DRandom.DirectionInCone(transform.forward, 15f);
             rb.AddForce(direction * UnityEngine.Random.Range(10f, 30f), ForceMode.Impulse);
         }
+        UpdateText();
     }
+   
+
+    public void LostGoldByRock()
+    {
+        _currentGoldCount = _currentGoldCount - 5;
+        _eventManager.SpawnPepite(5);
+        UpdateText();
+    }
+
+    public void AddGoldPepite()
+    {
+        _currentGoldCount = _currentGoldCount + 1;
+        UpdateText();
+    }
+
+   
 }
