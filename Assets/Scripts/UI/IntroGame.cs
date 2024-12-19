@@ -23,6 +23,8 @@ public class IntroGame : MonoBehaviour
 
     private IEnumerator DestroyPart(GameObject ladderPart)
     {
+        RuntimeManager.PlayOneShot(woodExplosionSound, ladderPart.transform.position);
+
         ladderPart.GetComponentInChildren<ParticleSystem>().Play();
         ladderPart.GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(3);
