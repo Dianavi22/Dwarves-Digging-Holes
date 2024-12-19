@@ -249,7 +249,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         for (int i = 0; i < _goldStepList.Count; i++)
         {
-            _goldStepList[i].GetComponent<GameObject>().SetActive(false);
+            try
+            {
+                _goldStepList[i].GetComponent<GameObject>().SetActive(false);
+
+            }
+            catch
+            {
+                //
+            }
         }
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
