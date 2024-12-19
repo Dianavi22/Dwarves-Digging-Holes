@@ -8,6 +8,7 @@ using System.Collections;
 using FMODUnity;
 using UnityEngine.Rendering.PostProcessing;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -184,6 +185,9 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
     }
 
+    [SerializeField] List<GameObject> _playerStats;
+    [SerializeField] Button _backButton;
+    [SerializeField] GameObject _gameOverCanva;
     public IEnumerator GameOver(Message deathMessage)
     {
         if (!isGameOver)
@@ -204,6 +208,34 @@ public class GameManager : MonoBehaviour
             bool newBest = _score.CheckBestScore();
             CurrentScrollingSpeed = 0f;
             EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
+    }
+
+    public void ShowCardsFunc()
+    {
+        _gameOverCanva.SetActive(false);
+        StartCoroutine(ShowStats());
+    }
+
+    public void HideCards()
+    {
+        _gameOverCanva.SetActive(true);
+        _backButton.gameObject.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
+        for (int i = 0; i < _playerStats.Count; i++)
+        {
+            _playerStats[i].SetActive(false);
+        }
+    }
+
+    private IEnumerator ShowStats()
+    {
+        _backButton.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
+        for (int i = 0; i < _playerStats.Count; i++)
+        {
+            _playerStats[i].SetActive(true);
+        yield return new WaitForSecondsRealtime(0.35f);
         }
     }
     
