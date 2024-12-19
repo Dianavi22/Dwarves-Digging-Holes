@@ -9,7 +9,7 @@ public class GoblinWave : MonoBehaviour
     [SerializeField] Enemy _gob;
     [SerializeField] Transform _spawnPoint;
 
-    private List<Rock> _rocks;
+    private List<Rock> _rocks = new();
 
     private void OnTriggerEnter(Collider other)
     {
