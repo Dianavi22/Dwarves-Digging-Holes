@@ -16,6 +16,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _buttons;
     [SerializeField] GameObject _title;
     [SerializeField] GameObject _credits;
+    [SerializeField] GameObject _stopCredits;
+    [SerializeField] GameObject _startButton;
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
 
     private void Start()
@@ -49,18 +51,28 @@ public class MainMenuManager : MonoBehaviour
         _buttons.SetActive(false);
         _title.SetActive(false);
         _credits.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_stopCredits);
         Invoke("ActiveButtons", 20);
     }
 
-    private void ActiveButtons()
+    public void ActiveButtons()
+    {
+        ShowButtons();
+        _credits.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_startButton);
+
+    }
+
+    public void ShowButtons()
     {
         _buttons.SetActive(true);
         _title.SetActive(true);
-        _credits.SetActive(false);
     }
 
     public void LoadSettingScene()
     {
+        _title.gameObject.SetActive(false);
+        _buttons.gameObject.SetActive(false);
         _buttonsCanvaGroup.interactable = false;
         _settingsWindow.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_closeButtonSettings);
