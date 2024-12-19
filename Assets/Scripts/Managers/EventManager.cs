@@ -7,29 +7,40 @@ using Utils;
 
 public class EventManager : MonoBehaviour
 {
-    private bool _readyToEvent = false;
-    private GoldChariot _goldChariot;
-    private Lava _lava;
-    private Vector3 _lavaOldPosition;
-    private ShakyCame _sc;
-    public float rocksHealth;
-    public float rocksWithGoldHealth;
-    private bool _isLavaMove = false;
-    private bool _isLavaMoveEndEvent = false;
-    [SerializeField] ParticleSystem _showTextPart;
-    [SerializeField] TMP_Text _eventText;
 
+    [Header("Text Event")]
+    [SerializeField] TMP_Text _eventText;
+    [SerializeField] ParticleSystem _showTextPart;
+
+    [Header("Pickaxe Event")]
+    // Display with the text event
     [SerializeField] List<MeshRenderer> _pickaxesModels;
     [SerializeField] List<ParticleSystem> _pickaxesPart;
 
+    [Header("Lava Event")]
     [SerializeField] ParticleSystem _lavaPartUI;
     [SerializeField] ParticleSystem _lavaRain;
+
+    [Header("Gold Event")]
     [SerializeField] ParticleSystem _goldChariotPart;
     [SerializeField] ParticleSystem _goldChariotUIPart;
 
+    [Header("Goblin Event")]
     [SerializeField] GoblinWave _goblinWave;
 
-    public bool  isRockEvent = false;
+    [Header("Other")]
+    public float rocksHealth;
+    public float rocksWithGoldHealth;
+
+    public bool isRockEvent = false;
+
+    private Lava _lava;
+    private Vector3 _lavaOldPosition;
+    private ShakyCame _sc;
+    private GoldChariot _goldChariot;
+    private bool _readyToEvent = false;
+    private bool _isLavaMove = false;
+    private bool _isLavaMoveEndEvent = false;
 
     public static EventManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -45,11 +56,6 @@ public class EventManager : MonoBehaviour
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
         _lava = TargetManager.Instance.GetGameObject<Lava>();
-    }
-
-    public void LaunchEvent()
-    {
-        _readyToEvent = true;
     }
 
     void Update()
@@ -71,6 +77,10 @@ public class EventManager : MonoBehaviour
             }
         }
     }
+    public void LaunchEvent()
+    {
+        _readyToEvent = true;
+    }
 
     private IEnumerator TextEvent(string message)
     {
@@ -81,7 +91,6 @@ public class EventManager : MonoBehaviour
         _eventText.text = message;
         yield return new WaitForSeconds(1.5f);
         _eventText.gameObject.SetActive(false);
-
     }
 
     private IEnumerator Event()
@@ -89,7 +98,7 @@ public class EventManager : MonoBehaviour
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
         ChooseEvent(Random.Range(0, 4));
-      //  ChooseEvent(1);
+        // ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -99,34 +108,28 @@ public class EventManager : MonoBehaviour
     //Event 3 : Lava getting close
     //Event 4 : Too many goblins
     //Event 5 : Unbreackables Rocks
-
     private void ChooseEvent(int i)
     {
-        if (i == 0)
+        switch (i)
         {
-            StartCoroutine(EventPickaxe());
+            case 0:
+                StartCoroutine(EventPickaxe());
+                break;
+            case 1:
+                StartCoroutine(EventGoldChariot());
+                break;
+            case 2:
+                StartCoroutine(LavaGettingClose());
+                break;
+            case 3:
+                StartCoroutine(GoblinWave());
+                break;
+            default:
+                break;
         }
-        else if (i == 1)
-        {
-            StartCoroutine(EventGoldChariot());
-        }
-        else if (i == 2)
-        {
-            StartCoroutine(LavaGettingClose());
-
-        }
-        else if (i == 3)
-        {
-            StartCoroutine(GoblinWave());
-        }
-       
-        else
-        {
-            //
-        }
-
     }
 
+    #region Describe Event
     private IEnumerator EventPickaxe()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
@@ -202,4 +205,5 @@ public class EventManager : MonoBehaviour
 
 
     }
+    #endregion
 }
