@@ -85,7 +85,6 @@ MonoBehaviour:
     Path: event:/SFX/Goblins/Mouth noises
   _destroyGobPart: {fileID: 3691073475203754240}
   _gfx: {fileID: 2798564475521369069}
-  _tuto: {fileID: 0}
   _goldChariot: {fileID: 0}
   canSteal: 1
   _colliders:
@@ -105,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canFlip: 1
   isGrounded: 0
+  Stats: {fileID: 0}
   raycastDetectHitWall: {fileID: 5425338716920304939}
 --- !u!54 &2109833535917964985
 Rigidbody:
@@ -132,7 +132,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1188561611238712796
 GameObject:
   m_ObjectHideFlags: 0
