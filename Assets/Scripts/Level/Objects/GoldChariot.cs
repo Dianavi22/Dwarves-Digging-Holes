@@ -37,7 +37,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [Header("Other")]
     [SerializeField] GameObject _gfx;
 
-    private List<MoreGold> _goldStepList = new();
+    [SerializeField] List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
@@ -249,15 +249,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         for (int i = 0; i < _goldStepList.Count; i++)
         {
-            try
-            {
-                _goldStepList[i].GetComponent<GameObject>().SetActive(false);
-
-            }
-            catch
-            {
-                //
-            }
+            _goldStepList[i].gameObject.SetActive(false);
         }
         _goldCountText.gameObject.SetActive(false);
         _gfx.SetActive(false);
