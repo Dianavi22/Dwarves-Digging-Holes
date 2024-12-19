@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         CurrentScrollingSpeed = value;
     }
     #endregion
+
     [Header("Canvas")]
     [SerializeField] private GameObject _GameOverCanvas;
     [SerializeField] GameObject _retryButton;
@@ -71,13 +72,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
-    [SerializeField] EventManager _eventManager;
 
     [SerializeField] LevelCompleteManager _levelCompleteManager;
 
     private Score _score;
     private GoldChariot _goldChariot;
     private Tuto _tuto;
+    private EventManager _eventManager;
 
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -97,12 +98,6 @@ public class GameManager : MonoBehaviour
         // Select the difficulty
         Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
 
-        if (!isInMainMenu)
-        {
-            _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-            _goldChariot.GoldCount = Difficulty.NbStartingGold;
-        }
-
         foreach (Player p in GamePadsController.Instance.PlayerList)
         {
             p.GetMovement().SetStats(Difficulty.PlayerStats);
@@ -111,15 +106,20 @@ public class GameManager : MonoBehaviour
 
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
-        if (!isInMainMenu) GameStarted();
+
 
         if (!isInMainMenu)
         {
+            _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
+            _goldChariot.GoldCount = Difficulty.NbStartingGold;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
-        }
-        _circleTransition.SetActive(true);
+            _eventManager = EventManager.Instance;
 
+            GameStarted();
+        }
+
+        _circleTransition.SetActive(true);
     }
 
     private IEnumerator StartParty()
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < _playerStats.Count; i++)
         {
             _playerStats[i].SetActive(true);
-        yield return new WaitForSecondsRealtime(0.35f);
+            yield return new WaitForSecondsRealtime(0.35f);
         }
     }
     

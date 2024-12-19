@@ -31,6 +31,15 @@ public class EventManager : MonoBehaviour
 
     public bool  isRockEvent = false;
 
+    public static EventManager Instance; // A static reference to the GameManager instance
+    void Awake()
+    {
+        if (Instance == null) // If there is no instance already
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+    }
+
     void Start()
     {
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();

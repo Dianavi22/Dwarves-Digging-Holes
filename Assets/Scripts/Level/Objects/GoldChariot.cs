@@ -41,7 +41,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
-    [SerializeField] EventManager _eventManager;
     private bool _isPlayed = false;
 
     private int _nbGolbinOnChariot;

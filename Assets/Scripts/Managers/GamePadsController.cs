@@ -11,7 +11,6 @@ public class GamePadsController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject m_MainCanvas;
-    [SerializeField] private GameObject[] m_UICanvas;
     [SerializeField] private GameObject m_HeadFatigueBarUI;
 
     [Header("Debug")]
@@ -61,11 +60,6 @@ public class GamePadsController : MonoBehaviour
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
-        // * Instantiate Player UI
-        //GameObject ui = Instantiate(m_UICanvas[playerNumber], m_MainCanvas.transform);
-        //PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-        //uiInfo.Initialize(player);
-
         // * Instantiate PlayerHeadFatigueBar UI
         GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
         PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
@@ -86,11 +80,6 @@ public class GamePadsController : MonoBehaviour
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
-
-        // * Instantiate Player UI
-        //GameObject ui = Instantiate(m_UICanvas[index], m_MainCanvas.transform);
-        //PlayerInformationManager uiInfo = ui.GetComponent<PlayerInformationManager>();
-        //uiInfo.Initialize(player);
 
         // * Instantiate PlayerHeadFatigueBar UI
         GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
