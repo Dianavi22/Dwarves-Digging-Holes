@@ -70,7 +70,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 g.Instanciate(_goldStepList.Count);
                 _goldStepList.Add(g);
             }
-            else if (_currentGoldCount <= _goldStepList.Count * 10)
+            else if (_currentGoldCount > 0 && _currentGoldCount <= _goldStepList.Count * 10)
             {
                 StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
                 _goldStepList.RemoveAt(_goldStepList.Count - 1);
