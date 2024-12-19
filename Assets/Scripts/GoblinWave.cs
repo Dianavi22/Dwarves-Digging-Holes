@@ -31,7 +31,8 @@ public class GoblinWave : MonoBehaviour
     {
         for (int i = 0; i < _rocks.Count; i++)
         {
-            Destroy(_rocks[i].gameObject);
+            if (_rocks[i].IsDestroyed()) _rocks.Remove(_rocks[i]);
+            else Destroy(_rocks[i].gameObject);
         }
 
         for (int i = 0; i < _nbGoblin; i++)
