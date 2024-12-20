@@ -27,33 +27,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-8899815108979524834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/Ladder/Wood Explosion
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/Ladder/Wood Explosion
-  Guid:
-    Data1: -926564442
-    Data2: 1155369935
-    Data3: -1441341307
-    Data4: -1592243944
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-8872620006344271336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +240,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6466384267604466575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Start of the game/Volcano Eruption
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Start of the game/Volcano Eruption
+  Guid:
+    Data1: -584402304
+    Data2: 1254071131
+    Data3: 361649821
+    Data4: 551103684
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5467502703519501131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638702987662898806
+  lastModified: 638703074398497593
   FileSizes: []
   Exists: 1
 --- !u!114 &-4160706711718696405
@@ -662,6 +662,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-1732933580147600734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Start of the game/Ladder Wood Explosion
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Start of the game/Ladder Wood Explosion
+  Guid:
+    Data1: -926564442
+    Data2: 1155369935
+    Data3: -1441341307
+    Data4: -1592243944
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1708804836602707956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,7 +821,6 @@ MonoBehaviour:
   - {fileID: 7945653518377825672}
   - {fileID: -2641217248565968812}
   - {fileID: -8495853331758987838}
-  - {fileID: 8467882385934704765}
   - {fileID: 7377039875351809070}
   - {fileID: 358572206285444184}
   - {fileID: -4160706711718696405}
@@ -826,15 +852,16 @@ MonoBehaviour:
   - {fileID: -3425642894765715396}
   - {fileID: -9030586282513498176}
   - {fileID: -4107189344772630317}
-  - {fileID: -8899815108979524834}
   - {fileID: -4102883701541388306}
+  - {fileID: -6466384267604466575}
+  - {fileID: -1732933580147600734}
   EditorParameters:
   - {fileID: -8355119490927434066}
   MasterBanks:
   - {fileID: -4715502524361304872}
   StringsBanks:
   - {fileID: 5912528199748081772}
-  cacheTime: 638702987662908807
+  cacheTime: 638703074398597605
   cacheVersion: 131620
 --- !u!114 &358572206285444184
 MonoBehaviour:
@@ -1221,7 +1248,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638702987662908807
+  lastModified: 638703074398597605
   FileSizes: []
   Exists: 1
 --- !u!114 &5921125712737930264
@@ -1395,33 +1422,6 @@ MonoBehaviour:
     Data2: 1134978479
     Data3: 174875795
     Data4: 1247039704
-  Banks:
-  - {fileID: -4715502524361304872}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &8467882385934704765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Test
-  m_EditorClassIdentifier: 
-  Path: event:/Test
-  Guid:
-    Data1: 422006891
-    Data2: 1083691904
-    Data3: -2014517091
-    Data4: 736952838
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
