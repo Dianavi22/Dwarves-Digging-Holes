@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -53,6 +55,85 @@ public class GamePadsController : MonoBehaviour
             InstantiatePlayerUI("Gamepad", gamepad, index);
             index++;
         }
+    }
+
+    private void OnEnable()
+    {
+        InputSystem.onDeviceChange += OnDeviceChange;
+    }
+
+    private void OnDisable()
+    {
+        InputSystem.onDeviceChange -= OnDeviceChange;
+    }
+
+    private List<KeyValuePair<InputDevice, InputDeviceChange>> inputDeviceChanges = new();
+    private Tween handleDeviceChange = null;
+
+    private void OnDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        // Only handle changes for Gamepad devices
+        if (device is not Gamepad gamepad) return;
+
+        Debug.Log($"Device Change: {change}");
+
+        // Schedule the handling of device changes
+        handleDeviceChange ??= DOVirtual.DelayedCall(0.5f, HandleDeviceChange);
+        inputDeviceChanges.Add(new KeyValuePair<InputDevice, InputDeviceChange>(device, change));
+    }
+
+    private void HandleDeviceChange()
+    {
+        // Clear the scheduled handleDeviceChange reference
+        handleDeviceChange = null;
+
+        // Get the last device change event
+        var lastChange = inputDeviceChanges.Last();
+        inputDeviceChanges.Clear();
+
+        // Gather all connected gamepads
+        var allConnectedGamepads = new List<Gamepad>(Gamepad.all);
+        var lostGamepads = new List<Gamepad>(allConnectedGamepads);
+
+        // Check if the last changed device is still connected
+        if (!allConnectedGamepads.Contains((Gamepad)lastChange.Key))
+        {
+            // Find the PlayerInput that lost its gamepad
+            PlayerInput lostPlayerInput = FindLostPlayerInput(allConnectedGamepads, lostGamepads);
+
+            // If there are lost gamepads, switch the control scheme for the lost PlayerInput
+            if (lostGamepads.Any())
+            {
+                lostPlayerInput?.SwitchCurrentControlScheme("Gamepad", lostGamepads[0]);
+            }
+        }
+    }
+
+    private PlayerInput FindLostPlayerInput(List<Gamepad> allConnectedGamepads, List<Gamepad> lostGamepads)
+    {
+        PlayerInput lostPlayerInput = null;
+
+        // Iterate through all PlayerInputs to find the one that lost its gamepad
+        foreach (var playerInput in PlayerInput.all)
+        {
+            // If the PlayerInput has no devices, it has lost its gamepad
+            if (playerInput.devices.Count == 0)
+            {
+                lostPlayerInput = playerInput;
+                continue;
+            }
+
+            // Remove connected gamepads from the lostGamepads list
+            foreach (var connectedGamepad in allConnectedGamepads)
+            {
+                if (playerInput.devices.Contains(connectedGamepad))
+                {
+                    lostGamepads.Remove(connectedGamepad);
+                }
+            }
+        }
+
+        return lostPlayerInput;
     }
 
     private void InstantiateDebugPlayer(int playerNumber)
