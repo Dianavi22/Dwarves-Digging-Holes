@@ -24,7 +24,7 @@ public class Tuto : MonoBehaviour
 
     [SerializeField] GameObject _wallLimitTuto;
     [SerializeField] GameObject _tutoEnemy;
-
+    private bool _isInCdLava = false;
     void Start()
     {
         _takePickaxe = FindFirstObjectByType<Pickaxe>();
@@ -102,7 +102,12 @@ public class Tuto : MonoBehaviour
     {
         isTakeEnemy = false;
         _takeEnemy.SetActive(isTakeEnemy);
-        StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
+        if (!_isInCdLava)
+        {
+            _isInCdLava = true;
+            StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
+            
+        }
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.GetComponent<FollowTarget>().OpenTuto();
     }
