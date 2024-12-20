@@ -51,8 +51,7 @@ public class Lava : MonoBehaviour
             print("CD LAVA");
             _lavaLight.DOIntensity(4f, 2f);
             _rockFall.Play();
-            //Debug.Log("CooldownLava");
-            //PlayLavaEruptionSound();
+            PlayLavaEruptionSound();
             TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
             _lavaCollider.enabled = true;
             _isStartLava = true;
