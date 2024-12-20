@@ -10,6 +10,7 @@ public class Lava : MonoBehaviour
     [SerializeField] private Collider _lavaCollider;
     [SerializeField] private EventReference lavaSound;
     [SerializeField] private EventReference lavaBurntSound;
+    [SerializeField] private EventReference lavaEruptionSound;
     [SerializeField] ParticleSystem _rockFall;
     [SerializeField] GameObject _tutoBubble;
 
@@ -50,6 +51,8 @@ public class Lava : MonoBehaviour
             print("CD LAVA");
             _lavaLight.DOIntensity(4f, 2f);
             _rockFall.Play();
+            //Debug.Log("CooldownLava");
+            //PlayLavaEruptionSound();
             TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
             _lavaCollider.enabled = true;
             _isStartLava = true;
@@ -74,6 +77,11 @@ public class Lava : MonoBehaviour
     private void PlayLavaBurntSound()
     {
         RuntimeManager.PlayOneShot(lavaBurntSound, transform.position);
+    }
+
+    private void PlayLavaEruptionSound()
+    {
+        RuntimeManager.PlayOneShot(lavaEruptionSound, transform.position);
     }
 
     public void StopLavaSound()
