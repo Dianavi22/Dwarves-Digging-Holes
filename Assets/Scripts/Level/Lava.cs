@@ -48,7 +48,6 @@ public class Lava : MonoBehaviour
     {
         if (_isCoolDown)
         {
-            print("CD LAVA");
             _lavaLight.DOIntensity(4f, 2f);
             _rockFall.Play();
             PlayLavaEruptionSound();
