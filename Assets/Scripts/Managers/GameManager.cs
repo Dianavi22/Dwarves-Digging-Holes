@@ -137,7 +137,6 @@ public class GameManager : MonoBehaviour
         {
             _skipTuto.SetActive(true);
             _tuto.isInTuto = true;
-
             _tuto.startTuto = true;
         }
 
