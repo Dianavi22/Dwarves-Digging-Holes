@@ -27,6 +27,8 @@ public class GamePadsController : MonoBehaviour
     private List<KeyValuePair<InputDevice, InputDeviceChange>> inputDeviceChanges = new();
     private Tween handleDeviceChange = null;
 
+    private int index = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -54,7 +56,6 @@ public class GamePadsController : MonoBehaviour
     private void InitializePlayers()
     {
         var gamepads = Gamepad.all;
-        int index = 0;
         foreach (Gamepad gamepad in gamepads)
         {
             InstantiatePlayerUI("Gamepad", gamepad, index);
@@ -96,8 +97,21 @@ public class GamePadsController : MonoBehaviour
             if (lostGamepads.Any())
             {
                 // Reassign the first available gamepad to the lost player input
-                lostPlayerInput?.SwitchCurrentControlScheme("Gamepad", lostGamepads[0]);
-                playerGamepadMap[lostPlayerInput] = lostGamepads[0];
+                if (lostPlayerInput == null)
+                {
+                    if (index >= 3 || !GameManager.Instance.isInMainMenu) return;
+                    InstantiatePlayerUI("Gamepad", lostGamepads[0], index);
+                    Player added = PlayerList.Last();
+                    added.GetMovement().SetStats(GameManager.Instance.Difficulty.PlayerStats);
+                    added.GetFatigue().DefineStats(GameManager.Instance.Difficulty.MiningFatigue, GameManager.Instance.Difficulty.PushCartFatigue);
+                    index++;
+                }
+                else
+                {
+                    lostPlayerInput?.SwitchCurrentControlScheme("Gamepad", lostGamepads[0]);
+                    playerGamepadMap[lostPlayerInput] = lostGamepads[0];
+                }
+
             }
         }
         else if (lastChange.Value == InputDeviceChange.Added)
@@ -171,9 +185,13 @@ public class GamePadsController : MonoBehaviour
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-        PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-        fatigueUI.Initialize(player);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
+            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
+            fatigueUI.Initialize(player);
+        }
+
 
         var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renders)
