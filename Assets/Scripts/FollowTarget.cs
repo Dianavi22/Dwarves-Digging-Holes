@@ -23,7 +23,7 @@ public class FollowTarget : MonoBehaviour
     private void Start()
     {
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
-        TotalClose(); // Initialisation à l'état totalement fermé
+        TotalClose(); 
     }
 
     void Update()
@@ -72,13 +72,10 @@ public class FollowTarget : MonoBehaviour
 
     public void TotalClose()
     {
-        // Forcer toutes les couleurs à alphaZero immédiatement
         SetImageAlphaColor(alphaZero);
-
-        // Réinitialiser les variables d'état
         _isOpen = false;
         previousState = false;
-        t = 0f; // Assurer qu'il n'y a pas d'interpolation active
+        t = 0f; 
     }
 
     public void OpenTuto()

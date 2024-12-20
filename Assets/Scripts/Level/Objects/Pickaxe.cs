@@ -109,6 +109,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 {
                     isFirstTime = false;
                     myTarget.TotalClose();
+
                 }
                 else
                 {
@@ -188,7 +189,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private IEnumerator BreakPickaxe()
     {
         _isDying = true;
-        Destroy(myTarget);
+        Destroy(myTarget.gameObject);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _gfx.SetActive(false);
         GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
