@@ -5,6 +5,9 @@ using TMPro;
 using System;
 using System.Collections;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -79,6 +82,8 @@ public class GameManager : MonoBehaviour
     private GoldChariot _goldChariot;
     private Tuto _tuto;
     private EventManager _eventManager;
+
+    private bool isCoroutineRunning = false;
 
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -199,17 +204,24 @@ public class GameManager : MonoBehaviour
 
     public void HideCards()
     {
-        _gameOverCanva.SetActive(true);
-        _backButton.gameObject.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_retryButton);
-        for (int i = 0; i < _playerStats.Count; i++)
+        if (isCoroutineRunning)
         {
-            _playerStats[i].SetActive(false);
+            _playerStats.ForEach(stat => stat.SetActive(true));
+            isCoroutineRunning = false;
+            return;
         }
+        _backButton.gameObject.SetActive(false);
+
+        _playerStats.ForEach(stat => stat.SetActive(false));
+
+        _gameOverCanva.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
+
     }
 
     private IEnumerator ShowStats()
     {
+        isCoroutineRunning = true;
         _backButton.gameObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
         for (int i = 0; i < _playerStats.Count; i++)
@@ -217,8 +229,9 @@ public class GameManager : MonoBehaviour
             _playerStats[i].SetActive(true);
             yield return new WaitForSecondsRealtime(0.35f);
         }
+        isCoroutineRunning = false;
     }
-    
+
     public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
     {
         if (isGameOver) yield break;
