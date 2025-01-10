@@ -1,6 +1,10 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< Updated upstream
 --- !u!114 &-9030586282513498176
+=======
+--- !u!114 &-9058691566370210646
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,6 +14,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+<<<<<<< Updated upstream
   m_Name: event:/SFX/Interaction/Throw BIT
   m_EditorClassIdentifier: 
   Path: event:/SFX/Interaction/Throw BIT
@@ -45,6 +50,16 @@ MonoBehaviour:
     Data2: 1155369935
     Data3: -1441341307
     Data4: -1592243944
+=======
+  m_Name: event:/SFX/Rock/Gold Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Rock/Gold Rock destruction
+  Guid:
+    Data1: 604939614
+    Data2: 1230442057
+    Data3: 725948544
+    Data4: 2068674129
+>>>>>>> Stashed changes
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
@@ -267,6 +282,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+<<<<<<< Updated upstream
 --- !u!114 &-5467502703519501131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +310,8 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+=======
+>>>>>>> Stashed changes
 --- !u!114 &-5458995032960829974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +340,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 24111
+--- !u!114 &-5393556955388200427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Throw BIT
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Throw BIT
+  Guid:
+    Data1: -271756972
+    Data2: 1132985130
+    Data3: -296516173
+    Data4: 1123611940
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5316423634127495787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +436,11 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
+<<<<<<< Updated upstream
   lastModified: 638702987662898806
+=======
+  lastModified: 638702277697972167
+>>>>>>> Stashed changes
   FileSizes: []
   Exists: 1
 --- !u!114 &-4160706711718696405
@@ -822,19 +871,32 @@ MonoBehaviour:
   - {fileID: 7155470817975943712}
   - {fileID: 3365501646917452286}
   - {fileID: -8872620006344271336}
+<<<<<<< Updated upstream
   - {fileID: -5467502703519501131}
   - {fileID: -3425642894765715396}
   - {fileID: -9030586282513498176}
   - {fileID: -4107189344772630317}
   - {fileID: -8899815108979524834}
   - {fileID: -4102883701541388306}
+=======
+  - {fileID: 7780510900881480961}
+  - {fileID: 1869669643219770183}
+  - {fileID: -5393556955388200427}
+  - {fileID: -9058691566370210646}
+  - {fileID: 4158631371561864203}
+  - {fileID: 6339767538213910849}
+>>>>>>> Stashed changes
   EditorParameters:
   - {fileID: -8355119490927434066}
   MasterBanks:
   - {fileID: -4715502524361304872}
   StringsBanks:
   - {fileID: 5912528199748081772}
+<<<<<<< Updated upstream
   cacheTime: 638702987662908807
+=======
+  cacheTime: 638702277697972167
+>>>>>>> Stashed changes
   cacheVersion: 131620
 --- !u!114 &358572206285444184
 MonoBehaviour:
@@ -995,6 +1057,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &1869669643219770183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Rock/Big Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Rock/Big Rock destruction
+  Guid:
+    Data1: 117278513
+    Data2: 1301378247
+    Data3: 292855701
+    Data4: 1788079956
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2685484546637315481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,6 +1217,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &4158631371561864203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Ladder/Wood Explosion
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Ladder/Wood Explosion
+  Guid:
+    Data1: -926564442
+    Data2: 1155369935
+    Data3: -1441341307
+    Data4: -1592243944
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5103140355908880588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1337,11 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
+<<<<<<< Updated upstream
   lastModified: 638702987662908807
+=======
+  lastModified: 638702277697972167
+>>>>>>> Stashed changes
   FileSizes: []
   Exists: 1
 --- !u!114 &5921125712737930264
@@ -1242,6 +1362,33 @@ MonoBehaviour:
     Data2: 1168264561
     Data3: -1040985713
     Data4: 1568642302
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6339767538213910849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Interaction/Pick up BIT
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Interaction/Pick up BIT
+  Guid:
+    Data1: -1427600207
+    Data2: 1189378597
+    Data3: -932457281
+    Data4: -945441039
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
@@ -1368,6 +1515,33 @@ MonoBehaviour:
     Data2: 1159387811
     Data3: -239324787
     Data4: -2077089603
+  Banks:
+  - {fileID: -4715502524361304872}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7780510900881480961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Rock/Rock destruction
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Rock/Rock destruction
+  Guid:
+    Data1: 2143965465
+    Data2: 1338670877
+    Data3: 1840485530
+    Data4: 1117553814
   Banks:
   - {fileID: -4715502524361304872}
   IsStream: 0
