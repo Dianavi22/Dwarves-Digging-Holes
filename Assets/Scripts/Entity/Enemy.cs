@@ -18,13 +18,14 @@ public class Enemy : Entity
     [SerializeField] ParticleSystem _destroyGobPart;
     [SerializeField] GameObject _gfx;
 
+    [SerializeField] List<Collider> _colliders;
+
     private Tuto _tuto;
 
-    [HideInInspector] public GoldChariot _goldChariot;
+    private GoldChariot _goldChariot;
+    public Vector3 GetDestinationPosition => _goldChariot.transform.position;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
-
-    [SerializeField] List<Collider> _colliders;
 
     private bool _isDead = false;
     public bool IsTouchingChariot
@@ -47,58 +48,42 @@ public class Enemy : Entity
         StartCoroutine(PeriodicSoundLoop());
     }
 
-    private IEnumerator PeriodicSoundLoop()
-    {
-        while (!_isDead)
-        {
-            float randomDelay = Random.Range(3f, 7f);
-            yield return new WaitForSeconds(randomDelay);
-
-            if (!_isDead)
-            {
-                PeriodicSound();
-            }
-        }
-    }
-
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (_goldChariot.gameObject.Equals(collision.gameObject))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _))
         {
-            if(!IsGrabbed){_rb.isKinematic = true;};
+            Debug.Log("Touching chariot");
             IsTouchingChariot = true;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (_goldChariot.gameObject.Equals(collision.gameObject))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && IsTouchingChariot)
         {
+            Debug.Log("---Leaving chariot");
             IsTouchingChariot = false;
-            if(!IsGrabbed){_rb.isKinematic = false; };
         }
     }
 
     public IEnumerator HitChariot()
     {
-        if (!_isDead)
-        {
-            _goldChariot.GoldCount -= 1;
-            canSteal = false;
-            _goldChariot.oneLostPart.Play();
-            
-            StealingSound();
-            LaughSound();
+        if (_isDead) yield break;
 
-            yield return new WaitForSeconds(1);
-            canSteal = true;
-        }
+        _goldChariot.GoldCount -= 1;
+        canSteal = false;
+        _goldChariot.oneLostPart.Play();
+            
+        StealingSound();
+        LaughSound();
+
+        yield return new WaitForSeconds(1);
+        canSteal = true;
     }
 
     public void KillGobs()
     {
-        _gfx.SetActive(false);
+        //_gfx.SetActive(false);
         _rb.velocity = Vector3.zero;
     }
 
@@ -129,11 +114,10 @@ public class Enemy : Entity
 
     public override void HandleCarriedState(Player player, bool grabbed) {
 
-        if (_tuto.isTakeEnemy)
+        if (_tuto.isTakeEnemy) _tuto.isYeetEnemy = true;
+
+        if (grabbed) 
         {
-            _tuto.isYeetEnemy = true;
-        }
-        if (grabbed) {
             IsTouchingChariot = false;
         }
         base.HandleCarriedState(player, grabbed);
@@ -158,7 +142,19 @@ public class Enemy : Entity
         StartCoroutine(DestroyByLava());
     }
 
+    private IEnumerator PeriodicSoundLoop()
+    {
+        while (!_isDead)
+        {
+            float randomDelay = Random.Range(3f, 7f);
+            yield return new WaitForSeconds(randomDelay);
 
+            if (!_isDead)
+            {
+                PeriodicSound();
+            }
+        }
+    }
     private IEnumerator PlayGoblinLaughWithDelay()
     {
         float randomDelay = Random.Range(0f, 2f);
@@ -166,7 +162,6 @@ public class Enemy : Entity
 
         LaughSound();
     }
-
 
     #region Sounds
     private void LaughSound()
