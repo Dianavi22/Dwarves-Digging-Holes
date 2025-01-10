@@ -51,7 +51,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         set
         {
             _nbGolbinOnChariot = value;
-            //  UpdateParticle();
+            UpdateParticle();
         }
     }
 
@@ -147,14 +147,14 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void UpdateParticle()
     {
-        //if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
-        //{
-        //    _lostGoldPart.Play();
-        //}
-        //else if (_nbGolbinOnChariot <= 0)
-        //{
-        //    _lostGoldPart.Stop();
-        //}
+        if (NbGoblin > 0 && !_lostGoldPart.isPlaying)
+        {
+            _lostGoldPart.Play();
+        }
+        else if (NbGoblin <= 0)
+        {
+            _lostGoldPart.Stop();
+        }
         //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 
@@ -163,8 +163,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         float speed = Mathf.Abs(_rb.velocity.x);
 
-     //   Debug.Log("currentVolume : " + currentVolume);
-     //   Debug.Log("speed : " + speed);
+        //   Debug.Log("currentVolume : " + currentVolume);
+        //   Debug.Log("speed : " + speed);
 
         if (speed > 0.5f)
         {
@@ -243,6 +243,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
+
         StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
         StopChariotSound();
     }
@@ -275,7 +276,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void LostGoldStage(int idStep)
     {
         int goldLostValue = Mathf.Abs(GoldCount) % 10;
-        if (goldLostValue == 0) 
+        if (goldLostValue == 0)
             goldLostValue = 10;
         if (GoldCount - goldLostValue < 10)
             GoldCount = 10;
@@ -303,5 +304,5 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             rb.AddForce(direction * UnityEngine.Random.Range(10f, 30f), ForceMode.Impulse);
         }
         UpdateText();
-    }   
+    }
 }

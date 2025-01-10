@@ -72,8 +72,8 @@ public class PlayerHealth : MonoBehaviour
         _playerGFX.SetActive(false);
 
         _p.GetMovement().enabled = false;
-        _p.GetActions().enabled = false;
         _p.GetActions().ForceDetach();
+        _p.GetActions().enabled = false;
         _p.GetRigidbody().useGravity = false;
         _p.GetRigidbody().velocity = Vector3.zero;
 

@@ -23,7 +23,7 @@ public class PlayerUIInput : MonoBehaviour
     {
         if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started)
-            UIPauseManager.Instance.Pause(_p);
+            UIPauseManager.Instance.Pause();
     }
 
     public void OnTest(InputAction.CallbackContext context)

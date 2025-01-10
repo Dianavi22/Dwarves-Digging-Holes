@@ -56,9 +56,8 @@ public class EnemyMovements : EntityMovement
     }
     private void OnMove()
     {
-        Vector3 goldChariotPosition = _e._goldChariot.transform.position;
-        float _horizontal = Mathf.Sign(goldChariotPosition.x - transform.position.x);
-        if (Math.Abs(Vector3.Distance(goldChariotPosition, transform.position)) <= 1.25f)
+        float _horizontal = Mathf.Sign(_e.GetDestinationPosition.x - transform.position.x);
+        if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f)
             _horizontal = 0f;
 
         CanMove = !_e.IsTouchingChariot;

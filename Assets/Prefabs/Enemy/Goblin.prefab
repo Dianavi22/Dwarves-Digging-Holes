@@ -85,11 +85,10 @@ MonoBehaviour:
     Path: event:/SFX/Goblins/Mouth noises
   _destroyGobPart: {fileID: 3691073475203754240}
   _gfx: {fileID: 2798564475521369069}
-  _goldChariot: {fileID: 0}
-  canSteal: 1
   _colliders:
   - {fileID: 6569176779758444608}
   - {fileID: 4528714144444697031}
+  canSteal: 1
 --- !u!114 &-8380652321116023633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +159,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.99499995, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1113642333549338642}
@@ -178,7 +177,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 3072
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -414,7 +413,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3205647083585003249}
-  m_Material: {fileID: 13400000, guid: 1c628a03e798b7b4fbdac23dd9fc286d, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

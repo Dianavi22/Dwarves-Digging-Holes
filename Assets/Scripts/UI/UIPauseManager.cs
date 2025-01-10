@@ -11,7 +11,7 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private GameObject _PauseCanvas;
     [HideInInspector] public bool isPaused = false;
 
-    [SerializeField] private GameObject _retryButton;
+    [SerializeField] private GameObject _resumeButton;
     [SerializeField] private GameObject _rebindJump;
 
     [SerializeField] private GameObject _inputCanvas;
@@ -55,7 +55,7 @@ public class UIPauseManager : MonoBehaviour
         StartCoroutine(FadeTransition(false));
     }
 
-    public void Pause(Player _currentPlayer)
+    public void Pause()
     {
         if (!GameManager.Instance.isGameOver)
         {
@@ -69,14 +69,14 @@ public class UIPauseManager : MonoBehaviour
             Time.timeScale = isPaused ? 0 : 1;
             _PauseCanvas.SetActive(isPaused);
             _inputCanvas.SetActive(!isPaused);
-            _currentPlayer.GetMovement().enabled = !isPaused;
 
             if (isPaused)
             {
-                EventSystem.current.SetSelectedGameObject(_retryButton);
+                EventSystem.current.SetSelectedGameObject(_resumeButton);
             }
         }
     }
+
 
     public void OpenInputCanvas()
     {
@@ -87,7 +87,7 @@ public class UIPauseManager : MonoBehaviour
     public void CloseInputMenu()
     {
         _inputCanvas.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_retryButton);
+        EventSystem.current.SetSelectedGameObject(_resumeButton);
     }
 
     void OnDestroy()

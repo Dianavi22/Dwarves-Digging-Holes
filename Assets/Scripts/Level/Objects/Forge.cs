@@ -14,7 +14,7 @@ public class Forge : MonoBehaviour
 
     private void Update()
     {
-        if (_gameManager.CanCreatePickaxe)
+        if (_gameManager.CanCreatePickaxe && !_gameManager.isGameOver)
         {
             _bubblePickaxe.SetActive(true);
         }
