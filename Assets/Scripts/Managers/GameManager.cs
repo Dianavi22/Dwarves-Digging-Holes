@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     private Tuto _tuto;
     private EventManager _eventManager;
     [SerializeField] GameObject _PickaxeUI;
-    [SerializeField] TMP_Text _nbPickaxeUI;
+    public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
 
     public static GameManager Instance; // A static reference to the GameManager instance
@@ -125,10 +125,7 @@ public class GameManager : MonoBehaviour
         _circleTransition.SetActive(true);
     }
 
-    private void Update()
-    {
-        _nbPickaxeUI.text = _nbPickaxe.ToString();
-    }
+   
 
     private IEnumerator StartParty()
     {
