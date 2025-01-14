@@ -50,6 +50,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadCreditScene()
     {
+        _scaleButton = true;
         _buttons.SetActive(false);
         _title.SetActive(false);
         _credits.SetActive(true);
@@ -69,11 +70,12 @@ public class MainMenuManager : MonoBehaviour
     {
         _buttons.SetActive(true);
         _title.SetActive(true);
-        _scaleButton = true;
+        
     }
 
     public void LoadSettingScene()
     {
+        _scaleButton = true;
         _title.gameObject.SetActive(false);
         _buttons.gameObject.SetActive(false);
         _buttonsCanvaGroup.interactable = false;
@@ -93,39 +95,21 @@ public class MainMenuManager : MonoBehaviour
         if (_scaleButton)
         {
             UpdateButtonScale();
-
-
         }
     }
 
     private void UpdateButtonScale()
     {
-        Vector3 scale = _button[0].GetComponent<Transform>().localScale;
-        scale.x = 3.577049f;
-        scale.y = 3.577049f;
-        scale.z = 3.577049f;
-        _button[0].GetComponent<Transform>().localScale = scale;
+        Vector3 targetScale = new Vector3(3.577049f, 3.577049f, 3.577049f);
 
-        Vector3 scale2 = _button[1].GetComponent<Transform>().localScale;
-        scale2.x = 3.577049f;
-        scale2.y = 3.577049f;
-        scale2.z = 3.577049f;
-        _button[1].GetComponent<Transform>().localScale = scale2;
+        for (int i = 0; i < _button.Count; i++)
+        {
+            if (_button[i] != null)
+            {
+                _button[i].transform.localScale = targetScale;
+            }
+        }
 
-        Vector3 scale3 = _button[2].GetComponent<Transform>().localScale;
-        scale3.x = 3.577049f;
-        scale3.y = 3.577049f;
-        scale3.z = 3.577049f;
-
-        _button[2].GetComponent<Transform>().localScale = scale3;
-
-        Vector3 scale4 = _button[3].GetComponent<Transform>().localScale;
-        scale4.x = 3.577049f;
-        scale4.y = 3.577049f;
-        scale4.z = 3.577049f;
-
-        _button[3].GetComponent<Transform>().localScale = scale3;
         _scaleButton = false;
-
     }
 }
