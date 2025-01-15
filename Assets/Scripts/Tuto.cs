@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Tuto : MonoBehaviour
 {
@@ -24,6 +26,11 @@ public class Tuto : MonoBehaviour
 
     [SerializeField] GameObject _wallLimitTuto;
     [SerializeField] GameObject _tutoEnemy;
+    [SerializeField] GameObject _panelTuto;
+    [SerializeField] TMP_Text _panelTxtTuto;
+    [SerializeField] Image _panelImageTuto;
+    [SerializeField] List<Sprite> _panelImageListTuto;
+
     private bool _isInCdLava = false;
     void Start()
     {
@@ -34,33 +41,52 @@ public class Tuto : MonoBehaviour
     {
         if (isInTuto)
         {
+            _panelTuto.SetActive(true);
             if (startTuto)
             {
                 isInTuto = true;
+                _panelImageTuto.sprite = _panelImageListTuto[0];
+                _panelTxtTuto.text = "Take Pickaxe";
                 TakePickaxe();
             }
 
             if (isBreakRock)
             {
                 BreakRock();
+                _panelImageTuto.sprite = _panelImageListTuto[1];
+                _panelTxtTuto.text = "Break Rock";
+
             }
 
             if (isPushChariot)
             {
                 PushChariot();
+                _panelImageTuto.sprite = _panelImageListTuto[0];
+                _panelTxtTuto.text = "Push chariot";
+
             }
 
             if (isTakeEnemy)
             {
                 TakeEnemy();
+                _panelImageTuto.sprite = _panelImageListTuto[0];
+                _panelTxtTuto.text = "Take Enemy";
+
             }
 
             if (isYeetEnemy)
             {
                 YeetEnemy();
+                _panelImageTuto.sprite = _panelImageListTuto[0];
+                _panelTxtTuto.text = "Yeet Enemy";
+
             }
         }
-      
+        else
+        {
+            _panelTuto.SetActive(false);
+        }
+
     }
 
     private void TakePickaxe()
@@ -106,7 +132,7 @@ public class Tuto : MonoBehaviour
         {
             _isInCdLava = true;
             StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
-            
+
         }
         _wallLimitTuto.SetActive(false);
         _tutoBubbleLava.GetComponent<FollowTarget>().OpenTuto();
