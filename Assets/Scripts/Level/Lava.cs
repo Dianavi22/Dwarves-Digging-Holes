@@ -12,6 +12,7 @@ public class Lava : MonoBehaviour
     [SerializeField] private EventReference lavaBurntSound;
     [SerializeField] private EventReference lavaEruptionSound;
     [SerializeField] ParticleSystem _rockFall;
+    [SerializeField] ParticleSystem _lavaSpawn;
     [SerializeField] GameObject _tutoBubble;
 
     private bool _isCoolDown = true;
@@ -48,15 +49,20 @@ public class Lava : MonoBehaviour
     {
         if (_isCoolDown)
         {
+            _lavaSpawn.Play();
+            yield return new WaitForSeconds(1.5f);
+            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
+
             _lavaLight.DOIntensity(4f, 2f);
             _rockFall.Play();
             PlayLavaEruptionSound();
-            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(2, 0.2f);
+            
             _lavaCollider.enabled = true;
             _isStartLava = true;
             yield return new WaitForSeconds(2.5f);
             _isStartLava = false;
             _rockFall.Stop();
+            _lavaSpawn.Stop();
             _isCoolDown = false;
         }
     }
