@@ -4040,6 +4040,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 727487382}
     m_Modifications:
+    - target: {fileID: 249450745969528103, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 249450745969528103, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 407676603663295660, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294336779673978099, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294336779673978099, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294336779673978099, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2512940168678205254, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
       propertyPath: m_Name
       value: SpawnLava_PART
@@ -4083,6 +4107,38 @@ PrefabInstance:
     - target: {fileID: 4541091728796227605, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174683643152765232, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886509495142922709, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886509495142922709, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886509495142922709, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886509495142922709, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037039083748388536, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037039083748388536, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037039083748388536, guid: 9f69b8bde5557724bb81bad11e45edac, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4571,6 +4627,10 @@ PrefabInstance:
     - target: {fileID: 1340691564279729010, guid: c8879b3a7ad50c44189c764686c97d47, type: 3}
       propertyPath: m_Name
       value: LightLava_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340691564279729010, guid: c8879b3a7ad50c44189c764686c97d47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
