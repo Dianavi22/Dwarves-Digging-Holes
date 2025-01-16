@@ -182,6 +182,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(Message deathMessage)
     {
+        if (_tuto.isInTuto)
+        {
+            print("Skip tuto");
+            SkipTuto();
+        }
         if (isGameOver) yield break;
 
         StatsManager.Instance.EndGame();
