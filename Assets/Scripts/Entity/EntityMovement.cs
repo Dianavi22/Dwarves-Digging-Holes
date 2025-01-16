@@ -27,8 +27,8 @@ public class EntityMovement : MonoBehaviour
     {
         if (GameManager.Instance.isGameOver)
         {
-            RB.velocity = Vector3.zero;
-            RB.angularVelocity = Vector3.zero;
+            //RB.velocity = Vector3.zero;
+            //RB.angularVelocity = Vector3.zero;
             RB.isKinematic = true;
         }
         

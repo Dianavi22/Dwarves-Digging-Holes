@@ -81,12 +81,6 @@ public class Enemy : Entity
         canSteal = true;
     }
 
-    public void KillGobs()
-    {
-        //_gfx.SetActive(false);
-        _rb.velocity = Vector3.zero;
-    }
-
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
