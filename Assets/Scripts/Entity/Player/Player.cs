@@ -6,6 +6,10 @@ public class Player : Entity
     private PlayerHealth health;
     private PlayerFatigue fatigue;
     private UserInput input;
+
+    public Camera playerCamera;
+
+    [SerializeField] private GameObject playerCameraPrefab;
     
     [SerializeField] private Animator animator;
     //[HideInInspector] public bool IsCarried = false;
@@ -17,6 +21,8 @@ public class Player : Entity
         health = GetComponent<PlayerHealth>();
         fatigue = GetComponent<PlayerFatigue>();
         input = GetComponent<UserInput>();
+        playerCamera = Instantiate(playerCameraPrefab).GetComponent<Camera>();
+        playerCamera.gameObject.GetComponent<FollowPlayer>().playerToFollow = transform;
     }
 
     public PlayerActions GetActions() => actions;
