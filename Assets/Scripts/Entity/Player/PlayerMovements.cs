@@ -39,7 +39,7 @@ public class PlayerMovements : EntityMovement
 
     private bool PlayerCanMove(bool isInputActivated)
     {
-        if (!GameManager.Instance.isInMainMenu)
+        if (!GameManager.Instance.isInMainMenu || !GameManager.Instance.isGameOver)
         {
             bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
             if (isInputActivated && isHoldingChariot)
