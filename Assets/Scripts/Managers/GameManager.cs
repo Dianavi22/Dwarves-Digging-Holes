@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour
     private GoldChariot _goldChariot;
     private Tuto _tuto;
     private EventManager _eventManager;
+    [SerializeField] GameObject _PickaxeUI;
+    public TMP_Text nbPickaxeUI;
+    [SerializeField] TMP_Text _nbMaxPickaxeUI;
 
     private bool isCoroutineRunning = false;
 
@@ -127,6 +130,8 @@ public class GameManager : MonoBehaviour
         _circleTransition.SetActive(true);
     }
 
+   
+
     private IEnumerator StartParty()
     {
         CurrentScrollingSpeed = 0;
@@ -144,7 +149,8 @@ public class GameManager : MonoBehaviour
             _tuto.isInTuto = true;
             _tuto.startTuto = true;
         }
-
+        _PickaxeUI.SetActive(true);
+        _nbMaxPickaxeUI.text = MaxNbPickaxe.ToString();
     }
 
     public void SkipTuto()

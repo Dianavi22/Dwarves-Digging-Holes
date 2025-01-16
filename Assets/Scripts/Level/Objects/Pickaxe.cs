@@ -46,6 +46,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         StartCoroutine(CdParticule());
         myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
         myTarget.target = transform;
+        GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text) + 1).ToString();
+
     }
 
     private void Update()
@@ -70,6 +72,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 }
             }
         }
+
 
     }
 
@@ -163,8 +166,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
+
     public void HandleDestroy()
     {
+        GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text)-1).ToString();
+
         StartCoroutine(BreakPickaxe());
     }
 

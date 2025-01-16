@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6650335979915387573}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8846187676402164661}
   - component: {fileID: 1312035138105841096}
   - component: {fileID: 6215369936550105456}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,81 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &311616532267029112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6822883960107260065}
+  - component: {fileID: 2126854288858211055}
+  - component: {fileID: 2909618321474743695}
+  m_Layer: 5
+  m_Name: PickaxesImage (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6822883960107260065
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311616532267029112}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1764102, y: 0.1764102, z: 0.1764102}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -9.9, y: 0.0001577}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2126854288858211055
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311616532267029112}
+  m_CullTransparentMesh: 1
+--- !u!114 &2909618321474743695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311616532267029112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d08c52c09554ca8418a86627f4bd14e1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1071080064222792450
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6487899291922393317}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +223,81 @@ Transform:
   - {fileID: 3453630659441904145}
   m_Father: {fileID: 2120033629784259951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23.407}
+--- !u!1 &1350045064995993296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8160847211349501094}
+  - component: {fileID: 748630935941525556}
+  - component: {fileID: 6100857604492708813}
+  m_Layer: 5
+  m_Name: PickaxesImage (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8160847211349501094
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350045064995993296}
+  m_LocalRotation: {x: 0, y: 0, z: -0.47701308, w: 0.87889624}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0124619985, y: 0.096871905, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -56.981}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.18, y: -1.34}
+  m_SizeDelta: {x: 100, y: 57.56}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &748630935941525556
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350045064995993296}
+  m_CullTransparentMesh: 1
+--- !u!114 &6100857604492708813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350045064995993296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1441775331903529224
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6968640190381811027}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,6 +361,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1925633644435174144}
+  - {fileID: 6822883960107260065}
+  - {fileID: 4699181428174405920}
+  - {fileID: 3696442981700395385}
+  - {fileID: 8160847211349501094}
   m_Father: {fileID: 7795438369142566368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -523,7 +677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8825802500935885539}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2277580496668718134}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SpawnNugget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3233909418064152343}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,6 +764,81 @@ Transform:
   - {fileID: 5110689413299359364}
   m_Father: {fileID: 2120033629784259951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -65.323}
+--- !u!1 &3356480139887410240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4699181428174405920}
+  - component: {fileID: 1984684791048387840}
+  - component: {fileID: 3317741793087734709}
+  m_Layer: 5
+  m_Name: PickaxesImage (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4699181428174405920
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356480139887410240}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01056679, y: 0.09475913, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.0978, y: 0.14}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1984684791048387840
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356480139887410240}
+  m_CullTransparentMesh: 1
+--- !u!114 &3317741793087734709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356480139887410240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3732982584329179336
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +848,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2120033629784259951}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +883,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1641504298302598647}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +917,7 @@ GameObject:
   - component: {fileID: 7016933003152741732}
   - component: {fileID: 3244071171031559675}
   - component: {fileID: 415383790900409220}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GoldChariot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +974,8 @@ MonoBehaviour:
       Data3: 763193002
       Data4: 593856317
     Path: event:/SFX/Cart/Cart movements 2
-  fadeTime: 0.2
+  fadeInTime: 0.1
+  fadeOutTime: 1
   _goldCountText: {fileID: 9219658797423398484}
   _lostGoldPart: {fileID: 4159188239862836962}
   _sparksPart: {fileID: 0}
@@ -755,6 +985,7 @@ MonoBehaviour:
   _defaultSpawnNuggetPosition: {fileID: 2277580496668718134}
   nugget: {fileID: 182930455591863055, guid: f231daa3c6cb7ed48b41fcbd5b6163c8, type: 3}
   _gfx: {fileID: 1351085718703704695}
+  _goldStepList: []
 --- !u!54 &415383790900409220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -791,7 +1022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5110689413299359364}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -825,7 +1056,7 @@ GameObject:
   - component: {fileID: 3377688172216444201}
   - component: {fileID: 1250022436929118266}
   - component: {fileID: 4884377020614818040}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +1137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 392256197538877546}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,7 +1169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 777479326327810848}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -972,7 +1203,7 @@ GameObject:
   - component: {fileID: 3699308745149752316}
   - component: {fileID: 273342510018838117}
   - component: {fileID: 888160829410707876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4740215749987698566}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1319,7 @@ GameObject:
   - component: {fileID: 120212311808518305}
   - component: {fileID: 1207658212663721691}
   - component: {fileID: 3330083093383597353}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,6 +1391,81 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7682159900530300116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3696442981700395385}
+  - component: {fileID: 2788614958527163377}
+  - component: {fileID: 7096649245767556860}
+  m_Layer: 5
+  m_Name: PickaxesImage (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3696442981700395385
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682159900530300116}
+  m_LocalRotation: {x: -0, y: -0, z: 0.47701627, w: 0.87889457}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.011745409, y: 0.096871905, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 56.981}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.2, y: 1.64}
+  m_SizeDelta: {x: 100, y: 57.56}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2788614958527163377
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682159900530300116}
+  m_CullTransparentMesh: 1
+--- !u!114 &7096649245767556860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682159900530300116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7683294608462188464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1477,7 @@ GameObject:
   - component: {fileID: 954135442281174581}
   - component: {fileID: 5103719616457996054}
   - component: {fileID: 3989103498414156447}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: MiningForge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1238,7 +1544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1541311940828771721}
   - component: {fileID: 8792053908639858265}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1292,7 +1598,7 @@ GameObject:
   - component: {fileID: 7832407295236359960}
   - component: {fileID: 2310189506813587036}
   - component: {fileID: 3161127994695418445}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1374,7 +1680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1195850179600842023}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1714,7 @@ GameObject:
   - component: {fileID: 7247433234911633232}
   - component: {fileID: 2578987727381309233}
   - component: {fileID: 5658312560805475796}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,7 +1798,7 @@ GameObject:
   - component: {fileID: 4417709164450666300}
   - component: {fileID: 8252027192917927441}
   - component: {fileID: 964143781613657358}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,7 +1881,7 @@ GameObject:
   - component: {fileID: 6327598757849995862}
   - component: {fileID: 7849452500953940757}
   - component: {fileID: 8503859282147109578}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1656,7 +1962,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 822879012612505084}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1688,7 +1994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3453630659441904145}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1738,14 +2044,14 @@ RectTransform:
   m_GameObject: {fileID: 9189241484266236067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25047, y: 0.25047, z: 0.25047}
+  m_LocalScale: {x: 0.1174502, y: 0.1174502, z: 0.1174502}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 845908760330123436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0004272461, y: 0.00010289}
+  m_AnchoredPosition: {x: 13.73, y: 0.00040823}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3037163669632087123
@@ -1855,12 +2161,20 @@ PrefabInstance:
       value: GameOver_PART
       objectReference: {fileID: 0}
     - target: {fileID: 4532276103060888044, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532276103060888044, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5450393288770130727, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012710276775166857, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1940,10 +2254,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d4b0407fe940fe545b5c064262832960, type: 2}
+    - target: {fileID: -5006410842995360666, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -4042455026866624614, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -3162443504424875012, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1411124711209626868, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d4b0407fe940fe545b5c064262832960, type: 2}
+    - target: {fileID: -1000754955560831715, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -767733865491687206, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1952,10 +2282,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WagonnetUV
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606011999004323157, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5210805868166903543, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d4b0407fe940fe545b5c064262832960, type: 2}
+    - target: {fileID: 7045763562193066223, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 9220213134117263902, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1989,6 +2331,10 @@ PrefabInstance:
     - target: {fileID: 1163864230647970366, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
       propertyPath: m_Name
       value: DestroyChariotStage_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163864230647970366, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2060046141432921458, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2030,6 +2376,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2315044846833543118, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562056000635515254, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2048,9 +2402,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7016933003152741732}
     m_Modifications:
+    - target: {fileID: 4568971072378090648, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4918345288450005453, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_Name
       value: GoldOut_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918345288450005453, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6437088341446207965, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2091,6 +2453,18 @@ PrefabInstance:
     - target: {fileID: 6437088341446207965, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257081217623369992, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7402828144199898331, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136127180537167784, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2163,9 +2537,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3049641231595097364, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3187383634427899490, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
       propertyPath: m_Name
       value: ChariotUI_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 3187383634427899490, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955801208681596148, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346341721174618940, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

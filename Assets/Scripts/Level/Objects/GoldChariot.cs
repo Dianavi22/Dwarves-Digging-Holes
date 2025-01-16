@@ -51,7 +51,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         set
         {
             _nbGolbinOnChariot = value;
-            //  UpdateParticle();
+            UpdateParticle();
         }
     }
 
@@ -147,14 +147,14 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void UpdateParticle()
     {
-        //if (_nbGolbinOnChariot > 0 && !_lostGoldPart.isPlaying)
-        //{
-        //    _lostGoldPart.Play();
-        //}
-        //else if (_nbGolbinOnChariot <= 0)
-        //{
-        //    _lostGoldPart.Stop();
-        //}
+        if (NbGoblin > 0 && !_lostGoldPart.isPlaying)
+        {
+            _lostGoldPart.Play();
+        }
+        else if (NbGoblin <= 0)
+        {
+            _lostGoldPart.Stop();
+        }
         //Debug.Log(NbGoblin + " - isPlaying: " + _lostGoldPart.isPlaying.ToString());
     }
 

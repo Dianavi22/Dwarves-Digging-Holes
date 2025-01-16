@@ -1,5 +1,6 @@
 using FMODUnity;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,6 +19,9 @@ public class UIPauseManager : MonoBehaviour
 
     [SerializeField] private EventReference[] _stateMenuEvent;
     [SerializeField] GameObject _circleTransition;
+
+    private bool _scaleButton;
+    [SerializeField] List<GameObject> _button;
 
     public static UIPauseManager Instance; // A static reference to the GameManager instance
 
@@ -80,6 +84,7 @@ public class UIPauseManager : MonoBehaviour
 
     public void OpenInputCanvas()
     {
+        _scaleButton = true;
         _inputCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_rebindJump);
     }
@@ -93,5 +98,29 @@ public class UIPauseManager : MonoBehaviour
     void OnDestroy()
     {
         RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 0);
+    }
+
+
+    private void Update()
+    {
+        if (_scaleButton)
+        {
+            UpdateButtonScale();
+        }
+    }
+
+    private void UpdateButtonScale()
+    {
+        Vector3 targetScale = new Vector3(3.577049f, 3.577049f, 3.577049f);
+
+        for (int i = 0; i < _button.Count; i++)
+        {
+            if (_button[i] != null)
+            {
+                _button[i].transform.localScale = targetScale;
+            }
+        }
+
+        _scaleButton = false;
     }
 }
