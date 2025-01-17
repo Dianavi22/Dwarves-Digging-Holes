@@ -150,7 +150,6 @@ public class GameManager : MonoBehaviour
             _tuto.isInTuto = true;
             _tuto.startTuto = true;
         }
-        _PickaxeUI.SetActive(true);
         _nbMaxPickaxeUI.text = MaxNbPickaxe.ToString();
     }
 
@@ -159,6 +158,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _skipTuto.SetActive(false);
         _tuto.isInTuto = false;
+        _PickaxeUI.SetActive(true);
     }
 
     public IEnumerator StartGame()
@@ -183,6 +183,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(Message deathMessage)
     {
+        if (_tuto.isInTuto)
+        {
+            print("Skip tuto");
+            SkipTuto();
+        }
         if (isGameOver) yield break;
 
         StatsManager.Instance.EndGame();
