@@ -4,6 +4,7 @@ using UnityEngine;
 public class Difficulty : ScriptableObject
 {
     [Header("General")]
+    public string DifficultyName;
     public float ScrollingSpeed;
     public EntityMovementData GoblinStats;
 
