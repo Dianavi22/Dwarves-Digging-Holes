@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         // Select the difficulty
-        Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
+        Difficulty = m_DifficultyList.First(x => x.DifficultyName == PlayerPrefs.GetString(Utils.Constant.DIFFICULTY_KEY));
+        //Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
 
         foreach (Player p in GamePadsController.Instance.PlayerList)
         {
