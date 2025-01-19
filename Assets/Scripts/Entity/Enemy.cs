@@ -52,7 +52,6 @@ public class Enemy : Entity
     {
         if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _))
         {
-            Debug.Log("Touching chariot");
             IsTouchingChariot = true;
         }
     }
@@ -61,7 +60,6 @@ public class Enemy : Entity
     {
         if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && IsTouchingChariot)
         {
-            Debug.Log("---Leaving chariot");
             IsTouchingChariot = false;
         }
     }

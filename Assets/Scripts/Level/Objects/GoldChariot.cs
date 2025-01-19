@@ -8,6 +8,7 @@ using Utils;
 using DG.Tweening;
 using System.Linq;
 using System;
+using System.Collections;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
@@ -36,15 +37,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] Pepite nugget;
 
     [Header("Other")]
-    [SerializeField] GameObject _gfx;
+    [SerializeField] GameObject _defaultGFX;
+    [SerializeField] GameObject _brokenGFX;
 
-    [SerializeField] List<MoreGold> _goldStepList = new();
+
+    List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
 
     private Rigidbody _rb;
-    private bool _isPlayed = false;
 
-    private int _nbGolbinOnChariot;
     public int NbGoblin
     {
         get => _nbGolbinOnChariot;
@@ -54,8 +55,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateParticle();
         }
     }
+    private int _nbGolbinOnChariot;
 
-    private int _currentGoldCount = 10;
     public int GoldCount
     {
         get => _currentGoldCount;
@@ -80,10 +81,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             // GameOver
             GameManager gm = GameManager.Instance;
             if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
-                StartCoroutine(gm.GameOver(Message.NoGold));
+                StartCoroutine(gm.GameOver(Message.NoGold, false));
         }
     }
-    public ParticleSystem GetParticleLostGold() => _lostGoldPart;
+    private int _currentGoldCount = 10;
+
     private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
     public int GetHighestIndexStepList => _goldStepList.Count - 1;
 
@@ -98,16 +100,14 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
         {
-            if (!_isPlayed)
+            if (!_sparksPart.isPlaying)
             {
-                _isPlayed = true;
                 _sparksPart.Play();
             }
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
         else if (_nearDeathExperienceSequence.Any())
         {
-            _isPlayed = false;
             _sparksPart.Stop();
 
             foreach (Sequence item in _nearDeathExperienceSequence)
@@ -244,26 +244,34 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HandleDestroy()
     {
 
-        StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
+        StartCoroutine(GameManager.Instance.GameOver(Message.Lava, true));
         StopChariotSound();
     }
     public GameObject GetGameObject() { return gameObject; }
     #endregion
 
-    public void HideGfx()
+    private void SetBrokenGFX(bool isChariotBroken)
+    {
+        _defaultGFX.SetActive(!isChariotBroken);
+        _brokenGFX.SetActive(isChariotBroken);
+    }
+
+    public void HideGfx(bool isGoldChariotDestroyed)
     {
         for (int i = 0; i < _goldStepList.Count; i++)
         {
             _goldStepList[i].gameObject.SetActive(false);
         }
         _goldCountText.gameObject.SetActive(false);
-        _gfx.SetActive(false);
+        if (!isGoldChariotDestroyed) SetBrokenGFX(true);
+        else _defaultGFX.SetActive(false);
     }
-    public void HideChariotText()
+    public void StopParticle()
     {
         _lostGoldPart.Stop();
     }
 
+    #region Gold Related
     public void GoldEvent()
     {
         if (GoldCount <= 1) return;
@@ -305,4 +313,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
         UpdateText();
     }
+
+    #endregion
 }
