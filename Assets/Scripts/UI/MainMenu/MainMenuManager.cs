@@ -23,6 +23,7 @@ public class MainMenuManager : MonoBehaviour
     private bool _scaleButton = false;
 
     [SerializeField] GameObject _canvasSettings;
+    [SerializeField] GameObject _pivotStartSettings;
     [SerializeField] GameObject _buttonSettingsStart;
 
     private void Start()
@@ -39,8 +40,10 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
-        _canvasSettings.SetActive(true);
+        _pivotStartSettings.SetActive(true);
+      //  _canvasSettings.SetActive(true);
         _buttons.SetActive(false);
+        _title.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
 
         // StartCoroutine(CircleTransition());
