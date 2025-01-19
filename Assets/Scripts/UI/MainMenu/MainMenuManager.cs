@@ -22,6 +22,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
     private bool _scaleButton = false;
 
+    [SerializeField] GameObject _canvasSettings;
+    [SerializeField] GameObject _buttonSettingsStart;
+
     private void Start()
     {
         StartCoroutine(StartCanvas());
@@ -36,7 +39,11 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
-        StartCoroutine(CircleTransition());
+        _canvasSettings.SetActive(true);
+        _buttons.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
+
+        // StartCoroutine(CircleTransition());
     }
 
     public void QuitGame()
@@ -87,7 +94,6 @@ public class MainMenuManager : MonoBehaviour
     {
         _circleTransition.SetActive(true);
         yield return new WaitForSeconds(1.7f);
-        SceneManager.LoadScene(1);
     }
 
     private void Update()
