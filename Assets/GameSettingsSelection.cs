@@ -21,6 +21,9 @@ public class GameSettingsSelection : MonoBehaviour
 
     #endregion
 
+    [SerializeField] MainMenuManager _mainMenuManager;
+    [SerializeField] GameObject _pivotStartSettings;
+
     #region Unity Callbacks
 
     private void Awake()
@@ -49,11 +52,12 @@ public class GameSettingsSelection : MonoBehaviour
         PlayerPrefs.SetString(Constant.DIFFICULTY_KEY, difficultyList[selectedDifficultyIndex].DifficultyName);
         PlayerPrefs.SetInt(Constant.MODE_KEY, selectedModeIndex);
 
-        SceneManager.LoadScene(2);
+        _mainMenuManager.StartParty();
     }
 
     public void GoToMenu() {
-        SceneManager.LoadScene(0);
+        _mainMenuManager.ActiveButtons();
+        _pivotStartSettings.SetActive(false);
     }
 
     #endregion

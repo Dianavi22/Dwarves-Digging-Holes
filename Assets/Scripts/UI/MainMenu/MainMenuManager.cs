@@ -36,17 +36,21 @@ public class MainMenuManager : MonoBehaviour
         Time.timeScale = 1;
         _circleTransitionIn.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-      
+
     }
     public void StartGame()
     {
         _pivotStartSettings.SetActive(true);
-      //  _canvasSettings.SetActive(true);
         _buttons.SetActive(false);
         _title.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
 
-        // StartCoroutine(CircleTransition());
+    }
+
+    public void StartParty()
+    {
+        _scaleButton = true;
+        StartCoroutine(CircleTransition());
     }
 
     public void QuitGame()
@@ -80,7 +84,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _buttons.SetActive(true);
         _title.SetActive(true);
-        
+
     }
 
     public void LoadSettingScene()
