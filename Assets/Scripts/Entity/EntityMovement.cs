@@ -25,35 +25,37 @@ public class EntityMovement : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (GameManager.Instance.isGameOver)
-        {
-            RB.velocity = Vector3.zero;
-            RB.angularVelocity = Vector3.zero;
-            RB.isKinematic = true;
-        }
-        
-        DefineGroundState();
-        HandleMovement();
+      
+            if (GameManager.Instance.isGameOver)
+            {
+                RB.velocity = Vector3.zero;
+                RB.angularVelocity = Vector3.zero;
+                RB.isKinematic = true;
+            }
 
-        //Much higher gravity if holding down
-        if (!isGrounded && RB.velocity.y < 0 && _moveInput.y < 0)
-            GravityScaler(Stats.FastFalling);
+            DefineGroundState();
+            HandleMovement();
 
-        // If low jump, fall faster 
-        // Note: Dunno why but velocity.y on the chariot is > to 0
-        else if (!isGrounded && RB.velocity.y > 0 && !IsPerformingJump)
-            GravityScaler(Stats.JumpCut);
+            //Much higher gravity if holding down
+            if (!isGrounded && RB.velocity.y < 0 && _moveInput.y < 0)
+                GravityScaler(Stats.FastFalling);
 
-        //Reducing Gravity when reaching the apex of the jump
-        else if (Mathf.Abs(RB.velocity.y) < Stats.JumpHangTimeTreshold)
-            GravityScaler(Stats.JumpHangAir);
+            // If low jump, fall faster 
+            // Note: Dunno why but velocity.y on the chariot is > to 0
+            else if (!isGrounded && RB.velocity.y > 0 && !IsPerformingJump)
+                GravityScaler(Stats.JumpCut);
 
-        //Simple falling
-        else if (RB.velocity.y < 0)
-            GravityScaler(Stats.BasicFalling);
+            //Reducing Gravity when reaching the apex of the jump
+            else if (Mathf.Abs(RB.velocity.y) < Stats.JumpHangTimeTreshold)
+                GravityScaler(Stats.JumpHangAir);
 
-        else
-            GravityScaler(1f);
+            //Simple falling
+            else if (RB.velocity.y < 0)
+                GravityScaler(Stats.BasicFalling);
+
+            else
+                GravityScaler(1f);
+       
     }
 
     protected void Update()
@@ -68,7 +70,7 @@ public class EntityMovement : MonoBehaviour
 
     protected void HandleMovement()
     {
-        if (!CanMove || !GetBase.CanMoveAfterGrab) return;
+        if (GameManager.Instance.isInMainMenu || !CanMove || !GetBase.CanMoveAfterGrab ) return;
 
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = _moveInput.x * Stats.RunMaxSpeed;
