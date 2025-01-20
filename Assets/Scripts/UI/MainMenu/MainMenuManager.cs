@@ -26,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _pivotStartSettings;
     [SerializeField] GameObject _buttonSettingsStart;
 
+    [SerializeField] GameObject _backButton;
     private void Start()
     {
         StartCoroutine(StartCanvas());
@@ -82,6 +83,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowButtons()
     {
+        _scaleButton = true;
         _buttons.SetActive(true);
         _title.SetActive(true);
 
@@ -113,7 +115,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateButtonScale()
     {
-        print("Start");
         Vector3 targetScale = new Vector3(3.6f, 3.6f, 3.6f);
 
         for (int i = 0; i < _button.Count; i++)
@@ -123,7 +124,7 @@ public class MainMenuManager : MonoBehaviour
                 _button[i].transform.localScale = targetScale;
             }
         }
-
+        _backButton.transform.localScale = new Vector3(1,1,1);
         _scaleButton = false;
     }
 }
