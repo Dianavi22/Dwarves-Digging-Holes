@@ -40,6 +40,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
+        _scaleButton = true;
         _pivotStartSettings.SetActive(true);
         _buttons.SetActive(false);
         _title.SetActive(false);
@@ -49,7 +50,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartParty()
     {
-        _scaleButton = true;
         StartCoroutine(CircleTransition());
     }
 
@@ -113,7 +113,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateButtonScale()
     {
-        Vector3 targetScale = new Vector3(3.577049f, 3.577049f, 3.577049f);
+        print("Start");
+        Vector3 targetScale = new Vector3(3.6f, 3.6f, 3.6f);
 
         for (int i = 0; i < _button.Count; i++)
         {
