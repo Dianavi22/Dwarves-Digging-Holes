@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject _playerGFX;
     [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private ParticleSystem _DestroyPlayer;
+    [SerializeField] private RotateImage _imageRespawn;
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -23,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>();
-
+        _imageRespawn = FindAnyObjectByType<RotateImage>();
         IsAlive = true;
     }
 
@@ -34,6 +35,14 @@ public class PlayerHealth : MonoBehaviour
             if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
             {
                 TriggerRespawnSequence();
+            }
+            if (!IsAlive)
+            {
+                _imageRespawn.isRespawn = true;
+            }
+            else
+            {
+                _imageRespawn.isRespawn = false;
             }
         }
     }
