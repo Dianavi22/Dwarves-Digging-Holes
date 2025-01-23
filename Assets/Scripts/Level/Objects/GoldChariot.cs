@@ -282,15 +282,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             GoldCount = 10;
         else
             GoldCount -= goldLostValue;
-
-        SpawnMultipleNugget(goldLostValue, _goldStepList[idStep].GetSpawnPoint);
+        print(goldLostValue);
+        SpawnMultipleNugget(goldLostValue, this.gameObject.transform);
     }
 
     public void SpawnMultipleNugget(int nb, Transform position)
     {
-        for (int i = 0; i <= nb; i++)
+        for (int i = 0; i <= nb-1; i++)
         {
             SpawnNugget(position);
+            print("SpawnMultipleNugget");
         }
     }
 
