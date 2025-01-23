@@ -15,6 +15,7 @@ public class Rock : MonoBehaviour
     [SerializeField] int _healthPoint = 5;
     public bool haveGold;
     [SerializeField] ParticleSystem _breakRockParticule;
+    [SerializeField] ParticleSystem _spawnGoldPart;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
     private Score _score;
@@ -49,6 +50,10 @@ public class Rock : MonoBehaviour
 
     public IEnumerator Break()
     {
+        _breakRockParticule.Play();
+        _gfx.SetActive(false);
+        _rockCollider.enabled = false;
+
         Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
         if (tuto.isBreakRock)
         {
@@ -59,15 +64,15 @@ public class Rock : MonoBehaviour
         {
             TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
             _score.ScoreCounter += _goldScore;
+            _spawnGoldPart.Play();
+            yield return new WaitForSeconds(0.3f);
             Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
             if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
         }
 
         PlayRockExplosionSound(gameObject.transform.position);
 
-        _breakRockParticule.Play();
-        _gfx.SetActive(false);
-        _rockCollider.enabled = false;
+        
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }

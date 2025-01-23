@@ -103,6 +103,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _circleTransition.SetActive(true);
         yield return new WaitForSeconds(1.7f);
+        SceneManager.LoadScene(2);
     }
 
     private void Update()
