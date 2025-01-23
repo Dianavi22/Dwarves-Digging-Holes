@@ -62,12 +62,8 @@ public class Rock : MonoBehaviour
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
-            TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
-            _score.ScoreCounter += _goldScore;
             _spawnGoldPart.Play();
-            yield return new WaitForSeconds(0.3f);
-            Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
-            if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
+            StartCoroutine(BreakGold());
         }
 
         PlayRockExplosionSound(gameObject.transform.position);
@@ -75,6 +71,13 @@ public class Rock : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
+
+    public IEnumerator BreakGold()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
+        if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
     }
 
     private void Update()

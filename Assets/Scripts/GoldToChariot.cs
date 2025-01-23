@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using Utils;
 using static UnityEngine.GraphicsBuffer;
 
 public class GoldToChariot : MonoBehaviour
@@ -12,8 +13,17 @@ public class GoldToChariot : MonoBehaviour
     private GoldChariot _goldChariot;
     private ParticleSystem _takeGoldPart;
     private GameObject _pointOneGoldDirection;
+    private Score _score;
+    [SerializeField] private int _goldScore = 1;
+
+
+
     void Start()
     {
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            _score = TargetManager.Instance.GetGameObject<Score>();
+        }
         _takeGoldPart = GameObject.Find("TakeGoldInChariot_PART").GetComponent<ParticleSystem>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _pointOneGoldDirection = _goldChariot.hbTakeGold;
@@ -33,8 +43,15 @@ public class GoldToChariot : MonoBehaviour
     {
         if (other.gameObject.name == "PointOneGoldDirection")
         {
+            BreakGold();
             _takeGoldPart.Play();
             Destroy(this.gameObject);
         }
+    }
+
+    public void BreakGold()
+    {
+        TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
+        _score.ScoreCounter += _goldScore;
     }
 }
