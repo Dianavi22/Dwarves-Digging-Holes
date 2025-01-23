@@ -9,31 +9,31 @@ public class GoldToChariot : MonoBehaviour
 {
     [SerializeField] float _speed;
     [SerializeField] Vector3 _direction;
-
     private GoldChariot _goldChariot;
+    private ParticleSystem _takeGoldPart;
+    private GameObject _pointOneGoldDirection;
     void Start()
     {
+        _takeGoldPart = GameObject.Find("TakeGoldInChariot_PART").GetComponent<ParticleSystem>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-        StartCoroutine(GoldPosition());
+        _pointOneGoldDirection = _goldChariot.hbTakeGold;
     }
 
     void Update()
     {
-        transform.LookAt(_goldChariot.transform);
-        transform.position += ( _direction - transform.position).normalized * _speed * Time.deltaTime;
-        transform.LookAt(_goldChariot.transform, Vector3.left);
-    }
-
-    private IEnumerator GoldPosition() {
-        _direction = new Vector3(Random.Range(this.transform.position.x-100, this.transform.position.x + 100), Random.Range(this.transform.position.y - 100, this.transform.position.y + 100), 0 );
-        yield return new WaitForSeconds(0.1f);
-        _direction = new Vector3(_goldChariot.transform.position.x, _goldChariot.transform.position.y, 0);
+        if (_pointOneGoldDirection != null)
+        {
+            transform.LookAt(_pointOneGoldDirection.transform);
+            Vector3 directionToTarget = (_pointOneGoldDirection.transform.position - transform.position).normalized;
+            transform.position += directionToTarget * _speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<GoldChariot>(other, out var pickaxe))
+        if (other.gameObject.name == "PointOneGoldDirection")
         {
+            _takeGoldPart.Play();
             Destroy(this.gameObject);
         }
     }

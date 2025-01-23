@@ -37,6 +37,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     [Header("Other")]
     [SerializeField] GameObject _gfx;
+    public GameObject hbTakeGold;
 
     [SerializeField] List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
@@ -282,7 +283,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             GoldCount = 10;
         else
             GoldCount -= goldLostValue;
-        print(goldLostValue);
         SpawnMultipleNugget(goldLostValue, this.gameObject.transform);
     }
 
