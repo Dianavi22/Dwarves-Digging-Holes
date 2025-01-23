@@ -5,7 +5,9 @@ public class RotateImage : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 100f;
     public bool isRespawn = false;
+    public bool isImpossibleRespawn = false;
     [SerializeField] Image _arrow;
+    [SerializeField] Image _impossibleArrow;
     void Update()
     {
         if (isRespawn)
@@ -17,6 +19,16 @@ public class RotateImage : MonoBehaviour
         else
         {
             _arrow.enabled = false;
+        }
+
+        if (isImpossibleRespawn)
+        {
+            _impossibleArrow.enabled = true;
+        }
+        else
+        {
+            _impossibleArrow.enabled = false;
+
         }
 
     }
