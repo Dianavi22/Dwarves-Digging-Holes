@@ -291,7 +291,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         for (int i = 0; i <= nb-1; i++)
         {
             SpawnNugget(position);
-            print("SpawnMultipleNugget");
         }
     }
 
