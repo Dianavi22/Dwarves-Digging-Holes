@@ -4910,7 +4910,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ab6afd236e45cf4489c1b4c110fc4bc, type: 2}
+  - {fileID: 2100000, guid: 80e97bf52ed25e3409a09476d43e9566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4941,7 +4941,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.29166603
+        value: 0.22114578
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -4949,7 +4949,16 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.16370106
+        time: 0.15516517
+        value: 0.16666432
+        inSlope: -0.39524
+        outSlope: -0.39524
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.4697627
+      - serializedVersion: 3
+        time: 0.24144384
         value: 0
         inSlope: 0
         outSlope: 0
@@ -4993,7 +5002,7 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 2
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -5049,9 +5058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d467c17f0f3ff90429ea97d7ccefdd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _goldChariot: {fileID: 0}
   _speed: 10
   _direction: {x: 0, y: 0, z: 0}
+  _goldScore: 1
 --- !u!135 &1225472715644528434
 SphereCollider:
   m_ObjectHideFlags: 0
