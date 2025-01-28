@@ -54,6 +54,7 @@ public class EntityMovement : MonoBehaviour
 
         else
             GravityScaler(1f);
+       
     }
 
     protected void Update()
@@ -68,7 +69,7 @@ public class EntityMovement : MonoBehaviour
 
     protected void HandleMovement()
     {
-        if (!CanMove || !GetBase.CanMoveAfterGrab) return;
+        if (GameManager.Instance.isInMainMenu || !CanMove || !GetBase.CanMoveAfterGrab ) return;
 
         //Calculate the direction we want to move in and our desired velocity
         float targetSpeed = _moveInput.x * Stats.RunMaxSpeed;

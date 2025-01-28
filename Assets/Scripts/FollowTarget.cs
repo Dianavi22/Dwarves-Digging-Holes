@@ -10,6 +10,7 @@ public class FollowTarget : MonoBehaviour
 
     [SerializeField] List<Image> _images;
     [SerializeField] SpriteRenderer _circle;
+    [SerializeField] ParticleSystem _openTutoPart;
 
     private bool _isOpen = false;
 
@@ -80,6 +81,10 @@ public class FollowTarget : MonoBehaviour
 
     public void OpenTuto()
     {
+        if (!_isOpen)
+        {
+            _openTutoPart.Play();
+        }
         _isOpen = true;
     }
 

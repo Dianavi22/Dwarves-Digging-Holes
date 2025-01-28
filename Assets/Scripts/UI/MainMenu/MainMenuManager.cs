@@ -22,6 +22,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
     private bool _scaleButton = false;
 
+    [SerializeField] GameObject _canvasSettings;
+    [SerializeField] GameObject _pivotStartSettings;
+    [SerializeField] GameObject _buttonSettingsStart;
+
+    [SerializeField] GameObject _backButton;
     private void Start()
     {
         StartCoroutine(StartCanvas());
@@ -32,9 +37,19 @@ public class MainMenuManager : MonoBehaviour
         Time.timeScale = 1;
         _circleTransitionIn.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-      
+
     }
     public void StartGame()
+    {
+        _scaleButton = true;
+        _pivotStartSettings.SetActive(true);
+        _buttons.SetActive(false);
+        _title.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
+
+    }
+
+    public void StartParty()
     {
         StartCoroutine(CircleTransition());
     }
@@ -68,9 +83,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowButtons()
     {
+        _scaleButton = true;
         _buttons.SetActive(true);
         _title.SetActive(true);
-        
+
     }
 
     public void LoadSettingScene()
@@ -87,7 +103,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _circleTransition.SetActive(true);
         yield return new WaitForSeconds(1.7f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     private void Update()
@@ -100,7 +116,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void UpdateButtonScale()
     {
-        Vector3 targetScale = new Vector3(3.577049f, 3.577049f, 3.577049f);
+        Vector3 targetScale = new Vector3(3.6f, 3.6f, 3.6f);
 
         for (int i = 0; i < _button.Count; i++)
         {
@@ -109,7 +125,7 @@ public class MainMenuManager : MonoBehaviour
                 _button[i].transform.localScale = targetScale;
             }
         }
-
+        _backButton.transform.localScale = new Vector3(1,1,1);
         _scaleButton = false;
     }
 }

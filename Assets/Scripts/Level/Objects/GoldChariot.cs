@@ -39,7 +39,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [Header("Other")]
     [SerializeField] GameObject _defaultGFX;
     [SerializeField] GameObject _brokenGFX;
-
+    public GameObject hbTakeGold;
 
     List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
@@ -290,13 +290,12 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             GoldCount = 10;
         else
             GoldCount -= goldLostValue;
-
-        SpawnMultipleNugget(goldLostValue, _goldStepList[idStep].GetSpawnPoint);
+        SpawnMultipleNugget(goldLostValue, this.gameObject.transform);
     }
 
     public void SpawnMultipleNugget(int nb, Transform position)
     {
-        for (int i = 0; i <= nb; i++)
+        for (int i = 0; i <= nb-1; i++)
         {
             SpawnNugget(position);
         }

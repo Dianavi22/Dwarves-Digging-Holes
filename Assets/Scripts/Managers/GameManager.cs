@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         // Select the difficulty
-        Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
+        Difficulty = m_DifficultyList.First(x => x.DifficultyName == PlayerPrefs.GetString(Utils.Constant.DIFFICULTY_KEY));
+        //Difficulty = m_DifficultyList[GamePadsController.Instance.PlayerList.Count <= 2 ? 0 : 1];
 
         foreach (Player p in GamePadsController.Instance.PlayerList)
         {
@@ -149,7 +150,6 @@ public class GameManager : MonoBehaviour
             _tuto.isInTuto = true;
             _tuto.startTuto = true;
         }
-        _PickaxeUI.SetActive(true);
         _nbMaxPickaxeUI.text = MaxNbPickaxe.ToString();
     }
 
@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TargetManager.Instance.GetGameObject<Lava>().CooldownLava());
         _skipTuto.SetActive(false);
         _tuto.isInTuto = false;
+        _PickaxeUI.SetActive(true);
     }
 
     public IEnumerator StartGame()
@@ -239,6 +240,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver(Message deathMessage, bool isGoldChariotDestroyed)
     {
+        if (_tuto.isInTuto)
+        {
+            print("Skip tuto");
+            SkipTuto();
+        }
+        
         if (isGameOver) yield break;
 
         StatsManager.Instance.EndGame();

@@ -10,6 +10,8 @@ namespace Utils
     public class Constant
     {
         public static readonly string BEST_SCORE_KEY = "BEST_SCORE";
+        public static readonly string DIFFICULTY_KEY = "SELECTED_DIFFICULTY";
+        public static readonly string MODE_KEY = "SELECTED_MODE";
     }
 
     public class Component
@@ -245,4 +247,10 @@ namespace Utils
         PlayerKill,
         GoblinKill
     }
+
+    public enum GameMode {
+        Normal,
+        Infinite
+    }
+
 }

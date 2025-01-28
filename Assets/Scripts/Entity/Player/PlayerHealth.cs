@@ -1,12 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
 using Utils;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] GameObject _playerGFX;
     [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private ParticleSystem _DestroyPlayer;
+    [SerializeField] private RotateImage _imageRespawn;
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -23,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>();
-
+        _imageRespawn = FindAnyObjectByType<RotateImage>();
         IsAlive = true;
     }
 
@@ -35,77 +37,99 @@ public class PlayerHealth : MonoBehaviour
             {
                 TriggerRespawnSequence();
             }
+            else
+            {
+                _imageRespawn.isRespawn = false;
+            }
+
+            if (!IsAlive)
+            {
+                _imageRespawn.isRespawn = true;
+            }
+            else
+            {
+                _imageRespawn.isRespawn = false;
+            }
+
+            if (!IsAlive && _isReadyToSpawn)
+            {
+                _imageRespawn.isImpossibleRespawn = true;
+            }
+            else
+            {
+                _imageRespawn.isImpossibleRespawn = false;
+            }
         }
     }
 
     private void TriggerRespawnSequence()
-    {
-        _respawnPoint.circle.transform.DOKill();
-
-        Sequence respawnSequence = DOTween.Sequence();
-        respawnSequence.AppendCallback(PlayerRespawn)
-            .Append(_respawnPoint.circle.transform.DOScale(2f, 0.33f).SetEase(Ease.OutQuad))
-            .Append(_respawnPoint.circle.transform.DOScale(0f, 0.33f).SetEase(Ease.InQuad));
-    }
-    public void Stun()
-    {
-        if (_isHit) return;
-
-        _HurtPart.Play();
-        _isHit = true;
-        _p.GetMovement().enabled = false;
-
-        DOVirtual.DelayedCall(1f, () =>
         {
-            _p.GetMovement().enabled = true;
-            _isHit = false;
-        });
-    }
+            _respawnPoint.circle.transform.DOKill();
 
-    public void DeathPlayer()
-    {
-
-        IsAlive = false;
-        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
-        _DestroyPlayer.Play();
-        _isReadyToSpawn = false;
-        _playerGFX.SetActive(false);
-
-        _p.GetMovement().enabled = false;
-        _p.GetActions().ForceDetach();
-        _p.GetActions().enabled = false;
-        _p.GetRigidbody().useGravity = false;
-        _p.GetRigidbody().velocity = Vector3.zero;
-
-        _p.EmptyFixedJoin();
-
-        StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
-        if (_p.holdBy != null)
+            Sequence respawnSequence = DOTween.Sequence();
+            respawnSequence.AppendCallback(PlayerRespawn)
+                .Append(_respawnPoint.circle.transform.DOScale(2f, 0.33f).SetEase(Ease.OutQuad))
+                .Append(_respawnPoint.circle.transform.DOScale(0f, 0.33f).SetEase(Ease.InQuad));
+        }
+        public void Stun()
         {
-            StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
-            _p.holdBy = null;
+            if (_isHit) return;
+
+            _HurtPart.Play();
+            _isHit = true;
+            _p.GetMovement().enabled = false;
+
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                _p.GetMovement().enabled = true;
+                _isHit = false;
+            });
         }
 
-        DOVirtual.DelayedCall(2f, () =>
+        public void DeathPlayer()
         {
-            _isReadyToSpawn = true;
-        });
+
+            IsAlive = false;
+            TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
+            _DestroyPlayer.Play();
+            _isReadyToSpawn = false;
+            _playerGFX.SetActive(false);
+
+            _p.GetMovement().enabled = false;
+            _p.GetActions().ForceDetach();
+            _p.GetActions().enabled = false;
+            _p.GetRigidbody().useGravity = false;
+            _p.GetRigidbody().velocity = Vector3.zero;
+
+            _p.EmptyFixedJoin();
+
+            StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
+            if (_p.holdBy != null)
+            {
+                StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
+                _p.holdBy = null;
+            }
+
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                _isReadyToSpawn = true;
+            });
+        }
+
+        private void PlayerRespawn()
+        {
+            transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
+
+            IsAlive = true;
+            _p.GetRigidbody().useGravity = true;
+            _playerGFX.SetActive(true);
+
+            Invoke(nameof(Invincibility), 0.1f);
+        }
+
+        private void Invincibility()
+        {
+            _p.GetMovement().enabled = true;
+            _p.GetActions().enabled = true;
+        }
     }
-
-    private void PlayerRespawn()
-    {
-        transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
-
-        IsAlive = true;
-        _p.GetRigidbody().useGravity = true;
-        _playerGFX.SetActive(true);
-
-        Invoke(nameof(Invincibility), 0.1f);
-    }
-
-    private void Invincibility()
-    {
-        _p.GetMovement().enabled = true;
-        _p.GetActions().enabled = true;
-    }
-}

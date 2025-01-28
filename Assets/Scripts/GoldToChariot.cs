@@ -3,38 +3,55 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using Utils;
 using static UnityEngine.GraphicsBuffer;
 
 public class GoldToChariot : MonoBehaviour
 {
     [SerializeField] float _speed;
     [SerializeField] Vector3 _direction;
-
     private GoldChariot _goldChariot;
+    private ParticleSystem _takeGoldPart;
+    private GameObject _pointOneGoldDirection;
+    private Score _score;
+    [SerializeField] private int _goldScore = 1;
+
+
+
     void Start()
     {
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            _score = TargetManager.Instance.GetGameObject<Score>();
+        }
+        _takeGoldPart = GameObject.Find("TakeGoldInChariot_PART").GetComponent<ParticleSystem>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-        StartCoroutine(GoldPosition());
+        _pointOneGoldDirection = _goldChariot.hbTakeGold;
     }
 
     void Update()
     {
-        transform.LookAt(_goldChariot.transform);
-        transform.position += ( _direction - transform.position).normalized * _speed * Time.deltaTime;
-        transform.LookAt(_goldChariot.transform, Vector3.left);
-    }
-
-    private IEnumerator GoldPosition() {
-        _direction = new Vector3(Random.Range(this.transform.position.x-100, this.transform.position.x + 100), Random.Range(this.transform.position.y - 100, this.transform.position.y + 100), 0 );
-        yield return new WaitForSeconds(0.1f);
-        _direction = new Vector3(_goldChariot.transform.position.x, _goldChariot.transform.position.y, 0);
+        if (_pointOneGoldDirection != null)
+        {
+            transform.LookAt(_pointOneGoldDirection.transform);
+            Vector3 directionToTarget = (_pointOneGoldDirection.transform.position - transform.position).normalized;
+            transform.position += directionToTarget * _speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<GoldChariot>(other, out var pickaxe))
+        if (other.gameObject.name == "PointOneGoldDirection")
         {
+            BreakGold();
+            _takeGoldPart.Play();
             Destroy(this.gameObject);
         }
+    }
+
+    public void BreakGold()
+    {
+        TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount += 1;
+        _score.ScoreCounter += _goldScore;
     }
 }
