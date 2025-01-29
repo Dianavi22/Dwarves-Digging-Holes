@@ -3310,6 +3310,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 687599867}
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: _takeGoldAnim
+      value: 
+      objectReference: {fileID: 1393171046}
+    - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _tutoSpawnPickaxe
       value: 
       objectReference: {fileID: 1393171044}
@@ -3410,7 +3414,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 845908760330123436, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       insertIndex: -1
       addedObject: {fileID: 59357700}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1351085718703704695, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1393171046}
   m_SourcePrefab: {fileID: 100100000, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
 --- !u!198 &1393171043 stripped
 ParticleSystem:
@@ -3422,6 +3429,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1568961026315710328, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
   m_PrefabInstance: {fileID: 1393171042}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1393171045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1351085718703704695, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+  m_PrefabInstance: {fileID: 1393171042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1393171046
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393171045}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5726308ecf3db2247b9a704c6e6ed418, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1475287631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4645416324645580084, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}

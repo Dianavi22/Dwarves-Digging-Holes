@@ -20,6 +20,7 @@ public class GoldToChariot : MonoBehaviour
 
     void Start()
     {
+        
         if (!GameManager.Instance.isInMainMenu)
         {
             _score = TargetManager.Instance.GetGameObject<Score>();
@@ -45,6 +46,7 @@ public class GoldToChariot : MonoBehaviour
         {
             BreakGold();
             _takeGoldPart.Play();
+            TargetManager.Instance.GetGameObject<GoldChariot>().StartAnimation();
             Destroy(this.gameObject);
         }
     }

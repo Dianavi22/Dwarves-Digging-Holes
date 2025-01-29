@@ -8,6 +8,7 @@ using Utils;
 using DG.Tweening;
 using System.Linq;
 using System;
+using System.Collections;
 
 public class GoldChariot : MonoBehaviour, IGrabbable
 {
@@ -41,6 +42,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     [SerializeField] List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
+    [SerializeField] private Animator _takeGoldAnim;
 
     private Rigidbody _rb;
     private bool _isPlayed = false;
@@ -91,6 +93,17 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    public void StartAnimation()
+    {
+        _takeGoldAnim.SetBool("isNewGold", true);
+        Invoke("ResetAnim", 0.4f);
+    }
+
+    private void ResetAnim()
+    {
+        _takeGoldAnim.SetBool("isNewGold", false);
     }
 
     private void Update()
