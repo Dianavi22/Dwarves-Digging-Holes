@@ -17,7 +17,7 @@ public class RockFall : MonoBehaviour
 
     private void Start()
     {
-        endRotation = Random.Range(-300, 300);
+        endRotation = Random.Range(-500, 500);
 
 
     }
