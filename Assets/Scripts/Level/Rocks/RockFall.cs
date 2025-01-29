@@ -7,6 +7,34 @@ public class RockFall : MonoBehaviour
     [SerializeField] GameObject _gfx;
     [SerializeField] ParticleSystem _breakPart;
     private bool _isDestroyed = false;
+
+    public Vector3 startRotation;
+    public float duration = 2f;
+
+    private float timeElapsed = 0f;
+    private bool rotating = true;
+    private int endRotation;
+
+    private void Start()
+    {
+        endRotation = Random.Range(-300, 300);
+
+
+    }
+    private void Update()
+    {
+        if (rotating)
+        {
+            timeElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(timeElapsed / duration);
+            _gfx.transform.rotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(new Vector3(0,0, endRotation)), t);
+
+            if (t >= 1.0f)
+            {
+                rotating = false;
+            }
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (!_isDestroyed)
@@ -52,5 +80,7 @@ public class RockFall : MonoBehaviour
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
+
+   
 
 }
