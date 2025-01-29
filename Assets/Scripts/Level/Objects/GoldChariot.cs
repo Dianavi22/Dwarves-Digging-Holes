@@ -98,7 +98,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void StartAnimation()
     {
         _takeGoldAnim.SetBool("isNewGold", true);
-        Invoke("ResetAnim", 0.4f);
+        Invoke("ResetAnim", 0.25f);
     }
 
     private void ResetAnim()
