@@ -59,8 +59,11 @@ public class SettingsMenu : MonoBehaviour
 
     public void CloseSettings()
     {
-        _mmm.ShowButtons();
-        _buttonsCanvaGroup.interactable = true;
+        if (GameManager.Instance.isInMainMenu)
+        {
+            _mmm.ShowButtons();
+            _buttonsCanvaGroup.interactable = true;
+        }
         EventSystem.current.SetSelectedGameObject(_settingsButtonMM);
         SettingsWindow.SetActive(false);
     }
