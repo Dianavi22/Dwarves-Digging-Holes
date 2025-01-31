@@ -58,33 +58,40 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
     }
 
-    private int _currentGoldCount = 10;
-    public int GoldCount
+    public int _currentGoldCount = 10;
+    
+
+    public void Test()
     {
-        get => _currentGoldCount;
-        set
+        _currentGoldCount++;
+        UpdateText();
+
+        for (int i = _goldStepList.Count - 1; i >= 0; i--)
         {
-            _currentGoldCount = Math.Max(0, value);
-            UpdateText();
-
-            if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
+            if (_goldStepList[i] == null)
             {
-                Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
-                MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
-                g.Instanciate(_goldStepList.Count);
-                _goldStepList.Add(g);
+                _goldStepList.RemoveAt(i);
             }
-            else if (_currentGoldCount > 0 && _currentGoldCount <= _goldStepList.Count * 10)
-            {
-                StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
-                _goldStepList.RemoveAt(_goldStepList.Count - 1);
-            }
-
-            // GameOver
-            GameManager gm = GameManager.Instance;
-            if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
-                StartCoroutine(gm.GameOver(Message.NoGold));
         }
+
+        if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
+        {
+            Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
+            print(_currentGoldCount);
+            MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
+            g.Instanciate(_goldStepList.Count);
+            _goldStepList.Add(g);
+        }
+        else if (_currentGoldCount > 0 && _currentGoldCount <= _goldStepList.Count * 10)
+        {
+            StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
+            _goldStepList.RemoveAt(_goldStepList.Count - 1);
+        }
+
+        // GameOver
+        GameManager gm = GameManager.Instance;
+        if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
+            StartCoroutine(gm.GameOver(Message.NoGold));
     }
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
     private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
@@ -108,9 +115,21 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Test();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LostGoldStage(1);
+        }
+
+
         ChariotSound();
 
-        if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || GoldCount <= 3)
+        if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || _currentGoldCount <= 3)
         {
             if (!_isPlayed)
             {
@@ -155,7 +174,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void UpdateText()
     {
-        _goldCountText.text = GoldCount.ToString();
+        _goldCountText.text = _currentGoldCount.ToString();
         // oneLostPart.Play();
     }
 
@@ -280,23 +299,38 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void GoldEvent()
     {
-        if (GoldCount <= 1) return;
-        else
-        {
-            GoldCount = (int)Mathf.Round(GoldCount / 2);
-            SpawnMultipleNugget(GoldCount, NuggetSpawnPoint);
-        }
+        //if (_currentGoldCount <= 1) return;
+        //else
+        //{
+        //    _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
+        //    SpawnMultipleNugget(_currentGoldCount, NuggetSpawnPoint);
+        //}
     }
     public void LostGoldStage(int idStep)
     {
-        int goldLostValue = Mathf.Abs(GoldCount) % 10;
+
+        int x = 0;
+        for (int i = 0; i < _goldStepList.Count; i++)
+        {
+            if (_goldStepList[i].IDGoldStep > idStep)
+            {
+
+                StartCoroutine(_goldStepList[i].DespawnBlock());
+                _goldStepList.RemoveAt(i);
+            }
+        }
+       
+        int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;                               
+        print("goldLostValue "+ goldLostValue);
         if (goldLostValue == 0)
             goldLostValue = 10;
-        if (GoldCount - goldLostValue < 10)
-            GoldCount = 10;
+        if (_currentGoldCount - goldLostValue < 10)
+            _currentGoldCount = 10;
         else
-            GoldCount -= goldLostValue;
+            _currentGoldCount -= goldLostValue;
         SpawnMultipleNugget(goldLostValue, this.gameObject.transform);
+
+       
     }
 
     public void SpawnMultipleNugget(int nb, Transform position)

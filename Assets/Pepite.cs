@@ -20,27 +20,27 @@ public class Pepite : MonoBehaviour
                 Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
             }
         
-        if (_canGet)
-        {
-            if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
-            {
-                _isDestroy = true;
-                TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount++;
-                Destroy(gameObject);
-            }
+        //if (_canGet)
+        //{
+        //    if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
+        //    {
+        //        _isDestroy = true;
+        //        TargetManager.Instance.GetGameObject<GoldChariot>().Test();
+        //        Destroy(gameObject);
+        //    }
 
-            if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
-            {
-                _isDestroy = true;
-                Destroy(gameObject);
-            }
+        //    if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
+        //    {
+        //        _isDestroy = true;
+        //        Destroy(gameObject);
+        //    }
 
-            if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
-            {
-                _isDestroy = true;
-                Destroy(gameObject);
-            }
-        }
+        //    if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
+        //    {
+        //        _isDestroy = true;
+        //        Destroy(gameObject);
+        //    }
+        //}
     }
 
     private void CanGetNugget()

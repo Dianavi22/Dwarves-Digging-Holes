@@ -34,14 +34,12 @@ public class MoreGold : MonoBehaviour
     private void Update()
     {
         if (isActive && _gc.GetHighestIndexStepList < IDGoldStep)
-            WillDestroyStep();
-
-        //if (isSpawn && _canSpawn)
-        //{
-        //    isSpawn = false;
-        //    StartCoroutine(CdSpawn());
-        //    SpawnPepite();
-        //}
+        {
+            isActive = false;
+            _gc.LostGoldStage(IDGoldStep);
+            Destroy(gameObject);
+            StartCoroutine(DespawnBlock());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,22 +47,15 @@ public class MoreGold : MonoBehaviour
         if (!isActive) return;
 
         if (Utils.Component.TryGetInParent<Rock>(other, out _))
-            WillDestroyStep();
-    }
+        {
 
-    //private IEnumerator CdSpawn()
-    //{
-    //    _canSpawn = false;
+            isActive = false;
+            _gc.LostGoldStage(IDGoldStep);
+            Destroy(gameObject);
+            StartCoroutine(DespawnBlock());
+           
 
-    //    yield return new WaitForSeconds(3);
-    //    _canSpawn = true;
-    //}
-
-    private void WillDestroyStep()
-    {
-        // Test without cooldown when losing gold
-        _gc.LostGoldStage(IDGoldStep);
-        StartCoroutine(DespawnBlock());
+        }
     }
 
     public IEnumerator DespawnBlock()
@@ -72,8 +63,7 @@ public class MoreGold : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         myPlateform.SetActive(false);
         gfx.SetActive(false);
-        isActive = false;
-
+        print("isActive "+ isActive + " currentID "+ IDGoldStep);
         _sc.ShakyCameCustom(0.3f, 0.5f);
         _destroyPart.Play();
 

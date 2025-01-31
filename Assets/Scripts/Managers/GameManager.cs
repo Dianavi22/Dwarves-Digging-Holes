@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         if (!isInMainMenu)
         {
             _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-            _goldChariot.GoldCount = Difficulty.NbStartingGold;
+            _goldChariot._currentGoldCount = Difficulty.NbStartingGold;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
             _eventManager = EventManager.Instance;
