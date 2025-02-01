@@ -49,6 +49,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private float goblinTimer = 0f;
     public float goblinInterval = 1f;
+    GameManager gm = GameManager.Instance;
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -62,7 +63,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
 
     public int _currentGoldCount = 10;
-   
+
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
 
     private void Start()
@@ -83,29 +84,50 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            TakeNugget();
-        }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            LostGoldByGoblin();
-        }
-
-        if (NbGoblin > 0)
-        {
-            goblinTimer += Time.deltaTime; 
-
-            if (goblinTimer >= goblinInterval)
+       
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                LostGoldByGoblin(); 
-                goblinTimer = 0f;   
+                TakeNugget();
             }
-        }
-        else
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                LostGoldByGoblin();
+            }
+
+
+        if (_currentGoldCount <= 0 && !GameManager.Instance.isInMainMenu && !GameManager.Instance.isGameOver)
         {
-            goblinTimer = 0f; 
+            StopChariotSound();
+            StartCoroutine(GameManager.Instance.GameOver(Message.NoGold));
+        }
+
+
+        if(_currentGoldCount > 0)
+        {
+            try
+            {
+                if (NbGoblin > 0)
+                {
+                    goblinTimer += Time.deltaTime;
+
+                    if (goblinTimer >= goblinInterval)
+                    {
+                        LostGoldByGoblin();
+                        goblinTimer = 0f;
+                    }
+                }
+                else
+                {
+                    goblinTimer = 0f;
+                }
+            }
+            catch
+            {
+                return;
+            }
+           
         }
 
         ChariotSound();
@@ -130,6 +152,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
             _nearDeathExperienceSequence = new();
         }
+
+        // GameOver
+
 
     }
 
@@ -311,16 +336,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _goldStepList.Add(g);
         }
 
-        // GameOver
-        GameManager gm = GameManager.Instance;
-        if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
-            StartCoroutine(gm.GameOver(Message.NoGold));
+
     }
 
     private void LostGoldByGoblin()
     {
         _currentGoldCount--;
         UpdateText();
+       
+          
         if (_currentGoldCount % 10 == 0)
         {
             GameObject _currentGO = _goldStepList[_goldStepList.Count - 1].gameObject;
@@ -341,7 +365,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 }
                 StartCoroutine(_goldStepList[i].DespawnBlock());
                 _goldStepList.RemoveAt(i);
-               
+
             }
         }
 
@@ -364,7 +388,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     public void SpawnMultipleNugget(int nb, Transform position)
     {
-        for (int i = 0; i <= nb-1; i++)
+        for (int i = 0; i <= nb - 1; i++)
         {
             SpawnNugget(position);
         }
