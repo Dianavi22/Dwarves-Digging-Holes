@@ -42,7 +42,6 @@ public class Enemy : Entity
 
     private void Start()
     {
-        Destroy(this.gameObject);
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         StartCoroutine(PlayGoblinLaughWithDelay());

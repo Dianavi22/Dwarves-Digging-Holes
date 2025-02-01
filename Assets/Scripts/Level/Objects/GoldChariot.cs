@@ -59,38 +59,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
 
     public int _currentGoldCount = 10;
-    
-
-    public void TakeNugget()
-    {
-        _currentGoldCount++;
-        UpdateText();
-
-        for (int i = _goldStepList.Count - 1; i >= 0; i--)
-        {
-            if (_goldStepList[i] == null)
-            {
-                _goldStepList.RemoveAt(i);
-            }
-        }
-        print(_goldStepList.Count);
-        if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
-        {
-            Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
-            print(_currentGoldCount);
-            MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
-            g.Instanciate(_goldStepList.Count);
-            _goldStepList.Add(g);
-        }
-
-        // GameOver
-        GameManager gm = GameManager.Instance;
-        if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
-            StartCoroutine(gm.GameOver(Message.NoGold));
-    }
+   
     public ParticleSystem GetParticleLostGold() => _lostGoldPart;
-    private Transform NuggetSpawnPoint => _goldStepList.Count == 0 ? _defaultSpawnNuggetPosition : _goldStepList.Last().GetSpawnPoint;
-    public int GetHighestIndexStepList => _goldStepList.Count - 1;
 
     private void Start()
     {
@@ -110,7 +80,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.O))
         {
             TakeNugget();
@@ -118,9 +87,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            LostGoldStage(1);
+            LostGoldByGoblin();
         }
-
 
         ChariotSound();
 
@@ -302,6 +270,47 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         //    SpawnMultipleNugget(_currentGoldCount, NuggetSpawnPoint);
         //}
     }
+
+    #region Stack Gold
+
+    public void TakeNugget()
+    {
+        _currentGoldCount++;
+        UpdateText();
+
+        for (int i = _goldStepList.Count - 1; i >= 0; i--)
+        {
+            if (_goldStepList[i] == null)
+            {
+                _goldStepList.RemoveAt(i);
+            }
+        }
+        if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
+        {
+            Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
+            MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
+            g.Instanciate(_goldStepList.Count);
+            _goldStepList.Add(g);
+        }
+
+        // GameOver
+        GameManager gm = GameManager.Instance;
+        if (_currentGoldCount <= 0 && !gm.isInMainMenu && !gm.isGameOver && !gm.debugMode)
+            StartCoroutine(gm.GameOver(Message.NoGold));
+    }
+
+    private void LostGoldByGoblin()
+    {
+        _currentGoldCount--;
+        UpdateText();
+        if (_currentGoldCount % 10 == 0)
+        {
+            GameObject _currentGO = _goldStepList[_goldStepList.Count - 1].gameObject;
+            _goldStepList.RemoveAt(_goldStepList.Count - 1);
+            StartCoroutine(_currentGO.GetComponent<MoreGold>().DespawnBlock());
+
+        }
+    }
     public void LostGoldStage(int idStep)
     {
         for (int i = _goldStepList.Count - 1; i >= 0; i--)
@@ -354,4 +363,5 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
         UpdateText();
     }
+    #endregion
 }
