@@ -49,7 +49,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private float goblinTimer = 0f;
     public float goblinInterval = 1f;
-    GameManager gm = GameManager.Instance;
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -100,7 +99,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if (_currentGoldCount <= 0 && !GameManager.Instance.isInMainMenu && !GameManager.Instance.isGameOver)
         {
             StopChariotSound();
-            StartCoroutine(GameManager.Instance.GameOver(Message.NoGold));
+            StartCoroutine(GameManager.Instance.GameOver(Message.NoGold, false));
         }
 
 
