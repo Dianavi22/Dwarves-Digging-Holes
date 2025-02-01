@@ -47,6 +47,9 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private Rigidbody _rb;
     private bool _isPlayed = false;
 
+    private float goblinTimer = 0f;
+    public float goblinInterval = 1f;
+
     private int _nbGolbinOnChariot;
     public int NbGoblin
     {
@@ -88,6 +91,21 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if (Input.GetKeyDown(KeyCode.P))
         {
             LostGoldByGoblin();
+        }
+
+        if (NbGoblin > 0)
+        {
+            goblinTimer += Time.deltaTime; 
+
+            if (goblinTimer >= goblinInterval)
+            {
+                LostGoldByGoblin(); 
+                goblinTimer = 0f;   
+            }
+        }
+        else
+        {
+            goblinTimer = 0f; 
         }
 
         ChariotSound();

@@ -70,7 +70,6 @@ public class Enemy : Entity
     {
         if (_isDead) yield break;
 
-        _goldChariot._currentGoldCount -= 1;
         canSteal = false;
         _goldChariot.oneLostPart.Play();
             
