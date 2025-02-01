@@ -15,7 +15,8 @@ public class MoreGold : MonoBehaviour
     private GoldChariot _gc;
 
     public GameObject myPlateform;
-    public GameObject _destroyPart;
+    //public GameObject _destroyPart;
+    public ParticleSystem _destroyPart;
 
     public Transform GetSpawnPoint => spawnPoint;
 
@@ -39,24 +40,20 @@ public class MoreGold : MonoBehaviour
 
         if (Utils.Component.TryGetInParent<Rock>(other, out _))
         {
-
             isActive = false;
             _gc.LostGoldStage(IDGoldStep);
-           // Destroy(gameObject);
-           // DespawnBlock();
-
         }
     }
 
-    public void DespawnBlock()
+    public IEnumerator DespawnBlock()
     {
         GetComponent<Collider>().enabled = false;
         myPlateform.SetActive(false);
         gfx.SetActive(false);
-        print("isActive "+ isActive + " currentID "+ IDGoldStep);
         _sc.ShakyCameCustom(0.3f, 0.5f);
-       var part = Instantiate(_destroyPart, transform);
-        part.transform.parent = gameObject.transform;
+        _destroyPart.Play();
+
+        yield return new WaitForSeconds(_destroyPart.main.duration + 0.5f);
         Destroy(gameObject);
     }
 }

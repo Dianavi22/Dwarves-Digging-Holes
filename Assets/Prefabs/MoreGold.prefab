@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gfx: {fileID: 9092287108567044855}
+  y: 0
   spawnPoint: {fileID: 2613945175174135655}
   _spawnPart: {fileID: 5530200304455638140}
   myPlateform: {fileID: 3184011178527546995}
-  _destroyPart: {fileID: 1633571060526497550, guid: 23f9cee3d9ac721488177475b5e2badc, type: 3}
+  _destroyPart: {fileID: 6543968592992838116}
 --- !u!1 &7381488510310647356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,6 +2423,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+--- !u!198 &6543968592992838116 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3893066262608764951, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+  m_PrefabInstance: {fileID: 7842504043182998003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8088723235098147969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2060046141432921458, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}

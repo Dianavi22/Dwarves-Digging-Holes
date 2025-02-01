@@ -308,7 +308,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             if (_goldStepList[i].IDGoldStep >= idStep)
             {
-                Destroy(_goldStepList[i].gameObject);
+                StartCoroutine(_goldStepList[i].DespawnBlock());
                 _goldStepList.RemoveAt(i);
             }
         }
