@@ -38,24 +38,30 @@ public class Forge : MonoBehaviour
 
     public IEnumerator LoadPickaxe(bool reverse = false)
     {
-        _isCreatingPickaxe = true;
-
-        float duration = Mathf.Abs(_loadImage.fillAmount - (reverse ? 0f : 1f));
-        float elapsed = 0f;
-        float startFillAmount = _loadImage.fillAmount;
-
-        while (elapsed < duration)
+        if (_gameManager.CanCreatePickaxe)
         {
-            elapsed += Time.deltaTime;
-            _loadImage.fillAmount = reverse ? Mathf.Lerp(startFillAmount, 0f, elapsed / duration) : Mathf.Lerp(startFillAmount, 1f, elapsed / duration);
-            yield return null;
-        }
-        _loadImage.fillAmount = reverse ? 0f : 1f;
 
-        if (!reverse)
-        {
-            BuildPickaxe();
+            _isCreatingPickaxe = true;
+
+            float duration = Mathf.Abs(_loadImage.fillAmount - (reverse ? 0f : 1f));
+            float elapsed = 0f;
+            float startFillAmount = _loadImage.fillAmount;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                _loadImage.fillAmount = reverse ? Mathf.Lerp(startFillAmount, 0f, elapsed / duration) : Mathf.Lerp(startFillAmount, 1f, elapsed / duration);
+                yield return null;
+            }
+            _loadImage.fillAmount = reverse ? 0f : 1f;
+
+            if (!reverse)
+            {
+                BuildPickaxe();
+            }
+            _isCreatingPickaxe = false;
         }
-        _isCreatingPickaxe = false;
+       
+
     }
 }
