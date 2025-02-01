@@ -3170,11 +3170,11 @@ PrefabInstance:
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _takeGoldAnim
       value: 
-      objectReference: {fileID: 1393171046}
+      objectReference: {fileID: 2112201073}
     - target: {fileID: 3244071171031559675, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: _tutoSpawnPickaxe
       value: 
-      objectReference: {fileID: 1393171044}
+      objectReference: {fileID: 0}
     - target: {fileID: 3418556887139221232, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 1024
@@ -3244,29 +3244,8 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 685589633}
-    - targetCorrespondingSourceObject: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1747374072}
-    - targetCorrespondingSourceObject: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1754317032}
-    - targetCorrespondingSourceObject: {fileID: 845908760330123436, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 269009898}
-    - targetCorrespondingSourceObject: {fileID: 845908760330123436, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 867493035}
-    - targetCorrespondingSourceObject: {fileID: 845908760330123436, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 786848637}
-    - targetCorrespondingSourceObject: {fileID: 845908760330123436, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 59357700}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1351085718703704695, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1393171046}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
 --- !u!198 &1393171043 stripped
 ParticleSystem:
@@ -4129,6 +4108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2112201073 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 29269139155626830, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+  m_PrefabInstance: {fileID: 1393171042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!108 &2127759014 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 4086805407983962502, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
