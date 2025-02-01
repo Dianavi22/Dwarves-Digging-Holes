@@ -339,6 +339,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     }
 
+    public void DamageByFallRock()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            LostGoldByGoblin();
+        }
+        SpawnMultipleNugget(5, this.transform);
+
+    }
+
     private void LostGoldByGoblin()
     {
         _currentGoldCount--;
