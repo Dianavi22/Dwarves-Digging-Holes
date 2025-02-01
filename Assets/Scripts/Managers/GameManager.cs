@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _gameOverCanva;
 
     [SerializeField] List<GameObject> _playerStats;
+    [SerializeField] List<GameObject> _buttons;
 
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
@@ -86,7 +87,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
 
+    
     private bool isCoroutineRunning = false;
+    private bool _scaleButton = false;
 
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -120,7 +123,7 @@ public class GameManager : MonoBehaviour
         if (!isInMainMenu)
         {
             _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
-            _goldChariot.GoldCount = Difficulty.NbStartingGold;
+            _goldChariot._currentGoldCount = Difficulty.NbStartingGold;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
             _eventManager = EventManager.Instance;
@@ -186,6 +189,31 @@ public class GameManager : MonoBehaviour
     {
         _gameOverCanva.SetActive(false);
         StartCoroutine(ShowStats());
+        _scaleButton = true;
+
+    }
+
+    private void Update()
+    {
+        if (_scaleButton)
+        {
+            UpdateButtonScale();
+        }
+    }
+
+    private void UpdateButtonScale()
+    {
+        Vector3 targetScale = new Vector3(2.1385f, 2.1385f, 2.1385f);
+
+        for (int i = 0; i < _buttons.Count; i++)
+        {
+            if (_buttons[i] != null)
+            {
+                _buttons[i].transform.localScale = targetScale;
+            }
+        }
+
+        _scaleButton = false;
     }
 
     public void HideCards()

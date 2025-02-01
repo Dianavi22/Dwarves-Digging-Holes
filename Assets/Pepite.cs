@@ -10,7 +10,7 @@ public class Pepite : MonoBehaviour
 
     private void Start()
     {
-        Invoke("CanGetNugget", 1.5f);
+        Invoke("CanGetNugget", 0.5f);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -19,13 +19,18 @@ public class Pepite : MonoBehaviour
             {
                 Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
             }
-        
+
+        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
+        }
+
         if (_canGet)
         {
             if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
             {
                 _isDestroy = true;
-                TargetManager.Instance.GetGameObject<GoldChariot>().GoldCount++;
+                TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
                 Destroy(gameObject);
             }
 

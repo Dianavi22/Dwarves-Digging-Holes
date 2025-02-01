@@ -14,8 +14,10 @@ public class UIPauseManager : MonoBehaviour
 
     [SerializeField] private GameObject _resumeButton;
     [SerializeField] private GameObject _rebindJump;
+    [SerializeField] private GameObject _backbuttonSettings;
 
     [SerializeField] private GameObject _inputCanvas;
+    [SerializeField] private GameObject _settingsCanvas;
 
     [SerializeField] private EventReference[] _stateMenuEvent;
     [SerializeField] GameObject _circleTransition;
@@ -88,6 +90,13 @@ public class UIPauseManager : MonoBehaviour
         _inputCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_rebindJump);
     }
+    public void OpenSettingsMenu()
+    {
+        _scaleButton = true;
+        _settingsCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_backbuttonSettings);
+    }
+
 
     public void CloseInputMenu()
     {

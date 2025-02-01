@@ -68,7 +68,6 @@ public class Enemy : Entity
     {
         if (_isDead) yield break;
 
-        _goldChariot.GoldCount -= 1;
         canSteal = false;
         _goldChariot.oneLostPart.Play();
             
@@ -82,6 +81,7 @@ public class Enemy : Entity
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
+        IsTouchingChariot = false;
         for (int i = 0; i < _colliders.Count; i++)
         {
             _colliders[i].enabled = false;
