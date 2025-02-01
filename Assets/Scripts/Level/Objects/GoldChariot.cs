@@ -61,7 +61,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             UpdateParticle();
         }
     }
-    private int _nbGolbinOnChariot;
 
     public int _currentGoldCount = 10;
 
