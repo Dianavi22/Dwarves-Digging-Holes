@@ -73,7 +73,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
                 _goldStepList.RemoveAt(i);
             }
         }
-
+        print(_goldStepList.Count);
         if (_currentGoldCount > (_goldStepList.Count + 1) * 10 && _goldStepList.Count <= _maxGoldStep)
         {
             Vector3 position = transform.position + transform.up + (Vector3.up * _currentGoldCount / 10);
@@ -81,11 +81,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             MoreGold g = Instantiate(_goldStepPrefab, position, Quaternion.identity, transform);
             g.Instanciate(_goldStepList.Count);
             _goldStepList.Add(g);
-        }
-        else if (_currentGoldCount > 0 && _currentGoldCount <= _goldStepList.Count * 10)
-        {
-            StartCoroutine(_goldStepList[_goldStepList.Count - 1].DespawnBlock());
-            _goldStepList.RemoveAt(_goldStepList.Count - 1);
         }
 
         // GameOver
@@ -149,6 +144,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             }
             _nearDeathExperienceSequence = new();
         }
+
     }
 
     private void NearDeathExperience()
@@ -308,29 +304,30 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     }
     public void LostGoldStage(int idStep)
     {
-
-        int x = 0;
-        for (int i = 0; i < _goldStepList.Count; i++)
+        for (int i = _goldStepList.Count - 1; i >= 0; i--)
         {
-            if (_goldStepList[i].IDGoldStep > idStep)
+            if (_goldStepList[i].IDGoldStep >= idStep)
             {
-
-                StartCoroutine(_goldStepList[i].DespawnBlock());
+                Destroy(_goldStepList[i].gameObject);
                 _goldStepList.RemoveAt(i);
             }
         }
-       
-        int goldLostValue = Mathf.Abs(_currentGoldCount) % 10;                               
-        print("goldLostValue "+ goldLostValue);
-        if (goldLostValue == 0)
-            goldLostValue = 10;
-        if (_currentGoldCount - goldLostValue < 10)
-            _currentGoldCount = 10;
-        else
-            _currentGoldCount -= goldLostValue;
-        SpawnMultipleNugget(goldLostValue, this.gameObject.transform);
 
-       
+        if (_goldStepList.Count == 0)
+        {
+            _currentGoldCount = 10;
+            UpdateText();
+        }
+        else if (_goldStepList.Count == 1)
+        {
+            _currentGoldCount = 11;
+            UpdateText();
+        }
+        else
+        {
+            _currentGoldCount = _goldStepList.Count * 10;
+            UpdateText();
+        }
     }
 
     public void SpawnMultipleNugget(int nb, Transform position)

@@ -42,6 +42,7 @@ public class Enemy : Entity
 
     private void Start()
     {
+        Destroy(this.gameObject);
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
         StartCoroutine(PlayGoblinLaughWithDelay());
@@ -70,7 +71,7 @@ public class Enemy : Entity
     {
         if (_isDead) yield break;
 
-        _goldChariot.GoldCount -= 1;
+        _goldChariot._currentGoldCount -= 1;
         canSteal = false;
         _goldChariot.oneLostPart.Play();
             

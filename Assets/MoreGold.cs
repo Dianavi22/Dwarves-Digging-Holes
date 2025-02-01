@@ -7,20 +7,21 @@ public class MoreGold : MonoBehaviour
     private bool isActive = true;
     public GameObject gfx;
 
-    public int IDGoldStep { get; private set; }
-
+     public int IDGoldStep { get; private set; }
+    [SerializeField] int y;
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem _spawnPart;
-    [SerializeField] ParticleSystem _destroyPart;
     private ShakyCame _sc;
     private GoldChariot _gc;
 
     public GameObject myPlateform;
+    public GameObject _destroyPart;
 
     public Transform GetSpawnPoint => spawnPoint;
 
     private void Start()
     {
+        y = IDGoldStep;
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
         _gc = TargetManager.Instance.GetGameObject<GoldChariot>();
     }
@@ -31,17 +32,7 @@ public class MoreGold : MonoBehaviour
         _spawnPart.Play();
     }
 
-    private void Update()
-    {
-        if (isActive && _gc.GetHighestIndexStepList < IDGoldStep)
-        {
-            isActive = false;
-            _gc.LostGoldStage(IDGoldStep);
-            Destroy(gameObject);
-            StartCoroutine(DespawnBlock());
-        }
-    }
-
+ 
     private void OnTriggerEnter(Collider other)
     {
         if (!isActive) return;
@@ -51,23 +42,21 @@ public class MoreGold : MonoBehaviour
 
             isActive = false;
             _gc.LostGoldStage(IDGoldStep);
-            Destroy(gameObject);
-            StartCoroutine(DespawnBlock());
-           
+           // Destroy(gameObject);
+           // DespawnBlock();
 
         }
     }
 
-    public IEnumerator DespawnBlock()
+    public void DespawnBlock()
     {
         GetComponent<Collider>().enabled = false;
         myPlateform.SetActive(false);
         gfx.SetActive(false);
         print("isActive "+ isActive + " currentID "+ IDGoldStep);
         _sc.ShakyCameCustom(0.3f, 0.5f);
-        _destroyPart.Play();
-
-        yield return new WaitForSeconds(_destroyPart.main.duration + 0.1f);
+       var part = Instantiate(_destroyPart, transform);
+        part.transform.parent = gameObject.transform;
         Destroy(gameObject);
     }
 }
