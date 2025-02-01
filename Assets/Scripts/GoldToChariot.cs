@@ -53,7 +53,7 @@ public class GoldToChariot : MonoBehaviour
 
     public void BreakGold()
     {
-        TargetManager.Instance.GetGameObject<GoldChariot>().Test();
+        TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
         _score.ScoreCounter += _goldScore;
     }
 }

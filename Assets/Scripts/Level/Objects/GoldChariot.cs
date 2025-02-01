@@ -61,7 +61,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public int _currentGoldCount = 10;
     
 
-    public void Test()
+    public void TakeNugget()
     {
         _currentGoldCount++;
         UpdateText();
@@ -113,7 +113,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            Test();
+            TakeNugget();
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -308,8 +308,13 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         {
             if (_goldStepList[i].IDGoldStep >= idStep)
             {
+                if (_goldStepList[i].IDGoldStep != idStep)
+                {
+                    SpawnMultipleNugget(5, this.transform);
+                }
                 StartCoroutine(_goldStepList[i].DespawnBlock());
                 _goldStepList.RemoveAt(i);
+               
             }
         }
 

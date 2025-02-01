@@ -10,7 +10,7 @@ public class Pepite : MonoBehaviour
 
     private void Start()
     {
-        Invoke("CanGetNugget", 1.5f);
+        Invoke("CanGetNugget", 0.5f);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -19,28 +19,33 @@ public class Pepite : MonoBehaviour
             {
                 Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
             }
-        
-        //if (_canGet)
-        //{
-        //    if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
-        //    {
-        //        _isDestroy = true;
-        //        TargetManager.Instance.GetGameObject<GoldChariot>().Test();
-        //        Destroy(gameObject);
-        //    }
 
-        //    if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
-        //    {
-        //        _isDestroy = true;
-        //        Destroy(gameObject);
-        //    }
+        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
+        {
+            Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
+        }
 
-        //    if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
-        //    {
-        //        _isDestroy = true;
-        //        Destroy(gameObject);
-        //    }
-        //}
+        if (_canGet)
+        {
+            if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
+            {
+                _isDestroy = true;
+                TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
+                Destroy(gameObject);
+            }
+
+            if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
+            {
+                _isDestroy = true;
+                Destroy(gameObject);
+            }
+
+            if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
+            {
+                _isDestroy = true;
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void CanGetNugget()

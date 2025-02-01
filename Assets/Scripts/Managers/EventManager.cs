@@ -104,7 +104,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Event 1 : All pickaxes are Destroyed
-    //Event 2 : if gold is > 10 : gold/2
+    //Event 2 : if gold is > 10 : gold/2 (No fun)
     //Event 3 : Lava getting close
     //Event 4 : Too many goblins
     //Event 5 : Unbreackables Rocks
