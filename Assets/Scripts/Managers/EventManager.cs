@@ -97,14 +97,14 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 4));
+        ChooseEvent(Random.Range(0, 3));
         // ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
 
     //Event 1 : All pickaxes are Destroyed
-    //Event 2 : if gold is > 10 : gold/2
+    //Event 2 : if gold is > 10 : gold/2 (No fun)
     //Event 3 : Lava getting close
     //Event 4 : Too many goblins
     //Event 5 : Unbreackables Rocks
@@ -115,13 +115,13 @@ public class EventManager : MonoBehaviour
             case 0:
                 StartCoroutine(EventPickaxe());
                 break;
-            case 1:
-                StartCoroutine(EventGoldChariot());
-                break;
+            //case :
+            //    StartCoroutine(EventGoldChariot());
+            //    break;
             case 2:
                 StartCoroutine(LavaGettingClose());
                 break;
-            case 3:
+            case 1:
                 StartCoroutine(GoblinWave());
                 break;
             default:
