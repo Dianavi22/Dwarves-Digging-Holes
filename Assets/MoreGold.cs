@@ -15,7 +15,6 @@ public class MoreGold : MonoBehaviour
     private GoldChariot _gc;
 
     public GameObject myPlateform;
-    //public GameObject _destroyPart;
     public ParticleSystem _destroyPart;
 
     public Transform GetSpawnPoint => spawnPoint;
