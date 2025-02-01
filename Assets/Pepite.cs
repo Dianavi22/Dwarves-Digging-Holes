@@ -6,30 +6,35 @@ public class Pepite : MonoBehaviour
 {
     private bool _isDestroy;
     private bool _canGet = false;
+    private ParticleSystem _gcPart ;
 
 
     private void Start()
     {
         Invoke("CanGetNugget", 0.5f);
+
+        //ToDo find better solution 
+        _gcPart = GameObject.Find("TakeOneGold_PART").GetComponent<ParticleSystem>(); 
     }
     private void OnCollisionEnter(Collision collision)
     {
 
-         if (Utils.Component.TryGetInParent<GoldChariot>(collision.collider, out var goldChariot))
+         if (collision.collider.CompareTag("GoldChariot"))
             {
                 Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
             }
 
-        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
-        {
-            Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
-        }
+        //if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
+        //{
+        //    Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
+        //}
 
         if (_canGet)
         {
             if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
             {
                 _isDestroy = true;
+                _gcPart.Play();
                 TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
                 Destroy(gameObject);
             }
