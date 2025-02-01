@@ -48,6 +48,8 @@ public class PlayerActions : MonoBehaviour
 
     private Tween buildingPickaxe;
 
+    private Coroutine loadingCoroutuine = null;
+
     private void Awake()
     {
         _p = GetComponent<Player>();
@@ -80,17 +82,19 @@ public class PlayerActions : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
             if (hitColliders.Any())
             {
+                Forge forge = hitColliders[0].GetComponent<Forge>();
+
                 buildingPickaxe ??= DOTween.Sequence()
+                    .AppendCallback(() => StopCoroutine(loadingCoroutuine))
+                    .AppendCallback(() =>
+                        {
+                            loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
+                        })
                     .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
                         .SetAutoKill(false))
                     //.AppendInterval(1f) // Wait for 1 second
                     .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
-                    .AppendCallback(() =>
-                    {
-                        hitColliders[0].GetComponent<Forge>().BuildPickaxe();
-                    })
-                    .OnKill(() => gameObject.transform.DOLocalRotate(Vector3.zero, 0f));
-
+                    .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true));});
             }
         }
 
