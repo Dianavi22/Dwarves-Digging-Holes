@@ -37,19 +37,18 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] Pepite nugget;
 
     [Header("Other")]
-    [SerializeField] GameObject _gfx;
+    [SerializeField] GameObject _defaultGFX;
+    [SerializeField] GameObject _brokenGFX;
     public GameObject hbTakeGold;
 
-    [SerializeField] List<MoreGold> _goldStepList = new();
+    List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
     [SerializeField] private Animator _takeGoldAnim;
 
     private Rigidbody _rb;
-    private bool _isPlayed = false;
 
     private float goblinTimer = 0f;
     public float goblinInterval = 1f;
-    GameManager gm = GameManager.Instance;
 
     private int _nbGolbinOnChariot;
     public int NbGoblin
@@ -85,26 +84,26 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void Update()
     {
 
-       
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                TakeNugget();
-            }
 
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                LostGoldByGoblin();
-            }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TakeNugget();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LostGoldByGoblin();
+        }
 
 
         if (_currentGoldCount <= 0 && !GameManager.Instance.isInMainMenu && !GameManager.Instance.isGameOver)
         {
             StopChariotSound();
-            StartCoroutine(GameManager.Instance.GameOver(Message.NoGold));
+            StartCoroutine(GameManager.Instance.GameOver(Message.NoGold, false));
         }
 
 
-        if(_currentGoldCount > 0)
+        if (_currentGoldCount > 0)
         {
             try
             {
@@ -127,23 +126,21 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             {
                 return;
             }
-           
+
         }
 
         ChariotSound();
 
         if (Vector3.Distance(transform.position, TargetManager.Instance.GetGameObject<Lava>().transform.position) - 4 < 5 || _currentGoldCount <= 3)
         {
-            if (!_isPlayed)
+            if (!_sparksPart.isPlaying)
             {
-                _isPlayed = true;
                 _sparksPart.Play();
             }
             if (!_nearDeathExperienceSequence.Any()) NearDeathExperience();
         }
         else if (_nearDeathExperienceSequence.Any())
         {
-            _isPlayed = false;
             _sparksPart.Stop();
 
             foreach (Sequence item in _nearDeathExperienceSequence)
@@ -284,26 +281,34 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public void HandleDestroy()
     {
 
-        StartCoroutine(GameManager.Instance.GameOver(Message.Lava));
+        StartCoroutine(GameManager.Instance.GameOver(Message.Lava, true));
         StopChariotSound();
     }
     public GameObject GetGameObject() { return gameObject; }
     #endregion
 
-    public void HideGfx()
+    private void SetBrokenGFX(bool isChariotBroken)
+    {
+        _defaultGFX.SetActive(!isChariotBroken);
+        _brokenGFX.SetActive(isChariotBroken);
+    }
+
+    public void HideGfx(bool isGoldChariotDestroyed)
     {
         for (int i = 0; i < _goldStepList.Count; i++)
         {
             _goldStepList[i].gameObject.SetActive(false);
         }
         _goldCountText.gameObject.SetActive(false);
-        _gfx.SetActive(false);
+        if (!isGoldChariotDestroyed) SetBrokenGFX(true);
+        else _defaultGFX.SetActive(false);
     }
-    public void HideChariotText()
+    public void StopParticle()
     {
         _lostGoldPart.Stop();
     }
 
+    #region Gold Related
     public void GoldEvent()
     {
         //if (_currentGoldCount <= 1) return;
@@ -353,8 +358,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         _currentGoldCount--;
         UpdateText();
-       
-          
+
+
         if (_currentGoldCount % 10 == 0)
         {
             GameObject _currentGO = _goldStepList[_goldStepList.Count - 1].gameObject;
@@ -415,5 +420,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
         UpdateText();
     }
+    #endregion
     #endregion
 }

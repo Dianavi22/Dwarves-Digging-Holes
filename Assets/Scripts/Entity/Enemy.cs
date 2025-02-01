@@ -52,7 +52,6 @@ public class Enemy : Entity
     {
         if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _))
         {
-            Debug.Log("Touching chariot");
             IsTouchingChariot = true;
         }
     }
@@ -61,7 +60,6 @@ public class Enemy : Entity
     {
         if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && IsTouchingChariot)
         {
-            Debug.Log("---Leaving chariot");
             IsTouchingChariot = false;
         }
     }
@@ -80,15 +78,10 @@ public class Enemy : Entity
         canSteal = true;
     }
 
-    public void KillGobs()
-    {
-        //_gfx.SetActive(false);
-        _rb.velocity = Vector3.zero;
-    }
-
     public IEnumerator DestroyByLava()
     {
         _isDead = true;
+        IsTouchingChariot = false;
         for (int i = 0; i < _colliders.Count; i++)
         {
             _colliders[i].enabled = false;

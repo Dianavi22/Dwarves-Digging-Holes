@@ -19,11 +19,8 @@ public class EnemyMovements : EntityMovement
 
     protected new void Update()
     {
-        if (GameManager.Instance.isGameOver)
-        {
-            _e.KillGobs();
-            return;
-        }
+        if (GameManager.Instance.isGameOver) return;
+
         if (!_e.IsGrabbed && !GameManager.Instance.isGameOver)
         {
             base.Update();

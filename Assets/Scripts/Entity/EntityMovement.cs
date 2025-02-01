@@ -25,36 +25,35 @@ public class EntityMovement : MonoBehaviour
 
     protected void FixedUpdate()
     {
-      
-            if (GameManager.Instance.isGameOver)
-            {
-                RB.velocity = Vector3.zero;
-                RB.angularVelocity = Vector3.zero;
-                RB.isKinematic = true;
-            }
+        if (GameManager.Instance.isGameOver)
+        {
+            //RB.velocity = Vector3.zero;
+            //RB.angularVelocity = Vector3.zero;
+            RB.isKinematic = true;
+        }
+        
+        DefineGroundState();
+        HandleMovement();
 
-            DefineGroundState();
-            HandleMovement();
+        //Much higher gravity if holding down
+        if (!isGrounded && RB.velocity.y < 0 && _moveInput.y < 0)
+            GravityScaler(Stats.FastFalling);
 
-            //Much higher gravity if holding down
-            if (!isGrounded && RB.velocity.y < 0 && _moveInput.y < 0)
-                GravityScaler(Stats.FastFalling);
+        // If low jump, fall faster 
+        // Note: Dunno why but velocity.y on the chariot is > to 0
+        else if (!isGrounded && RB.velocity.y > 0 && !IsPerformingJump)
+            GravityScaler(Stats.JumpCut);
 
-            // If low jump, fall faster 
-            // Note: Dunno why but velocity.y on the chariot is > to 0
-            else if (!isGrounded && RB.velocity.y > 0 && !IsPerformingJump)
-                GravityScaler(Stats.JumpCut);
+        //Reducing Gravity when reaching the apex of the jump
+        else if (Mathf.Abs(RB.velocity.y) < Stats.JumpHangTimeTreshold)
+            GravityScaler(Stats.JumpHangAir);
 
-            //Reducing Gravity when reaching the apex of the jump
-            else if (Mathf.Abs(RB.velocity.y) < Stats.JumpHangTimeTreshold)
-                GravityScaler(Stats.JumpHangAir);
+        //Simple falling
+        else if (RB.velocity.y < 0)
+            GravityScaler(Stats.BasicFalling);
 
-            //Simple falling
-            else if (RB.velocity.y < 0)
-                GravityScaler(Stats.BasicFalling);
-
-            else
-                GravityScaler(1f);
+        else
+            GravityScaler(1f);
        
     }
 

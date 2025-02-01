@@ -184,33 +184,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartParty());
     }
 
-    public IEnumerator GameOver(Message deathMessage)
-    {
-        if (_tuto.isInTuto)
-        {
-            print("Skip tuto");
-            SkipTuto();
-        }
-        if (isGameOver) yield break;
-
-        StatsManager.Instance.EndGame();
-
-        _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
-        _gameOverPart.gameObject.SetActive(true);
-        isGameOver = true;
-        _goldChariot.HideChariotText();
-        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-        _eventManager.enabled = false;
-        yield return new WaitForSeconds(3.5f);
-        _goldChariot.HideGfx();
-        yield return new WaitForSeconds(2f);
-        _GameOverCanvas.SetActive(true);
-        // ? Activer un message / effet si record battu
-        bool newBest = _score.CheckBestScore();
-        CurrentScrollingSpeed = 0f;
-        EventSystem.current.SetSelectedGameObject(_retryButton);
-    }
-
+    #region endgame stats
     public void ShowCardsFunc()
     {
         _gameOverCanva.SetActive(false);
@@ -271,6 +245,7 @@ public class GameManager : MonoBehaviour
         }
         isCoroutineRunning = false;
     }
+    #endregion
 
     public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
     {
@@ -278,10 +253,10 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("LevelComplete");
         isGameOver = true;
-        _goldChariot.HideChariotText();
-        _goldChariot.HideGfx();
-        _eventManager.enabled = false;
+        _goldChariot.StopParticle();
+        _goldChariot.HideGfx(false);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
+        _eventManager.enabled = false;
         levelCompleteManager.blockSpawner.SetActive(false);
         levelCompleteManager.lavaGFX.SetActive(false);
         yield return new WaitForSeconds(5.5f);
@@ -289,5 +264,33 @@ public class GameManager : MonoBehaviour
         CurrentScrollingSpeed = 0f;
         EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
         yield return null;
+    }
+
+    public IEnumerator GameOver(Message deathMessage, bool isGoldChariotDestroyed)
+    {
+        if (_tuto.isInTuto)
+        {
+            print("Skip tuto");
+            SkipTuto();
+        }
+        
+        if (isGameOver) yield break;
+
+        StatsManager.Instance.EndGame();
+
+        _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
+        _gameOverPart.gameObject.SetActive(true);
+        isGameOver = true;
+        _goldChariot.StopParticle();
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
+        _eventManager.enabled = false;
+        yield return new WaitForSeconds(3.5f);
+        _goldChariot.HideGfx(isGoldChariotDestroyed);
+        yield return new WaitForSeconds(2f);
+        _GameOverCanvas.SetActive(true);
+        // ? Activer un message / effet si record battu
+        bool newBest = _score.CheckBestScore();
+        CurrentScrollingSpeed = 0f;
+        EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 }
