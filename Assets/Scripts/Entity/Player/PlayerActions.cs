@@ -90,10 +90,7 @@ public class PlayerActions : MonoBehaviour
                         {
                             loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
                         })
-                    .Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
-                        .SetAutoKill(false))
-                    //.AppendInterval(1f) // Wait for 1 second
-                    .Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
+                    .AppendInterval(2f)
                     .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true));});
             }
         }

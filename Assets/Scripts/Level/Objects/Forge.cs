@@ -11,6 +11,8 @@ public class Forge : MonoBehaviour
 
     [SerializeField] private Image _loadImage;
 
+    private bool _isCreatingPickaxe = false;
+
     private void Start()
     {
         _gameManager = GameManager.Instance;
@@ -18,14 +20,13 @@ public class Forge : MonoBehaviour
 
     private void Update()
     {
-        if (_gameManager.CanCreatePickaxe && !_gameManager.isGameOver)
+        if (_gameManager.CanCreatePickaxe && !_isCreatingPickaxe && !_gameManager.isGameOver)
         {
             _bubblePickaxe.SetActive(true);
         }
         else
         {
             _bubblePickaxe.SetActive(false);
-
         }
     }
 
@@ -37,6 +38,8 @@ public class Forge : MonoBehaviour
 
     public IEnumerator LoadPickaxe(bool reverse = false)
     {
+        _isCreatingPickaxe = true;
+
         float duration = Mathf.Abs(_loadImage.fillAmount - (reverse ? 0f : 1f));
         float elapsed = 0f;
         float startFillAmount = _loadImage.fillAmount;
@@ -47,11 +50,12 @@ public class Forge : MonoBehaviour
             _loadImage.fillAmount = reverse ? Mathf.Lerp(startFillAmount, 0f, elapsed / duration) : Mathf.Lerp(startFillAmount, 1f, elapsed / duration);
             yield return null;
         }
-
         _loadImage.fillAmount = reverse ? 0f : 1f;
+
         if (!reverse)
         {
             BuildPickaxe();
         }
+        _isCreatingPickaxe = false;
     }
 }
