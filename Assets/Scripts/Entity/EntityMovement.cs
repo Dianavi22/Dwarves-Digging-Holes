@@ -31,7 +31,7 @@ public class EntityMovement : MonoBehaviour
             //RB.angularVelocity = Vector3.zero;
             RB.isKinematic = true;
         }
-        
+
         DefineGroundState();
         HandleMovement();
 
@@ -54,7 +54,7 @@ public class EntityMovement : MonoBehaviour
 
         else
             GravityScaler(1f);
-       
+
     }
 
     protected void Update()

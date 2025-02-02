@@ -49,6 +49,8 @@ public class MainMenuManager : MonoBehaviour
 
     }
 
+    
+
     public void StartParty()
     {
         StartCoroutine(CircleTransition());
@@ -108,6 +110,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
+
         if (_scaleButton)
         {
             UpdateButtonScale();

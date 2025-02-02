@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Utils;
-using Microsoft.Unity.VisualStudio.Editor;
 
 public class PlayerHealth : MonoBehaviour
 {

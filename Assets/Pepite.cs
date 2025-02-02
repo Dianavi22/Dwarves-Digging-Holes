@@ -6,38 +6,46 @@ public class Pepite : MonoBehaviour
 {
     private bool _isDestroy;
     private bool _canGet = false;
+    private ParticleSystem _gcPart ;
+    [SerializeField] ParticleSystem _takeNuggetPart;
 
 
     private void Start()
     {
         Invoke("CanGetNugget", 0.5f);
+
+        //ToDo find better solution 
+        _gcPart = GameObject.Find("TakeOneGold_PART").GetComponent<ParticleSystem>(); 
     }
     private void OnCollisionEnter(Collision collision)
     {
 
-         if (Utils.Component.TryGetInParent<GoldChariot>(collision.collider, out var goldChariot))
+         if (collision.collider.CompareTag("GoldChariot"))
             {
                 Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
             }
 
-        if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
-        {
-            Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
-        }
+        //if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
+        //{
+        //    Physics.IgnoreCollision(this.GetComponent<Collider>(), collision.collider, true);
+        //}
 
         if (_canGet)
         {
             if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
             {
                 _isDestroy = true;
+                _gcPart.Play();
                 TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
-                Destroy(gameObject);
+                StartCoroutine(DestroyNugget());
+
             }
 
             if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && !_isDestroy)
             {
                 _isDestroy = true;
                 Destroy(gameObject);
+
             }
 
             if (Utils.Component.TryGetInParent<Lava>(collision.collider, out var lava) && !_isDestroy)
@@ -46,6 +54,15 @@ public class Pepite : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    private IEnumerator DestroyNugget()
+    {
+        this.GetComponent<Collider>().enabled = false;
+        this.GetComponent<MeshRenderer>().enabled = false;
+        _takeNuggetPart.Play();
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 
     private void CanGetNugget()

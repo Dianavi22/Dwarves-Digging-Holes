@@ -1405,6 +1405,7 @@ GameObject:
   - component: {fileID: 516614316}
   - component: {fileID: 516614319}
   - component: {fileID: 516614320}
+  - component: {fileID: 516614321}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -1562,6 +1563,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &516614321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516614314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
 --- !u!1 &534430879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7737781152339374714, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
@@ -1606,6 +1621,7 @@ GameObject:
   - component: {fileID: 575330529}
   - component: {fileID: 575330532}
   - component: {fileID: 575330533}
+  - component: {fileID: 575330534}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1763,6 +1779,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &575330534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575330527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
 --- !u!4 &582986106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d25e3a9a8b74fd4b808c35388f7e0ed, type: 3}
@@ -2460,6 +2490,7 @@ GameObject:
   - component: {fileID: 698108673}
   - component: {fileID: 698108676}
   - component: {fileID: 698108677}
+  - component: {fileID: 698108678}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -2617,6 +2648,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &698108678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698108671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
 --- !u!4 &710174281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9119546368410082369, guid: f099b6039f6edbf47b30fc8a990f21fc, type: 3}
@@ -4483,6 +4528,7 @@ GameObject:
   - component: {fileID: 1805376015}
   - component: {fileID: 1805376018}
   - component: {fileID: 1805376019}
+  - component: {fileID: 1805376020}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -4640,6 +4686,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1805376020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805376013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
 --- !u!1 &1868502575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7056303626954119341, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}

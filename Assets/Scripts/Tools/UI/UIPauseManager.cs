@@ -80,6 +80,7 @@ public class UIPauseManager : MonoBehaviour
             {
                 EventSystem.current.SetSelectedGameObject(_resumeButton);
             }
+          
         }
     }
 

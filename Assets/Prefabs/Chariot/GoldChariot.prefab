@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 2909618321474743695}
   m_Layer: 5
   m_Name: PickaxesImage (2)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 6977127958816175625}
   m_Layer: 5
   m_Name: PickaxesImage (3)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,6 +266,108 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &810777909724362769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6925541373518084245}
+  - component: {fileID: 3290402755422909515}
+  - component: {fileID: 8058157948458896074}
+  - component: {fileID: 3383970829478768307}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6925541373518084245
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810777909724362769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalScale: {x: 0.0080187535, y: 0.0080187535, z: 0.0080187535}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6477368918082337039}
+  m_Father: {fileID: 7016933003152741732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.6500001, y: 2.95}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &3290402755422909515
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810777909724362769}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 7.5
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &8058157948458896074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810777909724362769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!114 &3383970829478768307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810777909724362769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1071080064222792450
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +379,7 @@ GameObject:
   - component: {fileID: 6487899291922393317}
   m_Layer: 11
   m_Name: Pickaxe (3)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,7 +413,7 @@ GameObject:
   - component: {fileID: 6100857604492708813}
   m_Layer: 5
   m_Name: PickaxesImage (5)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,7 +488,7 @@ GameObject:
   - component: {fileID: 4522731013049966137}
   m_Layer: 5
   m_Name: PickaxesImage (2)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,7 +561,7 @@ GameObject:
   - component: {fileID: 6968640190381811027}
   m_Layer: 11
   m_Name: GFX
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,7 +595,7 @@ GameObject:
   - component: {fileID: 8730225243624983685}
   m_Layer: 5
   m_Name: PickaxesImage
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -519,6 +621,10 @@ RectTransform:
   - {fileID: 4952289268484674529}
   - {fileID: 750736697302210358}
   - {fileID: 8821866318285378985}
+  - {fileID: 421500592733690295}
+  - {fileID: 7003125236339029195}
+  - {fileID: 171718506137111417}
+  - {fileID: 1887868821183491967}
   m_Father: {fileID: 7795438369142566368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -598,7 +704,7 @@ GameObject:
   - component: {fileID: 9219658797423398484}
   m_Layer: 5
   m_Name: GoldCountText
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -719,6 +825,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1755018567821228429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6477368918082337039}
+  - component: {fileID: 2400254310096245158}
+  - component: {fileID: 800095785808461517}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6477368918082337039
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755018567821228429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 800}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6925541373518084245}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 350, y: -185}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2400254310096245158
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755018567821228429}
+  m_CullTransparentMesh: 1
+--- !u!114 &800095785808461517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755018567821228429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0d886bcb29c7ce74aacdb7766401846f, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2440230216855720712
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +914,7 @@ GameObject:
   - component: {fileID: 6851337818069745496}
   m_Layer: 5
   m_Name: ChariotCanva
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -833,7 +1014,7 @@ GameObject:
   - component: {fileID: 8825802500935885539}
   m_Layer: 11
   m_Name: Pickaxe
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -854,6 +1035,111 @@ Transform:
   - {fileID: 1641504298302598647}
   m_Father: {fileID: 4740215749987698566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2661571725236639609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6182722090317167575}
+  - component: {fileID: 616676737678008718}
+  - component: {fileID: 9007088808233404871}
+  - component: {fileID: 6077251123805693863}
+  m_Layer: 11
+  m_Name: PointOneGoldDirection
+  m_TagString: GoldChariot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6182722090317167575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661571725236639609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.034, y: 0.413, z: -0.323}
+  m_LocalScale: {x: 0.20987281, y: 0.20987281, z: 0.059490543}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7016933003152741732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &616676737678008718
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661571725236639609}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &9007088808233404871
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661571725236639609}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6077251123805693863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661571725236639609}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2987315746865234649
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +1153,7 @@ GameObject:
   - component: {fileID: 233173575035446450}
   m_Layer: 5
   m_Name: PickaxesImage (5)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -940,7 +1226,7 @@ GameObject:
   - component: {fileID: 2277580496668718134}
   m_Layer: 11
   m_Name: SpawnNugget
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -972,7 +1258,7 @@ GameObject:
   - component: {fileID: 3233909418064152343}
   m_Layer: 11
   m_Name: Pickaxe (1)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1006,7 +1292,7 @@ GameObject:
   - component: {fileID: 3317741793087734709}
   m_Layer: 5
   m_Name: PickaxesImage (3)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1079,11 +1365,11 @@ GameObject:
   - component: {fileID: 2120033629784259951}
   m_Layer: 11
   m_Name: Pickaxes
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2120033629784259951
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,7 +1403,7 @@ GameObject:
   - component: {fileID: 3078974927654571513}
   m_Layer: 11
   m_Name: PointOneGoldDirection
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1219,7 +1505,7 @@ GameObject:
   - component: {fileID: 1641504298302598647}
   m_Layer: 11
   m_Name: Pickaxe
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1240,6 +1526,156 @@ Transform:
   - {fileID: 3699308745149752316}
   m_Father: {fileID: 8825802500935885539}
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
+--- !u!1 &4011712925281858058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7003125236339029195}
+  - component: {fileID: 669604347087670874}
+  - component: {fileID: 4732238025418179707}
+  m_Layer: 5
+  m_Name: PickaxesImage (3)
+  m_TagString: GoldChariot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7003125236339029195
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011712925281858058}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01056679, y: 0.09475913, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.0978, y: 0.14}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &669604347087670874
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011712925281858058}
+  m_CullTransparentMesh: 1
+--- !u!114 &4732238025418179707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011712925281858058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4575023787311297358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 171718506137111417}
+  - component: {fileID: 2123966185393580956}
+  - component: {fileID: 1849573605677527850}
+  m_Layer: 5
+  m_Name: PickaxesImage (4)
+  m_TagString: GoldChariot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &171718506137111417
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575023787311297358}
+  m_LocalRotation: {x: -0, y: -0, z: 0.47701627, w: 0.87889457}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.011745409, y: 0.096871905, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 56.981}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.2, y: 1.64}
+  m_SizeDelta: {x: 100, y: 57.56}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2123966185393580956
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575023787311297358}
+  m_CullTransparentMesh: 1
+--- !u!114 &1849573605677527850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575023787311297358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4740474609369040211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1689,7 @@ GameObject:
   - component: {fileID: 415383790900409220}
   m_Layer: 11
   m_Name: GoldChariot
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1283,6 +1719,9 @@ Transform:
   - {fileID: 2277580496668718134}
   - {fileID: 4699955990224710002}
   - {fileID: 4015608093234825287}
+  - {fileID: 6182722090317167575}
+  - {fileID: 6925541373518084245}
+  - {fileID: 37707774044450483}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3244071171031559675
@@ -1324,8 +1763,7 @@ MonoBehaviour:
   _defaultGFX: {fileID: 1351085718703704695}
   _brokenGFX: {fileID: 3635450997261631224}
   hbTakeGold: {fileID: 3878937274430679450}
-  _goldStepList: []
-  _takeGoldAnim: {fileID: 6006626788413384990}
+  _takeGoldAnim: {fileID: 29269139155626830}
   goblinInterval: 1
   _currentGoldCount: 10
 --- !u!54 &415383790900409220
@@ -1355,6 +1793,81 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 2
+--- !u!1 &5426012884441402502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887868821183491967}
+  - component: {fileID: 7371377687777337856}
+  - component: {fileID: 3166522125050280846}
+  m_Layer: 5
+  m_Name: PickaxesImage (5)
+  m_TagString: GoldChariot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1887868821183491967
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426012884441402502}
+  m_LocalRotation: {x: 0, y: 0, z: -0.47701308, w: 0.87889624}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0124619985, y: 0.096871905, z: 0.1421222}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -56.981}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.18, y: -1.34}
+  m_SizeDelta: {x: 100, y: 57.56}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7371377687777337856
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426012884441402502}
+  m_CullTransparentMesh: 1
+--- !u!114 &3166522125050280846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426012884441402502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.67058825, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5506279447446415639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,7 +1913,7 @@ GameObject:
   - component: {fileID: 4884377020614818040}
   m_Layer: 11
   m_Name: Pickaxe_Top
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1481,7 +1994,7 @@ GameObject:
   - component: {fileID: 392256197538877546}
   m_Layer: 11
   m_Name: Pickaxe (5)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1515,7 +2028,7 @@ GameObject:
   - component: {fileID: 4223390983829170747}
   m_Layer: 5
   m_Name: PickaxesImage (4)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1588,7 +2101,7 @@ GameObject:
   - component: {fileID: 777479326327810848}
   m_Layer: 11
   m_Name: Pickaxe
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1622,7 +2135,7 @@ GameObject:
   - component: {fileID: 888160829410707876}
   m_Layer: 11
   m_Name: Pickaxe_Handle
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1704,7 +2217,7 @@ GameObject:
   - component: {fileID: 4740215749987698566}
   m_Layer: 11
   m_Name: Pickaxe (4)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1821,7 +2334,7 @@ GameObject:
   - component: {fileID: 7096649245767556860}
   m_Layer: 5
   m_Name: PickaxesImage (4)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1896,7 +2409,7 @@ GameObject:
   - component: {fileID: 3989103498414156447}
   m_Layer: 9
   m_Name: MiningForge
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1951,6 +2464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickaxePrefab: {fileID: 8597900755164968550, guid: f59d7194d7724444daa65fd06437ead0, type: 3}
   _bubblePickaxe: {fileID: 1568961026315710328}
+  _loadImage: {fileID: 800095785808461517}
 --- !u!1 &7928663237278623324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +2477,7 @@ GameObject:
   - component: {fileID: 8792053908639858265}
   m_Layer: 11
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2120,6 +2634,81 @@ Transform:
   - {fileID: 7247433234911633232}
   m_Father: {fileID: 3453630659441904145}
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
+--- !u!1 &8437851248589333296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 421500592733690295}
+  - component: {fileID: 8146004760992008281}
+  - component: {fileID: 8881885084766120467}
+  m_Layer: 5
+  m_Name: PickaxesImage (2)
+  m_TagString: GoldChariot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &421500592733690295
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437851248589333296}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1764102, y: 0.1764102, z: 0.1764102}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 845908760330123436}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -9.9, y: 0.0001577}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8146004760992008281
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437851248589333296}
+  m_CullTransparentMesh: 1
+--- !u!114 &8881885084766120467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437851248589333296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d08c52c09554ca8418a86627f4bd14e1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8531828497814069476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2381,7 +2970,7 @@ GameObject:
   - component: {fileID: 822879012612505084}
   m_Layer: 11
   m_Name: Pickaxe
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2413,7 +3002,7 @@ GameObject:
   - component: {fileID: 3453630659441904145}
   m_Layer: 11
   m_Name: Pickaxe
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2447,7 +3036,7 @@ GameObject:
   - component: {fileID: 5044870056600141861}
   m_Layer: 5
   m_Name: PickaxesImage (1)
-  m_TagString: Untagged
+  m_TagString: GoldChariot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2517,9 +3106,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7016933003152741732}
     m_Modifications:
+    - target: {fileID: 113019807378670752, guid: b422a000fd6f44741abc70aabdf303bd, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 1585341770473415775, guid: b422a000fd6f44741abc70aabdf303bd, type: 3}
       propertyPath: m_Name
       value: TakeGoldInChariot_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585341770473415775, guid: b422a000fd6f44741abc70aabdf303bd, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     - target: {fileID: 2791483235734627927, guid: b422a000fd6f44741abc70aabdf303bd, type: 3}
       propertyPath: m_LocalScale.x
@@ -2655,6 +3252,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4532276103060888044, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 5450393288770130727, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: playOnAwake
       value: 1
@@ -2662,6 +3263,10 @@ PrefabInstance:
     - target: {fileID: 9012710276775166857, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012710276775166857, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2745,13 +3350,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: -5006410842995360666, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: -4042455026866624614, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: -4042455026866624614, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: -3162443504424875012, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -3162443504424875012, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     - target: {fileID: -1411124711209626868, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2760,6 +3377,10 @@ PrefabInstance:
     - target: {fileID: -1000754955560831715, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -1000754955560831715, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     - target: {fileID: -767733865491687206, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2781,6 +3402,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4606011999004323157, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 5210805868166903543, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2788,6 +3413,10 @@ PrefabInstance:
     - target: {fileID: 7045763562193066223, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045763562193066223, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     - target: {fileID: 9220213134117263902, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2802,14 +3431,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6006626788413384990}
+      addedObject: {fileID: 29269139155626830}
   m_SourcePrefab: {fileID: 100100000, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
 --- !u!1 &1351085718703704695 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c3dcacc119a66fe49a93741e98b8462f, type: 3}
   m_PrefabInstance: {fileID: 2162128715004065574}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &6006626788413384990
+--- !u!95 &29269139155626830
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -2922,6 +3551,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1163864230647970366, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 2060046141432921458, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2966,9 +3599,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 2315044846833543118, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 2562056000635515254, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562056000635515254, guid: 94e5fb2196cc04247897e2061e67d8f5, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2992,6 +3633,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4568971072378090648, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 4918345288450005453, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_Name
       value: GoldOut_PART
@@ -2999,6 +3644,10 @@ PrefabInstance:
     - target: {fileID: 4918345288450005453, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918345288450005453, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     - target: {fileID: 6437088341446207965, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3044,13 +3693,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 7257081217623369992, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 7402828144199898331, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 7402828144199898331, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 8136127180537167784, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136127180537167784, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3066,6 +3727,68 @@ ParticleSystem:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6437088341446207965, guid: a1e42fcf523a1924eb316d87f768830c, type: 3}
   m_PrefabInstance: {fileID: 4450947702501806177}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7943529340108834397
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7016933003152741732}
+    m_Modifications:
+    - target: {fileID: 3189181656885292526, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_Name
+      value: TakeOneGold_PART
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.776
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+--- !u!4 &37707774044450483 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7978376176171493614, guid: a7dad2f83d194a04d896238f57fad27a, type: 3}
+  m_PrefabInstance: {fileID: 7943529340108834397}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8749424872947324267
 PrefabInstance:
@@ -3127,6 +3850,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3049641231595097364, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 3187383634427899490, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
       propertyPath: m_Name
       value: ChariotUI_PART
@@ -3135,13 +3862,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3187383634427899490, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 5955801208681596148, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 5955801208681596148, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
+      objectReference: {fileID: 0}
     - target: {fileID: 6346341721174618940, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346341721174618940, guid: 4b86899e193e6d448beecfe3b577d5c8, type: 3}
+      propertyPath: m_TagString
+      value: GoldChariot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

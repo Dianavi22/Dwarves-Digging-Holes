@@ -7,6 +7,7 @@ using UnityEngine;
 using Utils;
 using FMODUnity;
 using FMOD.Studio;
+using Random = UnityEngine.Random;
 
 public class Rock : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Rock : MonoBehaviour
     public bool haveGold;
     [SerializeField] ParticleSystem _breakRockParticule;
     [SerializeField] ParticleSystem _spawnGoldPart;
+    [SerializeField] ParticleSystem _destroyRockByLava;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
     private Score _score;
@@ -24,6 +26,7 @@ public class Rock : MonoBehaviour
     [SerializeField] GameObject _gold;
     private int _baseHp;
     private Player hitPlayer = null;
+    [SerializeField] Material _goldMat;
 
     private void Awake()
     {
@@ -36,6 +39,15 @@ public class Rock : MonoBehaviour
         if (!GameManager.Instance.isInMainMenu)
         {
             _score = TargetManager.Instance.GetGameObject<Score>();
+        }
+        if (haveGold)
+        {
+            _destroyRockByLava.GetComponent<Renderer>().material = _goldMat;
+
+        }
+        else
+        {
+            _destroyRockByLava.GetComponent<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().material;
         }
     }
 
@@ -105,5 +117,13 @@ public class Rock : MonoBehaviour
     private void PlayRockExplosionSound(Vector3 position)
     {
         RuntimeManager.PlayOneShot(rockExplosionSound, position);
+    }
+
+    public IEnumerator DestroyRockByLava()
+    {
+        _gfx.SetActive(false);
+        _destroyRockByLava.Play();
+        yield return new WaitForSeconds(_destroyRockByLava.main.duration);
+        Destroy(this.gameObject);
     }
 }
