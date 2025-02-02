@@ -43,7 +43,6 @@ public class Rock : MonoBehaviour
         if (haveGold)
         {
             _destroyRockByLava.GetComponent<Renderer>().material = _goldMat;
-
         }
         else
         {

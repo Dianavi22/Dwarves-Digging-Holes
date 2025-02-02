@@ -150,9 +150,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _nearDeathExperienceSequence = new();
         }
 
-        // GameOver
-
-
     }
 
     private void NearDeathExperience()
@@ -325,7 +322,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         _currentGoldCount++;
         UpdateText();
-
         for (int i = _goldStepList.Count - 1; i >= 0; i--)
         {
             if (_goldStepList[i] == null)
