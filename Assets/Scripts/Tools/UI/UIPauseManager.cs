@@ -22,7 +22,7 @@ public class UIPauseManager : MonoBehaviour
     [SerializeField] private EventReference[] _stateMenuEvent;
     [SerializeField] GameObject _circleTransition;
 
-    private bool _scaleButton;
+    public bool scaleButton;
     [SerializeField] List<GameObject> _button;
 
     public static UIPauseManager Instance; // A static reference to the GameManager instance
@@ -87,13 +87,13 @@ public class UIPauseManager : MonoBehaviour
 
     public void OpenInputCanvas()
     {
-        _scaleButton = true;
+        scaleButton = true;
         _inputCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_rebindJump);
     }
     public void OpenSettingsMenu()
     {
-        _scaleButton = true;
+        scaleButton = true;
         _settingsCanvas.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_backbuttonSettings);
     }
@@ -113,15 +113,16 @@ public class UIPauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (_scaleButton)
+        if (scaleButton)
         {
             UpdateButtonScale();
         }
+
     }
 
     private void UpdateButtonScale()
     {
-        Vector3 targetScale = new Vector3(3.577049f, 3.577049f, 3.577049f);
+        Vector3 targetScale = new Vector3(2.4582f, 2.4582f, 2.4582f);
 
         for (int i = 0; i < _button.Count; i++)
         {
@@ -131,6 +132,6 @@ public class UIPauseManager : MonoBehaviour
             }
         }
 
-        _scaleButton = false;
+        scaleButton = false;
     }
 }
