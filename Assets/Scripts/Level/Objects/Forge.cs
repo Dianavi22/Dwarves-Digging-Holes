@@ -38,9 +38,7 @@ public class Forge : MonoBehaviour
 
     public IEnumerator LoadPickaxe(bool reverse = false)
     {
-        if (_gameManager.CanCreatePickaxe)
-        {
-
+        
             _isCreatingPickaxe = true;
 
             float duration = Mathf.Abs(_loadImage.fillAmount - (reverse ? 0f : 1f));
@@ -63,5 +61,5 @@ public class Forge : MonoBehaviour
         }
        
 
-    }
+    
 }
