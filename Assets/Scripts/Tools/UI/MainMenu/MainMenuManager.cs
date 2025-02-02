@@ -27,9 +27,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _buttonSettingsStart;
 
     [SerializeField] GameObject _backButton;
+    [SerializeField] Toggle _toggle;
     private void Start()
     {
         StartCoroutine(StartCanvas());
+        _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
     }
 
     private IEnumerator StartCanvas()
@@ -46,13 +48,13 @@ public class MainMenuManager : MonoBehaviour
         _buttons.SetActive(false);
         _title.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
-
     }
 
     
 
     public void StartParty()
     {
+        IsTutoActive();
         StartCoroutine(CircleTransition());
     }
 
@@ -63,6 +65,32 @@ public class MainMenuManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public bool IsTutoActive()
+    {
+        int i;
+        if (_toggle.isOn)
+        {
+            i = 1;
+        }
+        else
+        {
+            i = 0;
+
+        }
+        if (!PlayerPrefs.HasKey("TutoActive"))
+        {
+            PlayerPrefs.SetInt("TutoActive", i); 
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TutoActive", i);
+
+        }
+     
+        return PlayerPrefs.GetInt("TutoActive") == i;
     }
 
     public void LoadCreditScene()
