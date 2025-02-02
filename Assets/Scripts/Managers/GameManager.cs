@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
-
+    private bool _isTutoActive = true;
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
         // Select the difficulty
@@ -142,7 +143,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(_introGame.LadderIntro());
         yield return new WaitForSeconds(2);
-        if (passTuto && !_tuto.isInTuto)
+        if (!_isTutoActive)
+        {
+            passTuto=true; 
+        }
+         if (passTuto && !_tuto.isInTuto)
         {
             SkipTuto();
             StartCoroutine(StartGame());
