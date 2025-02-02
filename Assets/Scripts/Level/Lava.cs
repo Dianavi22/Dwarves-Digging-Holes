@@ -34,7 +34,7 @@ public class Lava : MonoBehaviour
 
         if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
         {
-            Destroy(rock.gameObject);
+            StartCoroutine(rock.DestroyRockByLava());
         }
     }
     private void Update()
