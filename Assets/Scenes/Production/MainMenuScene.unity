@@ -393,6 +393,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &58916938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58916929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 0}
 --- !u!4 &59457440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23a3befac4dc8b2469401462f16c0946, type: 3}
@@ -1021,6 +1036,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1411540900}
     m_Modifications:
+    - target: {fileID: 1172960796430164012, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172960796430164012, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172960796430164012, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1727247629323931612, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
       propertyPath: m_Transition
       value: 3
@@ -1265,9 +1292,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6422754002998553197, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 58916934}
+    - targetCorrespondingSourceObject: {fileID: 6422754002998553197, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 58916938}
     - targetCorrespondingSourceObject: {fileID: 7056303626954119341, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1868502580}
+    - targetCorrespondingSourceObject: {fileID: 7056303626954119341, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1868502584}
   m_SourcePrefab: {fileID: 100100000, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
 --- !u!1 &495705713 stripped
 GameObject:
@@ -1577,6 +1610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 0}
 --- !u!1 &534430879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7737781152339374714, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
@@ -1793,6 +1827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 0}
 --- !u!4 &582986106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d25e3a9a8b74fd4b808c35388f7e0ed, type: 3}
@@ -2662,6 +2697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 0}
 --- !u!4 &710174281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9119546368410082369, guid: f099b6039f6edbf47b30fc8a990f21fc, type: 3}
@@ -3606,6 +3642,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1412160527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4380215135103884743, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
+  m_PrefabInstance: {fileID: 495705712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1422503390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4700,6 +4747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 0}
 --- !u!1 &1868502575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7056303626954119341, guid: eb5ed0ad5e6fcc6479fb50bc4a14a02d, type: 3}
@@ -4737,6 +4785,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1868502584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868502575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
+  _img: {fileID: 1412160527}
 --- !u!4 &1872590875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d25e3a9a8b74fd4b808c35388f7e0ed, type: 3}
