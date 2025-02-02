@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class GoldToChariot : MonoBehaviour
     private GameObject _pointOneGoldDirection;
     private Score _score;
     [SerializeField] private int _goldScore = 1;
-
+    private bool _taken = false;
 
 
     void Start()
@@ -39,21 +40,19 @@ public class GoldToChariot : MonoBehaviour
             transform.position += directionToTarget * _speed * Time.deltaTime;
         }
     }
-
+       
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "PointOneGoldDirection")
+        if (other.gameObject.name == "PointOneGoldDirection" && !_taken)
         {
-            BreakGold();
+            _taken = true;
+            _goldChariot.TakeNugget();
+            _score.ScoreCounter += _goldScore;
             _takeGoldPart.Play();
-            TargetManager.Instance.GetGameObject<GoldChariot>().StartAnimation();
+            _goldChariot.StartAnimation();
             Destroy(this.gameObject);
         }
     }
 
-    public void BreakGold()
-    {
-        TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
-        _score.ScoreCounter += _goldScore;
-    }
+ 
 }

@@ -10,6 +10,7 @@ public class ButtonSelectionHandler : MonoBehaviour, ISelectHandler, IDeselectHa
 
     [SerializeField] private Color _color;
     [SerializeField] private Color _colorBase;
+    [SerializeField] private Image _img;
 
     void Start()
     {
@@ -19,11 +20,25 @@ public class ButtonSelectionHandler : MonoBehaviour, ISelectHandler, IDeselectHa
 
     public void OnSelect(BaseEventData eventData)
     {
-        _text.color = _color;
+        if(_img != null)
+        {
+            _img.color = _color;
+        }
+        else
+        {
+            _text.color = _color;
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        _text.color = _colorBase;
+        if (_img != null)
+        {
+            _img.color = _colorBase;
+        }
+        else
+        {
+            _text.color = _colorBase;
+        }
     }
 }
