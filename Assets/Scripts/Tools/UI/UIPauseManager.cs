@@ -76,6 +76,11 @@ public class UIPauseManager : MonoBehaviour
             _PauseCanvas.SetActive(isPaused);
             _inputCanvas.SetActive(!isPaused);
 
+            if (!isPaused)
+            {
+                _settingsCanvas.SetActive(false);
+            }
+
             if (isPaused)
             {
                 EventSystem.current.SetSelectedGameObject(_resumeButton);
