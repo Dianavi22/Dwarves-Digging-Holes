@@ -123,7 +123,7 @@ public class Rock : MonoBehaviour
     {
         _gfx.SetActive(false);
         _destroyRockByLava.Play();
-        yield return new WaitForSeconds(Random.Range(_destroyRockByLava.main.duration, _destroyRockByLava.main.duration + 0.5f));
+        yield return new WaitForSeconds(_destroyRockByLava.main.duration);
         Destroy(this.gameObject);
     }
 }
