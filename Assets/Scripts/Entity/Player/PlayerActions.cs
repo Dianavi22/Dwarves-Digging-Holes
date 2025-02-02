@@ -80,7 +80,7 @@ public class PlayerActions : MonoBehaviour
         else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
-            if (hitColliders.Any())
+            if (hitColliders.Any() && GameManager.Instance.CanCreatePickaxe)
             {
                 Forge forge = hitColliders[0].GetComponent<Forge>();
 
