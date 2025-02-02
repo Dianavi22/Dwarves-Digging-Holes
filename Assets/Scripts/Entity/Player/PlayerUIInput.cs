@@ -11,19 +11,24 @@ public class PlayerUIInput : MonoBehaviour
 
     public EventReference submitEvent;
     public EventReference navigateEvent;
+    public UIPauseManager _uiPause;
 
     private bool condition = true;
 
     private void Awake()
     {
         _p = GetComponent<Player>();
+        _uiPause = FindObjectOfType<UIPauseManager>().GetComponent<UIPauseManager>();
     }
+
 
     public void OnPause(InputAction.CallbackContext context)
     {
         if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started)
             UIPauseManager.Instance.Pause();
+        _uiPause.scaleButton = true;
+
     }
 
     public void OnTest(InputAction.CallbackContext context)
@@ -36,6 +41,7 @@ public class PlayerUIInput : MonoBehaviour
         if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started && UIPauseManager.Instance.isPaused)
             RuntimeManager.PlayOneShot(navigateEvent);
+       
     }
 
     //! Les actions sont compliquées à gérer, il faudrait revoir ça
