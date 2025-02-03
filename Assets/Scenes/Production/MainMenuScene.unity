@@ -1108,6 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 467601871}
   - component: {fileID: 467601872}
+  - component: {fileID: 467601873}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -1154,7 +1155,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1183,6 +1184,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!95 &467601873
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467601870}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82075ac20b6f6fa4392b74a98497e978, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &493349812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0286659845d792d41a1351624a821c0b, type: 3}
@@ -2964,11 +2986,13 @@ MonoBehaviour:
   _credits: {fileID: 679979393}
   _stopCredits: {fileID: 1096245606}
   _startButton: {fileID: 575330527}
+  _bc: {r: 0.2392157, g: 0.2392157, b: 0.2392157, a: 1}
   _buttonsCanvaGroup: {fileID: 682673841}
   _canvasSettings: {fileID: 495705713}
   _pivotStartSettings: {fileID: 1411540899}
   _buttonSettingsStart: {fileID: 58916929}
   _backButton: {fileID: 1868502575}
+  _bbSettings: {fileID: 1755792335}
   _toggle: {fileID: 467601872}
 --- !u!114 &817935183
 MonoBehaviour:
@@ -3037,7 +3061,7 @@ MonoBehaviour:
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
   _circleTransition: {fileID: 510074189}
-  _backButton: {fileID: 0}
+  _backButton: {fileID: 1755792337}
   _gameOverCanva: {fileID: 0}
   _playerStats: []
   _buttons: []
@@ -4652,6 +4676,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7667517742826603565, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
   m_PrefabInstance: {fileID: 4171114915140790276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1755792337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7591480508681251195, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
+  m_PrefabInstance: {fileID: 4171114915140790276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755792335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1766922370 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d25e3a9a8b74fd4b808c35388f7e0ed, type: 3}
@@ -9025,10 +9060,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1964521500}
     m_Modifications:
-    - target: {fileID: 85117865046721406, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 656669962811027509, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9113,10 +9144,6 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 817935183}
-    - target: {fileID: 5071556452896589463, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6073278518596248383, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -9128,10 +9155,6 @@ PrefabInstance:
     - target: {fileID: 7737781152339374714, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
       propertyPath: m_Name
       value: SettingsPage
-      objectReference: {fileID: 0}
-    - target: {fileID: 7737781152339374714, guid: 7c2a3dfb798eaf648a102b8c3514a8e7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

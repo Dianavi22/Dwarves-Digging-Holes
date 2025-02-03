@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _credits;
     [SerializeField] GameObject _stopCredits;
     [SerializeField] GameObject _startButton;
+    [SerializeField] Color _bc;
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
     private bool _scaleButton = false;
 
@@ -27,6 +28,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _buttonSettingsStart;
 
     [SerializeField] GameObject _backButton;
+    [SerializeField] GameObject _bbSettings;
     [SerializeField] Toggle _toggle;
     private void Start()
     {
@@ -121,6 +123,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadSettingScene()
     {
+        _bbSettings.transform.localScale = new Vector3(0.212207913f, 0.427238166f, 0.212207913f);
         _scaleButton = true;
         _title.gameObject.SetActive(false);
         _buttons.gameObject.SetActive(false);
@@ -153,10 +156,12 @@ public class MainMenuManager : MonoBehaviour
         {
             if (_button[i] != null)
             {
+                _button[i].GetComponentInChildren<TMP_Text>().color = _bc;
                 _button[i].transform.localScale = targetScale;
             }
         }
         _backButton.transform.localScale = new Vector3(1,1,1);
         _scaleButton = false;
+        _startButton.GetComponentInChildren<TMP_Text>().color = Color.white;
     }
 }
