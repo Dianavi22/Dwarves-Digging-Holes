@@ -575,7 +575,7 @@ RectTransform:
   m_Father: {fileID: 3714744763670545046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -627,6 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5681540780022951190}
   - component: {fileID: 3563759861423171673}
+  - component: {fileID: 1840159082591601321}
   m_Layer: 5
   m_Name: ToggleScreen
   m_TagString: Untagged
@@ -673,7 +674,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 871814112152039846}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -714,6 +715,27 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!95 &1840159082591601321
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853741453199697503}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82075ac20b6f6fa4392b74a98497e978, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3460871581630574637
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +901,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -948,6 +970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8925400581184555518}
   - component: {fileID: 871814112152039846}
+  - component: {fileID: 1335654814189623496}
   m_Layer: 5
   m_Name: SliderVolum
   m_TagString: Untagged
@@ -996,7 +1019,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 7591480508681251195}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1028,6 +1051,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1335654814189623496
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295488478139118976}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26fd9bed1b313a744a5efaaae9548ce3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5550093096869597699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1105,7 @@ RectTransform:
   m_Father: {fileID: 2087965142032493758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1620,6 +1664,7 @@ GameObject:
   - component: {fileID: 9170631628891077320}
   - component: {fileID: 7591480508681251195}
   - component: {fileID: 5018850412849053274}
+  - component: {fileID: 8885930489900301129}
   m_Layer: 5
   m_Name: CloseSettingsButton
   m_TagString: Untagged
@@ -1636,7 +1681,7 @@ RectTransform:
   m_GameObject: {fileID: 7667517742826603565}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1830799, y: 0.36859474, z: 0.1830799}
+  m_LocalScale: {x: 0.21220791, y: 0.42723817, z: 0.21220791}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2882960303837113387}
@@ -1644,7 +1689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000023842, y: -66.86}
+  m_AnchoredPosition: {x: -0.0000023842, y: -64.4}
   m_SizeDelta: {x: 162.57037, y: 49.02617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5984329880386577457
@@ -1704,12 +1749,12 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 6073278518596248383}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.7830189, g: 0.34349412, b: 0.34349412, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1751,7 +1796,7 @@ Animator:
   m_GameObject: {fileID: 7667517742826603565}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d524664463d6b0844938e7d39288850d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2333791069f765542a248ecd75d3bf01, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 0
@@ -1762,6 +1807,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8885930489900301129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667517742826603565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72746c035d66e274e902c39b55402ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _colorBase: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 1}
+  _img: {fileID: 0}
 --- !u!1 &7737781152339374714
 GameObject:
   m_ObjectHideFlags: 0
