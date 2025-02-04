@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     public void AddPickaxe(Pickaxe p)
     {
         if (!CanCreatePickaxe) Destroy(p.gameObject);
-        p.HealthPoint = Difficulty.PickaxeDurability;
         NbPickaxe++;
     }
     #endregion

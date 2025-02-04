@@ -23,21 +23,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private bool _isShowTuto = false;
     private bool _isCarried = false;
 
-    // In case the set of HealthPoint want to destroy the pickaxe
-    // _healthPoint is update in GameManager
-    private int _healthPoint = 1;
-    public int HealthPoint
-    {
-        get => _healthPoint;
-        set
-        {
-            _healthPoint = value;
-            if (_healthPoint <= 0 && !_isDying)
-                // StartCoroutine(BreakPickaxe());
-                return;
-        }
-    }
-
     private bool isFirstTime = true;
 
     private Action throwOnDestroy;
@@ -121,7 +106,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             _hitRockParts.Play();
         }
-        HealthPoint--;
     }
 
     private void HandlePlayerHit(Player player)

@@ -19,6 +19,5 @@ public class Difficulty : ScriptableObject
 
     [Header("Pickaxe")]
     public float MiningSpeed;
-    public int PickaxeDurability;
     public int MaxNumberPickaxe;
 }
