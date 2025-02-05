@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
+    [SerializeField] ParticleSystem _dust;
     [SerializeField] IntroGame _introGame;
 
     [SerializeField] LevelCompleteManager _levelCompleteManager;
@@ -124,6 +125,8 @@ public class GameManager : MonoBehaviour
         {
             _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
             _goldChariot._currentGoldCount = Difficulty.NbStartingGold;
+            var velocity = _dust.velocityOverLifetime;
+            velocity.x  = -Difficulty.ScrollingSpeed;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
             _eventManager = EventManager.Instance;

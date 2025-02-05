@@ -44,6 +44,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
     [SerializeField] private Animator _takeGoldAnim;
+    [SerializeField] private ParticleSystem _dustPart;
+    private bool _isDustPartPlaying = false;
 
     private Rigidbody _rb;
 
@@ -202,6 +204,11 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (speed > 0.5f)
         {
+            if (!_isDustPartPlaying)
+            {
+                _isDustPartPlaying = true;
+                _dustPart.Play();
+            }
             if (!_isSoundPlaying)
             {
                 if (!_chariotEventInstance.isValid())
@@ -228,6 +235,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
         else
         {
+            _dustPart.Stop();
+            _isDustPartPlaying = false;
             targetVolume = 0f;
         }
 

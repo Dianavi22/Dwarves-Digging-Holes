@@ -29,7 +29,13 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] GameObject _backButton;
     [SerializeField] GameObject _bbSettings;
+    [SerializeField] GameObject _rockIntro;
+    [SerializeField] GameObject _rocksMenuPartGO;
     [SerializeField] Toggle _toggle;
+    [SerializeField] ShakyCame _sc;
+    [SerializeField] ParticleSystem _breakRockPart;
+    [SerializeField] ParticleSystem _rocksMenuPart;
+    [SerializeField] ParticleSystem _littleRocksPart;
     private void Start()
     {
         StartCoroutine(StartCanvas());
@@ -41,8 +47,31 @@ public class MainMenuManager : MonoBehaviour
         Time.timeScale = 1;
         _circleTransitionIn.SetActive(true);
         yield return new WaitForSeconds(1.5f);
+        StartCoroutine(IntroMainMenu());
 
     }
+    
+    private IEnumerator IntroMainMenu()
+    {
+        _breakRockPart.Play();
+        yield return new WaitForSeconds(0.15f);
+        _sc.ShakyCameCustom(0.1f, 0.1f);
+        _littleRocksPart.Play();
+        yield return new WaitForSeconds(0.5f);
+        _sc.ShakyCameCustom(0.1f, 0.1f);
+        _littleRocksPart.Play();
+
+        yield return new WaitForSeconds(0.5f);
+        _rocksMenuPartGO.SetActive(false);
+        _sc.ShakyCameCustom(0.3f, 0.1f);
+
+        _rocksMenuPart.Play();
+        yield return new WaitForSeconds(0.3f);
+        _rockIntro.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        ActiveButtons();
+    }
+
     public void StartGame()
     {
         _scaleButton = true;

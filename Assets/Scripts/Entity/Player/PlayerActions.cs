@@ -66,6 +66,8 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (IsBaseActionActivated && IsHoldingObject && CheckHitRaycast(out var hits))
         {
             // Pickaxe

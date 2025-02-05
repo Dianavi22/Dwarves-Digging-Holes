@@ -11,8 +11,6 @@ public class PlayerFatigue : MonoBehaviour
     [HideInInspector] public float currentCartsFatigue;
     [HideInInspector] public float currentMiningFatigue;
 
-    [SerializeField] ParticleSystem _fatiguePart;
-
     private PlayerFatigueData _miningData;
     private PlayerFatigueData _pushCartData;
 
@@ -43,16 +41,6 @@ public class PlayerFatigue : MonoBehaviour
         
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
-
-        //TODO : Fix _fatiguePart
-        if (currentCartsFatigue <= 50 || currentMiningFatigue <= 50)
-        {
-            _fatiguePart.Play();
-        }
-        else
-        {
-            _fatiguePart.Stop();
-        }
     }
 
     private void InvokeOnCartsFatigueChanged()
