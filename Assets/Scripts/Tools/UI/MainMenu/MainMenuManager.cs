@@ -35,6 +35,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ShakyCame _sc;
     [SerializeField] ParticleSystem _breakRockPart;
     [SerializeField] ParticleSystem _rocksMenuPart;
+    [SerializeField] ParticleSystem _littleRocksPart;
     private void Start()
     {
         StartCoroutine(StartCanvas());
@@ -55,11 +56,15 @@ public class MainMenuManager : MonoBehaviour
         _breakRockPart.Play();
         yield return new WaitForSeconds(0.15f);
         _sc.ShakyCameCustom(0.1f, 0.1f);
+        _littleRocksPart.Play();
         yield return new WaitForSeconds(0.5f);
         _sc.ShakyCameCustom(0.1f, 0.1f);
+        _littleRocksPart.Play();
+
         yield return new WaitForSeconds(0.5f);
         _rocksMenuPartGO.SetActive(false);
         _sc.ShakyCameCustom(0.3f, 0.1f);
+
         _rocksMenuPart.Play();
         yield return new WaitForSeconds(0.3f);
         _rockIntro.SetActive(false);
