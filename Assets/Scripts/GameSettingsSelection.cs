@@ -13,6 +13,8 @@ public class GameSettingsSelection : MonoBehaviour
     [Header("Difficulty Settings")]
     public Difficulty[] difficultyList;
     public TMP_Text difficultyText;
+
+    public TMP_Text recommendedText;
     private int selectedDifficultyIndex = 0;
 
     [Header("Mode Settings")]
@@ -39,6 +41,13 @@ public class GameSettingsSelection : MonoBehaviour
     {
         selectedDifficultyIndex = (selectedDifficultyIndex + 1) % difficultyList.Length;
         UpdateSelection(ref selectedDifficultyIndex, difficultyList.Select(d => d.DifficultyName).ToArray(), difficultyText);
+
+        recommendedText.text = selectedDifficultyIndex switch
+        {
+            0 => "Best for 1-2 players",
+            1 => "Best for 3-4 players",
+            _ => "Best for 4 players",
+        };
     }
 
     public void ChangeSelectedMode()
