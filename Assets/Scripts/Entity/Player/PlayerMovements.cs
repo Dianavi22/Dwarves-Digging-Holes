@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
+using Unity.VisualScripting;
+using UnityEngine.PlayerLoop;
 
 public class PlayerMovements : EntityMovement
 {
@@ -11,10 +13,12 @@ public class PlayerMovements : EntityMovement
     [SerializeField] ParticleSystem _DashPart;
     [SerializeField] ParticleSystem _groundedPart;
     [SerializeField] ParticleSystem _movePart;
+    [SerializeField] ParticleSystem _tearsPart;
 
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool flip_vertical = false;
+    private bool isTearsPlaying = false;
 
     public Action forceDetachFunction;
 
@@ -29,6 +33,18 @@ public class PlayerMovements : EntityMovement
 
     protected new void Update()
     {
+        if (_p.IsGrabbed && !isTearsPlaying)
+        {
+            isTearsPlaying = true;
+            _tearsPart.Play();
+        }
+
+        if (!_p.IsGrabbed)
+        {
+            isTearsPlaying = false;
+            _tearsPart.Stop();
+        }
+
         base.Update();
 
         if ((_moveInput.y != 0 && !flip_vertical) || (_moveInput.y == 0 && flip_vertical))
