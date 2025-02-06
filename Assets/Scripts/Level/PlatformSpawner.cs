@@ -1,6 +1,8 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
@@ -11,7 +13,10 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] bool destroyOnTriggerExit = true;
     [SerializeField] float maximumDifficulty = 1.25f;
-    private float offset = 38; 
+
+    [SerializeField] Image ProgressBar;
+    public int platformCount = -1;  
+    private float offset = 38;
 
     private float currentDifficulty = 0;
 
@@ -27,8 +32,23 @@ public class PlatformSpawner : MonoBehaviour
             Destroy(other.transform.parent.gameObject);
     }
 
+    private void SetProgressBar()
+    {
+        ProgressBar.fillAmount = Mathf.Max(platformCount, (float)platformCount / GameManager.Instance.Difficulty.PlateformObjective);
+    }
+
     public void SpawnPlatform()
     {
+        if(platformCount == GameManager.Instance.Difficulty.PlateformObjective) {
+            Debug.Log("end platform");
+            //! Instantiate the end platform
+            //Instantiate(, new Vector3(spawnPoint.transform.position.x + offset, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity);
+            return;
+
+        }
+        platformCount++;
+        SetProgressBar();
+        Debug.Log("SPAWN PLATFORM");
         if(prefabList.Length == 1) {
             Instantiate(prefabList[0], new Vector3(spawnPoint.transform.position.x + offset, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity);
             return;
