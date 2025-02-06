@@ -506,6 +506,7 @@ MonoBehaviour:
   Stats: {fileID: 0}
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _DashPart: {fileID: 6319271055205663220}
+  _hurtPart: {fileID: 7641500938896082713}
   _groundedPart: {fileID: 8238030346643257469}
   _movePart: {fileID: 1649853161953472277}
   _tearsPart: {fileID: 5924225947725153264}
@@ -790,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerGFX: {fileID: 8340141567751047384}
-  _HurtPart: {fileID: 8534331348445387762}
+  _HurtPart: {fileID: 7641500938896082713}
   _DestroyPlayer: {fileID: 4738655127952116816}
   _imageRespawn: {fileID: 0}
 --- !u!114 &7467916203998543311
@@ -912,6 +913,11 @@ PrefabInstance:
 --- !u!4 &4740341942393518659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5034331729130604685, guid: acceeed6d3c81c24bb7f03a77c1b686d, type: 3}
+  m_PrefabInstance: {fileID: 294029102934848206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7641500938896082713 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7933241889413264855, guid: acceeed6d3c81c24bb7f03a77c1b686d, type: 3}
   m_PrefabInstance: {fileID: 294029102934848206}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &385367653580658159
@@ -1289,11 +1295,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
---- !u!198 &8534331348445387762 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5249228889221742188, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
-  m_PrefabInstance: {fileID: 4515149971071624606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9039094971936459561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4888754176829173431, guid: ced8dd80714ab46448bbd5b080f9afa3, type: 3}
