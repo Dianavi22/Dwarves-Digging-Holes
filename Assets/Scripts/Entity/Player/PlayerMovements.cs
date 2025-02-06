@@ -179,4 +179,20 @@ public class PlayerMovements : EntityMovement
         if(GameManager.Instance.isInMainMenu) return true;
         return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
     }
+
+    private bool _isOnChariot = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<HitGoldByChariot>(out HitGoldByChariot hgbc) && !_isOnChariot)
+        {
+            _isOnChariot = true;
+            hgbc.HitByPlayer(other.transform.position);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+            _isOnChariot = false;
+    }
+
 }
