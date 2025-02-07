@@ -31,6 +31,9 @@ public class Tuto : MonoBehaviour
     [SerializeField] Image _panelImageTuto;
     [SerializeField] List<Sprite> _panelImageListTuto;
 
+
+    [SerializeField] ParticleSystem _transitionPart;
+
     private bool _isInCdLava = false;
     void Start()
     {
@@ -44,8 +47,13 @@ public class Tuto : MonoBehaviour
             _panelTuto.SetActive(true);
             if (startTuto)
             {
+
                 isInTuto = true;
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Take Pickaxe")
+                {
+                    Invoke("PlayPart", 0.5f);
+                }
                 _panelTxtTuto.text = "Take Pickaxe";
                 TakePickaxe();
             }
@@ -54,6 +62,11 @@ public class Tuto : MonoBehaviour
             {
                 BreakRock();
                 _panelImageTuto.sprite = _panelImageListTuto[1];
+                if (_panelTxtTuto.text != "Break Rock")
+                {
+                    _transitionPart.Play();
+
+                }
                 _panelTxtTuto.text = "Break Rock";
 
             }
@@ -62,6 +75,11 @@ public class Tuto : MonoBehaviour
             {
                 PushChariot();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Push chariot")
+                {
+                    _transitionPart.Play();
+
+                }
                 _panelTxtTuto.text = "Push chariot";
 
             }
@@ -70,6 +88,10 @@ public class Tuto : MonoBehaviour
             {
                 TakeEnemy();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Take Enemy")
+                {
+                    _transitionPart.Play();
+                }
                 _panelTxtTuto.text = "Take Enemy";
 
             }
@@ -78,6 +100,10 @@ public class Tuto : MonoBehaviour
             {
                 YeetEnemy();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Yeet Enemy")
+                {
+                    _transitionPart.Play();
+                }
                 _panelTxtTuto.text = "Yeet Enemy";
 
             }
@@ -87,6 +113,11 @@ public class Tuto : MonoBehaviour
             _panelTuto.SetActive(false);
         }
 
+    }
+
+    private void PlayPart()
+    {
+        _transitionPart.Play();
     }
 
     private void TakePickaxe()
