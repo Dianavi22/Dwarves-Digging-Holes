@@ -31,6 +31,7 @@ public class EventManager : MonoBehaviour
     [Header("Other")]
     public float rocksHealth;
     public float rocksWithGoldHealth;
+    public bool isForgeEvent = false;
 
     public bool isRockEvent = false;
 
@@ -97,8 +98,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 3));
-        // ChooseEvent(1);
+        ChooseEvent(Random.Range(0, 5));
+        // ChooseEvent(3);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -115,14 +116,17 @@ public class EventManager : MonoBehaviour
             case 0:
                 StartCoroutine(EventPickaxe());
                 break;
-            //case :
-            //    StartCoroutine(EventGoldChariot());
-            //    break;
+            case 3:
+                StartCoroutine(EventGoldChariot());
+                break;
             case 2:
                 StartCoroutine(LavaGettingClose());
                 break;
             case 1:
                 StartCoroutine(GoblinWave());
+                break;
+            case 4:
+                StartCoroutine(NoForge());
                 break;
             default:
                 break;
@@ -166,6 +170,18 @@ public class EventManager : MonoBehaviour
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
+
+    }
+
+    private IEnumerator NoForge()
+    {
+        print("Forge");
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
+
+        yield return new WaitForSeconds(1);
+        isForgeEvent = true;
+        yield return new WaitForSeconds(5);
+        isForgeEvent = false;
 
     }
 
