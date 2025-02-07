@@ -67,6 +67,8 @@ public class Tuto : MonoBehaviour
                 if (_panelTxtTuto.text != "Break Rock")
                 {
                     _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
 
                 }
                 _panelTxtTuto.text = "Break Rock";
@@ -80,6 +82,8 @@ public class Tuto : MonoBehaviour
                 if (_panelTxtTuto.text != "Push chariot")
                 {
                     _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
 
                 }
                 _panelTxtTuto.text = "Push chariot";
@@ -93,6 +97,8 @@ public class Tuto : MonoBehaviour
                 if (_panelTxtTuto.text != "Take Enemy")
                 {
                     _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
                 }
                 _panelTxtTuto.text = "Take Enemy";
 
@@ -105,6 +111,8 @@ public class Tuto : MonoBehaviour
                 if (_panelTxtTuto.text != "Yeet Enemy")
                 {
                     _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
                 }
                 _panelTxtTuto.text = "Yeet Enemy";
 
