@@ -25,6 +25,7 @@ public class Tuto : MonoBehaviour
     [HideInInspector] public bool isInTuto = false;
 
     [SerializeField] GameObject _wallLimitTuto;
+    [SerializeField] GameObject _pickaxeCount;
     [SerializeField] GameObject _tutoEnemy;
     [SerializeField] GameObject _panelTuto;
     [SerializeField] TMP_Text _panelTxtTuto;
@@ -36,6 +37,7 @@ public class Tuto : MonoBehaviour
     [SerializeField] ParticleSystem _endTutoPart;
     [SerializeField] Animator _panelAnimator;
     [SerializeField] ShakyCame _sc;
+    [SerializeField] TypeSentence _ts;
 
     private bool _isInCdLava = false;
     void Start()
@@ -68,11 +70,8 @@ public class Tuto : MonoBehaviour
                 {
                     _transitionPart.Play();
                     _panelAnimator.SetTrigger("ChangeTuto");
-
-
                 }
                 _panelTxtTuto.text = "Break Rock";
-
             }
 
             if (isPushChariot)
@@ -118,7 +117,7 @@ public class Tuto : MonoBehaviour
 
             }
         }
-        
+
 
     }
 
@@ -185,7 +184,7 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         isYeetEnemy = false;
         _panelAnimator.SetTrigger("EndTuto");
-        Invoke("EndTutoPart",0.7f);
+        Invoke("EndTutoPart", 0.7f);
         try
         {
             _breakRock.SetActive(false);
@@ -205,8 +204,9 @@ public class Tuto : MonoBehaviour
 
     private void EndTutoPart()
     {
-        _sc.ShakyCameCustom(0.3f,0.2f);
+        _sc.ShakyCameCustom(0.3f, 0.2f);
         _endTutoPart.Play();
+        _pickaxeCount.SetActive(true);
     }
 
 }

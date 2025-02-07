@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1880652949}
+    - target: {fileID: 3759839958774034897, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5846841917906746922, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2606,6 +2610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629107618}
   - component: {fileID: 1629107619}
+  - component: {fileID: 1629107620}
   m_Layer: 0
   m_Name: Tuto
   m_TagString: Untagged
@@ -2664,6 +2669,19 @@ MonoBehaviour:
   _endTutoPart: {fileID: 1282448186}
   _panelAnimator: {fileID: 1494709133}
   _sc: {fileID: 691050783}
+  _ts: {fileID: 1629107620}
+--- !u!114 &1629107620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629107617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d828a93e2705f4db3a4586d5d9a4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1695941804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7281097508824057261, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
