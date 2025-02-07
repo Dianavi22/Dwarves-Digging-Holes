@@ -2581,6 +2581,7 @@ MonoBehaviour:
   isYeetEnemy: 0
   isInTuto: 0
   _wallLimitTuto: {fileID: 713456514}
+  _pickaxeCount: {fileID: 0}
   _tutoEnemy: {fileID: 575165007}
   _panelTuto: {fileID: 984799262}
   _panelTxtTuto: {fileID: 603076584}
@@ -2588,6 +2589,11 @@ MonoBehaviour:
   _panelImageListTuto:
   - {fileID: 21300000, guid: 87dce22414624c74d90f8bfc4bf3582f, type: 3}
   - {fileID: 21300000, guid: d08c52c09554ca8418a86627f4bd14e1, type: 3}
+  _transitionPart: {fileID: 0}
+  _endTutoPart: {fileID: 0}
+  _panelAnimator: {fileID: 0}
+  _sc: {fileID: 0}
+  _ts: {fileID: 0}
 --- !u!1 &1695941804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7281097508824057261, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -2636,7 +2642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8765590584797458301, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.49999988
+      value: 0.143
       objectReference: {fileID: 0}
     - target: {fileID: 8765590584797458301, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3744,6 +3750,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1053372501}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: passTuto
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _platform
       value: 
       objectReference: {fileID: 7474746885248401484}
@@ -4065,7 +4075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: IsDebugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6258936125424772713, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: m_MainCanvas

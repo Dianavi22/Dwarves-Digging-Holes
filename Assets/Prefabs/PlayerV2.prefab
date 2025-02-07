@@ -1214,7 +1214,7 @@ Transform:
   - {fileID: 5671694503135504218}
   - {fileID: 2710732865407046783}
   - {fileID: 2140822581658958748}
-  - {fileID: 5886964394708356132}
+  - {fileID: 7247393575374270125}
   - {fileID: 6377160436122401554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1280,8 +1280,11 @@ MonoBehaviour:
   Stats: {fileID: 0}
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _DashPart: {fileID: 9021243633684561840}
+  _hurtPart: {fileID: 8992253932320675087}
   _groundedPart: {fileID: 2413787883221499829}
   _movePart: {fileID: 3755012646705668670}
+  _tearsPart: {fileID: 6375016425046578824}
+  _rb: {fileID: 5061468281441030724}
 --- !u!114 &3059097153875552967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,7 +1533,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   slotInventoriaObject: {fileID: 112696417814803437}
-  slotPickaxe: {fileID: 0}
+  slotPickaxe: {fileID: 5283491782783973715}
   pickupSound:
     Guid:
       Data1: 1136159633
@@ -1624,7 +1627,6 @@ MonoBehaviour:
       m_Calls: []
   currentCartsFatigue: 0
   currentMiningFatigue: 0
-  _fatiguePart: {fileID: 3732559044996615588}
 --- !u!1 &6305069064498788459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,6 +2258,37 @@ Transform:
   - {fileID: 1503866764908240838}
   m_Father: {fileID: 1784421732655122788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8297602338935425696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5283491782783973715}
+  m_Layer: 0
+  m_Name: PickaxeSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5283491782783973715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297602338935425696}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6753011, y: 0.6634015, z: -0.20968659, w: 0.24474172}
+  m_LocalPosition: {x: -0.052, y: 0.171, z: 0.095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2030979916889876848}
+  m_LocalEulerAnglesHint: {x: -3, y: 142.5, z: -90}
 --- !u!1 &8503724807899455988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,6 +2416,7 @@ Transform:
   m_Children:
   - {fileID: 2175461725073594294}
   - {fileID: 5337845907527785727}
+  - {fileID: 5283491782783973715}
   m_Father: {fileID: 7634160379734852808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8746155811914597056
@@ -2602,14 +2636,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
---- !u!198 &3732559044996615588 stripped
+--- !u!198 &6375016425046578824 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4552088657530419413, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6095738100467639289, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
   m_PrefabInstance: {fileID: 928007780980143473}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5886964394708356132 stripped
+--- !u!4 &7247393575374270125 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6724508412126198101, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7526385953783356380, guid: 6e5b05faa5d80d74ba7cfdc6de93f466, type: 3}
   m_PrefabInstance: {fileID: 928007780980143473}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3752596429283191651
