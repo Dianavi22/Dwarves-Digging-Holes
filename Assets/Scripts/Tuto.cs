@@ -25,11 +25,19 @@ public class Tuto : MonoBehaviour
     [HideInInspector] public bool isInTuto = false;
 
     [SerializeField] GameObject _wallLimitTuto;
+    [SerializeField] GameObject _pickaxeCount;
     [SerializeField] GameObject _tutoEnemy;
     [SerializeField] GameObject _panelTuto;
     [SerializeField] TMP_Text _panelTxtTuto;
     [SerializeField] Image _panelImageTuto;
     [SerializeField] List<Sprite> _panelImageListTuto;
+
+
+    [SerializeField] ParticleSystem _transitionPart;
+    [SerializeField] ParticleSystem _endTutoPart;
+    [SerializeField] Animator _panelAnimator;
+    [SerializeField] ShakyCame _sc;
+    [SerializeField] TypeSentence _ts;
 
     private bool _isInCdLava = false;
     void Start()
@@ -41,11 +49,15 @@ public class Tuto : MonoBehaviour
     {
         if (isInTuto)
         {
-            _panelTuto.SetActive(true);
             if (startTuto)
             {
                 isInTuto = true;
+                _panelTuto.SetActive(true);
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Take Pickaxe")
+                {
+                    Invoke("PlayPart", 0.5f);
+                }
                 _panelTxtTuto.text = "Take Pickaxe";
                 TakePickaxe();
             }
@@ -54,14 +66,25 @@ public class Tuto : MonoBehaviour
             {
                 BreakRock();
                 _panelImageTuto.sprite = _panelImageListTuto[1];
+                if (_panelTxtTuto.text != "Break Rock")
+                {
+                    _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+                }
                 _panelTxtTuto.text = "Break Rock";
-
             }
 
             if (isPushChariot)
             {
                 PushChariot();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Push chariot")
+                {
+                    _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
+
+                }
                 _panelTxtTuto.text = "Push chariot";
 
             }
@@ -70,6 +93,12 @@ public class Tuto : MonoBehaviour
             {
                 TakeEnemy();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Take Enemy")
+                {
+                    _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
+                }
                 _panelTxtTuto.text = "Take Enemy";
 
             }
@@ -78,15 +107,23 @@ public class Tuto : MonoBehaviour
             {
                 YeetEnemy();
                 _panelImageTuto.sprite = _panelImageListTuto[0];
+                if (_panelTxtTuto.text != "Yeet Enemy")
+                {
+                    _transitionPart.Play();
+                    _panelAnimator.SetTrigger("ChangeTuto");
+
+                }
                 _panelTxtTuto.text = "Yeet Enemy";
 
             }
         }
-        else
-        {
-            _panelTuto.SetActive(false);
-        }
 
+
+    }
+
+    private void PlayPart()
+    {
+        _transitionPart.Play();
     }
 
     private void TakePickaxe()
@@ -146,7 +183,8 @@ public class Tuto : MonoBehaviour
         isPushChariot = false;
         isTakeEnemy = false;
         isYeetEnemy = false;
-
+        _panelAnimator.SetTrigger("EndTuto");
+        Invoke("EndTutoPart", 0.7f);
         try
         {
             _breakRock.SetActive(false);
@@ -162,6 +200,13 @@ public class Tuto : MonoBehaviour
         isInTuto = false;
         _skipTuto.SetActive(false);
         StartCoroutine(GameManager.Instance.StartGame());
+    }
+
+    private void EndTutoPart()
+    {
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        _endTutoPart.Play();
+        _pickaxeCount.SetActive(true);
     }
 
 }

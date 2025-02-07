@@ -11,6 +11,7 @@ public class PlayerMovements : EntityMovement
 
     [Header("Particle effect")]
     [SerializeField] ParticleSystem _DashPart;
+    [SerializeField] ParticleSystem _hurtPart;
     [SerializeField] ParticleSystem _groundedPart;
     [SerializeField] ParticleSystem _movePart;
     [SerializeField] ParticleSystem _tearsPart;
@@ -81,7 +82,6 @@ public class PlayerMovements : EntityMovement
     private void FlipFacingDirection()
     {
         if (GameManager.Instance.isGameOver) return;
-
         transform.rotation = Quaternion.Euler(0, flip ? 0 : 180, 0);
     }
 
