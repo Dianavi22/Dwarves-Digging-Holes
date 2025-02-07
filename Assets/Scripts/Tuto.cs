@@ -33,7 +33,9 @@ public class Tuto : MonoBehaviour
 
 
     [SerializeField] ParticleSystem _transitionPart;
+    [SerializeField] ParticleSystem _endTutoPart;
     [SerializeField] Animator _panelAnimator;
+    [SerializeField] ShakyCame _sc;
 
     private bool _isInCdLava = false;
     void Start()
@@ -175,6 +177,7 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         isYeetEnemy = false;
         _panelAnimator.SetTrigger("EndTuto");
+        Invoke("EndTutoPart",0.7f);
         try
         {
             _breakRock.SetActive(false);
@@ -190,6 +193,12 @@ public class Tuto : MonoBehaviour
         isInTuto = false;
         _skipTuto.SetActive(false);
         StartCoroutine(GameManager.Instance.StartGame());
+    }
+
+    private void EndTutoPart()
+    {
+        _sc.ShakyCameCustom(0.3f,0.2f);
+        _endTutoPart.Play();
     }
 
 }
