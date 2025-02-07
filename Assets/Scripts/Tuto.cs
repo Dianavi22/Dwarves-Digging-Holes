@@ -33,6 +33,7 @@ public class Tuto : MonoBehaviour
 
 
     [SerializeField] ParticleSystem _transitionPart;
+    [SerializeField] Animator _panelAnimator;
 
     private bool _isInCdLava = false;
     void Start()
@@ -44,11 +45,10 @@ public class Tuto : MonoBehaviour
     {
         if (isInTuto)
         {
-            _panelTuto.SetActive(true);
             if (startTuto)
             {
-
                 isInTuto = true;
+                _panelTuto.SetActive(true);
                 _panelImageTuto.sprite = _panelImageListTuto[0];
                 if (_panelTxtTuto.text != "Take Pickaxe")
                 {
@@ -108,10 +108,7 @@ public class Tuto : MonoBehaviour
 
             }
         }
-        else
-        {
-            _panelTuto.SetActive(false);
-        }
+        
 
     }
 
@@ -177,7 +174,7 @@ public class Tuto : MonoBehaviour
         isPushChariot = false;
         isTakeEnemy = false;
         isYeetEnemy = false;
-
+        _panelAnimator.SetTrigger("EndTuto");
         try
         {
             _breakRock.SetActive(false);
