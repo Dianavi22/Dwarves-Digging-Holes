@@ -10,6 +10,8 @@ public class EventManager : MonoBehaviour
 
     [Header("Text Event")]
     [SerializeField] TMP_Text _eventText;
+    [SerializeField] TMP_Text _littleText;
+    [SerializeField] TypeSentence _ts;
     [SerializeField] ParticleSystem _showTextPart;
 
     [Header("Pickaxe Event")]
@@ -137,6 +139,8 @@ public class EventManager : MonoBehaviour
     private IEnumerator EventPickaxe()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
+        _ts.WriteMachinEffect("Pickaxes aren't what they used to be, elf work!", _littleText, 0.02f);
+
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
@@ -158,36 +162,43 @@ public class EventManager : MonoBehaviour
             _pickaxeInScene[i].HandleDestroy();
         }
         _sc.ShakyCameCustom(0.2f, 0.2f);
+        _littleText.text = "";
+
     }
 
     private IEnumerator EventGoldChariot()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
-        yield return new WaitForSeconds(0.5f);
+        _ts.WriteMachinEffect("All this gold... you make even the gods jealous!", _littleText, 0.02f);
+        yield return new WaitForSeconds(1f);
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
         print(_goldChariot.transform.position);
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
+        _littleText.text = "";
 
     }
 
     private IEnumerator NoForge()
     {
-        print("Forge");
+        
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
-
+        _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
         yield return new WaitForSeconds(1);
         isForgeEvent = true;
         yield return new WaitForSeconds(5);
         isForgeEvent = false;
+        _littleText.text = "";
 
     }
 
     private IEnumerator LavaGettingClose()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
+        _ts.WriteMachinEffect("Your legs may be short, but you can still cover 7.5m!", _littleText, 0.02f);
+
         _lavaPartUI.Play();
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
@@ -200,14 +211,20 @@ public class EventManager : MonoBehaviour
         _lavaRain.Stop();
         yield return new WaitForSeconds(4.5f);
         _isLavaMoveEndEvent = true;
+        _littleText.text = "";
+
     }
 
     private IEnumerator GoblinWave()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
-        yield return new WaitForSeconds(1);
+        _ts.WriteMachinEffect("After not seeing their buddies come back, of course, they show up in a gang!", _littleText, 0.02f);
+
+        yield return new WaitForSeconds(2f);
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.GenerateWave();
+        _littleText.text = "";
+
     }
 
     private IEnumerator DurabilityRocks()
