@@ -10,38 +10,55 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] AudioMixer audioMixer;
     Resolution[] resolutions;
-    [SerializeField] TMP_Dropdown resolutionDropDown;
+    [SerializeField] TMP_Text resolutionDropDown;
     [SerializeField] private GameObject SettingsWindow;
     [SerializeField] private GameObject _settingsButtonMM;
 
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
     [SerializeField] private MainMenuManager _mmm;
 
+    [SerializeField] Button changeResolutionButton;
+    private int currentResolutionIndex = 0;
+
     private void Start()
     {
-        resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height}).Distinct().ToArray();
-        resolutionDropDown.ClearOptions();
-        List<string> options = new List<string>();
-        int currentResolutionIndex = 0;
+        resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
+
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + "x" + resolutions[i].height;
-            options.Add(option);
-
-            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            if (resolutions[i].width == 1920 && resolutions[i].height == 1080)
             {
                 currentResolutionIndex = i;
+                break;
             }
         }
 
-        resolutionDropDown.AddOptions(options);
-        resolutionDropDown.value = currentResolutionIndex;
-        resolutionDropDown.RefreshShownValue();
+        Screen.SetResolution(resolutions[currentResolutionIndex].width, resolutions[currentResolutionIndex].height, Screen.fullScreen);
+
+        if (changeResolutionButton != null)
+        {
+            changeResolutionButton.onClick.AddListener(ChangeResolution);
+        }
+        UpdateResolutionText();
     }
-    public void SetResolution(int resolutionIndex) // Changer la resolution de l'ecran
+
+    private void ChangeResolution()
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        currentResolutionIndex = (currentResolutionIndex + 1) % resolutions.Length;
+        Resolution newResolution = resolutions[currentResolutionIndex];
+
+        Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);
+
+        UpdateResolutionText();
+    }
+
+    private void UpdateResolutionText()
+    {
+        if (resolutionDropDown != null)
+        {
+            // Affiche seulement largeur x hauteur sans les Hz
+            resolutionDropDown.text = $"{resolutions[currentResolutionIndex].width} x {resolutions[currentResolutionIndex].height}";
+        }
     }
 
     public void SetFullScreen(bool isFullScreen) // Mettre ou enlever le fullScreen
