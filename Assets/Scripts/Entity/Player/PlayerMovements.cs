@@ -21,13 +21,13 @@ public class PlayerMovements : EntityMovement
     private bool flip_vertical = false;
     private bool isTearsPlaying = false;
     private bool isMovePlaying = false;
+    private bool isGroundedPartPlaying = true;
     [SerializeField] Rigidbody _rb;
 
     public Action forceDetachFunction;
 
     Player _p => (Player)GetBase;
 
-    private bool _playGroundedPart = true;
 
     void Awake()
     {
@@ -76,6 +76,12 @@ public class PlayerMovements : EntityMovement
         if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && _isDashing)
         {
             enemy.HandleDestroy();
+        }
+
+        if (!collision.collider.CompareTag("GoldChariot") && !isGroundedPartPlaying)
+        {
+            isGroundedPartPlaying = true;
+            _groundedPart.Play();
         }
     }
 
@@ -138,6 +144,7 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     IsPerformingJump = true;
+                    isGroundedPartPlaying = false;
                     Jump();
                     _movePart.Stop();
                 }
