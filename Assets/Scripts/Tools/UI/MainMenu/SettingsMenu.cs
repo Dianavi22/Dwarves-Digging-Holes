@@ -42,7 +42,7 @@ public class SettingsMenu : MonoBehaviour
         UpdateResolutionText();
     }
 
-    private void ChangeResolution()
+    public void ChangeResolution()
     {
         currentResolutionIndex = (currentResolutionIndex + 1) % resolutions.Length;
         Resolution newResolution = resolutions[currentResolutionIndex];
@@ -56,7 +56,6 @@ public class SettingsMenu : MonoBehaviour
     {
         if (resolutionDropDown != null)
         {
-            // Affiche seulement largeur x hauteur sans les Hz
             resolutionDropDown.text = $"{resolutions[currentResolutionIndex].width} x {resolutions[currentResolutionIndex].height}";
         }
     }
