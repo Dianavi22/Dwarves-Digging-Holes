@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height}).Distinct().ToArray();
         resolutionDropDown.ClearOptions();
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
