@@ -188,9 +188,9 @@ public class EventManager : MonoBehaviour
         _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
         yield return new WaitForSeconds(1);
         isForgeEvent = true;
+        _littleText.text = "";
         yield return new WaitForSeconds(5);
         isForgeEvent = false;
-        _littleText.text = "";
 
     }
 
@@ -203,6 +203,8 @@ public class EventManager : MonoBehaviour
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
         yield return new WaitForSeconds(2);
+        _littleText.text = "";
+
         _sc.ShakyCameCustom(4f, 0.2f);
         _lavaOldPosition = _lava.transform.position;
         _isLavaMove = true;
@@ -211,14 +213,13 @@ public class EventManager : MonoBehaviour
         _lavaRain.Stop();
         yield return new WaitForSeconds(4.5f);
         _isLavaMoveEndEvent = true;
-        _littleText.text = "";
 
     }
 
     private IEnumerator GoblinWave()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
-        _ts.WriteMachinEffect("After not seeing their buddies come back, of course, they show up in a gang!", _littleText, 0.02f);
+        _ts.WriteMachinEffect("After not seeing their buddies come back, they show up in a gang!", _littleText, 0.02f);
 
         yield return new WaitForSeconds(2f);
         _sc.ShakyCameCustom(0.3f, 0.2f);

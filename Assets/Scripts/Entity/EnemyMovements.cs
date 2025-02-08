@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
+    [SerializeField] ParticleSystem _angryEnemy;
+
+    private bool _isPartPlaying = false;
     Enemy _e => (Enemy)GetBase;
 
     void Awake()
@@ -49,6 +52,30 @@ public class EnemyMovements : EntityMovement
                 StartCoroutine(_e.HitChariot());
                 //_e.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
             }
+        }
+
+        if (this.transform.rotation.y == -180)
+        {
+            _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, 180);
+        }
+        else
+        {
+            _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+
+        if (_e.IsGrabbed)
+        {
+            if (!_isPartPlaying)
+            {
+                _isPartPlaying = true;
+                _angryEnemy.Play();
+            }
+           
+        }
+        else
+        {
+            _isPartPlaying = false;
+            _angryEnemy.Stop();
         }
     }
     private void OnMove()
