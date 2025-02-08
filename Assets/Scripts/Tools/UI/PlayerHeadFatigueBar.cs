@@ -34,6 +34,9 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     [SerializeField] private Color warningColor = new Color(1f, 0.5f, 0f);
     [SerializeField] private Color criticalColor = Color.red;
 
+    [SerializeField] ParticleSystem _miningPart;
+    [SerializeField] ParticleSystem _cartPart;
+
     private bool isBlinkingCarts = false;
     private bool isBlinkingMining = false;
 
@@ -175,11 +178,27 @@ public class PlayerHeadFatigueBar : MonoBehaviour
     private void ChangeBarColor(Image bar, float ratio)
     {
         if (ratio < CRITICAL_THRESHOLD)
+        {
             bar.color = Color.Lerp(bar.color, criticalColor, Time.deltaTime * 5f);
+
+            
+        }
         else if (ratio < DISPLAY_THRESHOLD)
+        {
             bar.color = Color.Lerp(bar.color, warningColor, Time.deltaTime * 5f);
+
+        }
         else
+        {
             bar.color = Color.Lerp(bar.color, normalColor, Time.deltaTime * 5f);
+
+        }
+
+        ParticleSystem.MainModule main = _cartPart.GetComponent<ParticleSystem>().main;
+        main.startColor = bar.color;
+
+        ParticleSystem.MainModule main2 = _miningPart.GetComponent<ParticleSystem>().main;
+        main2.startColor = bar.color;
     }
     private IEnumerator BlinkCartsFatigue()
     {

@@ -317,12 +317,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     #region Gold Related
     public void GoldEvent()
     {
-        //if (_currentGoldCount <= 1) return;
-        //else
-        //{
-        //    _currentGoldCount = (int)Mathf.Round(_currentGoldCount / 2);
-        //    SpawnMultipleNugget(_currentGoldCount, NuggetSpawnPoint);
-        //}
+        int _lostGoldEvent = Math.Abs(_currentGoldCount / 3);
+        if (_currentGoldCount <= 1) return;
+        else
+        {
+            for (int i = 0; i < Math.Abs(_lostGoldEvent); i++)
+            {
+                LostGoldByGoblin();
+            }
+            SpawnMultipleNugget(_lostGoldEvent, this.transform);
+        }
     }
 
     #region Stack Gold

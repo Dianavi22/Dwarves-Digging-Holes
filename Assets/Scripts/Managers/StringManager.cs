@@ -8,7 +8,8 @@ public enum Message
     PickaxeEvent,
     TaxeEvent,
     LavaEvent,
-    GoblinEvent
+    GoblinEvent,
+    ForgeEvent
 }
 public class StringManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class StringManager : MonoBehaviour
     [SerializeField] string _taxeDay;
     [SerializeField] string _approachingLava;
     [SerializeField] string _goblinWave;
+    [SerializeField] string _noForge;
 
     public static StringManager Instance; // A static reference to the TargetManager instance
 
@@ -46,6 +48,7 @@ public class StringManager : MonoBehaviour
             Message.TaxeEvent => _taxeDay,
             Message.LavaEvent => _approachingLava,
             Message.GoblinEvent => _goblinWave,
+            Message.ForgeEvent => _noForge,
             _ => null,
         };
     }

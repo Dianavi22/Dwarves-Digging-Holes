@@ -1,11 +1,20 @@
-Shader "Custom/InvertColor" {
- Properties
+Shader "Custom/ParticlesAboveUI"
+{
+    Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _MainTex ("Particle Texture", 2D) = "white" {}
+        _Color ("Tint Color", Color) = (1,1,1,1)
     }
+    
     SubShader
     {
-        Tags {"Queue"="Overlay"}
+        Tags { "Queue"="Overlay+100" "RenderType"="Transparent" "IgnoreProjector"="True" }
+        LOD 100
+        
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
+        
         Pass
         {
             CGPROGRAM
@@ -17,32 +26,34 @@ Shader "Custom/InvertColor" {
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float4 color : COLOR;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float4 color : COLOR;
             };
 
             sampler2D _MainTex;
+            fixed4 _Color;
 
             v2f vert (appdata_t v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+                o.color = v.color * _Color;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                float grayscale = dot(col.rgb, float3(0.3, 0.59, 0.11));
-                return fixed4(1, 1, 1, col.a * grayscale); // Sortie en blanc avec la transparence
+                fixed4 col = tex2D(_MainTex, i.uv) * i.color;
+                return col;
             }
             ENDCG
         }
-    }
     }
 }
