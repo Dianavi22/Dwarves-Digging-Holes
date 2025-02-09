@@ -34,6 +34,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _forgeBrokenPart;
     [SerializeField] ParticleSystem _deleteForgePanelEventPart;
     [SerializeField] ParticleSystem _panelNoForgePart;
+    [SerializeField] ParticleSystem _goblinWaveSpawnPart;
     [SerializeField] Animator _forgePanelAnimator;
     [SerializeField] Animator _littleTextAnim;
 
@@ -109,8 +110,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 5));
-        // ChooseEvent(4);
+       // ChooseEvent(Random.Range(0, 5));
+         ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -272,9 +273,12 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
-        _sc.ShakyCameCustom(0.3f, 0.2f);
-        _goblinWave.GenerateWave();
         _littleTextAnim.SetTrigger("OutLittleText");
+        _sc.ShakyCameCustom(0.3f, 0.2f);
+        _goblinWaveSpawnPart.Play();
+        yield return new WaitForSeconds(1f);
+
+        _goblinWave.GenerateWave();
 
 
     }
