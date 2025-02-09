@@ -205,8 +205,9 @@ public class EventManager : MonoBehaviour
         _forgePanelAnimator.SetTrigger("EndForgeEvent");
         _forgeBrokenPart.Stop();
         isForgeEvent = false;
-        yield return new WaitForSeconds(0.16f);
+        yield return new WaitForSeconds(0.31f);
         _deleteForgePanelEventPart.Play();
+        _forgePanel.SetActive(false);
 
 
     }
