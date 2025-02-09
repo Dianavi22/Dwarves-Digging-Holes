@@ -357,6 +357,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     {
         for (int i = 0; i < 5; i++)
         {
+            if (_currentGoldCount < 0)
+            {
+                return;
+            }
             LostGoldByGoblin();
         }
         SpawnMultipleNugget(5, this.transform);
