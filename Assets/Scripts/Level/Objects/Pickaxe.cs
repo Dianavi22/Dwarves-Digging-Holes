@@ -13,6 +13,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     [SerializeField] ParticleSystem _hitRockParts;
     [SerializeField] ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
+    [SerializeField] ParticleSystem _spawnPickaxePart;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
     private Player holdingPlayer;
@@ -32,7 +33,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
         myTarget.target = transform;
         GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text) + 1).ToString();
-
+        _spawnPickaxePart.Play();
     }
 
     private void Update()

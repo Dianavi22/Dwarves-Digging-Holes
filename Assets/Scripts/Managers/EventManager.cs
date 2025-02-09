@@ -33,7 +33,10 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] ParticleSystem _forgeBrokenPart;
     [SerializeField] ParticleSystem _deleteForgePanelEventPart;
+    [SerializeField] ParticleSystem _panelNoForgePart;
+    [SerializeField] ParticleSystem _goblinWaveSpawnPart;
     [SerializeField] Animator _forgePanelAnimator;
+    [SerializeField] Animator _littleTextAnim;
 
     [Header("Other")]
     public float rocksHealth;
@@ -107,8 +110,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        //ChooseEvent(Random.Range(0, 5));
-         ChooseEvent(4);
+       // ChooseEvent(Random.Range(0, 5));
+         ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -146,14 +149,18 @@ public class EventManager : MonoBehaviour
     private IEnumerator EventPickaxe()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
-        _ts.WriteMachinEffect("Pickaxes aren't what they used to be, elf work!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
 
+        _littleText.text = "";
+        _littleText.text = "Pickaxes aren't what they used to be, elf work!";
+        _littleText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
             _pickaxesModels[i].enabled = true;
         }
         yield return new WaitForSeconds(1.5f);
+        _littleTextAnim.SetTrigger("OutLittleText");
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
             _pickaxesModels[i].enabled = false;
@@ -176,16 +183,20 @@ public class EventManager : MonoBehaviour
     private IEnumerator EventGoldChariot()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
-        _ts.WriteMachinEffect("All this gold... you make even the gods jealous!", _littleText, 0.02f);
-        yield return new WaitForSeconds(1f);
+        _littleText.gameObject.SetActive(false);
 
+        _littleText.text = "";
+        _littleText.text = "All this gold... you make even the gods jealous!";
+        _littleText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+        _littleTextAnim.SetTrigger("OutLittleText");
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
         print(_goldChariot.transform.position);
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
-        _littleText.text = "";
 
     }
 
@@ -193,20 +204,34 @@ public class EventManager : MonoBehaviour
     {
         
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
-        _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
-        yield return new WaitForSeconds(1);
+        _littleText.gameObject.SetActive(false);
+
+        _littleText.text = "";
+        _littleText.text = "I knew I should have taken the warranty on this forge";
+        _littleText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
         _forgePanel.SetActive(true);
         _forgeBrokenPart.Play();
         _bubbleForgeBroken.SetActive(true);
         isForgeEvent = true;
-        _littleText.text = "";
+        _littleTextAnim.SetTrigger("OutLittleText");
+        yield return new WaitForSeconds(0.20f);
+        _sc.ShakyCameCustom(0.2f, 0.2f);
+        _panelNoForgePart.Play();
         yield return new WaitForSeconds(5);
         _bubbleForgeBroken.SetActive(false);
         _forgePanelAnimator.SetTrigger("EndForgeEvent");
         _forgeBrokenPart.Stop();
+        _littleText.gameObject.SetActive(false);
+
         isForgeEvent = false;
-        yield return new WaitForSeconds(0.16f);
+       
+
+        yield return new WaitForSeconds(0.31f);
+        _sc.ShakyCameCustom(0.2f, 0.2f);
+
         _deleteForgePanelEventPart.Play();
+        _forgePanel.SetActive(false);
 
 
     }
@@ -214,13 +239,18 @@ public class EventManager : MonoBehaviour
     private IEnumerator LavaGettingClose()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
-        _ts.WriteMachinEffect("Your legs may be short, but you can still cover 7.5m!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
+
+        _littleText.text = "";
+        _littleText.text = "Your legs may be short, but you can still cover 7.5m!";
+        _littleText.gameObject.SetActive(true);
 
         _lavaPartUI.Play();
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
         yield return new WaitForSeconds(2);
-        _littleText.text = "";
+        _littleTextAnim.SetTrigger("OutLittleText");
+
 
         _sc.ShakyCameCustom(4f, 0.2f);
         _lavaOldPosition = _lava.transform.position;
@@ -236,12 +266,20 @@ public class EventManager : MonoBehaviour
     private IEnumerator GoblinWave()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
-        _ts.WriteMachinEffect("After not seeing their buddies come back, they show up in a gang!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
+
+        _littleText.text = "";
+        _littleText.text = "After not seeing their buddies come back, they show up in a gang!";
+        _littleText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
+        _littleTextAnim.SetTrigger("OutLittleText");
         _sc.ShakyCameCustom(0.3f, 0.2f);
+        _goblinWaveSpawnPart.Play();
+        yield return new WaitForSeconds(1f);
+
         _goblinWave.GenerateWave();
-        _littleText.text = "";
+
 
     }
 
