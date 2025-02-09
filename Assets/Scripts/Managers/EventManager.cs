@@ -30,6 +30,9 @@ public class EventManager : MonoBehaviour
     [Header("Goblin Event")]
     [SerializeField] GoblinWave _goblinWave;
 
+
+    [SerializeField] ParticleSystem _forgeBrokenPart;
+
     [Header("Other")]
     public float rocksHealth;
     public float rocksWithGoldHealth;
@@ -172,6 +175,7 @@ public class EventManager : MonoBehaviour
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
         _ts.WriteMachinEffect("All this gold... you make even the gods jealous!", _littleText, 0.02f);
         yield return new WaitForSeconds(1f);
+
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
         print(_goldChariot.transform.position);
@@ -188,11 +192,14 @@ public class EventManager : MonoBehaviour
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
         _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
         yield return new WaitForSeconds(1);
+        _forgeBrokenPart.Play();
         _bubbleForgeBroken.SetActive(true);
         isForgeEvent = true;
         _littleText.text = "";
         yield return new WaitForSeconds(5);
         _bubbleForgeBroken.SetActive(false);
+        _forgeBrokenPart.Stop();
+
 
         isForgeEvent = false;
 
