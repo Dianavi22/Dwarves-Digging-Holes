@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -36,10 +37,24 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockPart;
     [SerializeField] ParticleSystem _rocksMenuPart;
     [SerializeField] ParticleSystem _littleRocksPart;
+    [SerializeField] ParticleSystem _buttonFallPart;
+    [SerializeField] bool lerp = false;
+
+
+    public float speed = 5;
+    private Vector3 startPosition;
+    private Vector3 targetPosition;
+
+    private float _t = 0f;
+    private int _countButton;
+    private GameObject _currentButtonFall;
+
     private void Start()
     {
+       
         StartCoroutine(StartCanvas());
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
+        _countButton = _button.Count-1;
     }
 
     private IEnumerator StartCanvas()
@@ -50,7 +65,23 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(IntroMainMenu());
 
     }
-    
+
+    private void FallButtons()
+    {
+        if (_countButton < 0)
+        {
+            return;
+        }
+        if (!lerp)
+        {
+            _currentButtonFall = _button[_countButton];
+            startPosition = _currentButtonFall.transform.position;
+            targetPosition = new Vector3(startPosition.x, startPosition.y  -1100, startPosition.z);
+            lerp = true;
+            _countButton--;
+        }
+    }
+
     private IEnumerator IntroMainMenu()
     {
         _breakRockPart.Play();
@@ -69,7 +100,12 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         _rockIntro.SetActive(false);
         yield return new WaitForSeconds(1.5f);
+        FallButtons();
+        lerp = true;
+        yield return new WaitForSeconds(1f);
         ActiveButtons();
+
+
     }
 
     public void StartGame()
@@ -81,7 +117,7 @@ public class MainMenuManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
     }
 
-    
+
 
     public void StartParty()
     {
@@ -112,7 +148,7 @@ public class MainMenuManager : MonoBehaviour
         }
         if (!PlayerPrefs.HasKey("TutoActive"))
         {
-            PlayerPrefs.SetInt("TutoActive", i); 
+            PlayerPrefs.SetInt("TutoActive", i);
             PlayerPrefs.Save();
         }
         else
@@ -120,7 +156,7 @@ public class MainMenuManager : MonoBehaviour
             PlayerPrefs.SetInt("TutoActive", i);
 
         }
-     
+
         return PlayerPrefs.GetInt("TutoActive") == i;
     }
 
@@ -170,6 +206,24 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
+        if (lerp)
+        {
+            if (_t < 1f)
+            {
+                _t += Time.deltaTime * speed * 1.5f;
+                _t = Mathf.Clamp01(_t);
+                _currentButtonFall.transform.position = Vector3.Lerp(startPosition, targetPosition, _t);
+                if (_t >= 1)
+                {
+                    _t = 0;
+                    lerp = false;
+                    _sc.ShakyCameCustom(0.2f, 0.1f);
+                    _buttonFallPart.Play();
+                    FallButtons();
+                }
+            }
+
+        }
 
         if (_scaleButton)
         {
@@ -189,7 +243,7 @@ public class MainMenuManager : MonoBehaviour
                 _button[i].transform.localScale = targetScale;
             }
         }
-        _backButton.transform.localScale = new Vector3(1,1,1);
+        _backButton.transform.localScale = new Vector3(1, 1, 1);
         _scaleButton = false;
         _startButton.GetComponentInChildren<TMP_Text>().color = Color.white;
     }
