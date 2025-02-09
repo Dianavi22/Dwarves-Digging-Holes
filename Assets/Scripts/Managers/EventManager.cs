@@ -33,7 +33,9 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] ParticleSystem _forgeBrokenPart;
     [SerializeField] ParticleSystem _deleteForgePanelEventPart;
+    [SerializeField] ParticleSystem _panelNoForgePart;
     [SerializeField] Animator _forgePanelAnimator;
+    [SerializeField] Animator _littleTextAnim;
 
     [Header("Other")]
     public float rocksHealth;
@@ -193,19 +195,30 @@ public class EventManager : MonoBehaviour
     {
         
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
-        _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
-        yield return new WaitForSeconds(1);
+        _littleText.text = "";
+        _littleText.text = "I knew I should have taken the warranty on this forge";
+        _littleText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
         _forgePanel.SetActive(true);
         _forgeBrokenPart.Play();
         _bubbleForgeBroken.SetActive(true);
         isForgeEvent = true;
-        _littleText.text = "";
+        _littleTextAnim.SetTrigger("OutLittleText");
+        yield return new WaitForSeconds(0.20f);
+        _sc.ShakyCameCustom(0.2f, 0.2f);
+        _panelNoForgePart.Play();
         yield return new WaitForSeconds(5);
         _bubbleForgeBroken.SetActive(false);
         _forgePanelAnimator.SetTrigger("EndForgeEvent");
         _forgeBrokenPart.Stop();
+        _littleText.gameObject.SetActive(false);
+
         isForgeEvent = false;
+       
+
         yield return new WaitForSeconds(0.31f);
+        _sc.ShakyCameCustom(0.2f, 0.2f);
+
         _deleteForgePanelEventPart.Play();
         _forgePanel.SetActive(false);
 
