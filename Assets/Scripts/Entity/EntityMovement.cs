@@ -25,6 +25,8 @@ public class EntityMovement : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        if (Stats == null) return;
+
         if (GameManager.Instance.isGameOver)
         {
             //RB.velocity = Vector3.zero;
