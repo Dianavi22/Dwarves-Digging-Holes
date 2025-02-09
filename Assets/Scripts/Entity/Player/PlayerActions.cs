@@ -66,8 +66,6 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        
-
         if (IsBaseActionActivated && IsHoldingObject && CheckHitRaycast(out var hits))
         {
             // Pickaxe
@@ -82,7 +80,7 @@ public class PlayerActions : MonoBehaviour
         else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
-            if (hitColliders.Any() && GameManager.Instance.CanCreatePickaxe)
+            if (hitColliders.Any())
             {
                 Forge forge = hitColliders[0].GetComponent<Forge>();
 
@@ -93,6 +91,11 @@ public class PlayerActions : MonoBehaviour
                             loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
                         })
                     .AppendInterval(2f)
+                    //.Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
+                        //.SetAutoKill(false))
+                    //.AppendInterval(1f) // Wait for 1 second
+                    //.Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
+                    .AppendCallback(() => forge.BuildPickaxe())
                     .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true));});
             }
         }

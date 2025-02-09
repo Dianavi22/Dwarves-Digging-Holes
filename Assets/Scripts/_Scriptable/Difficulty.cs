@@ -7,6 +7,7 @@ public class Difficulty : ScriptableObject
     public string DifficultyName;
     public float ScrollingSpeed;
     public EntityMovementData GoblinStats;
+    public int PlateformObjective;
 
     [Header("Player")]
     public EntityMovementData PlayerStats;
