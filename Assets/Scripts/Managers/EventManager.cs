@@ -44,6 +44,7 @@ public class EventManager : MonoBehaviour
     private bool _readyToEvent = false;
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
+    [SerializeField] private GameObject _bubbleForgeBroken;
 
     public static EventManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -100,8 +101,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 5));
-        // ChooseEvent(3);
+        //ChooseEvent(Random.Range(0, 5));
+         ChooseEvent(4);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -187,9 +188,12 @@ public class EventManager : MonoBehaviour
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
         _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
         yield return new WaitForSeconds(1);
+        _bubbleForgeBroken.SetActive(true);
         isForgeEvent = true;
         _littleText.text = "";
         yield return new WaitForSeconds(5);
+        _bubbleForgeBroken.SetActive(false);
+
         isForgeEvent = false;
 
     }
