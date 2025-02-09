@@ -1,8 +1,10 @@
 using System;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Utils;
 using Random = UnityEngine.Random;
 
 public class PlatformSpawner : MonoBehaviour
@@ -16,10 +18,26 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField] float maximumDifficulty = 1.25f;
 
     [SerializeField] Image ProgressBar;
-    public int platformCount = 0;
-    private float offset = 38;
 
+    [SerializeField] Image InfiniteprogressBar;
+
+    public int platformCount = 0;
+
+    private float offset = 38;
     private float currentDifficulty = 0;
+    private GameMode gameMode;
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        if(prefabList.Length == 1) return;
+        gameMode = (GameMode)PlayerPrefs.GetInt(Constant.MODE_KEY, 0);
+        ProgressBar.transform.parent.gameObject.SetActive(gameMode == GameMode.Normal);
+        InfiniteprogressBar.transform.parent.gameObject.SetActive(gameMode != GameMode.Normal);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -46,20 +64,26 @@ public class PlatformSpawner : MonoBehaviour
             Instantiate(prefabList[0], new Vector3(spawnPoint.transform.position.x + offset, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity);
             return;
         }
-
-        if (platformCount == GameManager.Instance.Difficulty.PlateformObjective - 1)
+        if (gameMode == GameMode.Normal)
         {
+            if (platformCount == GameManager.Instance.Difficulty.PlateformObjective - 1)
+            {
+                platformCount++;
+                SetProgressBar();
+                Debug.Log("end platform");
+                //! Instantiate the end platform
+                Instantiate(prefabEndingList[1], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
+                return;
+            }
+
+            if (platformCount == GameManager.Instance.Difficulty.PlateformObjective)
+            {
+                SetProgressBar();
+                return;
+            }
+
             platformCount++;
             SetProgressBar();
-            Debug.Log("end platform");
-            //! Instantiate the end platform
-            Instantiate(prefabEndingList[1], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
-            return;
-        }
-
-        if(platformCount == GameManager.Instance.Difficulty.PlateformObjective) {
-            SetProgressBar();
-            return;
         }
 
         // if(platformCount == GameManager.Instance.Difficulty.PlateformObjective -1) {
@@ -68,9 +92,6 @@ public class PlatformSpawner : MonoBehaviour
         //     SetProgressBar();
         //     return;
         // }
-
-        platformCount++;
-        SetProgressBar();
 
         Platform selectedPlatform;
         int randIndex;
