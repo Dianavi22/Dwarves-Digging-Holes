@@ -32,6 +32,8 @@ public class EventManager : MonoBehaviour
 
 
     [SerializeField] ParticleSystem _forgeBrokenPart;
+    [SerializeField] ParticleSystem _deleteForgePanelEventPart;
+    [SerializeField] Animator _forgePanelAnimator;
 
     [Header("Other")]
     public float rocksHealth;
@@ -48,6 +50,7 @@ public class EventManager : MonoBehaviour
     private bool _isLavaMove = false;
     private bool _isLavaMoveEndEvent = false;
     [SerializeField] private GameObject _bubbleForgeBroken;
+    [SerializeField] private GameObject _forgePanel;
 
     public static EventManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -192,16 +195,19 @@ public class EventManager : MonoBehaviour
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
         _ts.WriteMachinEffect("I knew I should have taken the warranty on this forge", _littleText, 0.02f);
         yield return new WaitForSeconds(1);
+        _forgePanel.SetActive(true);
         _forgeBrokenPart.Play();
         _bubbleForgeBroken.SetActive(true);
         isForgeEvent = true;
         _littleText.text = "";
         yield return new WaitForSeconds(5);
         _bubbleForgeBroken.SetActive(false);
+        _forgePanelAnimator.SetTrigger("EndForgeEvent");
         _forgeBrokenPart.Stop();
-
-
         isForgeEvent = false;
+        yield return new WaitForSeconds(0.16f);
+        _deleteForgePanelEventPart.Play();
+
 
     }
 
