@@ -15,6 +15,14 @@ public class RockFall : MonoBehaviour
     private bool rotating = true;
     private int endRotation;
 
+    private float _speedModifier = 1;
+    private Rigidbody _rb;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+
     private void Start()
     {
         endRotation = Random.Range(-500, 500);
@@ -34,6 +42,18 @@ public class RockFall : MonoBehaviour
                 rotating = false;
             }
         }
+    }
+    private void FixedUpdate()
+    {
+
+        Physics.SyncTransforms();
+        Vector3 goalDestination = GameManager.Instance.CurrentScrollingSpeed * _speedModifier * Time.fixedDeltaTime * Vector3.left;
+        _rb.MovePosition(transform.position + goalDestination);
+        if (GameManager.Instance.isGameOver)
+        {
+            _speedModifier = 0;
+        }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
