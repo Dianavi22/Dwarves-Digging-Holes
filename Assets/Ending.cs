@@ -5,13 +5,13 @@ using DG.Tweening;
 
 public class Ending : MonoBehaviour
 {
-
     private bool _isEnding = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (!_isEnding && other.CompareTag("Player"))
         {
+            CinematicBand.Instance.ShowCinematicBand();
             _isEnding = true;
             GameManager.Instance.SetScrollingSpeed(0);
             GameManager.Instance._eventManager.enabled = false;
@@ -19,11 +19,13 @@ public class Ending : MonoBehaviour
         }
     }
 
-    private void EndingAnimation() {
+    private void EndingAnimation()
+    {
         StartCoroutine(MovePlayersToEndPosition());
     }
 
-    private IEnumerator MovePlayersToEndPosition() {
+    private IEnumerator MovePlayersToEndPosition()
+    {
         Sequence sequence = DOTween.Sequence();
         foreach (Player player in GamePadsController.Instance.PlayerList)
         {
@@ -32,11 +34,12 @@ public class Ending : MonoBehaviour
             float distance = Mathf.Abs(player.transform.position.x - targetX);
             float duration = distance / 5f;
             sequence.Append(player.GetRigidbody().DOMoveX(targetX, duration).SetEase(Ease.Linear))
-            .AppendInterval(0.25f)
-            .Append(player.GetRigidbody().DOMoveY(transform.position.y + 6, 2f).SetEase(Ease.OutQuad))
-            .AppendInterval(0.25f);
+                .AppendInterval(0.25f)
+                .Append(player.GetRigidbody().DOMoveY(transform.position.y + 6, 2f).SetEase(Ease.OutQuad))
+                .AppendInterval(0.25f);
         }
         sequence.Play();
         yield return sequence.WaitForCompletion();
+        StartCoroutine(GameManager.Instance.LevelComplete());
     }
 }

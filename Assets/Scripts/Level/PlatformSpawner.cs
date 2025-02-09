@@ -56,14 +56,6 @@ public class PlatformSpawner : MonoBehaviour
             Instantiate(prefabEndingList[1], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
             return;
         }
-        
-        if(platformCount == GameManager.Instance.Difficulty.PlateformObjective -2) {
-            //Instantiate(prefabListTest[0], new Vector3(spawnPoint.transform.position.x + offset, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
-            platformCount++;
-            SetProgressBar();
-            Instantiate(prefabEndingList[0], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
-            return;
-        }
 
         if(platformCount == GameManager.Instance.Difficulty.PlateformObjective) {
             SetProgressBar();

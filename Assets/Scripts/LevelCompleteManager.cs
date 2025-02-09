@@ -42,6 +42,6 @@ public class LevelCompleteManager : MonoBehaviour
     private void LevelComplete()
     {
         gameIsStarted = false;
-        StartCoroutine(GameManager.Instance.LevelComplete(this));
+        StartCoroutine(GameManager.Instance.LevelComplete());
     }
 }

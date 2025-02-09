@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Canvas")]
     [SerializeField] private GameObject _GameOverCanvas;
+
+    [SerializeField] private GameObject levelCompleteCanvas;   
     [SerializeField] GameObject _retryButton;
     [SerializeField] TMP_Text _textGameOverCondition;
 
@@ -76,8 +78,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] ParticleSystem _dust;
     [SerializeField] IntroGame _introGame;
-
-    [SerializeField] LevelCompleteManager _levelCompleteManager;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -174,7 +174,6 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartGame()
     {
         isGameStarted = true;
-        _levelCompleteManager.StartGame();
         _scoreText.SetActive(true);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
@@ -254,27 +253,22 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public IEnumerator LevelComplete(LevelCompleteManager levelCompleteManager)
+    public IEnumerator LevelComplete()
     {
         if (isGameOver) yield break;
 
-        Debug.Log("LevelComplete");
+        StatsManager.Instance.EndGame();
+
+        //_textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
+        //_gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.StopParticle();
-        _goldChariot.HideGfx(false);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-
-        //Todo: Add cinematic effect
-    
         _eventManager.enabled = false;
-        levelCompleteManager.blockSpawner.SetActive(false);
-        levelCompleteManager.lavaGFX.SetActive(false);
-
-        //Todo: Add Animation effect
-        yield return new WaitForSeconds(5.5f);
-        levelCompleteManager.canvas.SetActive(true);
-        CurrentScrollingSpeed = 0f;
-        EventSystem.current.SetSelectedGameObject(levelCompleteManager.mainMenuButton);
+        yield return new WaitForSeconds(2f);
+        bool newBest = _score.CheckBestScore();
+        levelCompleteCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(levelCompleteCanvas.transform.GetChild(4).gameObject);
         yield return null;
     }
 
