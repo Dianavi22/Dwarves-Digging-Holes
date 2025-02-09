@@ -61,9 +61,12 @@ public class GamePadsController : MonoBehaviour
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         // * Instantiate PlayerHeadFatigueBar UI
-        GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-        PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-        fatigueUI.Initialize(player);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
+            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
+            fatigueUI.Initialize(player);
+        }
 
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
 
@@ -79,12 +82,16 @@ public class GamePadsController : MonoBehaviour
     {
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
-        playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
         // * Instantiate PlayerHeadFatigueBar UI
-        GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-        PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-        fatigueUI.Initialize(player);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
+            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
+            fatigueUI.Initialize(player);
+        }
+
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
         var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (SkinnedMeshRenderer r in renders)

@@ -11,22 +11,27 @@ public class PlayerUIInput : MonoBehaviour
 
     public EventReference submitEvent;
     public EventReference navigateEvent;
-    public UIPauseManager _uiPause;
+    private UIPauseManager _uiPause;
 
     private bool condition = true;
 
-    private void Awake()
+    private void Start()
     {
         _p = GetComponent<Player>();
-        _uiPause = FindObjectOfType<UIPauseManager>().GetComponent<UIPauseManager>();
+        if (UIPauseManager.Instance == null)
+        {
+            this.enabled = false;
+        } else
+        {
+            _uiPause = UIPauseManager.Instance;
+        }
     }
 
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
         if (context.phase == InputActionPhase.Started)
-            UIPauseManager.Instance.Pause();
+            _uiPause.Pause();
         _uiPause.scaleButton = true;
 
     }
@@ -38,22 +43,18 @@ public class PlayerUIInput : MonoBehaviour
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
-        if (context.phase == InputActionPhase.Started && UIPauseManager.Instance.isPaused)
+        if (context.phase == InputActionPhase.Started && _uiPause.isPaused)
             RuntimeManager.PlayOneShot(navigateEvent);
-       
     }
 
     //! Les actions sont compliquées à gérer, il faudrait revoir ça
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        if(GameManager.Instance.isInMainMenu) return;
-        if (context.phase == InputActionPhase.Performed && UIPauseManager.Instance.isPaused && condition)
+        if (context.phase == InputActionPhase.Performed && _uiPause.isPaused && condition)
         {
             condition = false;
             RuntimeManager.PlayOneShot(submitEvent);
             DOVirtual.DelayedCall(0.5f, () => condition = true);
-
         }
     }
 }
