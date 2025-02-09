@@ -110,8 +110,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-       // ChooseEvent(Random.Range(0, 5));
-         ChooseEvent(1);
+        ChooseEvent(Random.Range(0, 5));
+         //ChooseEvent(1);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }

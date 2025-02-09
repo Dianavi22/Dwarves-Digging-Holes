@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
         blockSpawner.SpawnPlatform();
         CurrentScrollingSpeed = this.Difficulty.ScrollingSpeed;
-        yield return new WaitForSeconds(1); //70
+        yield return new WaitForSeconds(70); //70
         _eventManager.LaunchEvent();
     }
 
