@@ -6,6 +6,7 @@ public class RockFall : MonoBehaviour
 {
     [SerializeField] GameObject _gfx;
     [SerializeField] ParticleSystem _breakPart;
+    [SerializeField] ParticleSystem _spawnRockFall;
     private bool _isDestroyed = false;
 
     public Vector3 startRotation;
@@ -26,7 +27,7 @@ public class RockFall : MonoBehaviour
     private void Start()
     {
         endRotation = Random.Range(-500, 500);
-
+        _spawnRockFall.Play();
 
     }
     private void Update()
