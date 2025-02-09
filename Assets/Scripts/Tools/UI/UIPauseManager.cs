@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIPauseManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class UIPauseManager : MonoBehaviour
 
     [SerializeField] private EventReference[] _stateMenuEvent;
     [SerializeField] GameObject _circleTransition;
+    [SerializeField] GameObject _controlsPanel;
+    [SerializeField] Button _controlsPanelButton;
 
     public bool scaleButton;
     [SerializeField] List<GameObject> _button;
@@ -61,6 +64,31 @@ public class UIPauseManager : MonoBehaviour
         StartCoroutine(FadeTransition(false));
     }
 
+    public void OpenControlPanel()
+    {
+        if (_controlsPanel.activeInHierarchy)
+        {
+            _controlsPanel.SetActive(false);
+            for (int i = 0; i < _button.Count; i++)
+            {
+                if (_button[i] != null)
+                {
+                    _button[i].SetActive(true);
+                }
+            }
+        }
+        else {
+            _controlsPanel.SetActive(true);
+            for (int i = 0; i < _button.Count; i++)
+            {
+                if (_button[i] != null)
+                {
+                    _button[i].SetActive(false);
+                }
+            }
+        }
+    }
+
     public void Pause()
     {
         if (!GameManager.Instance.isGameOver)
@@ -78,7 +106,15 @@ public class UIPauseManager : MonoBehaviour
 
             if (!isPaused)
             {
+                _controlsPanel.SetActive(false);
                 _settingsCanvas.SetActive(false);
+                for (int i = 0; i < _button.Count; i++)
+                {
+                    if (_button[i] != null)
+                    {
+                        _button[i].SetActive(true);
+                    }
+                }
             }
 
             if (isPaused)
