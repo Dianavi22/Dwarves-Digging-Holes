@@ -12,6 +12,7 @@ public class IntroGame : MonoBehaviour
 
     public IEnumerator LadderIntro()
     {
+        CinematicBand.Instance.CloseCinematicBand();
         ShakyCame sc = TargetManager.Instance.GetGameObject<ShakyCame>();
         for (int i = 0; i < _ladderPart.Count; i++)
         {
