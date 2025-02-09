@@ -109,8 +109,8 @@ public class EventManager : MonoBehaviour
     {
         _readyToEvent = false;
         yield return new WaitForSeconds(10);
-        //ChooseEvent(Random.Range(0, 5));
-         ChooseEvent(4);
+        ChooseEvent(Random.Range(0, 5));
+        // ChooseEvent(4);
         yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
@@ -148,14 +148,18 @@ public class EventManager : MonoBehaviour
     private IEnumerator EventPickaxe()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
-        _ts.WriteMachinEffect("Pickaxes aren't what they used to be, elf work!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
 
+        _littleText.text = "";
+        _littleText.text = "Pickaxes aren't what they used to be, elf work!";
+        _littleText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
             _pickaxesModels[i].enabled = true;
         }
         yield return new WaitForSeconds(1.5f);
+        _littleTextAnim.SetTrigger("OutLittleText");
         for (int i = 0; i < _pickaxesModels.Count; i++)
         {
             _pickaxesModels[i].enabled = false;
@@ -178,16 +182,20 @@ public class EventManager : MonoBehaviour
     private IEnumerator EventGoldChariot()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
-        _ts.WriteMachinEffect("All this gold... you make even the gods jealous!", _littleText, 0.02f);
-        yield return new WaitForSeconds(1f);
+        _littleText.gameObject.SetActive(false);
 
+        _littleText.text = "";
+        _littleText.text = "All this gold... you make even the gods jealous!";
+        _littleText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+        _littleTextAnim.SetTrigger("OutLittleText");
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
         print(_goldChariot.transform.position);
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
-        _littleText.text = "";
 
     }
 
@@ -195,6 +203,8 @@ public class EventManager : MonoBehaviour
     {
         
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
+        _littleText.gameObject.SetActive(false);
+
         _littleText.text = "";
         _littleText.text = "I knew I should have taken the warranty on this forge";
         _littleText.gameObject.SetActive(true);
@@ -228,13 +238,18 @@ public class EventManager : MonoBehaviour
     private IEnumerator LavaGettingClose()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
-        _ts.WriteMachinEffect("Your legs may be short, but you can still cover 7.5m!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
+
+        _littleText.text = "";
+        _littleText.text = "Your legs may be short, but you can still cover 7.5m!";
+        _littleText.gameObject.SetActive(true);
 
         _lavaPartUI.Play();
         _lavaRain.Play();
         _sc.ShakyCameCustom(0.2f, 0.2f);
         yield return new WaitForSeconds(2);
-        _littleText.text = "";
+        _littleTextAnim.SetTrigger("OutLittleText");
+
 
         _sc.ShakyCameCustom(4f, 0.2f);
         _lavaOldPosition = _lava.transform.position;
@@ -250,12 +265,17 @@ public class EventManager : MonoBehaviour
     private IEnumerator GoblinWave()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
-        _ts.WriteMachinEffect("After not seeing their buddies come back, they show up in a gang!", _littleText, 0.02f);
+        _littleText.gameObject.SetActive(false);
+
+        _littleText.text = "";
+        _littleText.text = "After not seeing their buddies come back, they show up in a gang!";
+        _littleText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goblinWave.GenerateWave();
-        _littleText.text = "";
+        _littleTextAnim.SetTrigger("OutLittleText");
+
 
     }
 
