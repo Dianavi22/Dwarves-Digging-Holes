@@ -62,6 +62,7 @@ public class Score : MonoBehaviour
 
     private void AddScoreTimer()
     {
+        if(!GameManager.Instance._eventManager.enabled) return;
         ScoreCounter += scoreToAddTimer;
         if (ScoreCounter >= scoreNextStep)
         {

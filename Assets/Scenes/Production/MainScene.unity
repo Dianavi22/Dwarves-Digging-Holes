@@ -517,12 +517,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4606020363549704087, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 325015494}
     - targetCorrespondingSourceObject: {fileID: 2882254840161398518, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 659537997}
+    - targetCorrespondingSourceObject: {fileID: 4606020363549704087, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 325015494}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
 --- !u!1 &125992426 stripped
@@ -693,6 +693,9 @@ MonoBehaviour:
   - {fileID: 4176649569683192531, guid: 6010ab645e7278c469b4b4b5ca6d859f, type: 3}
   - {fileID: 4176649569683192531, guid: 811e7d9aba84321458cb808513b2f1cf, type: 3}
   - {fileID: 4176649569683192531, guid: 46fce0879a7d81b4996fbbecde742d3d, type: 3}
+  prefabEndingList:
+  - {fileID: 4392431218995717033, guid: 4255f968eaa12034c8fb089b8c71baac, type: 3}
+  - {fileID: 4392431218995717033, guid: 518f4d190eea43b49ae1bc21795d2f7f, type: 3}
   prefabListTest: []
   platformTrigger: BlocTrigger
   spawnPoint: {fileID: 751059649}
@@ -2013,13 +2016,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+  prefabEndingList: []
   prefabListTest: []
   platformTrigger: PlatformTrigger
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
   maximumDifficulty: 1.25
   ProgressBar: {fileID: 44031746}
-  platformCount: -1
+  platformCount: 0
 --- !u!54 &859681941
 Rigidbody:
   m_ObjectHideFlags: 0
