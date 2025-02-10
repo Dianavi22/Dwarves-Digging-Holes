@@ -134,7 +134,6 @@ public class UIPauseManager : MonoBehaviour
     }
     public void OpenSettingsMenu()
     {
-
         _backbuttonSettings.transform.localScale = new Vector3(0.212207913f, 0.427238166f, 0.212207913f);
         scaleButton = true;
         _settingsCanvas.SetActive(true);
