@@ -464,6 +464,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6719120271894071963, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6868201450500721897, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -808,55 +812,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6719120271894071963, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &269999181
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 269999182}
-  - component: {fileID: 269999183}
-  m_Layer: 0
-  m_Name: LevelCompleteManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &269999182
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269999181}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &269999183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269999181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6263bf6d402054d4db91c760887fb297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelDuration: 10
-  canvas: {fileID: 266375968}
-  mainMenuButton: {fileID: 829471497}
-  blockSpawner: {fileID: 184080652}
-  lavaGFX: {fileID: 954418099}
 --- !u!1 &298935850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,11 +1781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &829471497 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4615741681697396581, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
-  m_PrefabInstance: {fileID: 125992425}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &855769454 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6959361661534680606, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -2174,11 +2124,6 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2778579007021002597, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
   m_PrefabInstance: {fileID: 937345132}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &954418099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4542482403024737499, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
-  m_PrefabInstance: {fileID: 5436758355274485485}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &965745287 stripped
 GameObject:
@@ -4367,7 +4312,7 @@ PrefabInstance:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _levelCompleteManager
       value: 
-      objectReference: {fileID: 269999183}
+      objectReference: {fileID: 0}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _buttons.Array.data[0]
       value: 
@@ -5001,7 +4946,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1284860195}
-  - {fileID: 269999182}
   - {fileID: 691050780}
   - {fileID: 1143502662}
   - {fileID: 298935851}
