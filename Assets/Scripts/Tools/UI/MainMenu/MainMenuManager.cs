@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject _settingsWindow;
     [SerializeField] private GameObject _closeButtonSettings;
     [SerializeField] GameObject _circleTransition;
@@ -40,7 +39,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _buttonFallPart;
     [SerializeField] bool lerp = false;
 
-
     public float speed = 5;
     private Vector3 startPosition;
     private Vector3 targetPosition;
@@ -51,7 +49,6 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-       
         StartCoroutine(StartCanvas());
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
         _countButton = _button.Count-1;
@@ -63,7 +60,6 @@ public class MainMenuManager : MonoBehaviour
         _circleTransitionIn.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         StartCoroutine(IntroMainMenu());
-
     }
 
     private void FallButtons()
@@ -101,37 +97,14 @@ public class MainMenuManager : MonoBehaviour
         _rockIntro.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         FallButtons();
-        lerp = true;
         yield return new WaitForSeconds(1f);
         ActiveButtons();
-
-
     }
-
-    public void StartGame()
-    {
-        _scaleButton = true;
-        _pivotStartSettings.SetActive(true);
-        _buttons.SetActive(false);
-        _title.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
-    }
-
-
 
     public void StartParty()
     {
         IsTutoActive();
         StartCoroutine(CircleTransition());
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
     }
 
     public bool IsTutoActive()
@@ -160,30 +133,14 @@ public class MainMenuManager : MonoBehaviour
         return PlayerPrefs.GetInt("TutoActive") == i;
     }
 
-    public void LoadCreditScene()
+    #region Button click Event
+    public void StartGame()
     {
         _scaleButton = true;
+        _pivotStartSettings.SetActive(true);
         _buttons.SetActive(false);
         _title.SetActive(false);
-        _credits.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_stopCredits);
-        Invoke("ActiveButtons", 20);
-    }
-
-    public void ActiveButtons()
-    {
-        ShowButtons();
-        _credits.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_startButton);
-
-    }
-
-    public void ShowButtons()
-    {
-        _scaleButton = true;
-        _buttons.SetActive(true);
-        _title.SetActive(true);
-
+        EventSystem.current.SetSelectedGameObject(_buttonSettingsStart);
     }
 
     public void LoadSettingScene()
@@ -195,6 +152,40 @@ public class MainMenuManager : MonoBehaviour
         _buttonsCanvaGroup.interactable = false;
         _settingsWindow.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_closeButtonSettings);
+    }
+
+    public void LoadCreditScene()
+    {
+        _scaleButton = true;
+        _buttons.SetActive(false);
+        _title.SetActive(false);
+        _credits.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_stopCredits);
+        Invoke(nameof(ActiveButtons), 20);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+    #endregion
+
+    public void ActiveButtons()
+    {
+        ShowButtons();
+        _credits.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_startButton);
+    }
+
+    public void ShowButtons()
+    {
+        _scaleButton = true;
+        _buttons.SetActive(true);
+        _title.SetActive(true);
     }
 
     private IEnumerator CircleTransition()
@@ -222,7 +213,6 @@ public class MainMenuManager : MonoBehaviour
                     FallButtons();
                 }
             }
-
         }
 
         if (_scaleButton)

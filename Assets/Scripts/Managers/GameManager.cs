@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
         foreach (Pickaxe pickaxe in FindObjectsOfType<Pickaxe>())
             AddPickaxe(pickaxe);
 
-
         if (!isInMainMenu)
         {
             _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();

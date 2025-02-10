@@ -3417,7 +3417,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817935180}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a52c105375faad4191dd8f6bffa88eb, type: 3}
   m_Name: 
@@ -3430,8 +3430,8 @@ MonoBehaviour:
   passTuto: 1
   m_DifficultyList:
   - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
-  - {fileID: 11400000, guid: d0387f9645456e844ba5a01a4a5ba047, type: 2}
   _GameOverCanvas: {fileID: 0}
+  levelCompleteCanvas: {fileID: 0}
   _retryButton: {fileID: 0}
   _textGameOverCondition: {fileID: 0}
   _skipTuto: {fileID: 0}
@@ -3445,7 +3445,7 @@ MonoBehaviour:
   _gameOverPart: {fileID: 0}
   _dust: {fileID: 0}
   _introGame: {fileID: 0}
-  _levelCompleteManager: {fileID: 0}
+  _eventManager: {fileID: 0}
   _PickaxeUI: {fileID: 0}
   nbPickaxeUI: {fileID: 0}
   _nbMaxPickaxeUI: {fileID: 0}

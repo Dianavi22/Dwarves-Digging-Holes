@@ -60,7 +60,7 @@ public class PlayerMovements : EntityMovement
 
     private bool PlayerCanMove(bool isInputActivated)
     {
-        if (!GameManager.Instance.isInMainMenu || !GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver)
         {
             bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
             if (isInputActivated && isHoldingChariot)
@@ -190,7 +190,7 @@ public class PlayerMovements : EntityMovement
     private bool _isOnChariot = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<HitGoldByChariot>(out HitGoldByChariot hgbc) && !_isOnChariot)
+        if (other.TryGetComponent<HitGoldByChariot>(out var hgbc) && !_isOnChariot)
         {
             _isOnChariot = true;
             hgbc.HitByPlayer(other.transform.position);
@@ -199,7 +199,7 @@ public class PlayerMovements : EntityMovement
 
     private void OnCollisionExit(Collision collision)
     {
-            _isOnChariot = false;
+        _isOnChariot = false;
     }
 
 }
