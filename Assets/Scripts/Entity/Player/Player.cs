@@ -37,6 +37,12 @@ public class Player : Entity
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
     }
 
+    public bool CanDoAnything()
+    {
+        if (GameManager.Instance.isInMainMenu) return true;
+        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
+    }
+
     public override void HandleDestroy()
     {
         health.DeathPlayer();

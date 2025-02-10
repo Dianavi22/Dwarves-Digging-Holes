@@ -100,7 +100,7 @@ public class PlayerMovements : EntityMovement
     public void OnMove(InputAction.CallbackContext context)
     {
        // Debug.Log(CanDoAnything());
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
 
         Vector2 vector = context.ReadValue<Vector2>();
         float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
@@ -122,7 +122,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
         
         if (_p.IsGrabbed)
         {
@@ -145,7 +145,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
 
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
@@ -168,12 +168,6 @@ public class PlayerMovements : EntityMovement
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
-    }
-
-    private bool CanDoAnything()
-    {
-        if(GameManager.Instance.isInMainMenu) return true;
-        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
     }
 
     private bool _isOnChariot = false;
