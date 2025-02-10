@@ -9,7 +9,7 @@ public class Forge : MonoBehaviour
     private GameManager _gameManager;
     [SerializeField] private GameObject _bubblePickaxe;
     [SerializeField] private EventManager _eventManager;
-
+    [SerializeField] private ParticleSystem _forgePart;
     [SerializeField] private Image _loadImage;
 
     private bool _isCreatingPickaxe = false;
@@ -48,6 +48,11 @@ public class Forge : MonoBehaviour
         }
         else
         {
+            if (!_forgePart.isPlaying)
+            {
+                _forgePart.Play();
+
+            }
             _isCreatingPickaxe = true;
 
             float duration = Mathf.Abs(_loadImage.fillAmount - (reverse ? 0f : 1f));
@@ -66,6 +71,8 @@ public class Forge : MonoBehaviour
                 BuildPickaxe();
             }
             _isCreatingPickaxe = false;
+            _forgePart.Stop();
+
 
 
         }
