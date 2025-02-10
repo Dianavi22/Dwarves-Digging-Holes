@@ -20,14 +20,9 @@ public class Forge : MonoBehaviour
 
     private void Update()
     {
-        if (_gameManager.CanCreatePickaxe && !EventManager.Instance.isForgeEvent && !_isCreatingPickaxe && !_gameManager.isGameOver)
-        {
-            _bubblePickaxe.SetActive(true);
-        }
-        else
-        {
-            _bubblePickaxe.SetActive(false);
-        }
+        bool setActive = _gameManager.CanCreatePickaxe && !EventManager.Instance.isForgeEvent && !_isCreatingPickaxe && !_gameManager.isGameOver;
+
+        _bubblePickaxe.SetActive(setActive);
     }
 
     public void BuildPickaxe()
@@ -65,12 +60,6 @@ public class Forge : MonoBehaviour
                 BuildPickaxe();
             }
             _isCreatingPickaxe = false;
-
-
         }
-
     }
-
-
-
 }

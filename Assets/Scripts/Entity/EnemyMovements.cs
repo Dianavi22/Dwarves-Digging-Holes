@@ -6,8 +6,6 @@ public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
     [SerializeField] ParticleSystem _angryEnemy;
-
-    private bool _isPartPlaying = false;
     Enemy _e => (Enemy)GetBase;
 
     void Awake()
@@ -24,7 +22,7 @@ public class EnemyMovements : EntityMovement
     {
         if (GameManager.Instance.isGameOver) return;
 
-        if (!_e.IsGrabbed && !GameManager.Instance.isGameOver)
+        if (!_e.IsGrabbed)
         {
             base.Update();
 
@@ -65,16 +63,13 @@ public class EnemyMovements : EntityMovement
 
         if (_e.IsGrabbed && !_e.isDead)
         {
-            if (!_isPartPlaying)
+            if (!_angryEnemy.isPlaying)
             {
-                _isPartPlaying = true;
                 _angryEnemy.Play();
             }
-           
         }
         else
         {
-            _isPartPlaying = false;
             _angryEnemy.Stop();
         }
     }

@@ -30,7 +30,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private ParticleSystem _sparksPart;
     public ParticleSystem oneLostPart;
 
-    private bool _isDustPartPlaying = false;
     [SerializeField] private ParticleSystem _dustPart;
 
     [Header("Gold Pile")]
@@ -206,9 +205,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (speed > 0.5f)
         {
-            if (!_isDustPartPlaying)
+            if (_dustPart.isPlaying)
             {
-                _isDustPartPlaying = true;
                 _dustPart.Play();
             }
             if (!_isSoundPlaying)
@@ -238,7 +236,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         else
         {
             _dustPart.Stop();
-            _isDustPartPlaying = false;
             targetVolume = 0f;
         }
 

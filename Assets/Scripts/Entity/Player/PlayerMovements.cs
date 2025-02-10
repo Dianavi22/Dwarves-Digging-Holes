@@ -19,9 +19,6 @@ public class PlayerMovements : EntityMovement
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool flip_vertical = false;
-    private bool isTearsPlaying = false;
-    private bool isMovePlaying = false;
-    private bool isGroundedPartPlaying = true;
     [SerializeField] Rigidbody _rb;
 
     public Action forceDetachFunction;
@@ -36,15 +33,13 @@ public class PlayerMovements : EntityMovement
 
     protected new void Update()
     {
-        if (_p.IsGrabbed && !isTearsPlaying)
+        if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
-            isTearsPlaying = true;
             _tearsPart.Play();
         }
 
         if (!_p.IsGrabbed)
         {
-            isTearsPlaying = false;
             _tearsPart.Stop();
         }
 
@@ -54,8 +49,6 @@ public class PlayerMovements : EntityMovement
         {
             FlipHoldObject();
         }
-
-        
     }
 
     private bool PlayerCanMove(bool isInputActivated)
@@ -78,9 +71,8 @@ public class PlayerMovements : EntityMovement
             enemy.HandleDestroy();
         }
 
-        if (!collision.collider.CompareTag("GoldChariot") && !isGroundedPartPlaying)
+        if (!collision.collider.CompareTag("GoldChariot") && !_groundedPart.isPlaying)
         {
-            isGroundedPartPlaying = true;
             _groundedPart.Play();
         }
     }
@@ -113,15 +105,13 @@ public class PlayerMovements : EntityMovement
         Vector2 vector = context.ReadValue<Vector2>();
         float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
         float _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
-        if (_horizontal != 0 && !isMovePlaying)
+        if (_horizontal != 0 && !_movePart.isPlaying)
         {
-            isMovePlaying = true;
             _movePart.Play();
         }
 
         if (_horizontal == 0)
         {
-            isMovePlaying = false;
             _movePart.Stop();
         }
         CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
@@ -144,7 +134,6 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     IsPerformingJump = true;
-                    isGroundedPartPlaying = false;
                     Jump();
                     _movePart.Stop();
                 }
