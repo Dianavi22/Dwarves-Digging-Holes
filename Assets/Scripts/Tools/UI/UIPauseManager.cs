@@ -140,7 +140,6 @@ public class UIPauseManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(_backbuttonSettings);
     }
 
-
     public void CloseInputMenu()
     {
         _inputCanvas.SetActive(false);

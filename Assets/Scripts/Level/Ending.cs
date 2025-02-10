@@ -7,6 +7,8 @@ public class Ending : MonoBehaviour
 {
     private bool _isEnding = false;
 
+    [SerializeField] private List<Transform> m_InterrestPoint = new ();
+
     private void OnTriggerEnter(Collider other)
     {
         if (Utils.Component.TryGetInParent<Player>(other, out var player))
@@ -32,13 +34,14 @@ public class Ending : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         player.GetRigidbody().isKinematic = true;
-        float targetX = transform.position.x;
-        float distance = Mathf.Abs(player.transform.position.x - targetX);
-        float duration = distance / 5f;
-        sequence.Append(player.GetRigidbody().DOMoveX(targetX, duration).SetEase(Ease.Linear))
-            .AppendInterval(0.25f)
-            .Append(player.GetRigidbody().DOMoveY(transform.position.y + 6, 2f).SetEase(Ease.OutQuad))
-            .AppendInterval(0.25f);
+
+        foreach (Transform t in m_InterrestPoint)
+        {
+            float distance = Vector3.Distance(player.transform.position, t.position);
+            sequence.Append(player.GetRigidbody().DOMove(t.position, distance / player.GetMovement().Stats.RunMaxSpeed)
+                .SetEase(Ease.Linear))
+                .AppendInterval(0.25f);
+        }
 
         sequence.Play();
         yield return sequence.WaitForCompletion();
