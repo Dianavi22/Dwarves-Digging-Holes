@@ -72,9 +72,6 @@ public class Forge : MonoBehaviour
             }
             _isCreatingPickaxe = false;
             _forgePart.Stop();
-
-
-
         }
 
     }
