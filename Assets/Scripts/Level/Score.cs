@@ -62,11 +62,11 @@ public class Score : MonoBehaviour
 
     private void AddScoreTimer()
     {
-        if(!GameManager.Instance._eventManager.enabled) return;
+        if(!EventManager.Instance.enabled) return;
         ScoreCounter += scoreToAddTimer;
         if (ScoreCounter >= scoreNextStep)
         {
-           GameManager.Instance.SetScrollingSpeed(GameManager.Instance.CurrentScrollingSpeed + 0.1f);
+            GameManager.Instance.SetScrollingSpeed(GameManager.Instance.CurrentScrollingSpeed + 0.1f);
             scoreNextStep += 200;
         }
     }

@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
     private Score _score;
     private GoldChariot _goldChariot;
     private Tuto _tuto;
-    public EventManager _eventManager;
     [SerializeField] GameObject _PickaxeUI;
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
@@ -128,7 +127,6 @@ public class GameManager : MonoBehaviour
             velocity.x  = -Difficulty.ScrollingSpeed;
             _score = TargetManager.Instance.GetGameObject<Score>();
             _tuto = TargetManager.Instance.GetGameObject<Tuto>();
-            _eventManager = EventManager.Instance;
 
             GameStarted();
         }
@@ -179,7 +177,7 @@ public class GameManager : MonoBehaviour
         blockSpawner.SpawnPlatform();
         CurrentScrollingSpeed = this.Difficulty.ScrollingSpeed;
         yield return new WaitForSeconds(70); //70
-        _eventManager.LaunchEvent();
+        EventManager.Instance.LaunchEvent();
     }
 
     private void GameStarted()
@@ -263,7 +261,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         _goldChariot.StopParticle();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-        _eventManager.enabled = false;
+        EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(2f);
         bool newBest = _score.CheckBestScore();
         levelCompleteCanvas.SetActive(true);
@@ -288,7 +286,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         _goldChariot.StopParticle();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
-        _eventManager.enabled = false;
+        EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx(isGoldChariotDestroyed);
         yield return new WaitForSeconds(2f);

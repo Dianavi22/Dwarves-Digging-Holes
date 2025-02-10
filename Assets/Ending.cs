@@ -14,7 +14,7 @@ public class Ending : MonoBehaviour
             CinematicBand.Instance.ShowCinematicBand();
             _isEnding = true;
             GameManager.Instance.SetScrollingSpeed(0);
-            GameManager.Instance._eventManager.enabled = false;
+            EventManager.Instance.enabled = false;
             Invoke(nameof(EndingAnimation), 1f);
         }
     }
