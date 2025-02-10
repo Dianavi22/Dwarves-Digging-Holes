@@ -20,7 +20,6 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _destroyRockByLava;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
-    private Score _score;
     [SerializeField] private int _goldScore;
     [SerializeField] Transform _spawnGold;
     [SerializeField] GameObject _gold;
@@ -36,10 +35,6 @@ public class Rock : MonoBehaviour
 
     private void Start()
     {
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            _score = TargetManager.Instance.GetGameObject<Score>();
-        }
         if (haveGold)
         {
             _destroyRockByLava.GetComponent<Renderer>().material = _goldMat;
@@ -74,7 +69,7 @@ public class Rock : MonoBehaviour
         if (haveGold)
         {
             _spawnGoldPart.Play();
-            StartCoroutine(BreakGold());
+            if (!GameManager.Instance.isInMainMenu) StartCoroutine(BreakGold());
         }
 
         PlayRockExplosionSound(gameObject.transform.position);
@@ -89,28 +84,6 @@ public class Rock : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Instantiate(_gold, new Vector3(_spawnGold.position.x, _spawnGold.position.y, 0), Quaternion.identity);
         if (hitPlayer != null) StatsManager.Instance.IncrementStatistic(hitPlayer, StatsName.GoldMined, 1);
-    }
-
-    private void Update()
-    {
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            if (EventManager.Instance.isRockEvent)
-            {
-                EventRock();
-            }
-            else
-            {
-                _healthPoint = _baseHp;
-            }
-        }
-
-    }
-
-    private void EventRock()
-    {
-        _baseHp = _healthPoint;
-        _healthPoint += 1;
     }
 
     private void PlayRockExplosionSound(Vector3 position)

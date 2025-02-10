@@ -14,6 +14,8 @@ public class Player : Entity
     [SerializeField] private Animator animator;
     //[HideInInspector] public bool IsCarried = false;
 
+    [HideInInspector] public bool HasCompletedLevel = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +37,12 @@ public class Player : Entity
     {
         base.HandleCarriedState(currentPlayer, isGrabbed);
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+    }
+
+    public bool CanDoAnything()
+    {
+        if (GameManager.Instance.isInMainMenu) return true;
+        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
     }
 
     public override void HandleDestroy()

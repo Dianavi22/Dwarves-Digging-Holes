@@ -111,7 +111,7 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
+        if (!_p.CanDoAnything()) return;
 
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
@@ -136,8 +136,9 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTaunt(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.isInMainMenu) return;
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && !UIPauseManager.Instance.isPaused)
+        if (!_p.CanDoAnything()) return;
+
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed)
         {
             if (isTaunt) return;
 
@@ -147,7 +148,7 @@ public class PlayerActions : MonoBehaviour
 
     public void OnPassTuto(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.isInMainMenu) return;
+        if (!_p.CanDoAnything()) return;
 
         if (_tuto.isInTuto)
         {
@@ -169,8 +170,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnBaseAction(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.isInMainMenu || UIPauseManager.Instance.isPaused) return;
-        
+        if (!_p.CanDoAnything()) return;
+
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;

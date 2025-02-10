@@ -19,9 +19,6 @@ public class PlayerMovements : EntityMovement
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool flip_vertical = false;
-    private bool isTearsPlaying = false;
-    private bool isMovePlaying = false;
-    private bool isGroundedPartPlaying = true;
     [SerializeField] Rigidbody _rb;
 
     public Action forceDetachFunction;
@@ -36,15 +33,13 @@ public class PlayerMovements : EntityMovement
 
     protected new void Update()
     {
-        if (_p.IsGrabbed && !isTearsPlaying)
+        if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
-            isTearsPlaying = true;
             _tearsPart.Play();
         }
 
         if (!_p.IsGrabbed)
         {
-            isTearsPlaying = false;
             _tearsPart.Stop();
         }
 
@@ -54,13 +49,11 @@ public class PlayerMovements : EntityMovement
         {
             FlipHoldObject();
         }
-
-        
     }
 
     private bool PlayerCanMove(bool isInputActivated)
     {
-        if (!GameManager.Instance.isInMainMenu || !GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver)
         {
             bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
             if (isInputActivated && isHoldingChariot)
@@ -78,9 +71,8 @@ public class PlayerMovements : EntityMovement
             enemy.HandleDestroy();
         }
 
-        if (!collision.collider.CompareTag("GoldChariot") && !isGroundedPartPlaying)
+        if (!collision.collider.CompareTag("GoldChariot") && !_groundedPart.isPlaying)
         {
-            isGroundedPartPlaying = true;
             _groundedPart.Play();
         }
     }
@@ -108,20 +100,18 @@ public class PlayerMovements : EntityMovement
     public void OnMove(InputAction.CallbackContext context)
     {
        // Debug.Log(CanDoAnything());
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
 
         Vector2 vector = context.ReadValue<Vector2>();
         float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
         float _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
-        if (_horizontal != 0 && !isMovePlaying)
+        if (_horizontal != 0 && !_movePart.isPlaying)
         {
-            isMovePlaying = true;
             _movePart.Play();
         }
 
         if (_horizontal == 0)
         {
-            isMovePlaying = false;
             _movePart.Stop();
         }
         CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
@@ -132,7 +122,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
         
         if (_p.IsGrabbed)
         {
@@ -144,7 +134,6 @@ public class PlayerMovements : EntityMovement
                 if (isGrounded && !_isDashing)
                 {
                     IsPerformingJump = true;
-                    isGroundedPartPlaying = false;
                     Jump();
                     _movePart.Stop();
                 }
@@ -156,7 +145,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (!CanDoAnything()) return;
+        if (!_p.CanDoAnything()) return;
 
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
@@ -181,16 +170,10 @@ public class PlayerMovements : EntityMovement
         _isDashingCooldown = false;
     }
 
-    private bool CanDoAnything()
-    {
-        if(GameManager.Instance.isInMainMenu) return true;
-        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
-    }
-
     private bool _isOnChariot = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<HitGoldByChariot>(out HitGoldByChariot hgbc) && !_isOnChariot)
+        if (other.TryGetComponent<HitGoldByChariot>(out var hgbc) && !_isOnChariot)
         {
             _isOnChariot = true;
             hgbc.HitByPlayer(other.transform.position);
@@ -199,7 +182,7 @@ public class PlayerMovements : EntityMovement
 
     private void OnCollisionExit(Collision collision)
     {
-            _isOnChariot = false;
+        _isOnChariot = false;
     }
 
 }

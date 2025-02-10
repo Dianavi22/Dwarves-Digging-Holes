@@ -43,8 +43,6 @@ public class EventManager : MonoBehaviour
     public float rocksWithGoldHealth;
     public bool isForgeEvent = false;
 
-    public bool isRockEvent = false;
-
     private Lava _lava;
     private Vector3 _lavaOldPosition;
     private ShakyCame _sc;
@@ -279,18 +277,6 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         _goblinWave.GenerateWave();
-
-
-    }
-
-    private IEnumerator DurabilityRocks()
-    {
-        StartCoroutine(TextEvent("Durability Rocks"));
-        yield return new WaitForSeconds(1);
-        _sc.ShakyCameCustom(0.3f, 0.2f);
-        isRockEvent = true;
-        yield return new WaitForSeconds(10);
-        isRockEvent = false;
 
 
     }

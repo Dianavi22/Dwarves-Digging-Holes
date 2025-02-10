@@ -1,11 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
-using Utils;
-using static UnityEngine.GraphicsBuffer;
 
 public class GoldToChariot : MonoBehaviour
 {
@@ -21,11 +14,7 @@ public class GoldToChariot : MonoBehaviour
 
     void Start()
     {
-        
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            _score = TargetManager.Instance.GetGameObject<Score>();
-        }
+        _score = TargetManager.Instance.GetGameObject<Score>();
         _takeGoldPart = GameObject.Find("TakeGoldInChariot_PART").GetComponent<ParticleSystem>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _pointOneGoldDirection = _goldChariot.hbTakeGold;

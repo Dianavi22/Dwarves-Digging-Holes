@@ -23,9 +23,14 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        _respawnPoint = GameManager.Instance.isInMainMenu ? null : TargetManager.Instance.GetGameObject<RespawnPoint>();
-        _imageRespawn = FindAnyObjectByType<RotateImage>();
         IsAlive = true;
+        if (GameManager.Instance.isInMainMenu) 
+        { 
+            this.enabled = false;
+            return;
+        }
+        _respawnPoint = TargetManager.Instance.GetGameObject<RespawnPoint>();
+        _imageRespawn = FindAnyObjectByType<RotateImage>();
     }
 
     private void Update()
@@ -39,34 +44,32 @@ public class PlayerHealth : MonoBehaviour
         {
             _HurtPart.transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
-        if (!GameManager.Instance.isInMainMenu)
+
+        if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
         {
-            if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
-            {
-                TriggerRespawnSequence();
-            }
-            else
-            {
-                _imageRespawn.isRespawn = false;
-            }
+            TriggerRespawnSequence();
+        }
+        else
+        {
+            _imageRespawn.isRespawn = false;
+        }
 
-            if (!IsAlive)
-            {
-                _imageRespawn.isRespawn = true;
-            }
-            else
-            {
-                _imageRespawn.isRespawn = false;
-            }
+        if (!IsAlive)
+        {
+            _imageRespawn.isRespawn = true;
+        }
+        else
+        {
+            _imageRespawn.isRespawn = false;
+        }
 
-            if (!IsAlive && _isReadyToSpawn)
-            {
-                _imageRespawn.isImpossibleRespawn = true;
-            }
-            else
-            {
-                _imageRespawn.isImpossibleRespawn = false;
-            }
+        if (!IsAlive && _isReadyToSpawn)
+        {
+            _imageRespawn.isImpossibleRespawn = true;
+        }
+        else
+        {
+            _imageRespawn.isImpossibleRespawn = false;
         }
     }
 

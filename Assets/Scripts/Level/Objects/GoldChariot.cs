@@ -30,6 +30,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     [SerializeField] private ParticleSystem _sparksPart;
     public ParticleSystem oneLostPart;
 
+    [SerializeField] private ParticleSystem _dustPart;
+
     [Header("Gold Pile")]
     [SerializeField] int _maxGoldStep;
     [SerializeField] MoreGold _goldStepPrefab;
@@ -44,8 +46,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
     [SerializeField] private Animator _takeGoldAnim;
-    [SerializeField] private ParticleSystem _dustPart;
-    private bool _isDustPartPlaying = false;
 
     private Rigidbody _rb;
 
@@ -70,12 +70,15 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        var velocity = _dustPart.velocityOverLifetime;
+        velocity.x = -GameManager.Instance.CurrentScrollingSpeed;
     }
 
     public void StartAnimation()
     {
         _takeGoldAnim.SetBool("isNewGold", true);
-        Invoke("ResetAnim", 0.25f);
+        Invoke(nameof(ResetAnim), 0.25f);
     }
 
     private void ResetAnim()
@@ -85,8 +88,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.O))
         {
             TakeNugget();
@@ -204,9 +205,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (speed > 0.5f)
         {
-            if (!_isDustPartPlaying)
+            if (_dustPart.isPlaying)
             {
-                _isDustPartPlaying = true;
                 _dustPart.Play();
             }
             if (!_isSoundPlaying)
@@ -236,7 +236,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         else
         {
             _dustPart.Stop();
-            _isDustPartPlaying = false;
             targetVolume = 0f;
         }
 
