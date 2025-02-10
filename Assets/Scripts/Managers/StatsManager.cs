@@ -157,6 +157,10 @@ public class StatsManager : MonoBehaviour
     }
 
     #endregion
+    public GameObject GetStatsGameObject()
+    {
+        return _statisticsText[0].Value.transform.parent.parent.gameObject;
+    }
 }
 
 [Serializable]

@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] private GameObject _GameOverCanvas;
 
-    [SerializeField] private GameObject levelCompleteCanvas;   
+    [SerializeField] private GameObject levelCompleteCanvas; 
+    [SerializeField] private GameObject levelCompleteCanvaUI;   
     [SerializeField] GameObject _retryButton;
     [SerializeField] TMP_Text _textGameOverCondition;
 
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _circleTransition;
 
     [SerializeField] Button _backButton;
+    [SerializeField] Button _backbuttonLevelComplete;
     [SerializeField] GameObject _gameOverCanva;
 
     [SerializeField] List<GameObject> _playerStats;
@@ -251,7 +253,12 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) yield break;
 
+        _gameOverCanva = levelCompleteCanvaUI;
+        _backButton = _backbuttonLevelComplete;
+        _retryButton = levelCompleteCanvaUI.transform.GetChild(2).gameObject;
         StatsManager.Instance.EndGame();
+        GameObject stats = StatsManager.Instance.GetStatsGameObject();
+        stats.transform.SetParent(levelCompleteCanvas.transform);
 
         //_textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         //_gameOverPart.gameObject.SetActive(true);
@@ -262,7 +269,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         bool newBest = _score.CheckBestScore();
         levelCompleteCanvas.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(levelCompleteCanvas.transform.GetChild(4).gameObject);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
         yield return null;
     }
 
