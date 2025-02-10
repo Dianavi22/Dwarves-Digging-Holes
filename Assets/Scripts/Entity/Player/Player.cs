@@ -14,6 +14,8 @@ public class Player : Entity
     [SerializeField] private Animator animator;
     //[HideInInspector] public bool IsCarried = false;
 
+    [HideInInspector] public bool HasCompletedLevel = false;
+
     protected override void Awake()
     {
         base.Awake();
