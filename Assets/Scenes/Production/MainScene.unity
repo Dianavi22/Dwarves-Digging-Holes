@@ -3315,6 +3315,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6893804339628929749, guid: f59d7194d7724444daa65fd06437ead0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.722
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893804339628929749, guid: f59d7194d7724444daa65fd06437ead0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 8245615575223933085, guid: f59d7194d7724444daa65fd06437ead0, type: 3}
       propertyPath: m_Name
       value: Pickaxe
@@ -3833,6 +3841,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 298935851}
     m_Modifications:
+    - target: {fileID: 2434903787430267418, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3016497953051511967, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27
@@ -3873,9 +3885,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3675816768697717011, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.252
+      objectReference: {fileID: 0}
     - target: {fileID: 5215267216301217660, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
       propertyPath: m_Name
       value: PlatformFirst
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721358563991659443, guid: 60a326fbf419c534da1be18d66435b24, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
