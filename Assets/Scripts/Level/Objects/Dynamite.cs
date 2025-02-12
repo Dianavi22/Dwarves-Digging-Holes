@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class Dynamite : MonoBehaviour, IGrabbable
 {
+    [SerializeField] private EventReference explosionSound;
+
     private Action throwOnDestroy;
     public GameObject spawnPoint;
 
@@ -28,6 +31,7 @@ public class Dynamite : MonoBehaviour, IGrabbable
     {
         if (Utils.Component.TryGetInParent<BigRock>(collision.collider, out var bigRock))
         {
+            ExplosionSound(gameObject.transform.position);
             HandleDestroy();
             Destroy(spawnPoint);
             StartCoroutine(bigRock.DestroyBigRock());
@@ -37,5 +41,10 @@ public class Dynamite : MonoBehaviour, IGrabbable
     public void Spawn()
     {
         spawnPoint.GetComponent<SpawnDynamite>().SpawnTnt();
+    }
+
+    private void ExplosionSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(explosionSound, position);
     }
 }
