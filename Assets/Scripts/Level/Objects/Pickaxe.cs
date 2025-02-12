@@ -85,7 +85,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             if (rock.haveGold)
             {
-                print("GOLD");
                 PlayPart();
             }
             else
