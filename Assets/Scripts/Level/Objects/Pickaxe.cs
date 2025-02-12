@@ -112,8 +112,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private void PlayPart()
     {
         _hitGoldParts.Play();
-        print(_hitGoldParts.isPlaying);
-
     }
 
     private void HandlePlayerHit(Player player)

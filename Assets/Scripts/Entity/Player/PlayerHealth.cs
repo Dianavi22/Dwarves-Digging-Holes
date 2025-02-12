@@ -4,7 +4,6 @@ using Utils;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] GameObject _playerGFX;
     [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private ParticleSystem _DestroyPlayer;
     [SerializeField] private RotateImage _imageRespawn;
@@ -95,7 +94,6 @@ public class PlayerHealth : MonoBehaviour
             _p.GetMovement().enabled = true;
             _isHit = false;
             _HurtPart.Stop();
-
         });
     }
 
@@ -106,7 +104,7 @@ public class PlayerHealth : MonoBehaviour
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
-        _playerGFX.SetActive(false);
+        _p.GetModelRef().gameObject.SetActive(false);
 
         _p.GetMovement().enabled = false;
         _p.GetActions().ForceDetach();
@@ -135,7 +133,7 @@ public class PlayerHealth : MonoBehaviour
 
         IsAlive = true;
         _p.GetRigidbody().useGravity = true;
-        _playerGFX.SetActive(true);
+        _p.GetModelRef().gameObject.SetActive(false);
 
         Invoke(nameof(Invincibility), 0.1f);
     }

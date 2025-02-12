@@ -23,11 +23,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
 
-    private Transform slotPickaxe;
-    public void SetPickaxeSlot(Transform pos)
-    {
-        slotPickaxe = pos;
-    }
     private Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
@@ -367,7 +362,7 @@ public class PlayerActions : MonoBehaviour
         //canPickup = forced;
 
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
-            obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
+            obj.transform.SetParent(isGrabbed ? _p.GetModelRef().GetPickaxeSlot() : null);
         else
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
 

@@ -7,6 +7,8 @@ public class Player : Entity
     private PlayerFatigue fatigue;
     private UserInput input;
 
+    private PlayerModels _model;
+
     public Camera playerCamera;
 
     [SerializeField] private GameObject playerCameraPrefab;
@@ -31,11 +33,12 @@ public class Player : Entity
     public PlayerHealth GetHealth() => health;
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
-    public Animator GetAnimator() => _animator;
+    public Animator GetAnimator() => _model.GetAnimator();
+    public PlayerModels GetModelRef() => _model;
 
-    public void SetAnimator(Animator animator)
+    public void SetModelRef(PlayerModels model)
     {
-        _animator = animator;
+        _model = model;
     }
 
     public override void HandleCarriedState(Player currentPlayer, bool isGrabbed)

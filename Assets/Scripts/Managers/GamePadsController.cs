@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,8 +58,29 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        Player player = Instantiate(m_PlayerPrefab, transform.parent);
+        var player = InstantiatePlayer(m_PlayerModels[playerNumber]);
+
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
+    }
+
+    private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
+    {
+        var player = InstantiatePlayer(m_PlayerModels[index]);
+
+        PlayerInput playerInput = player.GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentControlScheme(controlScheme, device);
+
+        if (GameManager.Instance.isInMainMenu && index == 0)
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+            player.gameObject.transform.position = new(-100, -100, -100);
+        }
+    }
+
+    private Player InstantiatePlayer(PlayerModels model) 
+    {
+        Player player = Instantiate(m_PlayerPrefab, transform.parent);
 
         // * Instantiate PlayerHeadFatigueBar UI
         if (!GameManager.Instance.isInMainMenu)
@@ -68,11 +90,8 @@ public class GamePadsController : MonoBehaviour
             fatigueUI.Initialize(player);
         }
 
-        playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
-
-        var a = Instantiate(m_PlayerModels[playerNumber], player.transform);
-        player.SetAnimator(a.GetAnimator());
-        player.GetActions().SetPickaxeSlot(a.GetPickaxeSlot());
+        var a = Instantiate(model, player.transform);
+        player.SetModelRef(a);
 
         //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
         //foreach (SkinnedMeshRenderer r in renders)
@@ -80,38 +99,7 @@ public class GamePadsController : MonoBehaviour
         //    r.material = m_PlayerMAT[playerNumber];
         //}
         PlayerList.Add(player);
-    }
 
-    private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
-    {
-        Player player = Instantiate(m_PlayerPrefab, transform.parent);
-        PlayerInput playerInput = player.GetComponent<PlayerInput>();
-
-        // * Instantiate PlayerHeadFatigueBar UI
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-            fatigueUI.Initialize(player);
-        }
-
-        playerInput.SwitchCurrentControlScheme(controlScheme, device);
-
-        var a = Instantiate(m_PlayerModels[index], player.transform);
-        player.SetAnimator(a.GetAnimator());
-        player.GetActions().SetPickaxeSlot(a.GetPickaxeSlot());
-
-        //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        //foreach (SkinnedMeshRenderer r in renders)
-        //{
-        //    r.material = m_PlayerMAT[index];
-        //}
-
-        PlayerList.Add(player);
-        if (GameManager.Instance.isInMainMenu && index == 0)
-        {
-            playerInput.SwitchCurrentActionMap("UI");
-            player.gameObject.transform.position = new(-100, -100, -100);
-        }
+        return player;
     }
 }
