@@ -56,9 +56,8 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                     myTarget.CloseTuto();
                 }
             }
+            if (!_isCarried) transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
