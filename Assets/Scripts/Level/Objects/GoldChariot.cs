@@ -73,6 +73,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         var velocity = _dustPart.velocityOverLifetime;
         velocity.x = -GameManager.Instance.CurrentScrollingSpeed;
+        UpdateText();
     }
 
     public void StartAnimation()
