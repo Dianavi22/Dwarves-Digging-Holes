@@ -6,6 +6,7 @@ public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
     [SerializeField] ParticleSystem _angryEnemy;
+    [SerializeField] Animator _animator;
     Enemy _e => (Enemy)GetBase;
 
     void Awake()
@@ -79,6 +80,7 @@ public class EnemyMovements : EntityMovement
         if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f)
             _horizontal = 0f;
 
+        _animator.SetFloat("run", _horizontal);
         CanMove = !_e.IsTouchingChariot;
         Move(_horizontal * Vector2.right);
     }
