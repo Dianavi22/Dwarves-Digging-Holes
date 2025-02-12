@@ -98,6 +98,16 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             LostGoldByGoblin();
         }
 
+        if (!_dustPart.isPlaying && _rb.velocity != Vector3.zero)
+        {
+            _dustPart.Play();
+        }
+        if(_rb.velocity == Vector3.zero)
+        {
+            _dustPart.Stop();
+
+        }
+
 
         if (_currentGoldCount <= 0 && !GameManager.Instance.isInMainMenu && !GameManager.Instance.isGameOver)
         {
@@ -205,10 +215,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
         if (speed > 0.5f)
         {
-            if (_dustPart.isPlaying)
-            {
-                _dustPart.Play();
-            }
+            
             if (!_isSoundPlaying)
             {
                 if (!_chariotEventInstance.isValid())
