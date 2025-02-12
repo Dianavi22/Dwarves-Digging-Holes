@@ -18,6 +18,7 @@ public class Rock : MonoBehaviour
     [SerializeField] ParticleSystem _breakRockParticule;
     [SerializeField] ParticleSystem _spawnGoldPart;
     [SerializeField] ParticleSystem _destroyRockByLava;
+    [SerializeField] ParticleSystem _crackRock;
     private Collider _rockCollider;
     [SerializeField] private GameObject _gfx;
     [SerializeField] private int _goldScore;
@@ -45,8 +46,12 @@ public class Rock : MonoBehaviour
         }
     }
 
-    public void Hit(Player player)
+    public void Hit(Player player, Pickaxe pickaxe)
     {
+        if(haveGold && _healthPoint > 1)
+        {
+            pickaxe._hitGoldParts.Play();
+        }
         if (hitPlayer != player) hitPlayer = player;
 
         _healthPoint -= 1;

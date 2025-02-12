@@ -11,7 +11,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
 
     [SerializeField] ParticleSystem _hitRockParts;
-    [SerializeField] ParticleSystem _hitGoldParts;
+    public ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
     [SerializeField] ParticleSystem _spawnPickaxePart;
     private bool _isPartPlayed = true;
@@ -83,6 +83,14 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     {
         if (Utils.Component.TryGetInParent<Rock>(hit, out var rock))
         {
+            if (rock.haveGold)
+            {
+                PlayPart();
+            }
+            else
+            {
+                _hitRockParts.Play();
+            }
             HandleRockHit(rock);
 
         }
@@ -95,18 +103,17 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     private void HandleRockHit(Rock rock)
     {
-        rock.Hit(holdingPlayer);
+        rock.Hit(holdingPlayer, this);
 
         MineSound();
+       
+    }
 
-        if (rock.haveGold)
-        {
-            _hitGoldParts.Play();
-        }
-        else
-        {
-            _hitRockParts.Play();
-        }
+    private void PlayPart()
+    {
+        _hitGoldParts.Play();
+        print(_hitGoldParts.isPlaying);
+
     }
 
     private void HandlePlayerHit(Player player)

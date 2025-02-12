@@ -23,7 +23,10 @@ public class Forge : MonoBehaviour
     {
         bool setActive = _gameManager.CanCreatePickaxe && !EventManager.Instance.isForgeEvent && !_isCreatingPickaxe && !_gameManager.isGameOver;
 
-        _bubblePickaxe.SetActive(setActive);
+        if (!GameManager.Instance.isGameOver)
+        {
+            _bubblePickaxe.SetActive(setActive);
+        }
     }
 
     public void BuildPickaxe()
