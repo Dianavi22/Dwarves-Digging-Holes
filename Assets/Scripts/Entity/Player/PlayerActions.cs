@@ -18,7 +18,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
     [SerializeField] private Transform slotInventoriaObject, slotPickaxe;
-
+    [SerializeField] ParticleSystem _yeetPart; 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
@@ -111,12 +111,18 @@ public class PlayerActions : MonoBehaviour
     // Appel� lorsque le bouton de ramassage/lancer est press�
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (!_p.CanDoAnything()) return;
+        if (IsHoldingObject && _p.IsGrabbed)
+        {
+            _yeetPart.Play();
+            print("Handle");
+        }
+            if (!_p.CanDoAnything()) return;
 
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
             if (IsHoldingObject)
             {
+                _yeetPart.Play();
                 _p.GetActions().StopAnimation();
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
