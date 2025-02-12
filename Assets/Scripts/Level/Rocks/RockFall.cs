@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class RockFall : MonoBehaviour
 {
     [SerializeField] GameObject _gfx;
     [SerializeField] ParticleSystem _breakPart;
     [SerializeField] ParticleSystem _spawnRockFall;
+
+    [SerializeField] private EventReference RockAppearance;
+    [SerializeField] private EventReference RocksFall;
+
     private bool _isDestroyed = false;
 
     public Vector3 startRotation;
@@ -29,6 +35,7 @@ public class RockFall : MonoBehaviour
         endRotation = Random.Range(-500, 500);
         _spawnRockFall.Play();
 
+        RockAppearanceSound();
     }
     private void Update()
     {
@@ -98,10 +105,29 @@ public class RockFall : MonoBehaviour
         this.GetComponent<Collider>().enabled = false;
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
         _breakPart.Play();
+        RocksFallSound();
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
 
-   
+
+    #region Sound
+    private void RockAppearanceSound()
+    {
+        EventInstance RockAppearanceInstance = RuntimeManager.CreateInstance(RockAppearance);
+        RuntimeManager.AttachInstanceToGameObject(RockAppearanceInstance, transform, GetComponent<Rigidbody>());
+        RockAppearanceInstance.start();
+        RockAppearanceInstance.release();
+    }
+
+    private void RocksFallSound()
+    {
+        EventInstance RocksFallInstance = RuntimeManager.CreateInstance(RocksFall);
+        RuntimeManager.AttachInstanceToGameObject(RocksFallInstance, transform, GetComponent<Rigidbody>());
+        RocksFallInstance.start();
+        RocksFallInstance.release();
+    }
+
+    #endregion
 
 }
