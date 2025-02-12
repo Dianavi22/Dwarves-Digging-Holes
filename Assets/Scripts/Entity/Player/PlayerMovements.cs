@@ -20,7 +20,8 @@ public class PlayerMovements : EntityMovement
     [SerializeField] private EventReference dashSound;
     [SerializeField] private EventReference jumpSound;
     [SerializeField] private EventReference landingSound;
-
+    [SerializeField] private EventReference disappointedgSound;
+    
     
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
@@ -42,6 +43,7 @@ public class PlayerMovements : EntityMovement
         if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
             _tearsPart.Play();
+            DisappointedSound(gameObject.transform.position);
         }
 
         if (!_p.IsGrabbed)
