@@ -7,7 +7,7 @@ public class GamePadsController : MonoBehaviour
 {
     [Header("Player Instance")]
     [SerializeField] private Player m_PlayerPrefab;
-    [SerializeField] List<Material> m_PlayerMAT = new();
+    [SerializeField] private List<PlayerModels> m_PlayerModels = new();
 
     [Header("UI")]
     [SerializeField] private GameObject m_MainCanvas;
@@ -70,11 +70,15 @@ public class GamePadsController : MonoBehaviour
 
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
 
-        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (SkinnedMeshRenderer r in renders)
-        {
-            r.material = m_PlayerMAT[playerNumber];
-        }
+        var a = Instantiate(m_PlayerModels[playerNumber], player.transform);
+        player.SetAnimator(a.GetAnimator());
+        player.GetActions().SetPickaxeSlot(a.GetPickaxeSlot());
+
+        //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        //foreach (SkinnedMeshRenderer r in renders)
+        //{
+        //    r.material = m_PlayerMAT[playerNumber];
+        //}
         PlayerList.Add(player);
     }
 
@@ -93,11 +97,15 @@ public class GamePadsController : MonoBehaviour
 
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (SkinnedMeshRenderer r in renders)
-        {
-            r.material = m_PlayerMAT[index];
-        }
+        var a = Instantiate(m_PlayerModels[index], player.transform);
+        player.SetAnimator(a.GetAnimator());
+        player.GetActions().SetPickaxeSlot(a.GetPickaxeSlot());
+
+        //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        //foreach (SkinnedMeshRenderer r in renders)
+        //{
+        //    r.material = m_PlayerMAT[index];
+        //}
 
         PlayerList.Add(player);
         if (GameManager.Instance.isInMainMenu && index == 0)

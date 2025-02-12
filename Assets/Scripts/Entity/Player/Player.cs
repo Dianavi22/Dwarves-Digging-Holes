@@ -10,8 +10,8 @@ public class Player : Entity
     public Camera playerCamera;
 
     [SerializeField] private GameObject playerCameraPrefab;
-    
-    [SerializeField] private Animator animator;
+
+    private Animator _animator;
     //[HideInInspector] public bool IsCarried = false;
 
     [HideInInspector] public bool HasCompletedLevel = false;
@@ -31,7 +31,12 @@ public class Player : Entity
     public PlayerHealth GetHealth() => health;
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
-    public Animator GetAnimator() => animator;
+    public Animator GetAnimator() => _animator;
+
+    public void SetAnimator(Animator animator)
+    {
+        _animator = animator;
+    }
 
     public override void HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
