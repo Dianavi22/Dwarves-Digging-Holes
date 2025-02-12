@@ -3402,10 +3402,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerPrefab: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
   m_PlayerMAT:
-  - {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
-  - {fileID: 2100000, guid: a28c5cfad34d334449a50b84dc29c286, type: 2}
-  - {fileID: 2100000, guid: afe5b37e28ffc2b45b79b3efef8c1e08, type: 2}
-  - {fileID: 2100000, guid: 6f6cc99c2e4b3f14c9fb10ccf5b5a145, type: 2}
+  - {fileID: 2100000, guid: 71cf1ad78acbc3547a69153517c64a0d, type: 2}
+  - {fileID: 2100000, guid: 628fa01d8d37e7641b097784db641a96, type: 2}
+  - {fileID: 2100000, guid: 9ac00430e6edb8241b6d30fe5894514b, type: 2}
+  - {fileID: 2100000, guid: 0d36adb4b63e0d34fa61bf6791199957, type: 2}
   m_MainCanvas: {fileID: 1964521499}
   m_HeadFatigueBarUI: {fileID: 1914617011401074097, guid: b171c037d540c0b469e380df48f8030f, type: 3}
   IsDebugMode: 0
@@ -3432,19 +3432,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
   _GameOverCanvas: {fileID: 0}
   levelCompleteCanvas: {fileID: 0}
+  levelCompleteCanvaUI: {fileID: 0}
   _retryButton: {fileID: 0}
   _textGameOverCondition: {fileID: 0}
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
   _circleTransition: {fileID: 510074189}
   _backButton: {fileID: 1755792337}
+  _backbuttonLevelComplete: {fileID: 0}
   _gameOverCanva: {fileID: 0}
   _playerStats: []
   _buttons: []
   blockSpawner: {fileID: 0}
   _gameOverPart: {fileID: 0}
   _introGame: {fileID: 0}
-  _eventManager: {fileID: 0}
   _PickaxeUI: {fileID: 0}
   nbPickaxeUI: {fileID: 0}
   _nbMaxPickaxeUI: {fileID: 0}
@@ -18732,6 +18733,7 @@ MonoBehaviour:
   _breakRockParticule: {fileID: 7432070476516195587}
   _spawnGoldPart: {fileID: 0}
   _destroyRockByLava: {fileID: 6824694734029255268}
+  _crackRock: {fileID: 0}
   _gfx: {fileID: 8962663268510906168}
   _goldScore: 10
   _spawnGold: {fileID: 0}

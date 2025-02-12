@@ -23,7 +23,12 @@ namespace Utils
         }
         public static bool TryGetInParent<T>(GameObject _gameObject, out T _out)
         {
-            if (_gameObject.TryGetComponent(out T _out2))
+            if (_gameObject == null)
+            {
+                _out = default;
+                return false; 
+            }
+            else if (_gameObject.TryGetComponent(out T _out2))
             {
                 _out = _out2;
                 return true;
