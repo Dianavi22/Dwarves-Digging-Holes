@@ -50,7 +50,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 {
                     isFirstTime = false;
                     myTarget.TotalClose();
-
                 }
                 else
                 {
