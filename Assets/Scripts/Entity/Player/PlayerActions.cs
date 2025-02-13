@@ -17,11 +17,12 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float pickupRange;
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
-    [SerializeField] private Transform slotInventoriaObject, slotPickaxe;
+    [SerializeField] private Transform slotInventoriaObject;
     [SerializeField] ParticleSystem _yeetPart; 
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
+
     private Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
@@ -42,8 +43,6 @@ public class PlayerActions : MonoBehaviour
 
     private Dictionary<int, int> previousLayer = new();
 
-    private Animator _animator;
-
     private bool _isFirstCanPickup = true;
 
     private Tween buildingPickaxe;
@@ -53,7 +52,6 @@ public class PlayerActions : MonoBehaviour
     private void Awake()
     {
         _p = GetComponent<Player>();
-        _animator = _p.GetAnimator();
     }
 
     private void Start()
@@ -209,7 +207,7 @@ public class PlayerActions : MonoBehaviour
     // Method to start the tween, connected to the Unity Event when key is pressed
     public void StartAnimation()
     {
-        _animator.SetBool("pickaxeHit", true);
+        _p.GetAnimator().SetBool("pickaxeHit", true);
 
         if (swingCoroutine == null)
         {
@@ -220,7 +218,7 @@ public class PlayerActions : MonoBehaviour
     // Method to stop the tween, connected to the Unity Event when key is released
     public void StopAnimation()
     {
-        _animator.SetBool("pickaxeHit", false);
+        _p.GetAnimator().SetBool("pickaxeHit", false);
 
         if (swingCoroutine != null)
         {
@@ -364,7 +362,7 @@ public class PlayerActions : MonoBehaviour
         //canPickup = forced;
 
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
-            obj.transform.SetParent(isGrabbed ? slotPickaxe : null);
+            obj.transform.SetParent(isGrabbed ? _p.GetModelRef().GetPickaxeSlot() : null);
         else
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class GamePadsController : MonoBehaviour
 {
     [Header("Player Instance")]
     [SerializeField] private Player m_PlayerPrefab;
-    [SerializeField] List<Material> m_PlayerMAT = new();
+    [SerializeField] private List<PlayerModels> m_PlayerModels = new();
 
     [Header("UI")]
     [SerializeField] private GameObject m_MainCanvas;
@@ -57,53 +58,48 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        Player player = Instantiate(m_PlayerPrefab, transform.parent);
+        var player = InstantiatePlayer(m_PlayerModels[playerNumber]);
+
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
-
-        // * Instantiate PlayerHeadFatigueBar UI
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-            fatigueUI.Initialize(player);
-        }
-
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
-
-        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (SkinnedMeshRenderer r in renders)
-        {
-            r.material = m_PlayerMAT[playerNumber];
-        }
-        PlayerList.Add(player);
     }
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
     {
-        Player player = Instantiate(m_PlayerPrefab, transform.parent);
+        var player = InstantiatePlayer(m_PlayerModels[index]);
+
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
-
-        // * Instantiate PlayerHeadFatigueBar UI
-        if (!GameManager.Instance.isInMainMenu)
-        {
-            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
-            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
-            fatigueUI.Initialize(player);
-        }
-
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
 
-        var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (SkinnedMeshRenderer r in renders)
-        {
-            r.material = m_PlayerMAT[index];
-        }
-
-        PlayerList.Add(player);
         if (GameManager.Instance.isInMainMenu && index == 0)
         {
             playerInput.SwitchCurrentActionMap("UI");
             player.gameObject.transform.position = new(-100, -100, -100);
         }
+    }
+
+    private Player InstantiatePlayer(PlayerModels model) 
+    {
+        Player player = Instantiate(m_PlayerPrefab, transform.parent);
+
+        // * Instantiate PlayerHeadFatigueBar UI
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameObject fatigueUIObj = Instantiate(m_HeadFatigueBarUI, m_MainCanvas.transform);
+            PlayerHeadFatigueBar fatigueUI = fatigueUIObj.GetComponent<PlayerHeadFatigueBar>();
+            fatigueUI.Initialize(player);
+        }
+
+        var a = Instantiate(model, player.transform);
+        player.SetModelRef(a);
+
+        //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        //foreach (SkinnedMeshRenderer r in renders)
+        //{
+        //    r.material = m_PlayerMAT[playerNumber];
+        //}
+        PlayerList.Add(player);
+
+        return player;
     }
 }
