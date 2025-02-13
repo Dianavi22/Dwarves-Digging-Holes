@@ -517,6 +517,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.7937
       objectReference: {fileID: 0}
+    - target: {fileID: 3335809655653085356, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: _settingsButtonMM
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3991645936472661967, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -690,7 +694,8 @@ PrefabInstance:
       value: 3.4394262
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8709244341917340012, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8868946242803189422, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -738,11 +743,6 @@ ParticleSystem:
 --- !u!1 &125992430 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6919425151699376105, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
-  m_PrefabInstance: {fileID: 125992425}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &125992431 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8709244341917340012, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
   m_PrefabInstance: {fileID: 125992425}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &125992432 stripped
@@ -4624,7 +4624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 4637694223474509530, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5488,7 +5488,7 @@ PrefabInstance:
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _button.Array.data[2]
       value: 
-      objectReference: {fileID: 125992431}
+      objectReference: {fileID: 0}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _button.Array.data[3]
       value: 
