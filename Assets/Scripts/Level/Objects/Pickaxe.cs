@@ -7,8 +7,6 @@ using FMOD.Studio;
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
     [SerializeField] private EventReference mineSoundEvent;
-    [SerializeField] private EventReference swingSoundEvent;
-
 
     [SerializeField] ParticleSystem _hitRockParts;
     public ParticleSystem _hitGoldParts;
