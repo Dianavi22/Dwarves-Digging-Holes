@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
+    [SerializeField] StudioEventEmitter _gameOST;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        _gameOST.gameObject.SetActive(true);
         isGameStarted = true;
         _scoreText.SetActive(true);
         _score.isStartScore = true;
