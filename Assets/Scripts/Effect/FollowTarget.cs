@@ -29,7 +29,7 @@ public class FollowTarget : MonoBehaviour
 
     void Update()
     {
-        if (_isOpen != previousState)
+        if (_isOpen != previousState && !GameManager.Instance.isEnding && !GameManager.Instance.isGameOver)
         {
             t = 0f;
             previousState = _isOpen;
@@ -39,6 +39,11 @@ public class FollowTarget : MonoBehaviour
         {
             t += Time.deltaTime * 2;
             t = Mathf.Clamp01(t);
+        }
+
+        if (GameManager.Instance.isEnding || GameManager.Instance.isGameOver)
+        {
+            CloseTuto();
         }
 
         if (target != null)

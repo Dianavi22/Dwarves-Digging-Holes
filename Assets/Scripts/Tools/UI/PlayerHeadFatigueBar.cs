@@ -94,7 +94,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
 
         PlayerFatigue _f = _player.GetFatigue();
 
-        if (!GameManager.Instance.isInMainMenu)
+        if (!GameManager.Instance.isInMainMenu && !GameManager.Instance.isEnding && !GameManager.Instance.isGameOver)
         {
             if (cartsFatigueBar != null) ChangeBarColor(cartsFatigueBar, _f.currentCartsFatigue / _f.MaxPushCartFatigue);
             if (miningFatigueBar != null) ChangeBarColor(miningFatigueBar, _f.currentMiningFatigue / _f.MaxMiningFatigue);

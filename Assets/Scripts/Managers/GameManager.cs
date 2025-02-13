@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
 
-    
+    public bool isEnding = false;
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
     private bool _isTutoActive = true;

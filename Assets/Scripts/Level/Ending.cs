@@ -16,7 +16,7 @@ public class Ending : MonoBehaviour
     [SerializeField] TMP_Text _bubbletext;
     [SerializeField] TypeSentence _ts;
     [SerializeField] GameObject _bubbleEnd;
-    public bool test = false;
+
 
     private Vector3 _targetPosition = new Vector3(9.97000027f, 0.810000002f, -0.660000026f);
     [SerializeField] ShakyCame _sc;
@@ -46,6 +46,7 @@ public class Ending : MonoBehaviour
         if(!_isEnding && null == GamePadsController.Instance.PlayerList.Find(p => p.HasCompletedLevel == false))
         {
             _isEnding = true;
+            GameManager.Instance.isEnding = true;
             StartCoroutine(EndAnim());
 
         }
