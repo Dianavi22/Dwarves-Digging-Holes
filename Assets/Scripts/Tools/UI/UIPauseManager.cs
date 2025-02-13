@@ -91,7 +91,7 @@ public class UIPauseManager : MonoBehaviour
 
     public void Pause()
     {
-        if (!GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
             isPaused = !isPaused;
 
