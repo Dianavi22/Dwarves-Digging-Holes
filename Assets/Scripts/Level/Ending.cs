@@ -46,7 +46,8 @@ public class Ending : MonoBehaviour
         if(!_isEnding && null == GamePadsController.Instance.PlayerList.Find(p => p.HasCompletedLevel == false))
         {
             _isEnding = true;
-            StartCoroutine(GameManager.Instance.LevelComplete());
+            StartCoroutine(EndAnim());
+
         }
 
         if (_isLavaMoving)
@@ -79,10 +80,11 @@ public class Ending : MonoBehaviour
 
         sequence.Play();
         yield return sequence.WaitForCompletion();
-        StartCoroutine(EndAnim(player));
+        player.HasCompletedLevel = true;
+
     }
 
-    private IEnumerator EndAnim(Player player)
+    private IEnumerator EndAnim()
     {
         yield return new WaitForSeconds(0.5f);
         _sc.ShakyCameCustom(0.2f,0.2f);
@@ -102,7 +104,8 @@ public class Ending : MonoBehaviour
         //_ts.WriteMachinEffect("... ", _bubbletext, 1);
         //_ts.WriteMachinEffect("We don't forget this the next time", _bubbletext, 0.05f);
         //yield return new WaitForSeconds(7f);
-        player.HasCompletedLevel = true;
+            StartCoroutine(GameManager.Instance.LevelComplete());
+
 
     }
 }
