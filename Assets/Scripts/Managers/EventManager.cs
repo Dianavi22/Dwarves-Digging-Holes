@@ -191,7 +191,6 @@ public class EventManager : MonoBehaviour
         _littleTextAnim.SetTrigger("OutLittleText");
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
-        print(_goldChariot.transform.position);
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();

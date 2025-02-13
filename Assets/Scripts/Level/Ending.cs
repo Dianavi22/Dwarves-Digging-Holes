@@ -9,27 +9,22 @@ using Utils;
 public class Ending : MonoBehaviour
 {
     private bool _isEnding = false;
+    [SerializeField] private List<Transform> m_InterrestPoint = new();
 
-    [SerializeField] private List<Transform> m_InterrestPoint = new ();
-    [SerializeField] ParticleSystem _lavaFloorPart;
-    [SerializeField] ParticleSystem _breakFlorPart;
     [SerializeField] TMP_Text _bubbletext;
     [SerializeField] TypeSentence _ts;
     [SerializeField] GameObject _bubbleEnd;
+    [SerializeField] TheEndObj _theEnd;
+    [SerializeField] private GameObject _pointDirectionGoldWinPart;
 
 
     private Vector3 _targetPosition = new Vector3(9.97000027f, 0.810000002f, -0.660000026f);
-    [SerializeField] ShakyCame _sc;
     private bool _isLavaMoving = false;
 
     private void Start()
     {
-        _bubbleEnd = GameObject.Find("BubbleEndObject");
-       // _bubbletext = FindObjectOfType<Test>().GetComponent<TMP_Text>();
-       // _ts = FindObjectOfType<TypeSentence> ();
-        _sc = FindObjectOfType<ShakyCame>();
-        _breakFlorPart = GameObject.Find("BreakFloor_PART").GetComponent<ParticleSystem>();
-        _lavaFloorPart = GameObject.Find("DecoLava_PART").GetComponent<ParticleSystem>();
+        _theEnd = FindAnyObjectByType<TheEndObj>();
+       
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -53,7 +48,7 @@ public class Ending : MonoBehaviour
 
         if (_isLavaMoving)
         {
-            _lavaFloorPart.transform.position = Vector3.Lerp(_lavaFloorPart.transform.position, _targetPosition, 2 * Time.deltaTime);
+            _theEnd._lavaFloorPart.transform.position = Vector3.Lerp(_theEnd._lavaFloorPart.transform.position, _targetPosition, 2 * Time.deltaTime);
         }
 
         //if (test)
@@ -88,10 +83,13 @@ public class Ending : MonoBehaviour
     private IEnumerator EndAnim()
     {
         yield return new WaitForSeconds(0.5f);
-        _sc.ShakyCameCustom(0.2f,0.2f);
-        _breakFlorPart.Play();
-        _sc.ShakyCameCustom(0.2f, 0.5f);
-
+        _theEnd._sc.ShakyCameCustom(0.2f,0.2f);
+        _theEnd._breakFlorPart.Play();
+        yield return new WaitForSeconds(0.5f);
+        _theEnd._winGoldPart.Play();
+        yield return new WaitForSeconds(0.7f);
+        _theEnd._winGoldCornerPart.Play();
+        _theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
         CinematicBand.Instance.ShowCinematicBand();
