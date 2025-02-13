@@ -36,7 +36,6 @@ public class Tuto : MonoBehaviour
     [SerializeField] ParticleSystem _transitionPart;
     [SerializeField] ParticleSystem _endTutoPart;
     [SerializeField] Animator _panelAnimator;
-    [SerializeField] ShakyCame _sc;
     [SerializeField] TypeSentence _ts;
 
     private bool _isInCdLava = false;
@@ -204,7 +203,7 @@ public class Tuto : MonoBehaviour
 
     private void EndTutoPart()
     {
-        _sc.ShakyCameCustom(0.3f, 0.2f);
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.3f, 0.2f);
         _endTutoPart.Play();
         _pickaxeCount.SetActive(true);
     }

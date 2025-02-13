@@ -33,7 +33,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _rockIntro;
     [SerializeField] GameObject _rocksMenuPartGO;
     [SerializeField] Toggle _toggle;
-    [SerializeField] ShakyCame _sc;
     [SerializeField] ParticleSystem _breakRockPart;
     [SerializeField] ParticleSystem _rocksMenuPart;
     [SerializeField] ParticleSystem _littleRocksPart;
@@ -43,6 +42,7 @@ public class MainMenuManager : MonoBehaviour
     public float speed = 5;
     private Vector3 startPosition;
     private Vector3 targetPosition;
+    private ShakyCame _sc;
 
     private float _t = 0f;
     private int _countButton;
@@ -53,6 +53,7 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(StartCanvas());
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
         _countButton = _button.Count-1;
+        _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
     }
 
     private IEnumerator StartCanvas()

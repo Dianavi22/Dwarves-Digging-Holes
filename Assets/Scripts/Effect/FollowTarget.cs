@@ -23,7 +23,7 @@ public class FollowTarget : MonoBehaviour
     private Tuto _tuto;
     private void Start()
     {
-        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
+        _tuto = GameManager.Instance.isInMainMenu ? default : TargetManager.Instance.GetGameObject<Tuto>();
         TotalClose(); 
     }
 

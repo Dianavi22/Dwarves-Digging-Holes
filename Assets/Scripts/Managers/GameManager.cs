@@ -76,6 +76,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> _playerStats;
     [SerializeField] List<GameObject> _buttons;
 
+    [Header("Global Sound")]
+    [SerializeField] EventReference submitEvent;
+    [SerializeField] EventReference navigateEvent;
+
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
@@ -88,12 +92,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _PickaxeUI;
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
-
     
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
     private bool _isTutoActive = true;
     public static GameManager Instance; // A static reference to the GameManager instance
+
+    public EventReference GetSubmitUISound() => submitEvent;
+    public EventReference GetNavigateUISound() => navigateEvent;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -134,8 +141,6 @@ public class GameManager : MonoBehaviour
 
         _circleTransition.SetActive(true);
     }
-
-   
 
     private IEnumerator StartParty()
     {
