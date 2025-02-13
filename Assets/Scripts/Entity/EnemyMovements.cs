@@ -37,7 +37,7 @@ public class EnemyMovements : EntityMovement
 
             if (hitWall)
             {
-                if (isGrounded)
+                if (isGrounded && !_e.IsTouchingChariot)
                 {
                     IsPerformingJump = true;
                     Jump();
@@ -52,6 +52,7 @@ public class EnemyMovements : EntityMovement
             //lost Gold function
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
+                _animator.SetTrigger("stealGold");
                 StartCoroutine(_e.HitChariot());
             }
         }
