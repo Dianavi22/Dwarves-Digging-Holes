@@ -64,6 +64,9 @@ public class Lava : MonoBehaviour
             _rockFall.Stop();
             _lavaSpawn.Stop();
             _isCoolDown = false;
+            
+            yield return new WaitForSeconds(1f);
+            TargetManager.Instance.GetGameObject<StudioEventEmitter>().gameObject.SetActive(true);
         }
     }
 

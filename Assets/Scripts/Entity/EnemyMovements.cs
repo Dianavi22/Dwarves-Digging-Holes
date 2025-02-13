@@ -6,7 +6,6 @@ public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
     [SerializeField] ParticleSystem _angryEnemy;
-    [SerializeField] Animator _animator;
     Enemy _e => (Enemy)GetBase;
 
     void Awake()
@@ -28,7 +27,7 @@ public class EnemyMovements : EntityMovement
             base.Update();
 
             OnMove();
-
+            
             bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
             //Debug.Log(hitWall);
 
@@ -52,7 +51,7 @@ public class EnemyMovements : EntityMovement
             //lost Gold function
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
-                _animator.SetTrigger("stealGold");
+                _e._animator.SetTrigger("stealGold");
                 StartCoroutine(_e.HitChariot());
             }
         }
@@ -77,6 +76,11 @@ public class EnemyMovements : EntityMovement
         {
             _angryEnemy.Stop();
         }
+
+        if (!_e.IsTouchingChariot)
+        {
+            _e._animator.ResetTrigger("stealGold");
+        }
     }
     private void OnMove()
     {
@@ -84,7 +88,7 @@ public class EnemyMovements : EntityMovement
         if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f)
             _horizontal = 0f;
 
-        _animator.SetFloat("run", _horizontal);
+        _e._animator.SetFloat("run", _horizontal);
         CanMove = !_e.IsTouchingChariot;
         Move(_horizontal * Vector2.right);
     }

@@ -8,6 +8,8 @@ using FMODUnity;
 
 public class Enemy : Entity
 {
+    public Animator _animator;
+    
     [Header("Sound effect")]
     [SerializeField] private EventReference goblinLaughSound;
     [SerializeField] private EventReference goblinStealingSound;
@@ -108,10 +110,13 @@ public class Enemy : Entity
 
         if (_tuto.isTakeEnemy) _tuto.isYeetEnemy = true;
 
+        _animator.SetBool("isGrabbed", grabbed);
+
         if (grabbed) 
         {
             IsTouchingChariot = false;
         }
+        
         base.HandleCarriedState(player, grabbed);
         
         _rb.mass = grabbed ? 1f : 5f;

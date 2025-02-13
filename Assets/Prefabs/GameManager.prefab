@@ -50,19 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbPlayer: 0
   m_PlayerPrefab: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
-  m_PlayerMAT:
-  - {fileID: 2100000, guid: fcfcea01607743a49a16fd7b1ffcdd32, type: 2}
-  - {fileID: 2100000, guid: a28c5cfad34d334449a50b84dc29c286, type: 2}
-  - {fileID: 2100000, guid: afe5b37e28ffc2b45b79b3efef8c1e08, type: 2}
-  - {fileID: 2100000, guid: 6f6cc99c2e4b3f14c9fb10ccf5b5a145, type: 2}
+  m_PlayerModels: []
   m_MainCanvas: {fileID: 0}
-  m_UICanvas:
-  - {fileID: 8325982029632982444, guid: 7d44554d7e905024ebb41e8bc2bf053c, type: 3}
-  - {fileID: 1891106824667603586, guid: b98501577510de04f8c1e3882e3e0614, type: 3}
-  - {fileID: 6148870047027336297, guid: eda9877c9d2153544ab91e36a36c138e, type: 3}
-  - {fileID: 2938528163977328098, guid: e6fcf545246ba68428a12eff3e487344, type: 3}
   m_HeadFatigueBarUI: {fileID: 1914617011401074097, guid: b171c037d540c0b469e380df48f8030f, type: 3}
   IsDebugMode: 0
   m_DebugPlayerCount: 1
@@ -80,27 +70,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   isDisableEventManager: 0
-  postProcessVolume: {fileID: 0}
-  blockSpawner: {fileID: 0}
-  _lavaLight: {fileID: 0}
-  holderPhysicMaterial: {fileID: 0}
+  isGameStarted: 0
+  isGameOver: 0
+  isInMainMenu: 0
+  passTuto: 0
   m_DifficultyList:
   - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
   - {fileID: 11400000, guid: d0387f9645456e844ba5a01a4a5ba047, type: 2}
   _GameOverCanvas: {fileID: 0}
+  levelCompleteCanvas: {fileID: 0}
+  levelCompleteCanvaUI: {fileID: 0}
   _retryButton: {fileID: 0}
   _textGameOverCondition: {fileID: 0}
-  _gameOverPart: {fileID: 0}
-  _introGame: {fileID: 0}
-  isGameOver: 0
-  isInMainMenu: 0
-  _eventManager: {fileID: 0}
-  _tuto: {fileID: 0}
-  passTuto: 0
   _skipTuto: {fileID: 0}
   _scoreText: {fileID: 0}
   _circleTransition: {fileID: 0}
-  _levelCompleteManager: {fileID: 0}
+  _backButton: {fileID: 0}
+  _backbuttonLevelComplete: {fileID: 0}
+  _gameOverCanva: {fileID: 0}
+  _playerStats: []
+  _buttons: []
+  submitEvent:
+    Guid:
+      Data1: 1023626430
+      Data2: 1306001614
+      Data3: 1594038424
+      Data4: 798773606
+    Path: event:/UI/Menu/Selecting an element
+  navigateEvent:
+    Guid:
+      Data1: -862295779
+      Data2: 1126071768
+      Data3: -1960964732
+      Data4: -1384339287
+    Path: event:/UI/Menu/Hovering over a button
+  blockSpawner: {fileID: 0}
+  _gameOverPart: {fileID: 0}
+  _introGame: {fileID: 0}
+  _gameOST: {fileID: 0}
+  _PickaxeUI: {fileID: 0}
+  nbPickaxeUI: {fileID: 0}
+  _nbMaxPickaxeUI: {fileID: 0}
 --- !u!114 &7177857267881942841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,11 +125,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PauseCanvas: {fileID: 0}
   isPaused: 0
-  _retryButton: {fileID: 0}
+  _resumeButton: {fileID: 0}
   _rebindJump: {fileID: 0}
+  _backbuttonSettings: {fileID: 0}
   _inputCanvas: {fileID: 0}
+  _settingsCanvas: {fileID: 0}
   _stateMenuEvent: []
   _circleTransition: {fileID: 0}
+  _controlsPanel: {fileID: 0}
+  _controlsPanelButton: {fileID: 0}
+  scaleButton: 0
+  _button: []
 --- !u!114 &2752945893467999895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +154,8 @@ MonoBehaviour:
   typeSentence: {fileID: 0}
   score: {fileID: 0}
   lava: {fileID: 0}
+  tuto: {fileID: 0}
+  postProcessVolume: {fileID: 0}
 --- !u!114 &4901307179824296338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +174,7 @@ MonoBehaviour:
   _taxeDay: TAXE DAY!!
   _approachingLava: RUN!! LAVAAA
   _goblinWave: GOBLIN WAVE!!
+  _noForge: 
 --- !u!114 &582048765061509571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,12 +187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe0a5ce517e407458faab5f7aa5e18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0
-  rocksHealth: 0
-  rocksWithGoldHealth: 0
-  _lava: {fileID: 0}
-  _showTextPart: {fileID: 0}
   _eventText: {fileID: 0}
+  _littleText: {fileID: 0}
+  _ts: {fileID: 0}
+  _showTextPart: {fileID: 0}
   _pickaxesModels: []
   _pickaxesPart: []
   _lavaPartUI: {fileID: 0}
@@ -181,7 +198,17 @@ MonoBehaviour:
   _goldChariotPart: {fileID: 0}
   _goldChariotUIPart: {fileID: 0}
   _goblinWave: {fileID: 0}
-  isRockEvent: 0
+  _forgeBrokenPart: {fileID: 0}
+  _deleteForgePanelEventPart: {fileID: 0}
+  _panelNoForgePart: {fileID: 0}
+  _goblinWaveSpawnPart: {fileID: 0}
+  _forgePanelAnimator: {fileID: 0}
+  _littleTextAnim: {fileID: 0}
+  rocksHealth: 0
+  rocksWithGoldHealth: 0
+  isForgeEvent: 0
+  _bubbleForgeBroken: {fileID: 0}
+  _forgePanel: {fileID: 0}
 --- !u!114 &2775746880329335668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,9 +224,14 @@ MonoBehaviour:
   _statisticsText:
   - Key: 0
     Value: {fileID: 0}
+    renderTexture: {fileID: 0}
   - Key: 1
     Value: {fileID: 0}
+    renderTexture: {fileID: 0}
   - Key: 2
     Value: {fileID: 0}
+    renderTexture: {fileID: 0}
   - Key: 3
     Value: {fileID: 0}
+    renderTexture: {fileID: 0}
+  _image: {fileID: 0}

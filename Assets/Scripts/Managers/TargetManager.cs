@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -13,6 +14,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private Lava lava;
     [SerializeField] private Tuto tuto;
     [SerializeField] private PostProcessVolume postProcessVolume;
+    [SerializeField] private StudioEventEmitter gameOST;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
     void Awake()
@@ -35,7 +37,8 @@ public class TargetManager : MonoBehaviour
             score,
             lava,
             tuto,
-            postProcessVolume
+            postProcessVolume,
+            gameOST
         };
         return list;
     }
@@ -44,7 +47,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (MonoBehaviour target in GetTargetList())
         {
-            if (target.GetType() == typeof(T))
+            if (target != null && target.GetType() == typeof(T))
                 return target as T;
         }
         return default;

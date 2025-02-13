@@ -64,12 +64,6 @@ public class Rock : MonoBehaviour
         _breakRockParticule.Play();
         _gfx.SetActive(false);
         _rockCollider.enabled = false;
-
-        Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
-        if (tuto.isBreakRock)
-        {
-            tuto.isPushChariot = true;
-        }
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.1f, 0.1f);
         if (haveGold)
         {
@@ -77,9 +71,15 @@ public class Rock : MonoBehaviour
             if (!GameManager.Instance.isInMainMenu) StartCoroutine(BreakGold());
         }
 
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
+            if (tuto.isBreakRock)
+                tuto.isPushChariot = true;
+        }
+
         PlayRockExplosionSound(gameObject.transform.position);
 
-        
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }

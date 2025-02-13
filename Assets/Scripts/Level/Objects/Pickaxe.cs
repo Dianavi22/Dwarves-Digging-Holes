@@ -17,10 +17,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private Player holdingPlayer;
     public bool isInTuto;
     [SerializeField] FollowTarget _tutoTarget;
-    public FollowTarget myTarget;
     [SerializeField] GameObject _pickaxePart;
     private bool _isShowTuto = false;
     private bool _isCarried = false;
+
+    public FollowTarget myTarget;
 
     private bool isFirstTime = true;
 
@@ -30,7 +31,11 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         StartCoroutine(CdParticule());
         myTarget = Instantiate(_tutoTarget, transform.position, Quaternion.identity);
         myTarget.target = transform;
-        GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text) + 1).ToString();
+        myTarget.gameObject.SetActive(!GameManager.Instance.isInMainMenu);
+        if (!GameManager.Instance.isInMainMenu)
+        {
+            GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text) + 1).ToString();
+        }
         _spawnPickaxePart.Play();
     }
 
@@ -155,7 +160,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text)-1).ToString();
+        if (!GameManager.Instance.isInMainMenu) GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text)-1).ToString();
 
         StartCoroutine(BreakPickaxe());
     }

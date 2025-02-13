@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using FMODUnity;
 
 public class ButtonSelectionHandler : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
@@ -20,7 +21,8 @@ public class ButtonSelectionHandler : MonoBehaviour, ISelectHandler, IDeselectHa
 
     public void OnSelect(BaseEventData eventData)
     {
-        if(_img != null)
+        RuntimeManager.PlayOneShot(GameManager.Instance.GetNavigateUISound());
+        if (_img != null)
         {
             _img.color = _color;
         }

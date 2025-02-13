@@ -367,6 +367,8 @@ public class PlayerActions : MonoBehaviour
         else
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
 
+        if (GameManager.Instance.isInMainMenu) return;
+
         //Tuto
         if (heldObject.TryGetComponent<Pickaxe>(out _) && _tuto.startTuto)
         {

@@ -76,11 +76,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> _playerStats;
     [SerializeField] List<GameObject> _buttons;
 
+    [Header("Global Sound")]
+    [SerializeField] EventReference submitEvent;
+    [SerializeField] EventReference navigateEvent;
+
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
-    [SerializeField] StudioEventEmitter _gameOST;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -94,6 +97,10 @@ public class GameManager : MonoBehaviour
     private bool _scaleButton = false;
     private bool _isTutoActive = true;
     public static GameManager Instance; // A static reference to the GameManager instance
+
+    public EventReference GetSubmitUISound() => submitEvent;
+    public EventReference GetNavigateUISound() => navigateEvent;
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -108,6 +115,8 @@ public class GameManager : MonoBehaviour
     {
         _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
+        
+        TargetManager.Instance.GetGameObject<StudioEventEmitter>().gameObject.SetActive(false);
 
         // Select the difficulty
         Difficulty = isInMainMenu ? m_DifficultyList[0] :  m_DifficultyList.First(x => x.DifficultyName == PlayerPrefs.GetString(Utils.Constant.DIFFICULTY_KEY));
@@ -134,8 +143,6 @@ public class GameManager : MonoBehaviour
 
         _circleTransition.SetActive(true);
     }
-
-   
 
     private IEnumerator StartParty()
     {
@@ -171,7 +178,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        _gameOST.gameObject.SetActive(true);
         isGameStarted = true;
         _scoreText.SetActive(true);
         _score.isStartScore = true;
