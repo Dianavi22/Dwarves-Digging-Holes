@@ -157,9 +157,15 @@ MonoBehaviour:
   - {fileID: 4392431218995717033, guid: ee6e5a103279fa34e9a4e576b03a72da, type: 3}
   - {fileID: 8040244235202483511, guid: 7d1fdce96e3c68e45aa30222928fd272, type: 3}
   - {fileID: 3794582845298295115, guid: cc5ea00376eba954db9687b85e1cada3, type: 3}
+  prefabEndingList: []
+  prefabListTest: []
   platformTrigger: 
   spawnPoint: {fileID: 751059649}
   destroyOnTriggerExit: 1
+  maximumDifficulty: 1.25
+  ProgressBar: {fileID: 0}
+  InfiniteprogressBar: {fileID: 0}
+  platformCount: 0
 --- !u!65 &184080655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -224,6 +230,63 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &541401414
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4392431218995717033, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_Name
+      value: RocksFall1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6351302930854400066, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c53d12e89a6bec4c829fd7dd8d9bd4d, type: 3}
 --- !u!1001 &564770229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -482,9 +545,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList:
   - {fileID: 2020656378455986904, guid: c951eb26a83121a46aae20802bf64644, type: 3}
+  prefabEndingList: []
+  prefabListTest: []
   platformTrigger: 
   spawnPoint: {fileID: 867522671}
   destroyOnTriggerExit: 1
+  maximumDifficulty: 1.25
+  ProgressBar: {fileID: 0}
+  InfiniteprogressBar: {fileID: 0}
+  platformCount: 0
 --- !u!54 &859681941
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -873,16 +942,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
-  scrollingSpeed: 0
-  blockSpawner: {fileID: 0}
-  _GameOverCanvas: {fileID: 0}
-  _retryButton: {fileID: 0}
-  _goldChariot: {fileID: 0}
-  PickaxeInstance: {fileID: 0}
-  _textGameOverCondition: {fileID: 0}
-  _goblinDeathCondition: 
-  _lavaDeathCondition: 
+  isDisableEventManager: 0
+  isGameStarted: 0
   isGameOver: 0
+  isInMainMenu: 0
+  passTuto: 0
+  m_DifficultyList: []
+  _GameOverCanvas: {fileID: 0}
+  levelCompleteCanvas: {fileID: 0}
+  levelCompleteCanvaUI: {fileID: 0}
+  _retryButton: {fileID: 0}
+  _textGameOverCondition: {fileID: 0}
+  _skipTuto: {fileID: 0}
+  _scoreText: {fileID: 0}
+  _circleTransition: {fileID: 0}
+  _backButton: {fileID: 0}
+  _backbuttonLevelComplete: {fileID: 0}
+  _gameOverCanva: {fileID: 0}
+  _playerStats: []
+  _buttons: []
+  blockSpawner: {fileID: 0}
+  _gameOverPart: {fileID: 0}
+  _introGame: {fileID: 0}
+  _PickaxeUI: {fileID: 0}
+  nbPickaxeUI: {fileID: 0}
+  _nbMaxPickaxeUI: {fileID: 0}
 --- !u!4 &1430774722
 Transform:
   m_ObjectHideFlags: 0
@@ -912,6 +996,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldChariot: {fileID: 995559454}
   respawnPoint: {fileID: 0}
+  shakyCame: {fileID: 0}
+  typeSentence: {fileID: 0}
+  score: {fileID: 0}
+  lava: {fileID: 0}
+  tuto: {fileID: 0}
+  postProcessVolume: {fileID: 0}
 --- !u!1 &1526159346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,16 +1469,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8516785317691533686, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
-  canvas: {fileID: 1526159346}
-  uiObjects:
-  - {fileID: 8325982029632982444, guid: 7d44554d7e905024ebb41e8bc2bf053c, type: 3}
-  - {fileID: 1891106824667603586, guid: b98501577510de04f8c1e3882e3e0614, type: 3}
-  - {fileID: 6148870047027336297, guid: eda9877c9d2153544ab91e36a36c138e, type: 3}
-  - {fileID: 2938528163977328098, guid: e6fcf545246ba68428a12eff3e487344, type: 3}
-  debug: 1
-  debugPlayerCount: 1
-  _playerMAT: []
+  m_PlayerPrefab: {fileID: 0}
+  m_PlayerMAT: []
+  m_MainCanvas: {fileID: 0}
+  m_HeadFatigueBarUI: {fileID: 0}
+  IsDebugMode: 0
+  m_DebugPlayerCount: 1
 --- !u!4 &2092299539
 Transform:
   m_ObjectHideFlags: 0
@@ -1546,3 +1632,4 @@ SceneRoots:
   - {fileID: 1822119011}
   - {fileID: 2091823751}
   - {fileID: 1526159350}
+  - {fileID: 541401414}

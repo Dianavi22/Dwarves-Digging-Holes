@@ -4,6 +4,7 @@ using DG.Tweening;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.PlayerLoop;
+using FMODUnity;
 
 public class PlayerMovements : EntityMovement
 {
@@ -16,6 +17,12 @@ public class PlayerMovements : EntityMovement
     [SerializeField] ParticleSystem _movePart;
     [SerializeField] ParticleSystem _tearsPart;
 
+    [SerializeField] private EventReference dashSound;
+    [SerializeField] private EventReference jumpSound;
+    [SerializeField] private EventReference landingSound;
+    [SerializeField] private EventReference disappointedgSound;
+    
+    
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
     private bool flip_vertical = false;
@@ -36,6 +43,7 @@ public class PlayerMovements : EntityMovement
         if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
             _tearsPart.Play();
+            DisappointedSound(gameObject.transform.position);
         }
 
         if (!_p.IsGrabbed)
@@ -74,6 +82,7 @@ public class PlayerMovements : EntityMovement
         if (!collision.collider.CompareTag("GoldChariot") && !_groundedPart.isPlaying)
         {
             _groundedPart.Play();
+            LandingSound(gameObject.transform.position);
         }
     }
 
@@ -135,6 +144,7 @@ public class PlayerMovements : EntityMovement
                 {
                     IsPerformingJump = true;
                     Jump();
+                    JumpSound(gameObject.transform.position);
                     _movePart.Stop();
                 }
                 break;
@@ -152,6 +162,7 @@ public class PlayerMovements : EntityMovement
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
+        DashSound(gameObject.transform.position);
 
         Dash();
 
@@ -184,5 +195,30 @@ public class PlayerMovements : EntityMovement
     {
         _isOnChariot = false;
     }
+
+
+    #region Sound
+
+    private void DashSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(dashSound, position);
+    }
+
+    private void JumpSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(jumpSound, position);
+    }
+
+    private void LandingSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(landingSound, position);
+    }
+
+        private void DisappointedSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(disappointedgSound, position);
+    }
+
+    #endregion
 
 }
