@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _credits;
     [SerializeField] GameObject _stopCredits;
     [SerializeField] GameObject _startButton;
+    [SerializeField] GameObject _mysteryCube;
     [SerializeField] Color _bc;
     [SerializeField] private CanvasGroup _buttonsCanvaGroup;
     private bool _scaleButton = false;
@@ -136,7 +137,8 @@ public class MainMenuManager : MonoBehaviour
     #region Button click Event
     public void StartGame()
     {
-        _scaleButton = true;
+        _mysteryCube.SetActive(false);
+           _scaleButton = true;
         _pivotStartSettings.SetActive(true);
         _buttons.SetActive(false);
         _title.SetActive(false);
@@ -145,6 +147,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadSettingScene()
     {
+        _mysteryCube.SetActive(false);
         _bbSettings.transform.localScale = new Vector3(0.212207913f, 0.427238166f, 0.212207913f);
         _scaleButton = true;
         _title.gameObject.SetActive(false);
@@ -156,6 +159,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadCreditScene()
     {
+        _mysteryCube.SetActive(false);
         _scaleButton = true;
         _buttons.SetActive(false);
         _title.SetActive(false);
@@ -177,6 +181,7 @@ public class MainMenuManager : MonoBehaviour
     public void ActiveButtons()
     {
         ShowButtons();
+        _mysteryCube.SetActive(true);
         _credits.SetActive(false);
         EventSystem.current.SetSelectedGameObject(_startButton);
     }
