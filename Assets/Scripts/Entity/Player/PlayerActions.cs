@@ -11,7 +11,8 @@ using Utils;
 public class PlayerActions : MonoBehaviour
 {
     private Coroutine swingCoroutine;
-    [SerializeField] private EventReference swingSoundEvent;
+    [SerializeField] private EventReference swingSound;
+    [SerializeField] private EventReference forgeSound;
 
     [SerializeField] private float throwForce;
     [SerializeField] private float pickupRange;
@@ -48,6 +49,9 @@ public class PlayerActions : MonoBehaviour
     private Tween buildingPickaxe;
 
     private Coroutine loadingCoroutuine = null;
+    private Coroutine forgeSoundCoroutine;
+    private bool isForging = false;
+
 
     private void Awake()
     {
@@ -87,13 +91,19 @@ public class PlayerActions : MonoBehaviour
                     .AppendCallback(() =>
                         {
                             loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
+
+                            isForging = true;
+                            forgeSoundCoroutine = StartCoroutine(PlayForgeSoundRepeatedly());
                         })
                     .AppendInterval(2f)
                     //.Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
                         //.SetAutoKill(false))
                     //.AppendInterval(1f) // Wait for 1 second
                     //.Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
-                    .AppendCallback(() => forge.BuildPickaxe())
+                    .AppendCallback(() => 
+                    {
+                        forge.BuildPickaxe(); 
+                        isForging = false;})
                     .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true));});
             }
         }
@@ -201,6 +211,14 @@ public class PlayerActions : MonoBehaviour
 
             StopAnimation();
         }
+
+        if (forgeSoundCoroutine != null)
+        {
+            StopCoroutine(forgeSoundCoroutine);
+            forgeSoundCoroutine = null;
+        }
+        isForging = false; // Assure que la boucle de son s'arrête
+
     }
     #endregion
 
@@ -448,14 +466,26 @@ public class PlayerActions : MonoBehaviour
         isTaunt = false;
     }
 
-    #region Sound
+    #region Sound forgeEvent
     private void SwingSound()
     {  
-        EventInstance swingSoundInstance = RuntimeManager.CreateInstance(swingSoundEvent);
-        RuntimeManager.AttachInstanceToGameObject(swingSoundInstance, transform, GetComponent<Rigidbody>());
-        swingSoundInstance.start();
-        swingSoundInstance.release();
+        RuntimeManager.PlayOneShot(swingSound, transform.position);
     }
+
+    private void ForgeSound()
+    {  
+        RuntimeManager.PlayOneShot(forgeSound, transform.position);
+    }
+
+    private IEnumerator PlayForgeSoundRepeatedly()
+    {
+        while (isForging)
+        {
+            ForgeSound();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 
     #endregion
 }

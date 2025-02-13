@@ -171,10 +171,10 @@ public class PlayerFatigue : MonoBehaviour
     }
     #endregion
 
-    #region Sons Fatigue
+    #region Sounds Fatigue
     private void PlayFatigueWarningSound()
     {
-        if (currentMiningFatigue / MaxMiningFatigue <= 0.01f && Time.time >= miningFatigueSoundTimer)
+        if (currentMiningFatigue / MaxMiningFatigue <= 0.05f && Time.time >= miningFatigueSoundTimer)
         {
             RuntimeManager.PlayOneShot(fatigueWarningSound, transform.position);
             miningFatigueSoundTimer = Time.time + fatigueSoundCooldown;
