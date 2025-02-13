@@ -1,12 +1,18 @@
 using UnityEngine;
 using DG.Tweening;
 using Utils;
+using FMODUnity;
+using FMOD.Studio; 
+
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _HurtPart;
     [SerializeField] private ParticleSystem _DestroyPlayer;
     [SerializeField] private RotateImage _imageRespawn;
+    [SerializeField] private EventReference resurgenceSound;
+    [SerializeField] private EventReference deathSound;
+
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -99,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void DeathPlayer()
     {
+        DeathSound();
 
         IsAlive = false;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
@@ -136,6 +143,8 @@ public class PlayerHealth : MonoBehaviour
         _p.GetModelRef().gameObject.SetActive(false);
 
         Invoke(nameof(Invincibility), 0.1f);
+
+        ResurgenceSound();
     }
 
     private void Invincibility()
@@ -143,4 +152,17 @@ public class PlayerHealth : MonoBehaviour
         _p.GetMovement().enabled = true;
         _p.GetActions().enabled = true;
     }
+
+
+    #region Sons resurgenceSound
+    private void ResurgenceSound()
+    {
+        RuntimeManager.PlayOneShot(resurgenceSound, transform.position);
+    }
+
+    private void DeathSound()
+    {
+        RuntimeManager.PlayOneShot(deathSound, transform.position);
+    }
+    #endregion
 }
