@@ -12,6 +12,7 @@ namespace Utils
         public static readonly string BEST_SCORE_KEY = "BEST_SCORE";
         public static readonly string DIFFICULTY_KEY = "SELECTED_DIFFICULTY";
         public static readonly string MODE_KEY = "SELECTED_MODE";
+        public static readonly string VOLUME_KEY = "SELECTED_VOLUME";
     }
 
     public class Component
