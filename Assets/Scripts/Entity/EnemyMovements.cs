@@ -52,6 +52,7 @@ public class EnemyMovements : EntityMovement
             //lost Gold function
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
+                _animator.SetTrigger("stealGold");
                 StartCoroutine(_e.HitChariot());
             }
         }
