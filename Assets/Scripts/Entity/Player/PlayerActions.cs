@@ -85,9 +85,10 @@ public class PlayerActions : MonoBehaviour
                 buildingPickaxe ??= DOTween.Sequence()
                     .AppendCallback(() => StopCoroutine(loadingCoroutuine))
                     .AppendCallback(() =>
-                        {
-                            loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
-                        })
+                    {
+                        _p.GetAnimator().SetTrigger("forge");
+                        loadingCoroutuine = StartCoroutine(forge.LoadPickaxe());
+                    })
                     .AppendInterval(2f)
                     //.Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
                         //.SetAutoKill(false))
