@@ -4,6 +4,7 @@ using DG.Tweening;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.PlayerLoop;
+using System.Collections;
 
 public class PlayerMovements : EntityMovement
 {
@@ -109,6 +110,7 @@ public class PlayerMovements : EntityMovement
         {
             _movePart.Play();
         }
+        print(_horizontal);
 
         if (_horizontal == 0)
         {
@@ -120,6 +122,7 @@ public class PlayerMovements : EntityMovement
 
         _p.GetAnimator().SetFloat("Run", _horizontal);
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
@@ -145,20 +148,20 @@ public class PlayerMovements : EntityMovement
     }
     public void OnDash(InputAction.CallbackContext _)
     {
+       if(!_DashPart.isPlaying) _DashPart.Play();
         if (!_p.CanDoAnything()) return;
 
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
-        _DashPart.Play();
-
         Dash();
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
+            _DashPart.Stop();
             _isDashing = false;
-            Invoke(nameof(EndDashCoolDown), 0.75f);
+            Invoke(nameof(EndDashCoolDown), 0.8f);
             _DashPart.Stop();
         });
     }
