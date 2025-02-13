@@ -67,33 +67,24 @@ public class RockFall : MonoBehaviour
     {
         if (!_isDestroyed)
         {
-            if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player))
-            {
-                player.HandleDestroy();
-                StartCoroutine(DestroyRock());
-
-            }
             if (Utils.Component.TryGetInParent<GoldChariot>(collision.collider, out var goldChariot) || Utils.Component.TryGetInParent<MoreGold>(collision.collider, out var mg))
             {
-                _isDestroyed = true;
                 goldChariot.DamageByFallRock();
                 StartCoroutine(DestroyRock());
+                return;
             }
 
-            if (Utils.Component.TryGetInParent<Platform>(collision.collider, out var platform))
+            if (Utils.Component.TryGetInParent<IGrabbable>(collision.collider, out var grabbable))
             {
+                grabbable.HandleDestroy();
                 StartCoroutine(DestroyRock());
-
+                return;
             }
-            if (Utils.Component.TryGetInParent<Rock>(collision.collider, out var rock))
-            {
-                StartCoroutine(DestroyRock());
 
-            }
-            if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy))
+            if (Utils.Component.TryGetInParent<Platform>(collision.collider, out _) || Utils.Component.TryGetInParent<Rock>(collision.collider, out _))
             {
-                enemy.HandleDestroy();
                 StartCoroutine(DestroyRock());
+                return;
             }
         }
     }
