@@ -492,7 +492,6 @@ MonoBehaviour:
   CanMoveAfterGrab: 1
   playerCamera: {fileID: 0}
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
-  _animator: {fileID: 9191707564205584747}
   HasCompletedLevel: 0
 --- !u!114 &6831975214807127632
 MonoBehaviour:
@@ -515,6 +514,34 @@ MonoBehaviour:
   _groundedPart: {fileID: 8139262896580238866}
   _movePart: {fileID: 2792476647745516857}
   _tearsPart: {fileID: 7038342786206642881}
+  dashSound:
+    Guid:
+      Data1: -1964938284
+      Data2: 1330227061
+      Data3: 1459481531
+      Data4: -1462720355
+    Path: event:/SFX/Dwarf/Dash
+  jumpSound:
+    Guid:
+      Data1: -1828173959
+      Data2: 1222489996
+      Data3: 511360676
+      Data4: -1309290227
+    Path: event:/SFX/Dwarf/Jump
+  landingSound:
+    Guid:
+      Data1: -1596796995
+      Data2: 1079743896
+      Data3: -2021127254
+      Data4: -405004285
+    Path: event:/SFX/Dwarf/Landing
+  disappointedgSound:
+    Guid:
+      Data1: -571087443
+      Data2: 1175417357
+      Data3: -1456154689
+      Data4: 1791352170
+    Path: event:/SFX/Dwarf/Disappointed
   _rb: {fileID: 1078326625411918701}
 --- !u!114 &2117048352203454760
 MonoBehaviour:
@@ -764,7 +791,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   slotInventoriaObject: {fileID: 3412405687064983370}
-  slotPickaxe: {fileID: 0}
   _yeetPart: {fileID: 8248041281223166689}
   pickupSound:
     Guid:
@@ -796,7 +822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerGFX: {fileID: 0}
   _HurtPart: {fileID: 7641500938896082713}
   _DestroyPlayer: {fileID: 4738655127952116816}
   _imageRespawn: {fileID: 0}
@@ -858,6 +883,13 @@ MonoBehaviour:
       m_Calls: []
   currentCartsFatigue: 0
   currentMiningFatigue: 0
+  fatigueWarningSound:
+    Guid:
+      Data1: -571087443
+      Data2: 1175417357
+      Data3: -1456154689
+      Data4: 1791352170
+    Path: event:/SFX/Dwarf/Disappointed
 --- !u!1001 &294029102934848206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1152,11 +1184,6 @@ PrefabInstance:
 --- !u!4 &2985795847377349393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1828495377542635810, guid: 8b08393f4df2d274a9514d2d4a6be3b4, type: 3}
-  m_PrefabInstance: {fileID: 3463183843456715315}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &9191707564205584747 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5728633766803585880, guid: 8b08393f4df2d274a9514d2d4a6be3b4, type: 3}
   m_PrefabInstance: {fileID: 3463183843456715315}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3834075078387536184
