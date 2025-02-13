@@ -9,10 +9,13 @@ public class StoneCube : MonoBehaviour
     [SerializeField] private Collider _collider;
     [SerializeField] private Animator _cubeAnim;
     [SerializeField] private ParticleSystem _spawnCubePart;
+    [SerializeField] private ParticleSystem _destroyRockPart;
+    [SerializeField] private ParticleSystem _hitCubePart;
     private bool _active = false;   
     void Start()
     {
-        
+        _spawnCubePart.Play();
+
     }
 
     void Update()
@@ -24,6 +27,7 @@ public class StoneCube : MonoBehaviour
     {
         if (other.CompareTag("Player") && _active == false)
         {
+            _hitCubePart.Play();
             _active = true;
             _collider.isTrigger  = true;
             _cubeAnim.SetTrigger("Trigger");
@@ -36,6 +40,7 @@ public class StoneCube : MonoBehaviour
     {
         
         yield return new WaitForSeconds(0.5f);
+        _destroyRockPart.Play();
         _gfx.GetComponent<Renderer>().enabled = false;
         yield return new WaitForSeconds(3);
         _collider.isTrigger = false;

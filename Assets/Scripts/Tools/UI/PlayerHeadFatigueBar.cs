@@ -142,7 +142,7 @@ public class PlayerHeadFatigueBar : MonoBehaviour
         UpdateBar(currentFatigue, maxFatigue, miningFatigueBar, miningFatigueText);
         float ratio = currentFatigue / maxFatigue;
 
-        if (ratio < DISPLAY_THRESHOLD)
+        if (ratio < DISPLAY_THRESHOLD && _player.GetHealth().IsAlive)
         {
             if (!miningFatigueCanvasGroup.isActiveAndEnabled)
             {
