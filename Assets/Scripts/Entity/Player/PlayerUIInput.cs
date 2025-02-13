@@ -9,11 +9,7 @@ public class PlayerUIInput : MonoBehaviour
 {
     private Player _p;
 
-    public EventReference submitEvent;
-    public EventReference navigateEvent;
     private UIPauseManager _uiPause;
-
-    private bool condition = true;
 
     private void Start()
     {
@@ -43,22 +39,10 @@ public class PlayerUIInput : MonoBehaviour
         Debug.Log("Test");
     }
 
-    public void OnNavigate(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed && condition)
-        {
-            if(!GameManager.Instance.isInMainMenu && !_uiPause.isPaused) return;
-            condition = false;
-            RuntimeManager.PlayOneShot(navigateEvent);
-            DOVirtual.DelayedCall(0.15f, () => condition = true);
-        }
-
-    }
-
     //! Les actions sont compliquées à gérer, il faudrait revoir ça
     public void OnSubmit(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
-            if(GameManager.Instance.isInMainMenu || _uiPause.isPaused) RuntimeManager.PlayOneShot(submitEvent);
+            if(GameManager.Instance.isInMainMenu || _uiPause.isPaused) RuntimeManager.PlayOneShot(GameManager.Instance.GetSubmitUISound());
     }
 }
