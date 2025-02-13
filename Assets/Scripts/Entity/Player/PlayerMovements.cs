@@ -118,7 +118,6 @@ public class PlayerMovements : EntityMovement
         {
             _movePart.Play();
         }
-        print(_horizontal);
 
         if (_horizontal == 0)
         {
