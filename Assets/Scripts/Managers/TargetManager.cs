@@ -44,7 +44,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (MonoBehaviour target in GetTargetList())
         {
-            if (target.GetType() == typeof(T))
+            if (target != null && target.GetType() == typeof(T))
                 return target as T;
         }
         return default;

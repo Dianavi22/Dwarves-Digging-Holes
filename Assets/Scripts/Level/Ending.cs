@@ -19,7 +19,7 @@ public class Ending : MonoBehaviour
     public bool test = false;
 
     private Vector3 _targetPosition = new Vector3(9.97000027f, 0.810000002f, -0.660000026f);
-    [SerializeField] ShakyCame _sc;
+    private ShakyCame _sc;
     private bool _isLavaMoving = false;
 
     private void Start()
@@ -27,7 +27,7 @@ public class Ending : MonoBehaviour
         _bubbleEnd = GameObject.Find("BubbleEndObject");
        // _bubbletext = FindObjectOfType<Test>().GetComponent<TMP_Text>();
        // _ts = FindObjectOfType<TypeSentence> ();
-        _sc = FindObjectOfType<ShakyCame>();
+        _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
         _breakFlorPart = GameObject.Find("BreakFloor_PART").GetComponent<ParticleSystem>();
         _lavaFloorPart = GameObject.Find("DecoLava_PART").GetComponent<ParticleSystem>();
     }
