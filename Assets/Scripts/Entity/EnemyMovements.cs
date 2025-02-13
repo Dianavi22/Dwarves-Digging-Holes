@@ -30,6 +30,10 @@ public class EnemyMovements : EntityMovement
             OnMove();
 
             bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
+            //Debug.Log(hitWall);
+
+            Debug.DrawRay(raycastDetectHitWall.transform.position, -transform.right * 1.5f, Color.red);
+            Debug.DrawRay(raycastDetectHitWall.transform.position, transform.right * 1.5f, Color.red);
 
             if (hitWall)
             {
@@ -49,7 +53,6 @@ public class EnemyMovements : EntityMovement
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
                 StartCoroutine(_e.HitChariot());
-                //_e.transform.position += new Vector3(horizontalInput / 2.25f, 0, 0f) * Time.deltaTime;
             }
         }
 

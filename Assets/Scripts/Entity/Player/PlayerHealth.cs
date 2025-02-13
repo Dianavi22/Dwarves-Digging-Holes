@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         IsAlive = true;
-        if (GameManager.Instance.isInMainMenu) 
+        if (GameManager.Instance.isInMainMenu)
         { 
             this.enabled = false;
             return;
@@ -133,7 +133,7 @@ public class PlayerHealth : MonoBehaviour
 
         IsAlive = true;
         _p.GetRigidbody().useGravity = true;
-        _p.GetModelRef().gameObject.SetActive(false);
+        _p.GetModelRef().gameObject.SetActive(true);
 
         Invoke(nameof(Invincibility), 0.1f);
     }
