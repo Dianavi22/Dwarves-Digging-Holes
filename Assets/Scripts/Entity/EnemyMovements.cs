@@ -37,7 +37,7 @@ public class EnemyMovements : EntityMovement
 
             if (hitWall)
             {
-                if (isGrounded)
+                if (isGrounded && !_e.IsTouchingChariot)
                 {
                     IsPerformingJump = true;
                     Jump();
