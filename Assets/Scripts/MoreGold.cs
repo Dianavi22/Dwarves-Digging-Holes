@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class MoreGold : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MoreGold : MonoBehaviour
     [SerializeField] int y;
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem _spawnPart;
+    [SerializeField] private EventReference fallingGoldSound;
     private ShakyCame _sc;
     private GoldChariot _gc;
 
@@ -46,6 +48,7 @@ public class MoreGold : MonoBehaviour
 
     public IEnumerator DespawnBlock()
     {
+        FallingGoldSound();
         GetComponent<Collider>().enabled = false;
         myPlateform.SetActive(false);
         gfx.SetActive(false);
@@ -55,4 +58,11 @@ public class MoreGold : MonoBehaviour
         yield return new WaitForSeconds(_destroyPart.main.duration + 0.5f);
         Destroy(gameObject);
     }
+
+    #region Sounds
+    private void FallingGoldSound()
+    {
+        RuntimeManager.PlayOneShot(fallingGoldSound, transform.position);
+    }
+    #endregion
 }

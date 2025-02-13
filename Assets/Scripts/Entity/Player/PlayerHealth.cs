@@ -154,7 +154,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
 
-    #region Sounds resurgenceSound
+    #region Sounds
     private void ResurgenceSound()
     {
         RuntimeManager.PlayOneShot(resurgenceSound, transform.position);
