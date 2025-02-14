@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _littleRocksPart;
     [SerializeField] ParticleSystem _buttonFallPart;
     [SerializeField] bool lerp = false;
+    [SerializeField] private EventReference introRocksSound;
 
     public float speed = 5;
     private Vector3 startPosition;
@@ -82,6 +84,7 @@ public class MainMenuManager : MonoBehaviour
 
     private IEnumerator IntroMainMenu()
     {
+        RuntimeManager.PlayOneShot(introRocksSound);
         _breakRockPart.Play();
         yield return new WaitForSeconds(0.15f);
         _sc.ShakyCameCustom(0.1f, 0.1f);
