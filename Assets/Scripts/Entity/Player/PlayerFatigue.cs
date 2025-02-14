@@ -140,6 +140,7 @@ public class PlayerFatigue : MonoBehaviour
     #region Reduces fatigue instantly
     private bool ReduceFatigue(ref float currentFatigue, float amount)
     {
+        if (GameManager.Instance.isInMainMenu) return true;
         if (amount <= currentFatigue)
         {
             currentFatigue -= amount;
