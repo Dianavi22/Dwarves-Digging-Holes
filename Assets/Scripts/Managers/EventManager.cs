@@ -116,10 +116,10 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(10);
         ChooseEvent(Random.Range(0, 5));
          //ChooseEvent(1);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(30);
         _readyToEvent = true;
     }
 
