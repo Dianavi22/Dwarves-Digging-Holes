@@ -20,7 +20,7 @@ public class WinPanel : MonoBehaviour
     [SerializeField] int _currentInt;
     void Start()
     {
-      // StartCoroutine(GoldCountWin());
+       //StartCoroutine(GoldCountWin());
     }
 
     void Update()
@@ -48,8 +48,9 @@ public class WinPanel : MonoBehaviour
                 yield return new WaitForSeconds(1);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                 _badge.SetActive(true);
+                yield return new WaitForSeconds(0.15f);
                 _badgePart.Play();
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(0.2f);
                 _endPart.SetActive(true);
                 _phrase.gameObject.SetActive(true);
 
