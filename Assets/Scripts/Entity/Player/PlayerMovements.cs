@@ -8,6 +8,8 @@ using FMODUnity;
 
 public class PlayerMovements : EntityMovement
 {
+    [HideInInspector] public bool isGrabbingChariot;
+    
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
     [Header("Particle effect")]
@@ -127,7 +129,9 @@ public class PlayerMovements : EntityMovement
         //Debug.Log(CanMove);
         Move(new Vector2(_horizontal, _vertical));
 
-        _p.GetAnimator().SetFloat("Run", _horizontal);
+        // Grab chariot moonwalk fix
+        float horizontal = (isGrabbingChariot && flip) ? _horizontal : _horizontal * -1f;
+        _p.GetAnimator().SetFloat("Run", horizontal);
     }
 
     public void OnJump(InputAction.CallbackContext context)

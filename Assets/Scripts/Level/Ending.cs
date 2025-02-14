@@ -66,6 +66,7 @@ public class Ending : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         player.GetRigidbody().isKinematic = true;
+        player.GetAnimator().SetBool("isClimbingLadder", true);
 
         foreach (Transform t in m_InterrestPoint)
         {
@@ -77,6 +78,7 @@ public class Ending : MonoBehaviour
 
         sequence.Play();
         yield return sequence.WaitForCompletion();
+        player.GetAnimator().SetBool("isClimbingLadder", false);
         player.HasCompletedLevel = true;
 
     }

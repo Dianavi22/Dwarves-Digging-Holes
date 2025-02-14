@@ -5,6 +5,7 @@ public class Player : Entity
     private PlayerActions actions;
     private PlayerHealth health;
     private PlayerFatigue fatigue;
+    private PlayerMovements playerMovements;
     private UserInput input;
 
     private PlayerModels _model;
@@ -24,6 +25,7 @@ public class Player : Entity
         actions = GetComponent<PlayerActions>();
         health = GetComponent<PlayerHealth>();
         fatigue = GetComponent<PlayerFatigue>();
+        playerMovements = GetComponent<PlayerMovements>();
         input = GetComponent<UserInput>();
         playerCamera = Instantiate(playerCameraPrefab).GetComponent<Camera>();
         playerCamera.gameObject.GetComponent<FollowPlayer>().playerToFollow = transform;
@@ -35,6 +37,7 @@ public class Player : Entity
     public UserInput GetInput() => input;
     public Animator GetAnimator() => _model.GetAnimator();
     public PlayerModels GetModelRef() => _model;
+    public PlayerMovements GetPlayerMovements() => playerMovements;
 
     public void SetModelRef(PlayerModels model)
     {
@@ -45,6 +48,8 @@ public class Player : Entity
     {
         base.HandleCarriedState(currentPlayer, isGrabbed);
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+
+        GetAnimator().SetBool("isGrabbed", isGrabbed);
     }
 
     public bool CanDoAnything()

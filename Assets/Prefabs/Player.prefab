@@ -2118,7 +2118,6 @@ MonoBehaviour:
   CanMoveAfterGrab: 1
   playerCamera: {fileID: 0}
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
-  animator: {fileID: 3490958059514660760}
   HasCompletedLevel: 0
 --- !u!114 &6831975214807127632
 MonoBehaviour:
@@ -2135,12 +2134,41 @@ MonoBehaviour:
   canFlip: 1
   isGrounded: 0
   Stats: {fileID: 0}
+  isGrabbingChariot: 0
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _DashPart: {fileID: 6319271055205663220}
   _hurtPart: {fileID: 7641500938896082713}
   _groundedPart: {fileID: 8139262896580238866}
   _movePart: {fileID: 2411102331454734359}
   _tearsPart: {fileID: 7324986470018329842}
+  dashSound:
+    Guid:
+      Data1: -1964938284
+      Data2: 1330227061
+      Data3: 1459481531
+      Data4: -1462720355
+    Path: event:/SFX/Dwarf/Dash
+  jumpSound:
+    Guid:
+      Data1: -1828173959
+      Data2: 1222489996
+      Data3: 511360676
+      Data4: -1309290227
+    Path: event:/SFX/Dwarf/Jump
+  landingSound:
+    Guid:
+      Data1: -1596796995
+      Data2: 1079743896
+      Data3: -2021127254
+      Data4: -405004285
+    Path: event:/SFX/Dwarf/Landing
+  disappointedgSound:
+    Guid:
+      Data1: -571087443
+      Data2: 1175417357
+      Data3: -1456154689
+      Data4: 1791352170
+    Path: event:/SFX/Dwarf/Disappointed
   _rb: {fileID: 1078326625411918701}
 --- !u!114 &2117048352203454760
 MonoBehaviour:
@@ -2376,13 +2404,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b863315c35b1eb428516cd01d357415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingSoundEvent:
+  swingSound:
     Guid:
       Data1: -892129172
       Data2: 1139827379
       Data3: 215148678
       Data4: 14115473
     Path: event:/SFX/Pickaxe/Swing in the air
+  forgeSound:
+    Guid:
+      Data1: 1193257348
+      Data2: 1256193449
+      Data3: 1659319472
+      Data4: -1433667706
+    Path: event:/SFX/Pickaxe/Forged
   throwForce: 15
   pickupRange: 1
   _scale: {fileID: 8765590584797458301}
@@ -2390,7 +2425,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   slotInventoriaObject: {fileID: 3412405687064983370}
-  slotPickaxe: {fileID: 723594383303383143}
+  _yeetPart: {fileID: 0}
   pickupSound:
     Guid:
       Data1: 1136159633
@@ -2421,10 +2456,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ad1f0339f720419f008b210d67b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerGFX: {fileID: 4913043392985180122}
   _HurtPart: {fileID: 7641500938896082713}
   _DestroyPlayer: {fileID: 4738655127952116816}
   _imageRespawn: {fileID: 0}
+  resurgenceSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  deathSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,20 +2497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9197527417c218242bb6bae08de9a635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  submitEvent:
-    Guid:
-      Data1: 1023626430
-      Data2: 1306001614
-      Data3: 1594038424
-      Data4: 798773606
-    Path: event:/UI/Menu/Selecting an element
-  navigateEvent:
-    Guid:
-      Data1: -862295779
-      Data2: 1126071768
-      Data3: -1960964732
-      Data4: -1384339287
-    Path: event:/UI/Menu/Hovering over a button
 --- !u!114 &3847963404825759604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2517,13 @@ MonoBehaviour:
       m_Calls: []
   currentCartsFatigue: 0
   currentMiningFatigue: 0
+  fatigueWarningSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &8613464523767520693
 GameObject:
   m_ObjectHideFlags: 0
