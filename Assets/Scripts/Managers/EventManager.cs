@@ -20,6 +20,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] List<MeshRenderer> _pickaxesModels;
     [SerializeField] List<ParticleSystem> _pickaxesPart;
     [SerializeField] private EventReference eventPickaxeSound;
+    [SerializeField] private EventReference EventPickaxeBreak;
 
     [Header("Lava Event")]
     [SerializeField] ParticleSystem _lavaPartUI;
@@ -30,7 +31,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _goldChariotPart;
     [SerializeField] ParticleSystem _goldChariotUIPart;
     [SerializeField] private EventReference lavaGettingCloseSound;
-
+    [SerializeField] private EventReference lightningSound;
 
     [Header("Goblin Event")]
     [SerializeField] GoblinWave _goblinWave;
@@ -183,6 +184,7 @@ public class EventManager : MonoBehaviour
         {
             _pickaxeInScene[i].HandleDestroy();
         }
+        EventPickaxeBreakSound();
         _sc.ShakyCameCustom(0.2f, 0.2f);
         _littleText.text = "";
 
@@ -202,6 +204,7 @@ public class EventManager : MonoBehaviour
         _littleTextAnim.SetTrigger("OutLittleText");
         _goldChariotUIPart.Play();
         yield return new WaitForSeconds(1.5f);
+        LightningSound();
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
@@ -295,14 +298,22 @@ public class EventManager : MonoBehaviour
     }
     #endregion
 
-    #region Sounds     eventPickaxeSound eventGoldChariotSound lavaGettingCloseSound goblinWaveSound noForgeSound 
+    #region Sounds     eventPickaxeSound eventGoldChariotSound lavaGettingCloseSound goblinWaveSound noForgeSound   lightning
     private void EventPickaxeSound()
     {
         RuntimeManager.PlayOneShot(eventPickaxeSound, transform.position);
     }
+    private void EventPickaxeBreakSound()
+    {
+        RuntimeManager.PlayOneShot(EventPickaxeBreak, transform.position);
+    }
         private void EventGoldChariotSound()
     {
         RuntimeManager.PlayOneShot(eventGoldChariotSound, transform.position);
+    }
+    private void LightningSound()
+    {
+        RuntimeManager.PlayOneShot(lightningSound, transform.position);
     }
         private void LavaGettingCloseSound()
     {
