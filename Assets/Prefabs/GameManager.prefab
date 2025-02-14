@@ -107,10 +107,17 @@ MonoBehaviour:
   blockSpawner: {fileID: 0}
   _gameOverPart: {fileID: 0}
   _introGame: {fileID: 0}
-  _gameOST: {fileID: 0}
   _PickaxeUI: {fileID: 0}
   nbPickaxeUI: {fileID: 0}
   _nbMaxPickaxeUI: {fileID: 0}
+  showPanelTutoSound:
+    Guid:
+      Data1: 770069103
+      Data2: 1186286508
+      Data3: -2055786860
+      Data4: 1241785256
+    Path: event:/SFX/Start of the game/ShowPanelTuto
+  isEnding: 0
 --- !u!114 &7177857267881942841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +163,7 @@ MonoBehaviour:
   lava: {fileID: 0}
   tuto: {fileID: 0}
   postProcessVolume: {fileID: 0}
+  gameOST: {fileID: 0}
 --- !u!114 &4901307179824296338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,11 +201,60 @@ MonoBehaviour:
   _showTextPart: {fileID: 0}
   _pickaxesModels: []
   _pickaxesPart: []
+  eventPickaxeSound:
+    Guid:
+      Data1: 177134674
+      Data2: 1264349227
+      Data3: 1001151885
+      Data4: -47436773
+    Path: event:/SFX/Event/EventPickaxeSound
+  EventPickaxeBreak:
+    Guid:
+      Data1: -2146907142
+      Data2: 1150207948
+      Data3: 769914544
+      Data4: -2042043953
+    Path: event:/SFX/Event/break
   _lavaPartUI: {fileID: 0}
   _lavaRain: {fileID: 0}
+  eventGoldChariotSound:
+    Guid:
+      Data1: 1579771952
+      Data2: 1220363471
+      Data3: 1536033168
+      Data4: 149518522
+    Path: event:/SFX/Event/eventGoldChariotSound
   _goldChariotPart: {fileID: 0}
   _goldChariotUIPart: {fileID: 0}
+  lavaGettingCloseSound:
+    Guid:
+      Data1: -476605908
+      Data2: 1181553227
+      Data3: -1874405983
+      Data4: 1169521208
+    Path: event:/SFX/Event/lavaGettingCloseSound
+  lightningSound:
+    Guid:
+      Data1: -688889768
+      Data2: 1250317371
+      Data3: 1015532185
+      Data4: -673077240
+    Path: event:/SFX/Event/lightning
   _goblinWave: {fileID: 0}
+  goblinWaveSound:
+    Guid:
+      Data1: -1952691828
+      Data2: 1137612979
+      Data3: -1777529925
+      Data4: 729406100
+    Path: event:/SFX/Event/goblinWaveSound
+  noForgeSound:
+    Guid:
+      Data1: -1278412869
+      Data2: 1274511681
+      Data3: -827111808
+      Data4: -612969900
+    Path: event:/SFX/Event/noForgeSound
   _forgeBrokenPart: {fileID: 0}
   _deleteForgePanelEventPart: {fileID: 0}
   _panelNoForgePart: {fileID: 0}

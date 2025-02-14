@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5272533911918389959}
   m_Layer: 0
-  m_Name: HeadRigTarget
+  m_Name: HeadAimTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,6 +331,7 @@ MonoBehaviour:
   CanMoveAfterGrab: 1
   playerCamera: {fileID: 0}
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
+  headAimTarget: {fileID: 5272533911918389959}
   HasCompletedLevel: 0
 --- !u!114 &6831975214807127632
 MonoBehaviour:

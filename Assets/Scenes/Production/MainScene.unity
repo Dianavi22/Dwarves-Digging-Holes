@@ -27992,7 +27992,7 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params:
   - Name: Volume
-    Value: 0.91
+    Value: 1
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
@@ -28703,6 +28703,20 @@ MonoBehaviour:
   _endTutoPart: {fileID: 1282448186}
   _panelAnimator: {fileID: 1494709133}
   _ts: {fileID: 1629107620}
+  showPanelTutoSound:
+    Guid:
+      Data1: 770069103
+      Data2: 1186286508
+      Data3: -2055786860
+      Data4: 1241785256
+    Path: event:/SFX/Start of the game/ShowPanelTuto
+  breakPanelTutoSound:
+    Guid:
+      Data1: 1454652572
+      Data2: 1157921935
+      Data3: 1013025155
+      Data4: -882507177
+    Path: event:/SFX/Start of the game/BreakPanelTuto
 --- !u!114 &1629107620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30744,6 +30758,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: showPanelTutoSound.Path
+      value: event:/SFX/Start of the game/ShowPanelTuto
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _backbuttonLevelComplete
       value: 
       objectReference: {fileID: 531951321}
@@ -30782,6 +30800,22 @@ PrefabInstance:
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _tutoElements.Array.data[3]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: showPanelTutoSound.Guid.Data1
+      value: 770069103
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: showPanelTutoSound.Guid.Data2
+      value: 1186286508
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: showPanelTutoSound.Guid.Data3
+      value: -2055786860
+      objectReference: {fileID: 0}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: showPanelTutoSound.Guid.Data4
+      value: 1241785256
       objectReference: {fileID: 0}
     - target: {fileID: 582048765061509571, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _sc

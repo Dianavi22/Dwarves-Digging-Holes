@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using System.Linq;
+using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _PickaxeUI;
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
+    [SerializeField] private EventReference showPanelTutoSound;
 
     public bool isEnding = false;
     private bool isCoroutineRunning = false;
@@ -174,6 +176,7 @@ public class GameManager : MonoBehaviour
         _skipTuto.SetActive(false);
         _tuto.isInTuto = false;
         _PickaxeUI.SetActive(true);
+        ShowPanelTutoSound();
     }
 
     public IEnumerator StartGame()
@@ -316,4 +319,12 @@ public class GameManager : MonoBehaviour
         CurrentScrollingSpeed = 0f;
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
+
+
+    #region Sounds
+    private void ShowPanelTutoSound()
+    {
+        RuntimeManager.PlayOneShot(showPanelTutoSound, transform.position);
+    }
+    #endregion
 }

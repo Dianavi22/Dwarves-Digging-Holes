@@ -103,6 +103,7 @@ public class PlayerMovements : EntityMovement
         //_p.GetActions().StopAnimation();
         //_p.GetActions().CancelInvoke();
         _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
+        _p.GetModelRef().m_HeadAimTarget.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
         _p.GetActions().vertical = _moveInput.y;
         flip_vertical = _moveInput.y != 0;
     }
