@@ -85,11 +85,11 @@ public class Ending : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _theEnd._sc.ShakyCameCustom(0.2f,0.2f);
         _theEnd._breakFlorPart.Play();
-        yield return new WaitForSeconds(0.5f);
-        _theEnd._winGoldPart.Play();
-        yield return new WaitForSeconds(0.7f);
-        _theEnd._winGoldCornerPart.Play();
-        _theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
+        //yield return new WaitForSeconds(0.5f);
+        //_theEnd._winGoldPart.Play();
+        //yield return new WaitForSeconds(0.7f);
+        //_theEnd._winGoldCornerPart.Play();
+        //_theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
         CinematicBand.Instance.ShowCinematicBand();
