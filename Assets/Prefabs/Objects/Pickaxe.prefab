@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7558246792119277048}
-  - component: {fileID: 6211286750644033208}
+  - component: {fileID: 3167253975688089072}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -29,11 +29,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1857936313902597896}
   m_Father: {fileID: 3680384760936597715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6211286750644033208
-BoxCollider:
+--- !u!136 &3167253975688089072
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -45,14 +46,71 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.31, y: 0.45999998, z: 0.16854054}
-  m_Center: {x: -0.000000014901161, y: 0.20714661, z: 0.010659665}
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.18, z: 0}
+--- !u!1 &6003460053983962582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857936313902597896}
+  - component: {fileID: 4983631735869545385}
+  m_Layer: 0
+  m_Name: '#2'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1857936313902597896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003460053983962582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7558246792119277048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4983631735869545385
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003460053983962582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.04
+  m_Height: 0.47
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &8245615575223933085
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +170,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -138,21 +196,14 @@ MonoBehaviour:
       Data3: -1707458895
       Data4: -677242847
     Path: event:/SFX/Pickaxe/Mining
-  swingSoundEvent:
-    Guid:
-      Data1: -892129172
-      Data2: 1139827379
-      Data3: 215148678
-      Data4: 14115473
-    Path: event:/SFX/Pickaxe/Swing in the air
   _hitRockParts: {fileID: 459388813842371500}
   _hitGoldParts: {fileID: 4912528635472121466}
   _hitPickaxe: {fileID: 7981846774811726670}
   _spawnPickaxePart: {fileID: 8900725912040834782}
   isInTuto: 0
   _tutoTarget: {fileID: 7734975784440393395, guid: 00e00c2fbc3fea04b9b04b284da41491, type: 3}
-  myTarget: {fileID: 0}
   _pickaxePart: {fileID: 5301456047371304044, guid: 7547eb2283808904db6ecedc3b5344a2, type: 3}
+  myTarget: {fileID: 0}
 --- !u!1001 &718499954312285746
 PrefabInstance:
   m_ObjectHideFlags: 0
