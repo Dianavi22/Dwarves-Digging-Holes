@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class Tuto : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class Tuto : MonoBehaviour
     [SerializeField] ParticleSystem _endTutoPart;
     [SerializeField] Animator _panelAnimator;
     [SerializeField] TypeSentence _ts;
+
+    [SerializeField] private EventReference showPanelTutoSound;
+    [SerializeField] private EventReference breakPanelTutoSound;
 
     private bool _isInCdLava = false;
     void Start()
@@ -183,6 +187,7 @@ public class Tuto : MonoBehaviour
         isTakeEnemy = false;
         isYeetEnemy = false;
         _panelAnimator.SetTrigger("EndTuto");
+        ShowPanelTutoSound();
         Invoke("EndTutoPart", 0.7f);
         try
         {
@@ -203,9 +208,21 @@ public class Tuto : MonoBehaviour
 
     private void EndTutoPart()
     {
+        BreakPanelTutoSound();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.3f, 0.2f);
         _endTutoPart.Play();
         _pickaxeCount.SetActive(true);
     }
+
+    #region Sounds
+    private void ShowPanelTutoSound()
+    {
+        RuntimeManager.PlayOneShot(showPanelTutoSound, transform.position);
+    }
+    private void BreakPanelTutoSound()
+    {
+        RuntimeManager.PlayOneShot(breakPanelTutoSound, transform.position);
+    }
+    #endregion
 
 }
