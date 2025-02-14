@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMODUnity;
 
 public class GoldToChariot : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GoldToChariot : MonoBehaviour
     [SerializeField] private int _goldScore = 1;
     private bool _taken = false;
 
+    [SerializeField] private EventReference pickUpANuggetSound;
+    [SerializeField] private EventReference nuggetInTheCartSound;
+
 
     void Start()
     {
@@ -18,6 +22,8 @@ public class GoldToChariot : MonoBehaviour
         _takeGoldPart = GameObject.Find("TakeGoldInChariot_PART").GetComponent<ParticleSystem>();
         _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
         _pointOneGoldDirection = _goldChariot.hbTakeGold;
+
+        PickUpANuggetSoundSound();
     }
 
     void Update()
@@ -34,6 +40,8 @@ public class GoldToChariot : MonoBehaviour
     {
         if (other.gameObject.name == "PointOneGoldDirection" && !_taken)
         {
+            NuggetInTheCartSoundSound();
+            
             _taken = true;
             _goldChariot.TakeNugget();
             _score.ScoreCounter += _goldScore;
@@ -43,5 +51,16 @@ public class GoldToChariot : MonoBehaviour
         }
     }
 
+    #region Sounds
+    private void PickUpANuggetSoundSound()
+    {
+        RuntimeManager.PlayOneShot(pickUpANuggetSound, transform.position);
+    }
+
+    private void NuggetInTheCartSoundSound()
+    {
+        RuntimeManager.PlayOneShot(nuggetInTheCartSound, transform.position);
+    }
+    #endregion
  
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using FMODUnity;
+using FMOD.Studio; 
 
 [System.Serializable]
 public class FatigueChangedEvent : UnityEvent<float, float> { }
@@ -19,6 +21,12 @@ public class PlayerFatigue : MonoBehaviour
 
     public float MaxMiningFatigue => _miningData.MaxFatigue;
     public float MaxPushCartFatigue => _pushCartData.MaxFatigue;
+
+    [SerializeField] private EventReference fatigueWarningSound;
+    private float miningFatigueSoundTimer = 0f;
+    private float cartsFatigueSoundTimer = 0f;
+    private const float fatigueSoundCooldown = 2.5f; 
+
 
     public void DefineStats(PlayerFatigueData miningData, PlayerFatigueData pushCartData)
     {
@@ -41,6 +49,8 @@ public class PlayerFatigue : MonoBehaviour
         
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
+
+        PlayFatigueWarningSound();
     }
 
     private void InvokeOnCartsFatigueChanged()
@@ -130,6 +140,7 @@ public class PlayerFatigue : MonoBehaviour
     #region Reduces fatigue instantly
     private bool ReduceFatigue(ref float currentFatigue, float amount)
     {
+        if (GameManager.Instance.isInMainMenu) return true;
         if (amount <= currentFatigue)
         {
             currentFatigue -= amount;
@@ -158,6 +169,23 @@ public class PlayerFatigue : MonoBehaviour
             return true;
         }
         return false;
+    }
+    #endregion
+
+    #region Sounds Fatigue
+    private void PlayFatigueWarningSound()
+    {
+        if (currentMiningFatigue / MaxMiningFatigue <= 0.05f && Time.time >= miningFatigueSoundTimer)
+        {
+            RuntimeManager.PlayOneShot(fatigueWarningSound, transform.position);
+            miningFatigueSoundTimer = Time.time + fatigueSoundCooldown;
+        }
+
+        if (currentCartsFatigue / MaxPushCartFatigue <= 0.01f && Time.time >= cartsFatigueSoundTimer)
+        {
+            RuntimeManager.PlayOneShot(fatigueWarningSound, transform.position);
+            cartsFatigueSoundTimer = Time.time + fatigueSoundCooldown;
+        }
     }
     #endregion
 }

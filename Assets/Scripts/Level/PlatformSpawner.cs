@@ -70,7 +70,6 @@ public class PlatformSpawner : MonoBehaviour
             {
                 platformCount++;
                 SetProgressBar();
-                Debug.Log("end platform");
                 //! Instantiate the end platform
                 Instantiate(prefabEndingList[1], new Vector3(spawnPoint.transform.position.x + 1, spawnPoint.transform.position.y, spawnPoint.transform.position.z), Quaternion.identity, gameObject.transform);
                 return;

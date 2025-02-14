@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _PickaxeUI;
     public TMP_Text nbPickaxeUI;
     [SerializeField] TMP_Text _nbMaxPickaxeUI;
-    
+
+    public bool isEnding = false;
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
     private bool _isTutoActive = true;
@@ -114,8 +115,6 @@ public class GameManager : MonoBehaviour
     {
         _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
-        
-        TargetManager.Instance.GetGameObject<StudioEventEmitter>().gameObject.SetActive(false);
 
         // Select the difficulty
         Difficulty = isInMainMenu ? m_DifficultyList[0] :  m_DifficultyList.First(x => x.DifficultyName == PlayerPrefs.GetString(Utils.Constant.DIFFICULTY_KEY));
