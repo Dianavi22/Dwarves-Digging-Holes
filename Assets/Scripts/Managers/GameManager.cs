@@ -115,8 +115,6 @@ public class GameManager : MonoBehaviour
     {
         _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
-        
-        TargetManager.Instance.GetGameObject<StudioEventEmitter>().gameObject.SetActive(false);
 
         // Select the difficulty
         Difficulty = isInMainMenu ? m_DifficultyList[0] :  m_DifficultyList.First(x => x.DifficultyName == PlayerPrefs.GetString(Utils.Constant.DIFFICULTY_KEY));
