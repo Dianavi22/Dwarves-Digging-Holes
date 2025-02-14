@@ -194,11 +194,6 @@ public class PlayerActions : MonoBehaviour
             if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) 
             {
                 StartAnimation();
-
-                if (!CheckHitRaycast(out var hits) || hits.Count == 0)
-                {
-                    SwingSound();
-                }
             }
         }
 
@@ -252,7 +247,7 @@ public class PlayerActions : MonoBehaviour
     {
         while (IsBaseActionActivated)
         {
-            yield return new WaitForSeconds(0.33f);
+            yield return new WaitForSeconds(GameManager.Instance.Difficulty.MiningSpeed);
 
             if (!CheckHitRaycast(out var hits) || hits.Count == 0)
             {

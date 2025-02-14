@@ -289,6 +289,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
+        currentPlayer.GetPlayerMovements().isGrabbingChariot = isGrabbed;
     }
 
     public void HandleDestroy()
