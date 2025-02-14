@@ -24,7 +24,7 @@ public class Ending : MonoBehaviour
     private void Start()
     {
         _theEnd = FindAnyObjectByType<TheEndObj>();
-       
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -39,16 +39,20 @@ public class Ending : MonoBehaviour
 
     private void Update()
     {
-        if(!_isEnding && null == GamePadsController.Instance.PlayerList.Find(p => p.HasCompletedLevel == false))
+        if (!_isEnding && null == GamePadsController.Instance.PlayerList.Find(p => p.HasCompletedLevel == false))
         {
             _isEnding = true;
             GameManager.Instance.isEnding = true;
             if (GameManager.Instance.isChariotWin)
             {
-
+                _theEnd._levelCompleteText.text = "Congratulation !";
+                _theEnd._levelCompleteText2.text = "You Win";
+                StartCoroutine(_theEnd.wp.GoldCountWin());
             }
             else
             {
+               _theEnd._levelCompleteText.text = "Next time, take gold before escape";
+               _theEnd._levelCompleteText2.text = "Too bad";
                 StartCoroutine(EndAnim());
             }
 
@@ -92,14 +96,8 @@ public class Ending : MonoBehaviour
 
     private IEnumerator EndAnim()
     {
-        yield return new WaitForSeconds(0.5f);
-        _theEnd._sc.ShakyCameCustom(0.2f,0.2f);
+        _theEnd._sc.ShakyCameCustom(0.2f, 0.2f);
         _theEnd._breakFlorPart.Play();
-        //yield return new WaitForSeconds(0.5f);
-        //_theEnd._winGoldPart.Play();
-        //yield return new WaitForSeconds(0.7f);
-        //_theEnd._winGoldCornerPart.Play();
-        //_theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
         CinematicBand.Instance.ShowCinematicBand();
@@ -107,13 +105,7 @@ public class Ending : MonoBehaviour
         _isLavaMoving = false;
         yield return new WaitForSeconds(0.5f);
 
-        //TO DO : FIX
-        //_bubbleEnd.SetActive(true);
-        //yield return new WaitForSeconds(0.2f);
-        //_ts.WriteMachinEffect("... ", _bubbletext, 1);
-        //_ts.WriteMachinEffect("We don't forget this the next time", _bubbletext, 0.05f);
-        //yield return new WaitForSeconds(7f);
-            StartCoroutine(GameManager.Instance.LevelComplete());
+        StartCoroutine(GameManager.Instance.LevelComplete());
 
 
     }

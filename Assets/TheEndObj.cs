@@ -14,6 +14,9 @@ public class TheEndObj : MonoBehaviour
     public Rigidbody _chariotRB;
     public int emission;
     public  GameObject _pointDirectionGoldWinPart;
+    public TMP_Text _levelCompleteText;
+    public TMP_Text _levelCompleteText2;
+    public WinPanel wp;
     public bool isDwarfUp = false;
 
     public ShakyCame _sc;
