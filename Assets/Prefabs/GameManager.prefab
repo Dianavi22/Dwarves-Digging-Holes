@@ -107,10 +107,17 @@ MonoBehaviour:
   blockSpawner: {fileID: 0}
   _gameOverPart: {fileID: 0}
   _introGame: {fileID: 0}
-  _gameOST: {fileID: 0}
   _PickaxeUI: {fileID: 0}
   nbPickaxeUI: {fileID: 0}
   _nbMaxPickaxeUI: {fileID: 0}
+  showPanelTutoSound:
+    Guid:
+      Data1: 770069103
+      Data2: 1186286508
+      Data3: -2055786860
+      Data4: 1241785256
+    Path: event:/SFX/Start of the game/ShowPanelTuto
+  isEnding: 0
 --- !u!114 &7177857267881942841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +163,7 @@ MonoBehaviour:
   lava: {fileID: 0}
   tuto: {fileID: 0}
   postProcessVolume: {fileID: 0}
+  gameOST: {fileID: 0}
 --- !u!114 &4901307179824296338
 MonoBehaviour:
   m_ObjectHideFlags: 0
