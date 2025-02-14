@@ -48,6 +48,8 @@ public class Player : Entity
     {
         base.HandleCarriedState(currentPlayer, isGrabbed);
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+
+        GetAnimator().SetBool("isGrabbed", isGrabbed);
     }
 
     public bool CanDoAnything()
