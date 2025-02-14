@@ -515,6 +515,34 @@ MonoBehaviour:
   _groundedPart: {fileID: 8139262896580238866}
   _movePart: {fileID: 2792476647745516857}
   _tearsPart: {fileID: 7038342786206642881}
+  dashSound:
+    Guid:
+      Data1: -1964938284
+      Data2: 1330227061
+      Data3: 1459481531
+      Data4: -1462720355
+    Path: event:/SFX/Dwarf/Dash
+  jumpSound:
+    Guid:
+      Data1: -1828173959
+      Data2: 1222489996
+      Data3: 511360676
+      Data4: -1309290227
+    Path: event:/SFX/Dwarf/Jump
+  landingSound:
+    Guid:
+      Data1: -1596796995
+      Data2: 1079743896
+      Data3: -2021127254
+      Data4: -405004285
+    Path: event:/SFX/Dwarf/Landing
+  disappointedgSound:
+    Guid:
+      Data1: -571087443
+      Data2: 1175417357
+      Data3: -1456154689
+      Data4: 1791352170
+    Path: event:/SFX/Dwarf/Disappointed
   _rb: {fileID: 1078326625411918701}
 --- !u!114 &2117048352203454760
 MonoBehaviour:
@@ -750,13 +778,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b863315c35b1eb428516cd01d357415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingSoundEvent:
+  swingSound:
     Guid:
       Data1: -892129172
       Data2: 1139827379
       Data3: 215148678
       Data4: 14115473
     Path: event:/SFX/Pickaxe/Swing in the air
+  forgeSound:
+    Guid:
+      Data1: 1193257348
+      Data2: 1256193449
+      Data3: 1659319472
+      Data4: -1433667706
+    Path: event:/SFX/Pickaxe/Forged
   throwForce: 15
   pickupRange: 1
   _scale: {fileID: 8765590584797458301}
@@ -798,6 +833,20 @@ MonoBehaviour:
   _HurtPart: {fileID: 7641500938896082713}
   _DestroyPlayer: {fileID: 4738655127952116816}
   _imageRespawn: {fileID: 0}
+  resurgenceSound:
+    Guid:
+      Data1: 1817747585
+      Data2: 1190334769
+      Data3: -1495696985
+      Data4: -1718795244
+    Path: event:/SFX/Dwarf/Resurgence
+  deathSound:
+    Guid:
+      Data1: -493878046
+      Data2: 1251395925
+      Data3: -292364100
+      Data4: -1302113805
+    Path: event:/SFX/Dwarf/Dead
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +905,13 @@ MonoBehaviour:
       m_Calls: []
   currentCartsFatigue: 0
   currentMiningFatigue: 0
+  fatigueWarningSound:
+    Guid:
+      Data1: -571087443
+      Data2: 1175417357
+      Data3: -1456154689
+      Data4: 1791352170
+    Path: event:/SFX/Dwarf/Disappointed
 --- !u!1001 &294029102934848206
 PrefabInstance:
   m_ObjectHideFlags: 0
