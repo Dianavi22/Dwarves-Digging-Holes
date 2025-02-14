@@ -660,6 +660,7 @@ GameObject:
   - component: {fileID: 8862699442585745005}
   - component: {fileID: 2545946742018016776}
   - component: {fileID: 4722500676475170657}
+  - component: {fileID: 7876023785110218139}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -787,13 +788,32 @@ MonoBehaviour:
   - {fileID: 5366024215474522952}
   - {fileID: 3603172610383191964}
   - {fileID: 5152495855438769968}
-  _lavaFloorPart: {fileID: 0}
-  _breakFlorPart: {fileID: 0}
   _bubbletext: {fileID: 0}
   _ts: {fileID: 0}
   _bubbleEnd: {fileID: 0}
-  test: 0
-  _sc: {fileID: 0}
+  _theEnd: {fileID: 0}
+  _pointDirectionGoldWinPart: {fileID: 0}
+--- !u!95 &7876023785110218139
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481396629265859078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 720463ef3efe95943a1aa82cbe5dab11, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3709685742605830104
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class Ending : MonoBehaviour
     private void Start()
     {
         _theEnd = FindAnyObjectByType<TheEndObj>();
+        Invoke("FallLadder", 60);
        
     }
     private void OnTriggerEnter(Collider other)
@@ -34,6 +35,11 @@ public class Ending : MonoBehaviour
             EventManager.Instance.enabled = false;
             StartCoroutine(MovePlayerToEndPosition(player));
         }
+    }
+
+    private void FallLadder()
+    {
+        this.GetComponent<Animator>().SetTrigger("FallLadder");
     }
 
     private void Update()
@@ -85,11 +91,11 @@ public class Ending : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _theEnd._sc.ShakyCameCustom(0.2f,0.2f);
         _theEnd._breakFlorPart.Play();
-        //yield return new WaitForSeconds(0.5f);
-        //_theEnd._winGoldPart.Play();
-        //yield return new WaitForSeconds(0.7f);
-        //_theEnd._winGoldCornerPart.Play();
-        //_theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
+        yield return new WaitForSeconds(0.5f);
+        _theEnd._winGoldPart.Play();
+        yield return new WaitForSeconds(0.7f);
+        _theEnd._winGoldCornerPart.Play();
+        _theEnd._sc.ShakyCameCustom(0.2f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
         CinematicBand.Instance.ShowCinematicBand();
