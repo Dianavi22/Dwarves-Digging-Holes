@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 1495004463264859170}
   - component: {fileID: 8957888988441327010}
   - component: {fileID: 1957319705493039925}
+  - component: {fileID: 5418441367418328850}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -608,6 +609,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5418441367418328850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7186681089761964813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fece746da74e8654699f62d81f4c000f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 1957319705493039925}
 --- !u!1 &7754561555370317686
 GameObject:
   m_ObjectHideFlags: 0
@@ -5538,6 +5552,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7897336061337810318, guid: d587ee23ba2c8e841a101448d374e44c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6810,6 +6828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7897336061337810318, guid: d587ee23ba2c8e841a101448d374e44c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7913,6 +7935,10 @@ PrefabInstance:
     - target: {fileID: 7316480123042384931, guid: d587ee23ba2c8e841a101448d374e44c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897336061337810318, guid: d587ee23ba2c8e841a101448d374e44c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

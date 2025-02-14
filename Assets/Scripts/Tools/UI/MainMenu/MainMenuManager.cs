@@ -169,7 +169,7 @@ public class MainMenuManager : MonoBehaviour
         _title.SetActive(false);
         _credits.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_stopCredits);
-        Invoke(nameof(ActiveButtons), 20);
+        Invoke(nameof(ActiveButtons), 30);
     }
 
     public void QuitGame()

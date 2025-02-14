@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject _skipTuto;
     [SerializeField] GameObject _scoreText;
+    [SerializeField] GameObject _exitText;
     [SerializeField] GameObject _circleTransition;
 
     [SerializeField] Button _backButton;
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
     private bool _isTutoActive = true;
+    public bool isChariotWin = false;
     public static GameManager Instance; // A static reference to the GameManager instance
 
     public EventReference GetSubmitUISound() => submitEvent;
@@ -181,12 +183,19 @@ public class GameManager : MonoBehaviour
     {
         isGameStarted = true;
         _scoreText.SetActive(true);
+        _exitText.SetActive(true);
+        Invoke("OutExitPanel", 10);
         _score.isStartScore = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(3f, 0.2f);
         blockSpawner.SpawnPlatform();
         CurrentScrollingSpeed = this.Difficulty.ScrollingSpeed;
         yield return new WaitForSeconds(70); //70
         EventManager.Instance.LaunchEvent();
+    }
+
+    private void OutExitPanel()
+    {
+        _exitText.GetComponent<Animator>().SetTrigger("OutPanel");
     }
 
     private void GameStarted()
