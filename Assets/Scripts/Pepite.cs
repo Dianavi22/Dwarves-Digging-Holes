@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class Pepite : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Pepite : MonoBehaviour
     private bool _canGet = false;
     private ParticleSystem _gcPart ;
     [SerializeField] ParticleSystem _takeNuggetPart;
+    [SerializeField] private EventReference pickUpANuggetSound;
+    [SerializeField] private EventReference nuggetInTheCartSound;
 
 
     private void Start()
@@ -34,6 +37,8 @@ public class Pepite : MonoBehaviour
         {
             if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
             {
+                PickUpANuggetSoundSound();
+                NuggetInTheCartSoundSound();
                 _isDestroy = true;
                 _gcPart.Play();
                 TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
@@ -69,4 +74,16 @@ public class Pepite : MonoBehaviour
     {
         _canGet = true;
     }
+
+    #region Sounds
+    private void PickUpANuggetSoundSound()
+    {
+        RuntimeManager.PlayOneShot(pickUpANuggetSound, transform.position);
+    }
+
+    private void NuggetInTheCartSoundSound()
+    {
+        RuntimeManager.PlayOneShot(nuggetInTheCartSound, transform.position);
+    }
+    #endregion
 }
