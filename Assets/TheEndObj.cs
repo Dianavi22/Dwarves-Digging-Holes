@@ -10,8 +10,10 @@ public class TheEndObj : MonoBehaviour
     public ParticleSystem _breakFlorPart;
     public ParticleSystem _winGoldPart;
     public ParticleSystem _winGoldCornerPart;
+    public Rigidbody _chariotRB;
     public int emission;
     public  GameObject _pointDirectionGoldWinPart;
+    public bool isDwarfUp = false;
 
     public ShakyCame _sc;
     private bool _isLavaMoving = false;
@@ -27,5 +29,10 @@ public class TheEndObj : MonoBehaviour
     {
         _winGoldPart.transform.LookAt(_pointDirectionGoldWinPart.transform);
 
+    }
+
+    public void KineChariot()
+    {
+        //_chariotRB.isKinematic = true;
     }
 }

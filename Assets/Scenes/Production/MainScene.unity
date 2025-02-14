@@ -241,6 +241,7 @@ MonoBehaviour:
   _breakFlorPart: {fileID: 1385391731}
   _winGoldPart: {fileID: 585971697}
   _winGoldCornerPart: {fileID: 118666090}
+  _chariotRB: {fileID: 1222276942}
   emission: 0
   _pointDirectionGoldWinPart: {fileID: 1750369494}
   _sc: {fileID: 691050783}
@@ -3047,6 +3048,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1222276942 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 415383790900409220, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+  m_PrefabInstance: {fileID: 1393171042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1248684561 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2178903459643928298, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}

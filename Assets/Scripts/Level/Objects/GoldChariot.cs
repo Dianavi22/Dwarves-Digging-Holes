@@ -46,6 +46,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
     [SerializeField] private Animator _takeGoldAnim;
+    [SerializeField] private Collider _hitBox;
 
     private Rigidbody _rb;
 
@@ -74,6 +75,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         var velocity = _dustPart.velocityOverLifetime;
         velocity.x = -GameManager.Instance.CurrentScrollingSpeed;
         UpdateText();
+
+       
     }
 
     public void StartAnimation()
@@ -82,6 +85,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         Invoke(nameof(ResetAnim), 0.25f);
     }
 
+    
     private void ResetAnim()
     {
         _takeGoldAnim.SetBool("isNewGold", false);

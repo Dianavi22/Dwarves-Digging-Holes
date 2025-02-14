@@ -30,6 +30,7 @@ public class Ending : MonoBehaviour
     {
         if (Utils.Component.TryGetInParent<Player>(other, out var player))
         {
+            _theEnd.isDwarfUp = true;
             GameManager.Instance.SetScrollingSpeed(0);
             EventManager.Instance.enabled = false;
             StartCoroutine(MovePlayerToEndPosition(player));
