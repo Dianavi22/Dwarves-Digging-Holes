@@ -10,6 +10,7 @@ public class TheEndObj : MonoBehaviour
     public ParticleSystem _breakFlorPart;
     public ParticleSystem _winGoldPart;
     public ParticleSystem _winGoldCornerPart;
+    public ParticleSystem _rocksFallPart;
     public Rigidbody _chariotRB;
     public int emission;
     public  GameObject _pointDirectionGoldWinPart;

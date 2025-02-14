@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
     private bool isCoroutineRunning = false;
     private bool _scaleButton = false;
     private bool _isTutoActive = true;
+    public bool isChariotWin = false;
     public static GameManager Instance; // A static reference to the GameManager instance
 
     public EventReference GetSubmitUISound() => submitEvent;

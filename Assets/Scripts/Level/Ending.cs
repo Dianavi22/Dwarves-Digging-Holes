@@ -43,7 +43,14 @@ public class Ending : MonoBehaviour
         {
             _isEnding = true;
             GameManager.Instance.isEnding = true;
-            StartCoroutine(EndAnim());
+            if (GameManager.Instance.isChariotWin)
+            {
+
+            }
+            else
+            {
+                StartCoroutine(EndAnim());
+            }
 
         }
 
