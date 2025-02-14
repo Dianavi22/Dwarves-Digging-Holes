@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class FollowTarget : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class FollowTarget : MonoBehaviour
     [SerializeField] List<Image> _images;
     [SerializeField] SpriteRenderer _circle;
     [SerializeField] ParticleSystem _openTutoPart;
+    [SerializeField] private EventReference spawnBubbleSound;
+    [SerializeField] private EventReference depopBubbleTutoSound;
 
     private bool _isOpen = false;
 
@@ -89,6 +92,7 @@ public class FollowTarget : MonoBehaviour
         if (!_isOpen)
         {
             _openTutoPart.Play();
+            SpawnBubbleSound();
         }
         _isOpen = true;
     }
@@ -97,4 +101,15 @@ public class FollowTarget : MonoBehaviour
     {
         _isOpen = false;
     }
+
+    #region Sounds
+    private void SpawnBubbleSound()
+    {
+        RuntimeManager.PlayOneShot(spawnBubbleSound, transform.position);
+    }
+    private void DepopBubbleTutoSound()
+    {
+        RuntimeManager.PlayOneShot(depopBubbleTutoSound, transform.position);
+    }
+    #endregion
 }

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using Utils;
+using FMODUnity;
 
 public class EventManager : MonoBehaviour
 {
@@ -18,17 +19,24 @@ public class EventManager : MonoBehaviour
     // Display with the text event
     [SerializeField] List<MeshRenderer> _pickaxesModels;
     [SerializeField] List<ParticleSystem> _pickaxesPart;
+    [SerializeField] private EventReference eventPickaxeSound;
 
     [Header("Lava Event")]
     [SerializeField] ParticleSystem _lavaPartUI;
     [SerializeField] ParticleSystem _lavaRain;
-
+    [SerializeField] private EventReference eventGoldChariotSound;
+     
     [Header("Gold Event")]
     [SerializeField] ParticleSystem _goldChariotPart;
     [SerializeField] ParticleSystem _goldChariotUIPart;
+    [SerializeField] private EventReference lavaGettingCloseSound;
+
 
     [Header("Goblin Event")]
     [SerializeField] GoblinWave _goblinWave;
+    [SerializeField] private EventReference goblinWaveSound;
+
+    [SerializeField] private EventReference noForgeSound;
 
 
     [SerializeField] ParticleSystem _forgeBrokenPart;
@@ -107,10 +115,10 @@ public class EventManager : MonoBehaviour
     private IEnumerator Event()
     {
         _readyToEvent = false;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(1);
         ChooseEvent(Random.Range(0, 5));
          //ChooseEvent(1);
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(5);
         _readyToEvent = true;
     }
 
@@ -143,11 +151,13 @@ public class EventManager : MonoBehaviour
         }
     }
 
+
     #region Describe Event
     private IEnumerator EventPickaxe()
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.PickaxeEvent)));
         _littleText.gameObject.SetActive(false);
+        EventPickaxeSound();
 
         _littleText.text = "";
         _littleText.text = "Pickaxes aren't what they used to be, elf work!";
@@ -182,6 +192,7 @@ public class EventManager : MonoBehaviour
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
         _littleText.gameObject.SetActive(false);
+        EventGoldChariotSound();
 
         _littleText.text = "";
         _littleText.text = "All this gold... you make even the gods jealous!";
@@ -202,6 +213,7 @@ public class EventManager : MonoBehaviour
         
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
         _littleText.gameObject.SetActive(false);
+        NoForgeSound();
 
         _littleText.text = "";
         _littleText.text = "I knew I should have taken the warranty on this forge";
@@ -237,6 +249,7 @@ public class EventManager : MonoBehaviour
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.LavaEvent)));
         _littleText.gameObject.SetActive(false);
+        LavaGettingCloseSound();
 
         _littleText.text = "";
         _littleText.text = "Your legs may be short, but you can still cover 7.5m!";
@@ -264,6 +277,7 @@ public class EventManager : MonoBehaviour
     {
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.GoblinEvent)));
         _littleText.gameObject.SetActive(false);
+        GoblinWaveSound();
 
         _littleText.text = "";
         _littleText.text = "After not seeing their buddies come back, they show up in a gang!";
@@ -278,6 +292,29 @@ public class EventManager : MonoBehaviour
         _goblinWave.GenerateWave();
 
 
+    }
+    #endregion
+
+    #region Sounds     eventPickaxeSound eventGoldChariotSound lavaGettingCloseSound goblinWaveSound noForgeSound 
+    private void EventPickaxeSound()
+    {
+        RuntimeManager.PlayOneShot(eventPickaxeSound, transform.position);
+    }
+        private void EventGoldChariotSound()
+    {
+        RuntimeManager.PlayOneShot(eventGoldChariotSound, transform.position);
+    }
+        private void LavaGettingCloseSound()
+    {
+        RuntimeManager.PlayOneShot(lavaGettingCloseSound, transform.position);
+    }
+        private void GoblinWaveSound()
+    {
+        RuntimeManager.PlayOneShot(goblinWaveSound, transform.position);
+    }
+        private void NoForgeSound()
+    {
+        RuntimeManager.PlayOneShot(noForgeSound, transform.position);
     }
     #endregion
 }

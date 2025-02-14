@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
+using FMODUnity;
 
 public class GameSettingsSelection : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class GameSettingsSelection : MonoBehaviour
 
     [SerializeField] MainMenuManager _mainMenuManager;
     [SerializeField] GameObject _pivotStartSettings;
+
+    [SerializeField] private EventReference openSceneTransitionSound;
 
     #region Unity Callbacks
 
@@ -60,6 +63,8 @@ public class GameSettingsSelection : MonoBehaviour
     {
         PlayerPrefs.SetString(Constant.DIFFICULTY_KEY, difficultyList[selectedDifficultyIndex].DifficultyName);
         PlayerPrefs.SetInt(Constant.MODE_KEY, selectedModeIndex);
+
+        OpenSceneTransitionSound();
 
         _mainMenuManager.StartParty();
     }
@@ -97,5 +102,13 @@ public class GameSettingsSelection : MonoBehaviour
     }
 
 
+    #endregion
+
+
+    #region Sounds
+    private void OpenSceneTransitionSound()
+    {
+        RuntimeManager.PlayOneShot(openSceneTransitionSound, transform.position);
+    }
     #endregion
 }
