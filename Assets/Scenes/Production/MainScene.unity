@@ -443,6 +443,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1980946663}
     - target: {fileID: 1395835744141045049, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9248503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395835744141045049, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -959
       objectReference: {fileID: 0}
@@ -702,6 +706,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1880652949}
+    - target: {fileID: 7835646825772457085, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_Name
+      value: PanelExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835646825772457085, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7914801945177890643, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -754,6 +766,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 3.4394262
       objectReference: {fileID: 0}
+    - target: {fileID: 9208048196590835318, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8709244341917340012, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -780,6 +796,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5744701471697947266, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 977136291}
+    - targetCorrespondingSourceObject: {fileID: 4048698739780869231, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1292081522}
   m_SourcePrefab: {fileID: 100100000, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
 --- !u!1 &125992426 stripped
 GameObject:
@@ -3150,6 +3169,32 @@ Transform:
   - {fileID: 2127139668072522402}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1292081518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4048698739780869231, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+  m_PrefabInstance: {fileID: 125992425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1292081522
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292081518}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8df1986b3b7bb7345b5547a0d3342477, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1294279546 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 547996619257861780, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
@@ -4163,6 +4208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2117772795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7835646825772457085, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+  m_PrefabInstance: {fileID: 125992425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!108 &2127759014 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 4086805407983962502, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
@@ -5243,6 +5293,10 @@ PrefabInstance:
       propertyPath: _gameOST
       value: 
       objectReference: {fileID: 1254651707}
+    - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
+      propertyPath: _exitText
+      value: 
+      objectReference: {fileID: 2117772795}
     - target: {fileID: 433335503891712005, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _platform
       value: 
