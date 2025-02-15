@@ -146,12 +146,6 @@ public class UIPauseManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(_resumeButton);
     }
 
-    void OnDestroy()
-    {
-        RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 0);
-    }
-
-
     private void Update()
     {
         if (scaleButton)
