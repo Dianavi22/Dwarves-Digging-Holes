@@ -92,7 +92,8 @@ public class FollowTarget : MonoBehaviour
         if (!_isOpen)
         {
             _openTutoPart.Play();
-            SpawnBubbleSound();
+            //SpawnBubbleSound(); 
+            // ! Sound problem at the end of the game, I don't know why it's buggy (Tristan)
         }
         _isOpen = true;
     }
