@@ -288,6 +288,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         bool newBest = _score.CheckBestScore();
         levelCompleteCanvas.SetActive(true);
+        RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 1);
         EventSystem.current.SetSelectedGameObject(_retryButton);
         yield return null;
     }
@@ -314,6 +315,7 @@ public class GameManager : MonoBehaviour
         _goldChariot.HideGfx(isGoldChariotDestroyed);
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
+        RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 1);
         // ? Activer un message / effet si record battu
         bool newBest = _score.CheckBestScore();
         CurrentScrollingSpeed = 0f;
@@ -327,4 +329,12 @@ public class GameManager : MonoBehaviour
         RuntimeManager.PlayOneShot(showPanelTutoSound, transform.position);
     }
     #endregion
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 0);
+    }
 }
