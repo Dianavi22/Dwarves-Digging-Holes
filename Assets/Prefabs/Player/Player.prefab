@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666518330623376710}
-  - component: {fileID: 2658062080610978227}
+  - component: {fileID: 6386548495974095242}
   m_Layer: 3
   m_Name: FeetHitbox
   m_TagString: Player
@@ -32,8 +32,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2400308432385025729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2658062080610978227
-BoxCollider:
+--- !u!136 &6386548495974095242
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -50,8 +50,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.25, y: 0.7, z: 0.25}
+  serializedVersion: 2
+  m_Radius: 0.125
+  m_Height: 0.7
+  m_Direction: 1
   m_Center: {x: -0.05, y: 0, z: 0}
 --- !u!1 &2818827513091757388
 GameObject:
@@ -190,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2381619269048957974}
-  - component: {fileID: 5216349216861646877}
+  - component: {fileID: 360849829864157122}
   m_Layer: 3
   m_Name: SliperyHitboxes
   m_TagString: Player
@@ -213,8 +215,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2400308432385025729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5216349216861646877
-BoxCollider:
+--- !u!136 &360849829864157122
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -226,14 +228,16 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.57, y: 1.1, z: 0.5}
-  m_Center: {x: -0.03, y: 0.15, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.285
+  m_Height: 1.15
+  m_Direction: 1
+  m_Center: {x: -0.030000001, y: 0.18, z: 0}
 --- !u!1 &8516785317691533686
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +335,6 @@ MonoBehaviour:
   CanMoveAfterGrab: 1
   playerCamera: {fileID: 0}
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
-  headAimTarget: {fileID: 5272533911918389959}
   HasCompletedLevel: 0
 --- !u!114 &6831975214807127632
 MonoBehaviour:

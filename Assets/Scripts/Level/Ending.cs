@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using static UnityEngine.GraphicsBuffer;
 using TMPro;
-using Utils;
+using FMODUnity;
 
 public class Ending : MonoBehaviour
 {
@@ -17,6 +16,10 @@ public class Ending : MonoBehaviour
     [SerializeField] TheEndObj _theEnd;
     [SerializeField] private GameObject _pointDirectionGoldWinPart;
 
+    [SerializeField] private EventReference _lavaUpSound;
+    [SerializeField] private EventReference _ladderClimbSound;
+    [SerializeField] private EventReference _floorSound;
+
 
     private Vector3 _targetPosition = new Vector3(9.97000027f, 0.810000002f, -0.660000026f);
     private bool _isLavaMoving = false;
@@ -28,7 +31,7 @@ public class Ending : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<Player>(other, out var player))
+        if (!_theEnd.isDwarfUp && Utils.Component.TryGetInParent<Player>(other, out var player))
         {
             _theEnd.isDwarfUp = true;
             GameManager.Instance.SetScrollingSpeed(0);
@@ -78,6 +81,8 @@ public class Ending : MonoBehaviour
 
         player.GetRigidbody().isKinematic = true;
         player.GetAnimator().SetBool("isClimbingLadder", true);
+        Debug.Log("coucou");
+        RuntimeManager.PlayOneShot(_ladderClimbSound);
 
         foreach (Transform t in m_InterrestPoint)
         {
@@ -98,8 +103,10 @@ public class Ending : MonoBehaviour
     {
         _theEnd._sc.ShakyCameCustom(0.2f, 0.2f);
         _theEnd._breakFlorPart.Play();
+        RuntimeManager.PlayOneShot(_floorSound);
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
+        RuntimeManager.PlayOneShot(_lavaUpSound);
         CinematicBand.Instance.ShowCinematicBand();
         yield return new WaitForSeconds(0.8f);
         _isLavaMoving = false;
