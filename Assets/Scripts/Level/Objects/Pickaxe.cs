@@ -160,8 +160,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
 
     public void HandleDestroy()
     {
-        if (!GameManager.Instance.isInMainMenu) GameManager.Instance.nbPickaxeUI.text = (Int32.Parse(GameManager.Instance.nbPickaxeUI.text)-1).ToString();
-
         StartCoroutine(BreakPickaxe());
     }
 

@@ -37,7 +37,7 @@ public class WinPanel : MonoBehaviour
         _panelEnd.SetActive(true);
            yield return new WaitForSeconds(0.5f);
         _currentInt = 0;
-        for (int i = 0; i < Test; i++)
+        for (int i = 0; i < _gc._currentGoldCount; i++)
         {
 
             _currentInt = i + 1;
