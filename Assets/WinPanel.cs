@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WinPanel : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class WinPanel : MonoBehaviour
     [SerializeField] GameObject _endPart;
     [SerializeField] GameObject _badge;
     [SerializeField] GameObject _panelEnd;
+    [SerializeField] GameObject _buttonNext;
+    [SerializeField] GameObject _levelComplete;
+    [SerializeField] GameObject _retryButton;
     [SerializeField] int Test;
     [SerializeField] int _currentInt;
     void Start()
@@ -53,10 +57,21 @@ public class WinPanel : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
                 _endPart.SetActive(true);
                 _phrase.gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.08f);
+                _buttonNext.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(_buttonNext);
 
             }
             yield return new WaitForSeconds(0.08f);
         }
+    }
+
+    public void LevelCompleteButton()
+    {
+        _levelComplete.SetActive(true);
+        _panelEnd.SetActive(false);
+        _buttonNext.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
     public void EndSentence()

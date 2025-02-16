@@ -31,7 +31,7 @@ public class Ending : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (!_theEnd.isDwarfUp && Utils.Component.TryGetInParent<Player>(other, out var player))
+        if (Utils.Component.TryGetInParent<Player>(other, out var player))
         {
             _theEnd.isDwarfUp = true;
             GameManager.Instance.SetScrollingSpeed(0);
@@ -81,7 +81,6 @@ public class Ending : MonoBehaviour
 
         player.GetRigidbody().isKinematic = true;
         player.GetAnimator().SetBool("isClimbingLadder", true);
-        Debug.Log("coucou");
         RuntimeManager.PlayOneShot(_ladderClimbSound);
 
         foreach (Transform t in m_InterrestPoint)
