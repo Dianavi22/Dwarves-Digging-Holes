@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
+using FMOD.Studio;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -42,6 +43,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private EventReference introMusicSound;
     [SerializeField] private EventReference introRocksSound;
     [SerializeField] private EventReference buttonFallingSound;
+    [SerializeField] private EventReference mainMusicSound;
+    private EventInstance mainMusicInstance; 
+    [SerializeField, Range(0, 1)] private float currentVolume = 0.5f;
 
     public float speed = 5;
     private Vector3 startPosition;
@@ -108,6 +112,7 @@ public class MainMenuManager : MonoBehaviour
         FallButtons();
         yield return new WaitForSeconds(1f);
         ActiveButtons();
+        MainMusicSound();
     }
 
     public void StartParty()
@@ -233,6 +238,10 @@ public class MainMenuManager : MonoBehaviour
         {
             UpdateButtonScale();
         }
+
+
+        mainMusicInstance.setParameterByName("Volume", currentVolume);
+
     }
 
     private void UpdateButtonScale()
@@ -262,6 +271,15 @@ public class MainMenuManager : MonoBehaviour
     private void ButtonFallingSound()
     {
         RuntimeManager.PlayOneShot(buttonFallingSound, transform.position);
+    }
+
+    private void MainMusicSound()
+    {
+        mainMusicInstance = RuntimeManager.CreateInstance(mainMusicSound);
+        mainMusicInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
+        mainMusicInstance.start();
+
+        mainMusicInstance.setParameterByName("Volume", currentVolume);
     }
     #endregion
 
