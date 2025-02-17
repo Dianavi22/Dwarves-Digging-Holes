@@ -292,7 +292,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             tuto.isTakeEnemy = true;
         }
         currentPlayer.GetMovement().canFlip = !isGrabbed;
-        currentPlayer.GetAnimator().SetBool("hasChariot", isGrabbed);
+        currentPlayer.GetAnimator().SetBool("isGrabbing", isGrabbed);
         currentPlayer.GetPlayerMovements().isGrabbingChariot = isGrabbed;
     }
 
