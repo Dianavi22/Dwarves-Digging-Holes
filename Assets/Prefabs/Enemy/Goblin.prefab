@@ -35,6 +35,7 @@ Transform:
   - {fileID: 4838912085078835264}
   - {fileID: 4416196802561774293}
   - {fileID: 521113218554231967}
+  - {fileID: 3278733669900116024}
   - {fileID: 4294846388251797281}
   - {fileID: 7057274493387845002}
   m_Father: {fileID: 0}
@@ -133,8 +134,14 @@ MonoBehaviour:
   canFlip: 1
   isGrounded: 0
   Stats: {fileID: 0}
-  raycastDetectHitWall: {fileID: 5425338716920304939}
+  raycastDetectHitWall: {fileID: 1188561611238712796}
+  raycastDetectHitCeiling: {fileID: 4711783470009968132}
   _angryEnemy: {fileID: 7557681846491757850}
+  distanceToWall: 1
+  degToWall: 75
+  _goblinLayer:
+    serializedVersion: 2
+    m_Bits: 132
 --- !u!1 &408767534603718137
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,6 +2055,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7261899222454457429}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8866209968358849507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3278733669900116024}
+  m_Layer: 7
+  m_Name: CeilingDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3278733669900116024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866209968358849507}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1113642333549338642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8918652057972622910
 GameObject:
