@@ -220,10 +220,6 @@ public class GameManager : MonoBehaviour
         {
             UpdateButtonScale();
         }
-        if (!isInMainMenu)
-        {
-            nbPickaxeUI.text = NbPickaxe.ToString();
-        }
     }
 
     private void UpdateButtonScale()
