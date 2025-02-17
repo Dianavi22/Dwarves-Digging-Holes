@@ -280,7 +280,6 @@ public class GameManager : MonoBehaviour
         _gameOverCanva = levelCompleteCanvaUI;
         _backButton = _backbuttonLevelComplete;
         _retryButton = levelCompleteCanvaUI.transform.GetChild(2).gameObject;
-        StatsManager.Instance.EndGame();
         GameObject stats = StatsManager.Instance.GetStatsGameObject();
         stats.transform.SetParent(levelCompleteCanvas.transform);
 
@@ -309,7 +308,7 @@ public class GameManager : MonoBehaviour
         if (isGameOver) yield break;
 
         StatsManager.Instance.EndGame();
-
+        yield return new WaitForSeconds(1f);
         _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
