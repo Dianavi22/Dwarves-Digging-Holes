@@ -15,7 +15,6 @@ public class IgnoreCollision : MonoBehaviour
     {
         if (_theEnd.isDwarfUp && !_collider.isTrigger)
         {
-            print("isTrigger");
             _collider.isTrigger = true;
         }
 
