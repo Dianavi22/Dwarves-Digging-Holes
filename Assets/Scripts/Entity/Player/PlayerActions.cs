@@ -153,13 +153,27 @@ public class PlayerActions : MonoBehaviour
     public void OnTaunt(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
+        
+        _p.GetAnimator().SetTrigger("taunt");
 
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed)
+        /*if (context.phase == InputActionPhase.Started && !_p.IsGrabbed)
         {
             if (isTaunt) return;
-
+        
             StartCoroutine(Taunt());
-        }
+        }*/
+    }
+    
+    public void OnTauntLeft(InputAction.CallbackContext context)
+    {
+        if (!_p.CanDoAnything()) return;
+        _p.GetAnimator().SetTrigger("tauntLeft");
+    }
+    
+    public void OnTauntRight(InputAction.CallbackContext context)
+    {
+        if (!_p.CanDoAnything()) return;
+        _p.GetAnimator().SetTrigger("tauntRight");
     }
 
     public void OnPassTuto(InputAction.CallbackContext context)
