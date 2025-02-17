@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
+    [SerializeField] GameObject _cam;
 
     private Score _score;
     private GoldChariot _goldChariot;

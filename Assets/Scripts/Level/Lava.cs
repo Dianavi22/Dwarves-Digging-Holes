@@ -37,13 +37,14 @@ public class Lava : MonoBehaviour
             StartCoroutine(rock.DestroyRockByLava());
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (_isStartLava)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 5, transform.position.y, transform.position.z), Time.deltaTime * 0.5f);
+            transform.Translate(Vector3.right * 5f * Time.fixedDeltaTime * 0.5f);
         }
     }
+
 
     public IEnumerator CooldownLava()
     {
