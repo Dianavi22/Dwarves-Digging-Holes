@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 
 public class PlayerModels : MonoBehaviour
 {
-    public GameObject m_HeadAimTarget;
-    
+    public Transform m_headAimTarget;
+
     [SerializeField] Transform m_PickaxeSlot;
     [SerializeField] Animator m_Animator;
 

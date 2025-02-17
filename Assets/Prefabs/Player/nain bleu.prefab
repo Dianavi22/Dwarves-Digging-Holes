@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6146950334799991099}
+  - {fileID: 1134245949570482489}
   m_Father: {fileID: 1419446803571307933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3999195721299142668
@@ -143,11 +143,11 @@ Transform:
   m_GameObject: {fileID: 4838831371289545011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9010005, y: 0.495, z: 0}
+  m_LocalPosition: {x: -0.86938715, y: 0.2758909, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6146950334799991099}
+  m_Father: {fileID: 48569326117710926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6389530194069395861
 GameObject:
@@ -204,38 +204,6 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
---- !u!1 &7629076861347000279
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6146950334799991099}
-  m_Layer: 0
-  m_Name: HeadAimTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6146950334799991099
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7629076861347000279}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1134245949570482489}
-  m_Father: {fileID: 48569326117710926}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2227777300674512585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7b4324419ce1246ac724a22191ae14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HeadAimTarget: {fileID: 7629076861347000279}
+  m_headAimTarget: {fileID: 1134245949570482489}
   m_PickaxeSlot: {fileID: 616400065125149856}
   m_Animator: {fileID: 5728633766803585880}
 --- !u!114 &2269811488053590696
