@@ -1,11 +1,13 @@
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
+using FMODUnity;
 using Utils;
 using System.Collections.Generic;
 
 public class EnemyMovements : EntityMovement
 {
+    [SerializeField] private EventReference disappointedSound;
     [SerializeField] GameObject raycastDetectHitWall;
     [SerializeField] GameObject raycastDetectHitCeiling;
     [SerializeField] ParticleSystem _angryEnemy;
@@ -73,6 +75,7 @@ public class EnemyMovements : EntityMovement
             if (!_angryEnemy.isPlaying)
             {
                 _angryEnemy.Play();
+                DisappointedSound();
             }
         }
         else
@@ -101,4 +104,12 @@ public class EnemyMovements : EntityMovement
         CanMove = !_e.IsTouchingChariot || IsInCorner();
         Move(_horizontal * Vector2.right);
     }
+
+    #region Sound
+    private void DisappointedSound()
+    {
+        RuntimeManager.PlayOneShot(disappointedSound, transform.position);
+    }
+
+    #endregion
 }
