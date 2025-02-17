@@ -28,12 +28,17 @@ public class GameSettingsSelection : MonoBehaviour
     [SerializeField] GameObject _pivotStartSettings;
 
     [SerializeField] private EventReference openSceneTransitionSound;
+    private MainMenuManager mainMenuManager;
 
     #region Unity Callbacks
 
     private void Awake()
     {
         CheckPlayerPrefs();
+    }
+    void Start()
+    {
+        mainMenuManager = FindObjectOfType<MainMenuManager>();
     }
 
     #endregion
@@ -114,6 +119,7 @@ public class GameSettingsSelection : MonoBehaviour
     private void OpenSceneTransitionSound()
     {
         RuntimeManager.PlayOneShot(openSceneTransitionSound, transform.position);
+        mainMenuManager.StopMainMusicSound();
     }
     #endregion
 }
