@@ -456,7 +456,7 @@ public class PlayerActions : MonoBehaviour
     }
     #endregion
 
-    private IEnumerator Taunt()
+    public IEnumerator Taunt()
     {
         isTaunt = true;
         _scale.localScale = new Vector3(_scale.localScale.x, _scale.localScale.y - 0.3f, _scale.localScale.z);
