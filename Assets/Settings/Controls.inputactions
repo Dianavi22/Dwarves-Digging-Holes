@@ -60,6 +60,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Taunt1",
+                    "type": "Button",
+                    "id": "7c21465d-4000-4ff3-963d-d16dc1cf777a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Taunt2",
+                    "type": "Button",
+                    "id": "4939b2c7-63e2-4cae-a654-0761c1e92d2b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PassTuto",
                     "type": "Button",
                     "id": "5d6c89b0-1a2e-4226-a106-91a9e014b3f1",
@@ -499,17 +517,6 @@
                 },
                 {
                     "name": "",
-                    "id": "9a086e34-092d-4fa5-8248-fa13baf800cc",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Taunt",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "78cb8243-f453-40e3-b187-e8e3b0536c10",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -560,6 +567,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "PassTuto",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cd900df-e292-49c9-adc3-80d03bb15436",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1;Gamepad",
+                    "action": "Taunt1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4e31bee-4b11-439e-95be-e1354ab238e4",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1;Gamepad",
+                    "action": "Taunt2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a086e34-092d-4fa5-8248-fa13baf800cc",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Taunt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

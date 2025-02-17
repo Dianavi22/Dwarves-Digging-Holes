@@ -612,6 +612,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5d6c89b0-1a2e-4226-a106-91a9e014b3f1
     m_ActionName: Player/PassTuto[/XInputControllerWindows/dpad/up,/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4955242667168942981}
+        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
+        m_MethodName: OnTauntLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7c21465d-4000-4ff3-963d-d16dc1cf777a
+    m_ActionName: Player/Taunt1[/XInputControllerWindows/dpad/left,/XInputControllerWindows1/dpad/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4955242667168942981}
+        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
+        m_MethodName: OnTauntRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4939b2c7-63e2-4cae-a654-0761c1e92d2b
+    m_ActionName: Player/Taunt2[/XInputControllerWindows/dpad/right,/XInputControllerWindows1/dpad/right]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Player1
   m_DefaultActionMap: Player
