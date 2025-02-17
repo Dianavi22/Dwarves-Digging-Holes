@@ -39,7 +39,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] ParticleSystem _littleRocksPart;
     [SerializeField] ParticleSystem _buttonFallPart;
     [SerializeField] bool lerp = false;
+    [SerializeField] private EventReference introMusicSound;
     [SerializeField] private EventReference introRocksSound;
+    [SerializeField] private EventReference buttonFallingSound;
 
     public float speed = 5;
     private Vector3 startPosition;
@@ -56,6 +58,8 @@ public class MainMenuManager : MonoBehaviour
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
         _countButton = _button.Count-1;
         _sc = TargetManager.Instance.GetGameObject<ShakyCame>();
+
+        IntroMusicSound();
     }
 
     private IEnumerator StartCanvas()
@@ -219,6 +223,7 @@ public class MainMenuManager : MonoBehaviour
                     lerp = false;
                     _sc.ShakyCameCustom(0.2f, 0.1f);
                     _buttonFallPart.Play();
+                    ButtonFallingSound();
                     FallButtons();
                 }
             }
@@ -246,4 +251,18 @@ public class MainMenuManager : MonoBehaviour
         _scaleButton = false;
         _startButton.GetComponentInChildren<TMP_Text>().color = Color.white;
     }
+
+
+    #region Sounds
+    private void IntroMusicSound()
+    {
+        RuntimeManager.PlayOneShot(introMusicSound, transform.position);
+    }
+
+    private void ButtonFallingSound()
+    {
+        RuntimeManager.PlayOneShot(buttonFallingSound, transform.position);
+    }
+    #endregion
+
 }

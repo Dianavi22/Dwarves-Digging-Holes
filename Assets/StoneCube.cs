@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class StoneCube : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class StoneCube : MonoBehaviour
     [SerializeField] private ParticleSystem _spawnCubePart;
     [SerializeField] private ParticleSystem _destroyRockPart;
     [SerializeField] private ParticleSystem _hitCubePart;
+    [SerializeField] private EventReference destroyRockSound;
+    [SerializeField] private EventReference waitingDestroyRockSound;
+
     private bool _active = false;   
     void Start()
     {
@@ -38,9 +42,10 @@ public class StoneCube : MonoBehaviour
     
     private IEnumerator DesactivePanel()
     {
-        
+        WaitingDestroyRockSound();
         yield return new WaitForSeconds(0.5f);
         _destroyRockPart.Play();
+        DestroyRockSound();
         _gfx.GetComponent<Renderer>().enabled = false;
         yield return new WaitForSeconds(3);
         _collider.isTrigger = false;
@@ -50,4 +55,16 @@ public class StoneCube : MonoBehaviour
         _spawnCubePart.Play();
         _active = false;
     }
+
+    #region Sounds
+    private void WaitingDestroyRockSound()
+    {
+        RuntimeManager.PlayOneShot(waitingDestroyRockSound, transform.position);
+    }
+    private void DestroyRockSound()
+    {
+        RuntimeManager.PlayOneShot(destroyRockSound, transform.position);
+    }
+
+    #endregion
 }
