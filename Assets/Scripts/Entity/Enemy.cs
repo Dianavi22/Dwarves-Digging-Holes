@@ -111,6 +111,7 @@ public class Enemy : Entity
         if (_tuto.isTakeEnemy) _tuto.isYeetEnemy = true;
 
         _animator.SetBool("isGrabbed", grabbed);
+        player.GetAnimator().SetBool("isGrabbing", grabbed);
 
         if (grabbed) 
         {
