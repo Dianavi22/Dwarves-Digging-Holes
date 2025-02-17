@@ -80,7 +80,7 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        if (_readyToEvent && !GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver)
+        if (_readyToEvent && !GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
             StartCoroutine(Event());
         }
