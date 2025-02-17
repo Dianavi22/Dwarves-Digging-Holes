@@ -44,13 +44,7 @@ public class GameSettingsSelection : MonoBehaviour
     {
         selectedDifficultyIndex = (selectedDifficultyIndex + 1) % difficultyList.Length;
         UpdateSelection(ref selectedDifficultyIndex, difficultyList.Select(d => d.DifficultyName).ToArray(), difficultyText);
-
-        recommendedText.text = selectedDifficultyIndex switch
-        {
-            0 => "Best for 1-2 players",
-            1 => "Best for 3-4 players",
-            _ => "Best for 4 players",
-        };
+        SetRecommendedText();
     }
 
     public void ChangeSelectedMode()
@@ -67,6 +61,16 @@ public class GameSettingsSelection : MonoBehaviour
         OpenSceneTransitionSound();
 
         _mainMenuManager.StartParty();
+    }
+
+    private void SetRecommendedText()
+    {
+        recommendedText.text = selectedDifficultyIndex switch
+        {
+            0 => "Best for 1-2 players",
+            1 => "Best for 3-4 players",
+            _ => "Best for 4 players",
+        };
     }
 
     public void GoToMenu() {
@@ -95,6 +99,7 @@ public class GameSettingsSelection : MonoBehaviour
 
         selectedDifficultyIndex = difficultyIndex != -1 ? difficultyIndex : 0;
         UpdateSelection(ref selectedDifficultyIndex, difficultyList.Select(d => d.DifficultyName).ToArray(), difficultyText);
+        SetRecommendedText();
 
         // Update Mode
         selectedModeIndex = (int)savedMode;

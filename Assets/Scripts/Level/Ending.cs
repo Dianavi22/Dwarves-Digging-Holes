@@ -77,6 +77,7 @@ public class Ending : MonoBehaviour
 
     private IEnumerator MovePlayerToEndPosition(Player player)
     {
+        StatsManager.Instance.EndGame();
         Sequence sequence = DOTween.Sequence();
 
         player.GetRigidbody().isKinematic = true;
