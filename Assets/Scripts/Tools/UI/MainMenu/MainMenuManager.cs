@@ -151,7 +151,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         _mysteryCube.SetActive(false);
-           _scaleButton = true;
+        _scaleButton = true;
         _pivotStartSettings.SetActive(true);
         _buttons.SetActive(false);
         _title.SetActive(false);
@@ -280,6 +280,15 @@ public class MainMenuManager : MonoBehaviour
         mainMusicInstance.start();
 
         mainMusicInstance.setParameterByName("Volume", currentVolume);
+    }
+
+    public void StopMainMusicSound()
+    {
+        if (mainMusicInstance.isValid())
+        {
+            mainMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            mainMusicInstance.release();
+        }
     }
     #endregion
 

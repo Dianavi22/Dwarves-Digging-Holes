@@ -94,7 +94,8 @@ public class PlayerHealth : MonoBehaviour
         _HurtPart.Play();
         _isHit = true;
         _p.GetMovement().enabled = false;
-       StartCoroutine(this.GetComponent<PlayerActions>().Taunt());
+        _p.GetAnimator().SetTrigger("stunned");
+       // StartCoroutine(this.GetComponent<PlayerActions>().Taunt());
         DOVirtual.DelayedCall(1f, () =>
         {
             _p.GetMovement().enabled = true;
