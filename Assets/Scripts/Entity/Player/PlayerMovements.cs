@@ -22,7 +22,8 @@ public class PlayerMovements : EntityMovement
     [SerializeField] private EventReference dashSound;
     [SerializeField] private EventReference jumpSound;
     [SerializeField] private EventReference landingSound;
-    [SerializeField] private EventReference disappointedgSound;
+    [SerializeField] private EventReference hoooSound; 
+    [SerializeField] private EventReference disappointedgSound; 
     
     
     private bool _isDashingCooldown = false;
@@ -46,7 +47,7 @@ public class PlayerMovements : EntityMovement
         if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
             _tearsPart.Play();
-            DisappointedSound(gameObject.transform.position);
+            HoooSound();
         }
 
         if (!_p.IsGrabbed)
@@ -223,9 +224,13 @@ public class PlayerMovements : EntityMovement
         RuntimeManager.PlayOneShot(landingSound, position);
     }
 
-        private void DisappointedSound(Vector3 position)
+    private void DisappointedSound(Vector3 position)
     {
         RuntimeManager.PlayOneShot(disappointedgSound, position);
+    }
+    private void HoooSound()
+    {
+        RuntimeManager.PlayOneShot(hoooSound, transform.position);
     }
 
     #endregion
