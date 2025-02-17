@@ -1,12 +1,21 @@
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
+using Utils;
+using System.Collections.Generic;
 
 public class EnemyMovements : EntityMovement
 {
     [SerializeField] GameObject raycastDetectHitWall;
+    [SerializeField] GameObject raycastDetectHitCeiling;
     [SerializeField] ParticleSystem _angryEnemy;
+    [SerializeField] float distanceToWall;
+    [SerializeField] float degToWall;
+    [SerializeField] LayerMask _goblinLayer;
     Enemy _e => (Enemy)GetBase;
+
+    private bool hitCeiling = false;
+    private bool hitWall = false;
 
     void Awake()
     {
@@ -26,15 +35,14 @@ public class EnemyMovements : EntityMovement
         {
             base.Update();
 
-            OnMove();
-            
-            bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, -transform.right, 1.5f) || Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
-            //Debug.Log(hitWall);
+            List<Collider> hits = DRayCast.Cone(raycastDetectHitWall.transform.position, -transform.right, degToWall, distanceToWall, 3, ~_goblinLayer);
+            hitWall = hits.Count > 0;
+            hitCeiling = Physics.Raycast(raycastDetectHitCeiling.transform.position, transform.up, 1.5f);
 
-            Debug.DrawRay(raycastDetectHitWall.transform.position, -transform.right * 1.5f, Color.red);
-            Debug.DrawRay(raycastDetectHitWall.transform.position, transform.right * 1.5f, Color.red);
+            //Debug.DrawRay(raycastDetectHitWall.transform.position, -transform.right * 1.5f, Color.red);
+            Debug.DrawRay(raycastDetectHitCeiling.transform.position, transform.up * 1.5f, Color.red);
 
-            if (hitWall)
+            if (hitWall && !hitCeiling)
             {
                 if (isGrounded && !_e.IsTouchingChariot)
                 {
@@ -48,6 +56,8 @@ public class EnemyMovements : EntityMovement
                 IsPerformingJump = false;
             }
 
+            OnMove();
+
             //lost Gold function
             if (_e.IsTouchingChariot && !_e.IsGrabbed && _e.canSteal)
             {
@@ -56,14 +66,7 @@ public class EnemyMovements : EntityMovement
             }
         }
 
-        if (this.transform.rotation.y == -180)
-        {
-            _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, 180);
-        }
-        else
-        {
-            _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, 0);
-        }
+        _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, transform.rotation.y == -180 ? 180 : 0);
 
         if (_e.IsGrabbed && !_e.isDead)
         {
@@ -82,14 +85,20 @@ public class EnemyMovements : EntityMovement
             _e._animator.ResetTrigger("stealGold");
         }
     }
+
+    private bool IsInCorner()
+    {
+        return hitWall && hitCeiling;
+    }
+
     private void OnMove()
     {
         float _horizontal = Mathf.Sign(_e.GetDestinationPosition.x - transform.position.x);
-        if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f)
+        if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f || IsInCorner())
             _horizontal = 0f;
 
         _e._animator.SetFloat("run", _horizontal);
-        CanMove = !_e.IsTouchingChariot;
+        CanMove = !_e.IsTouchingChariot || IsInCorner();
         Move(_horizontal * Vector2.right);
     }
 }

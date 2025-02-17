@@ -16,9 +16,10 @@ public class Ending : MonoBehaviour
     [SerializeField] TheEndObj _theEnd;
     [SerializeField] private GameObject _pointDirectionGoldWinPart;
 
-    [SerializeField] private EventReference _lavaUpSound;
-    [SerializeField] private EventReference _ladderClimbSound;
-    [SerializeField] private EventReference _floorSound;
+    [SerializeField] private EventReference lavaUpSound;
+    [SerializeField] private EventReference ladderClimbSound;
+    [SerializeField] private EventReference floorSound;
+    private bool isLadderEnd = false;
 
 
     private Vector3 _targetPosition = new Vector3(9.97000027f, 0.810000002f, -0.660000026f);
@@ -82,8 +83,12 @@ public class Ending : MonoBehaviour
 
         player.GetRigidbody().isKinematic = true;
         player.GetAnimator().SetBool("isClimbingLadder", true);
-        RuntimeManager.PlayOneShot(_ladderClimbSound);
-
+        
+        if (!isLadderEnd){
+            isLadderEnd = true;
+            LadderClimbSound();
+        }
+        
         foreach (Transform t in m_InterrestPoint)
         {
             float distance = Vector3.Distance(player.transform.position, t.position);
@@ -96,17 +101,17 @@ public class Ending : MonoBehaviour
         yield return sequence.WaitForCompletion();
         player.GetAnimator().SetBool("isClimbingLadder", false);
         player.HasCompletedLevel = true;
-
+        isLadderEnd = false;
     }
 
     private IEnumerator EndAnim()
     {
         _theEnd._sc.ShakyCameCustom(0.2f, 0.2f);
         _theEnd._breakFlorPart.Play();
-        RuntimeManager.PlayOneShot(_floorSound);
+        FloorSound();
         yield return new WaitForSeconds(1.5f);
         _isLavaMoving = true;
-        RuntimeManager.PlayOneShot(_lavaUpSound);
+        LavaUpSound();
         CinematicBand.Instance.ShowCinematicBand();
         yield return new WaitForSeconds(0.8f);
         _isLavaMoving = false;
@@ -114,6 +119,21 @@ public class Ending : MonoBehaviour
 
         StartCoroutine(GameManager.Instance.LevelComplete());
 
-
     }
+
+    #region Sounds
+    private void LavaUpSound()
+    {
+        RuntimeManager.PlayOneShot(lavaUpSound, transform.position);
+    }
+    private void LadderClimbSound()
+    {
+        RuntimeManager.PlayOneShot(ladderClimbSound, transform.position);
+    }
+    private void FloorSound()
+    {
+        RuntimeManager.PlayOneShot(floorSound, transform.position);
+    }
+
+    #endregion
 }

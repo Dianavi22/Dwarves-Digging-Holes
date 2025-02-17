@@ -50,6 +50,7 @@ public class Player : Entity
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
 
         GetAnimator().SetBool("isGrabbed", isGrabbed);
+        currentPlayer.GetAnimator().SetBool("isGrabbing", isGrabbed);
     }
 
     public bool CanDoAnything()

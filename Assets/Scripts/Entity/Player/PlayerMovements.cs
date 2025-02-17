@@ -29,6 +29,7 @@ public class PlayerMovements : EntityMovement
     private bool _isDashing = false;
     private bool flip_vertical = false;
     [SerializeField] Rigidbody _rb;
+    [SerializeField] private Transform headAimTarget;
 
     public Action forceDetachFunction;
 
@@ -59,6 +60,7 @@ public class PlayerMovements : EntityMovement
         {
             FlipHoldObject();
         }
+        _p.GetModelRef().m_headAimTarget.position = headAimTarget.position;
     }
 
     private bool PlayerCanMove(bool isInputActivated)
@@ -103,7 +105,6 @@ public class PlayerMovements : EntityMovement
         //_p.GetActions().StopAnimation();
         //_p.GetActions().CancelInvoke();
         _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
-        _p.GetModelRef().m_HeadAimTarget.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
         _p.GetActions().vertical = _moveInput.y;
         flip_vertical = _moveInput.y != 0;
     }
