@@ -79,6 +79,7 @@ public class WinPanel : MonoBehaviour
         _spritePlanche.SetActive(false);
 
         _buttonNext.SetActive(false);
+        GameManager.Instance.SetStatsParent();
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
@@ -90,7 +91,7 @@ public class WinPanel : MonoBehaviour
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
-            _phrase.text = "At least you’ll be able to pay your rent, but without heating your cottage.";
+            _phrase.text = "At least youï¿½ll be able to pay your rent, but without heating your cottage.";
 
         }
         else if (_currentInt >= 21 && _currentInt < 31)

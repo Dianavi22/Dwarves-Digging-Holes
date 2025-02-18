@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
     private bool _isTutoActive = true;
     public bool isChariotWin = false;
     public static GameManager Instance; // A static reference to the GameManager instance
+    private bool _isGamewin = false;
 
     public EventReference GetSubmitUISound() => submitEvent;
     public EventReference GetNavigateUISound() => navigateEvent;
@@ -210,6 +211,7 @@ public class GameManager : MonoBehaviour
     public void ShowCardsFunc()
     {
         _gameOverCanva.SetActive(false);
+        levelCompleteCanvaUI.SetActive(false);
         StartCoroutine(ShowStats());
         _scaleButton = true;
 
@@ -254,8 +256,14 @@ public class GameManager : MonoBehaviour
 
         _playerStats.ForEach(stat => stat.SetActive(false));
 
-        _gameOverCanva.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_retryButton);
+        if(_isGamewin) {
+            levelCompleteCanvaUI.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(levelCompleteCanvaUI.transform.GetChild(4).gameObject);
+        }
+        else {
+            _gameOverCanva.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
 
     }
 
@@ -273,6 +281,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public void SetStatsParent() {
+        _isGamewin = true;
+        GameObject stats = StatsManager.Instance.GetStatsGameObject();
+        stats.transform.SetParent(levelCompleteCanvas.transform);
+        _backButton.transform.SetParent(levelCompleteCanvas.transform);
+    }
     public IEnumerator LevelComplete()
     {
         if (isGameOver) yield break;
@@ -280,8 +294,7 @@ public class GameManager : MonoBehaviour
         _gameOverCanva = levelCompleteCanvaUI;
         _backButton = _backbuttonLevelComplete;
         _retryButton = levelCompleteCanvaUI.transform.GetChild(2).gameObject;
-        GameObject stats = StatsManager.Instance.GetStatsGameObject();
-        stats.transform.SetParent(levelCompleteCanvas.transform);
+        SetStatsParent();
 
         //_textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         //_gameOverPart.gameObject.SetActive(true);
