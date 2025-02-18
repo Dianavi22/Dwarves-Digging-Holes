@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int repetitions = 3;
     [SerializeField] private float interval = 0.5f;
     [SerializeField] private EventReference metalExplosionSound;
+    private bool isMetalExplosionEnd = false;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -364,7 +365,10 @@ public class GameManager : MonoBehaviour
     }
     private void MetalExplosionSound()
     {
-        RuntimeManager.PlayOneShot(metalExplosionSound, transform.position);
+        if (!isMetalExplosionEnd){
+            isMetalExplosionEnd = true;
+            RuntimeManager.PlayOneShot(metalExplosionSound, transform.position);
+        }
     }
 
 
