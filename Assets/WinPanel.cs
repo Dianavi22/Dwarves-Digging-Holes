@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using FMODUnity;
 
 public class WinPanel : MonoBehaviour
 {
@@ -24,9 +25,14 @@ public class WinPanel : MonoBehaviour
     [SerializeField] Vector3 planchVector = new Vector3(10f, 5.5f, -11.1000004f);
     [SerializeField] int Test;
     [SerializeField] int _currentInt;
+
+    [SerializeField] private EventReference goldTakeSound;
+    [SerializeField] private EventReference panelEndSound;
+
     void Start()
     {
       // StartCoroutine(GoldCountWin());
+        PanelEndSound();
     }
 
     public IEnumerator GoldCountWin()
@@ -39,10 +45,10 @@ public class WinPanel : MonoBehaviour
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
         {
-
             _currentInt = i + 1;
             _goldCountText.text = "";
             _goldCountText.text = _currentInt.ToString();
+            goldTakeSoundSound();
             
             _animator.SetTrigger("Boing");
             _goldPart.Play();
@@ -101,4 +107,16 @@ public class WinPanel : MonoBehaviour
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GoldMountain);
         }
     }
+
+    #region Sounds
+    private void goldTakeSoundSound()
+    {
+        RuntimeManager.PlayOneShot(goldTakeSound, transform.position);
+    }
+
+    private void PanelEndSound()
+    {
+        RuntimeManager.PlayOneShot(panelEndSound, transform.position);
+    }
+    #endregion
 }
