@@ -5,13 +5,14 @@ using UnityEngine;
 public class RespawnPoint : MonoBehaviour
 {
     [SerializeField] float radiusDetectCollider = 1f;
+    [SerializeField] LayerMask _ignoreLayer;
 
     public GameObject circle;
     public bool IsReadyToRespawn { private set; get; }
 
     void Update()
     {
-        var colliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), radiusDetectCollider);
+        var colliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), radiusDetectCollider, ~_ignoreLayer);
 
         if (colliders.Length != 0)
         {

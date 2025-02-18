@@ -140,6 +140,7 @@ public class EventManager : MonoBehaviour
     {
         if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
+            _littleText.text = "";
             switch (i)
             {
                 case 0:
@@ -172,8 +173,7 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(false);
         EventPickaxeSound();
 
-        _littleText.text = "";
-        _littleText.text = "Pickaxes aren't what they used to be, elf work!";
+        _littleText.text = StringManager.Instance.GetSentence(Message.PickaxeEventDesc);
         _littleText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         for (int i = 0; i < _pickaxesModels.Count; i++)
@@ -198,18 +198,15 @@ public class EventManager : MonoBehaviour
         }
         EventPickaxeBreakSound();
         _sc.ShakyCameCustom(0.2f, 0.2f);
-        _littleText.text = "";
-
     }
 
     private IEnumerator EventGoldChariot()
     {
-        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxeEvent)));
+        StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.TaxEvent)));
         _littleText.gameObject.SetActive(false);
         EventGoldChariotSound();
 
-        _littleText.text = "";
-        _littleText.text = "All this gold... you make even the gods jealous!";
+        _littleText.text = StringManager.Instance.GetSentence(Message.TaxEventDesc);
         _littleText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
@@ -220,7 +217,6 @@ public class EventManager : MonoBehaviour
         _goldChariotPart.Play();
         _sc.ShakyCameCustom(0.3f, 0.2f);
         _goldChariot.GoldEvent();
-
     }
 
     private IEnumerator NoForge()
@@ -230,8 +226,7 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(false);
         NoForgeSound();
 
-        _littleText.text = "";
-        _littleText.text = "I knew I should have taken the warranty on this forge";
+        _littleText.text = StringManager.Instance.GetSentence(Message.ForgeEventDesc);
         _littleText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         _forgePanel.SetActive(true);
@@ -250,14 +245,11 @@ public class EventManager : MonoBehaviour
 
         isForgeEvent = false;
 
-
         yield return new WaitForSeconds(0.31f);
         _sc.ShakyCameCustom(0.2f, 0.2f);
 
         _deleteForgePanelEventPart.Play();
         _forgePanel.SetActive(false);
-
-
     }
 
     private IEnumerator LavaGettingClose()
@@ -266,8 +258,7 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(false);
         LavaGettingCloseSound();
 
-        _littleText.text = "";
-        _littleText.text = "Your legs may be short, but you can still cover 7.5m!";
+        _littleText.text = StringManager.Instance.GetSentence(Message.LavaEventDesc);
         _littleText.gameObject.SetActive(true);
 
         _lavaPartUI.Play();
@@ -294,8 +285,7 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(false);
         GoblinWaveSound();
 
-        _littleText.text = "";
-        _littleText.text = "After not seeing their buddies come back, they show up in a gang!";
+        _littleText.text = StringManager.Instance.GetSentence(Message.GoblinEventDesc);
         _littleText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
@@ -305,8 +295,6 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         _goblinWave.GenerateWave();
-
-
     }
     #endregion
 

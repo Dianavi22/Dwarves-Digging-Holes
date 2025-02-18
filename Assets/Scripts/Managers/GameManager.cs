@@ -6,10 +6,7 @@ using TMPro;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
 using System.Linq;
-using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,11 +79,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventReference submitEvent;
     [SerializeField] EventReference navigateEvent;
 
+
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] GameObject _cam;
+
+    [SerializeField] private EventReference piercingTonesSound;
+    [SerializeField] private int repetitions = 3;
+    [SerializeField] private float interval = 0.5f;
+    [SerializeField] private EventReference metalExplosionSound;
+    private bool isMetalExplosionEnd = false;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -102,6 +106,7 @@ public class GameManager : MonoBehaviour
     private bool _isTutoActive = true;
     public bool isChariotWin = false;
     public static GameManager Instance; // A static reference to the GameManager instance
+    private bool _isGamewin = false;
 
     public EventReference GetSubmitUISound() => submitEvent;
     public EventReference GetNavigateUISound() => navigateEvent;
@@ -210,6 +215,7 @@ public class GameManager : MonoBehaviour
     public void ShowCardsFunc()
     {
         _gameOverCanva.SetActive(false);
+        levelCompleteCanvaUI.SetActive(false);
         StartCoroutine(ShowStats());
         _scaleButton = true;
 
@@ -254,8 +260,14 @@ public class GameManager : MonoBehaviour
 
         _playerStats.ForEach(stat => stat.SetActive(false));
 
-        _gameOverCanva.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_retryButton);
+        if(_isGamewin) {
+            levelCompleteCanvaUI.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(levelCompleteCanvaUI.transform.GetChild(4).gameObject);
+        }
+        else {
+            _gameOverCanva.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_retryButton);
+        }
 
     }
 
@@ -273,6 +285,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public void SetStatsParent() {
+        _isGamewin = true;
+        GameObject stats = StatsManager.Instance.GetStatsGameObject();
+        stats.transform.SetParent(levelCompleteCanvas.transform);
+        _backButton.transform.SetParent(levelCompleteCanvas.transform);
+    }
     public IEnumerator LevelComplete()
     {
         if (isGameOver) yield break;
@@ -280,8 +298,7 @@ public class GameManager : MonoBehaviour
         _gameOverCanva = levelCompleteCanvaUI;
         _backButton = _backbuttonLevelComplete;
         _retryButton = levelCompleteCanvaUI.transform.GetChild(2).gameObject;
-        GameObject stats = StatsManager.Instance.GetStatsGameObject();
-        stats.transform.SetParent(levelCompleteCanvas.transform);
+        SetStatsParent();
 
         //_textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         //_gameOverPart.gameObject.SetActive(true);
@@ -311,12 +328,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
+        PiercingTonesSound();
         isGameOver = true;
         _goldChariot.StopParticle();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
         EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx(isGoldChariotDestroyed);
+        MetalExplosionSound();
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
         RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 1);
@@ -332,6 +351,27 @@ public class GameManager : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(showPanelTutoSound, transform.position);
     }
+    private void PiercingTonesSound()
+    {
+        StartCoroutine(PlaySoundWithDelay());
+    }
+    private IEnumerator PlaySoundWithDelay()
+    {
+        for (int i = 0; i < repetitions; i++)
+        {
+            RuntimeManager.PlayOneShot(piercingTonesSound, transform.position);
+            yield return new WaitForSeconds(interval);
+        }
+    }
+    private void MetalExplosionSound()
+    {
+        if (!isMetalExplosionEnd){
+            isMetalExplosionEnd = true;
+            RuntimeManager.PlayOneShot(metalExplosionSound, transform.position);
+        }
+    }
+
+
     #endregion
 
     /// <summary>

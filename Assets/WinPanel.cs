@@ -29,11 +29,6 @@ public class WinPanel : MonoBehaviour
       // StartCoroutine(GoldCountWin());
     }
 
-    void Update()
-    {
-
-    }
-
     public IEnumerator GoldCountWin()
     {
        // _panelEnd.transform.position = planchVector;
@@ -79,6 +74,7 @@ public class WinPanel : MonoBehaviour
         _spritePlanche.SetActive(false);
 
         _buttonNext.SetActive(false);
+        GameManager.Instance.SetStatsParent();
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
@@ -86,25 +82,23 @@ public class WinPanel : MonoBehaviour
     {
         if (_currentInt < 11)
         {
-            _phrase.text = "Enough to pay for just a room at the inn!";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.LittleGold);
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
-            _phrase.text = "At least you’ll be able to pay your rent, but without heating your cottage.";
-
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.AverageGold);
         }
         else if (_currentInt >= 21 && _currentInt < 31)
         {
-            _phrase.text = "A round for everyone, and a banquet too, please!";
-
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GreatGold);
         }
         else if (_currentInt >= 31 && _currentInt < 41)
         {
-            _phrase.text = "Careful not to make the dragons jealous!";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.ExtraGold);
         }
         else
         {
-            _phrase.text = "What if we bought the Sylvan Elves' forest?";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GoldMountain);
         }
     }
 }
