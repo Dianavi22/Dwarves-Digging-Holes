@@ -111,8 +111,8 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         FallButtons();
         yield return new WaitForSeconds(1f);
-        ActiveButtons();
         yield return new WaitForSeconds(4f);
+        ActiveButtons();
         MainMusicSound();
     }
 
