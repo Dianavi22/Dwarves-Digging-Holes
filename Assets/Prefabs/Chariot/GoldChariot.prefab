@@ -6810,6 +6810,7 @@ MonoBehaviour:
   _brokenGFX: {fileID: 3635450997261631224}
   hbTakeGold: {fileID: 3878937274430679450}
   _takeGoldAnim: {fileID: 29269139155626830}
+  _hitBox: {fileID: 0}
   goblinInterval: 1
   _currentGoldCount: 10
 --- !u!54 &415383790900409220
@@ -8253,6 +8254,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7016933003152741732}
     m_Modifications:
+    - target: {fileID: 5911395586903647649, guid: 9ecd600e174a3e24db4f3979b2a5f589, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 124454399a284df47901ab7e58545de2, type: 2}
     - target: {fileID: 6303333509328509077, guid: 9ecd600e174a3e24db4f3979b2a5f589, type: 3}
       propertyPath: m_Name
       value: WinGold_PART
@@ -8441,9 +8446,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1100592513830205719, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: LightsModule.rangeCurve.scalar
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100592513830205719, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: LightsModule.intensityCurve.scalar
+      value: 7.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100592513830205719, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.2216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100592513830205719, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8247605
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635449487845503711, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2635449487845503711, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: playOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2635449487845503711, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: useUnscaledTime
@@ -8459,7 +8484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4532276103060888044, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4532276103060888044, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: m_TagString
@@ -8467,7 +8492,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5450393288770130727, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: playOnAwake
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011898910429883007, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_Color.b
+      value: 0.07338022
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011898910429883007, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_Color.g
+      value: 0.68327755
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011898910429883007, guid: 136e417d5de418c498034584914f8a93, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9150943
       objectReference: {fileID: 0}
     - target: {fileID: 9012710276775166857, guid: 136e417d5de418c498034584914f8a93, type: 3}
       propertyPath: m_Layer
