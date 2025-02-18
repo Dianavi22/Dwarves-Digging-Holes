@@ -6,10 +6,7 @@ using TMPro;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
 using System.Linq;
-using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
