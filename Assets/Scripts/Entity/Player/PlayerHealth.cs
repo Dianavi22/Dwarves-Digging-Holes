@@ -138,11 +138,9 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerRespawn()
     {
         transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
-
         IsAlive = true;
         _p.GetRigidbody().useGravity = true;
         _p.GetModelRef().gameObject.SetActive(true);
-
         Invoke(nameof(Invincibility), 0.1f);
 
         ResurgenceSound();
