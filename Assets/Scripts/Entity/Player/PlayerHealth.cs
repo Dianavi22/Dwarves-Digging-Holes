@@ -106,6 +106,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void DeathPlayer()
     {
+        if(!IsAlive) return;
         DeathSound();
 
         IsAlive = false;
@@ -121,6 +122,7 @@ public class PlayerHealth : MonoBehaviour
         _p.GetRigidbody().velocity = Vector3.zero;
 
         _p.EmptyFixedJoin();
+
 
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
         if (_p.holdBy != null)

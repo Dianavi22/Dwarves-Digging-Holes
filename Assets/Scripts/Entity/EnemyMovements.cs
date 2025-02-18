@@ -97,7 +97,7 @@ public class EnemyMovements : EntityMovement
     private void OnMove()
     {
         float _horizontal = Mathf.Sign(_e.GetDestinationPosition.x - transform.position.x);
-        if (Math.Abs(Vector3.Distance(_e.GetDestinationPosition, transform.position)) <= 1.25f || IsInCorner())
+        if (Math.Abs(_e.GetDestinationPosition.x - transform.position.x) <= 1.25f || IsInCorner())
             _horizontal = 0f;
 
         _e._animator.SetFloat("run", _horizontal);

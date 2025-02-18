@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using FMODUnity;
 
 public class WinPanel : MonoBehaviour
 {
@@ -24,14 +25,14 @@ public class WinPanel : MonoBehaviour
     [SerializeField] Vector3 planchVector = new Vector3(10f, 5.5f, -11.1000004f);
     [SerializeField] int Test;
     [SerializeField] int _currentInt;
+
+    [SerializeField] private EventReference goldTakeSound;
+    [SerializeField] private EventReference panelEndSound;
+    [SerializeField] private EventReference badgeSound;
+
     void Start()
     {
       // StartCoroutine(GoldCountWin());
-    }
-
-    void Update()
-    {
-
     }
 
     public IEnumerator GoldCountWin()
@@ -39,15 +40,17 @@ public class WinPanel : MonoBehaviour
        // _panelEnd.transform.position = planchVector;
         _panelEnd.SetActive(true);
         _spritePlanche.SetActive(true);
-           yield return new WaitForSeconds(0.5f);
+        PanelEndSound();
+        
+        yield return new WaitForSeconds(0.5f);
         print(_gc._currentGoldCount);
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
         {
-
             _currentInt = i + 1;
             _goldCountText.text = "";
             _goldCountText.text = _currentInt.ToString();
+            goldTakeSoundSound();
             
             _animator.SetTrigger("Boing");
             _goldPart.Play();
@@ -58,6 +61,7 @@ public class WinPanel : MonoBehaviour
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
                 _badge.SetActive(true);
+                BadgeSound();
                 yield return new WaitForSeconds(0.15f);
                 _badgePart.Play();
                 yield return new WaitForSeconds(0.2f);
@@ -79,6 +83,7 @@ public class WinPanel : MonoBehaviour
         _spritePlanche.SetActive(false);
 
         _buttonNext.SetActive(false);
+        GameManager.Instance.SetStatsParent();
         EventSystem.current.SetSelectedGameObject(_retryButton);
     }
 
@@ -86,25 +91,40 @@ public class WinPanel : MonoBehaviour
     {
         if (_currentInt < 11)
         {
-            _phrase.text = "Enough to pay for just a room at the inn!";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.LittleGold);
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
-            _phrase.text = "At least you’ll be able to pay your rent, but without heating your cottage.";
-
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.AverageGold);
         }
         else if (_currentInt >= 21 && _currentInt < 31)
         {
-            _phrase.text = "A round for everyone, and a banquet too, please!";
-
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GreatGold);
         }
         else if (_currentInt >= 31 && _currentInt < 41)
         {
-            _phrase.text = "Careful not to make the dragons jealous!";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.ExtraGold);
         }
         else
         {
-            _phrase.text = "What if we bought the Sylvan Elves' forest?";
+            _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GoldMountain);
         }
     }
+
+    #region Sounds
+    private void goldTakeSoundSound()
+    {
+        RuntimeManager.PlayOneShot(goldTakeSound, transform.position);
+    }
+
+    private void PanelEndSound()
+    {
+        RuntimeManager.PlayOneShot(panelEndSound, transform.position);
+    }
+
+    private void BadgeSound()
+    {
+        RuntimeManager.PlayOneShot(badgeSound, transform.position);
+    }
+    #endregion
 }

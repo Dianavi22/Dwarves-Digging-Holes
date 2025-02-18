@@ -243,7 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23539e732c8d12a47b1509fcfc1b52b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radiusDetectCollider: 1
+  radiusDetectCollider: 0.75
+  _ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 4
   circle: {fileID: 7182897746648665752}
 --- !u!1 &4029334497058021868
 GameObject:
@@ -557,7 +560,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 100
   isRespawn: 0
+  isImpossibleRespawn: 0
   _arrow: {fileID: 3434117116029535737}
+  _impossibleArrow: {fileID: 0}
 --- !u!1 &5411678261783219313
 GameObject:
   m_ObjectHideFlags: 0

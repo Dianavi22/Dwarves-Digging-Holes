@@ -37,8 +37,8 @@ public class Pepite : MonoBehaviour
         {
             if (Utils.Component.TryGetInParent<Player>(collision.collider, out var player) && !_isDestroy)
             {
-                PickUpANuggetSoundSound();
-                NuggetInTheCartSoundSound();
+                PickUpANuggetSound();
+                NuggetInTheCartSound();
                 _isDestroy = true;
                 _gcPart.Play();
                 TargetManager.Instance.GetGameObject<GoldChariot>().TakeNugget();
@@ -76,12 +76,12 @@ public class Pepite : MonoBehaviour
     }
 
     #region Sounds
-    private void PickUpANuggetSoundSound()
+    private void PickUpANuggetSound()
     {
         RuntimeManager.PlayOneShot(pickUpANuggetSound, transform.position);
     }
 
-    private void NuggetInTheCartSoundSound()
+    private void NuggetInTheCartSound()
     {
         RuntimeManager.PlayOneShot(nuggetInTheCartSound, transform.position);
     }
