@@ -58,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         StartCoroutine(StartCanvas());
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
         _countButton = _button.Count-1;

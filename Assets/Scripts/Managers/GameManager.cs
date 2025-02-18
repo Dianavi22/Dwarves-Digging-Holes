@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
         _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
