@@ -78,7 +78,7 @@ public class EventManager : MonoBehaviour
         _lava = TargetManager.Instance.GetGameObject<Lava>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (_readyToEvent && !GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
@@ -104,7 +104,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator TextEvent(string message)
     {
-        if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
+        if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding && !GameManager.Instance.isChariotWin)
         {
             _eventText.text = "";
             _showTextPart.Play();

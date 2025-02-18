@@ -304,7 +304,6 @@ public class GameManager : MonoBehaviour
         //_gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.StopParticle();
-        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
         EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(2f);
         bool newBest = _score.CheckBestScore();
