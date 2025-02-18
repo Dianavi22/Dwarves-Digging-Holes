@@ -327,13 +327,13 @@ public class GameManager : MonoBehaviour
         StatsManager.Instance.EndGame();
         yield return new WaitForSeconds(1f);
         _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
-        _gameOverPart.gameObject.SetActive(true);
+        _gameOverPart.GetComponent<ParticleSystem>().Play();
         PiercingTonesSound();
         isGameOver = true;
         _goldChariot.StopParticle();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
         EventManager.Instance.enabled = false;
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3.8f);
         _goldChariot.HideGfx(isGoldChariotDestroyed);
         MetalExplosionSound();
         yield return new WaitForSeconds(2f);

@@ -28922,6 +28922,22 @@ PrefabInstance:
       propertyPath: _eventManager
       value: 
       objectReference: {fileID: 1880652955}
+    - target: {fileID: 4116641028294203247, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116641028294203247, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: TrailModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116641028294203247, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159188239862836962, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4740474609369040211, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_Name
       value: GoldChariot
@@ -28930,10 +28946,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 691050779}
-    - target: {fileID: 6158689978638916174, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 124454399a284df47901ab7e58545de2, type: 2}
     - target: {fileID: 7016933003152741732, guid: 8cf932254bb426a4c9e64aaba19b4d49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.3
@@ -31080,6 +31092,10 @@ PrefabInstance:
       propertyPath: _tutoBubble
       value: 
       objectReference: {fileID: 406910751}
+    - target: {fileID: 8715724577106834900, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8818313468679782099, guid: 91770065ccebc48479528b9f3b9e46c0, type: 3}
       propertyPath: m_Enabled
       value: 0

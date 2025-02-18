@@ -305,10 +305,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     public GameObject GetGameObject() { return gameObject; }
     #endregion
 
-    private void SetBrokenGFX(bool isChariotBroken)
+    private void SetBrokenGFX()
     {
-        _defaultGFX.SetActive(!isChariotBroken);
-        _brokenGFX.SetActive(isChariotBroken);
+        _defaultGFX.SetActive(false);
+        _brokenGFX.SetActive(true);
     }
 
     public void HideGfx(bool isGoldChariotDestroyed)
@@ -318,7 +318,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             _goldStepList[i].gameObject.SetActive(false);
         }
         _goldCountText.gameObject.SetActive(false);
-        if (!isGoldChariotDestroyed) SetBrokenGFX(true);
+        if (!isGoldChariotDestroyed)
+        {
+            Invoke("SetBrokenGFX", 1f);
+        }
         else _defaultGFX.SetActive(false);
     }
     public void StopParticle()
