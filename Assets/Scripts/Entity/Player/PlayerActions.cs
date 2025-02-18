@@ -126,7 +126,8 @@ public class PlayerActions : MonoBehaviour
             _yeetPart.Play();
             print("Handle");
         }
-            if (!_p.CanDoAnything()) return;
+        
+        if (!_p.CanDoAnything()) return;
 
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
         {
