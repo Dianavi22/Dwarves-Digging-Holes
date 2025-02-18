@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] ParticleSystem _lavaPartUI;
     [SerializeField] ParticleSystem _lavaRain;
     [SerializeField] private EventReference eventGoldChariotSound;
-     
+
     [Header("Gold Event")]
     [SerializeField] ParticleSystem _goldChariotPart;
     [SerializeField] ParticleSystem _goldChariotUIPart;
@@ -104,23 +104,31 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator TextEvent(string message)
     {
-        _eventText.text = "";
-        _showTextPart.Play();
-        yield return new WaitForSeconds(0.2f);
-        _eventText.gameObject.SetActive(true);
-        _eventText.text = message;
-        yield return new WaitForSeconds(1.5f);
-        _eventText.gameObject.SetActive(false);
+        if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
+        {
+            _eventText.text = "";
+            _showTextPart.Play();
+            yield return new WaitForSeconds(0.2f);
+            _eventText.gameObject.SetActive(true);
+            _eventText.text = message;
+            yield return new WaitForSeconds(1.5f);
+            _eventText.gameObject.SetActive(false);
+        }
+
     }
 
     private IEnumerator Event()
     {
-        _readyToEvent = false;
-        yield return new WaitForSeconds(10);
-        ChooseEvent(Random.Range(0, 5));
-         //ChooseEvent(1);
-        yield return new WaitForSeconds(30);
-        _readyToEvent = true;
+        if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
+        {
+            _readyToEvent = false;
+            yield return new WaitForSeconds(10);
+            ChooseEvent(Random.Range(0, 5));
+            //ChooseEvent(1);
+            yield return new WaitForSeconds(30);
+            _readyToEvent = true;
+        }
+
     }
 
     //Event 1 : All pickaxes are Destroyed
@@ -130,26 +138,30 @@ public class EventManager : MonoBehaviour
     //Event 5 : Unbreackables Rocks
     private void ChooseEvent(int i)
     {
-        switch (i)
+        if (!GameManager.Instance.isDisableEventManager && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
-            case 0:
-                StartCoroutine(EventPickaxe());
-                break;
-            case 3:
-                StartCoroutine(EventGoldChariot());
-                break;
-            case 2:
-                StartCoroutine(LavaGettingClose());
-                break;
-            case 1:
-                StartCoroutine(GoblinWave());
-                break;
-            case 4:
-                StartCoroutine(NoForge());
-                break;
-            default:
-                break;
+            switch (i)
+            {
+                case 0:
+                    StartCoroutine(EventPickaxe());
+                    break;
+                case 3:
+                    StartCoroutine(EventGoldChariot());
+                    break;
+                case 2:
+                    StartCoroutine(LavaGettingClose());
+                    break;
+                case 1:
+                    StartCoroutine(GoblinWave());
+                    break;
+                case 4:
+                    StartCoroutine(NoForge());
+                    break;
+                default:
+                    break;
+            }
         }
+           
     }
 
 
@@ -213,7 +225,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator NoForge()
     {
-        
+
         StartCoroutine(TextEvent(StringManager.Instance.GetSentence(Message.ForgeEvent)));
         _littleText.gameObject.SetActive(false);
         NoForgeSound();
@@ -237,7 +249,7 @@ public class EventManager : MonoBehaviour
         _littleText.gameObject.SetActive(false);
 
         isForgeEvent = false;
-       
+
 
         yield return new WaitForSeconds(0.31f);
         _sc.ShakyCameCustom(0.2f, 0.2f);
@@ -307,7 +319,7 @@ public class EventManager : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(EventPickaxeBreak, transform.position);
     }
-        private void EventGoldChariotSound()
+    private void EventGoldChariotSound()
     {
         RuntimeManager.PlayOneShot(eventGoldChariotSound, transform.position);
     }
@@ -315,15 +327,15 @@ public class EventManager : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(lightningSound, transform.position);
     }
-        private void LavaGettingCloseSound()
+    private void LavaGettingCloseSound()
     {
         RuntimeManager.PlayOneShot(lavaGettingCloseSound, transform.position);
     }
-        private void GoblinWaveSound()
+    private void GoblinWaveSound()
     {
         RuntimeManager.PlayOneShot(goblinWaveSound, transform.position);
     }
-        private void NoForgeSound()
+    private void NoForgeSound()
     {
         RuntimeManager.PlayOneShot(noForgeSound, transform.position);
     }
