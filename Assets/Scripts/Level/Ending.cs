@@ -49,14 +49,14 @@ public class Ending : MonoBehaviour
             GameManager.Instance.isEnding = true;
             if (GameManager.Instance.isChariotWin)
             {
-                _theEnd._levelCompleteText.text = "Congratulation !";
-                _theEnd._levelCompleteText2.text = "You Win";
+                _theEnd._levelCompleteText.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.SuccessDesc);
+                _theEnd._levelCompleteText2.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.SuccessTitle);
                 StartCoroutine(_theEnd.wp.GoldCountWin());
             }
             else
             {
-               _theEnd._levelCompleteText.text = "Next time, take gold before escape";
-               _theEnd._levelCompleteText2.text = "Too bad";
+                _theEnd._levelCompleteText.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.FailDesc);
+                _theEnd._levelCompleteText2.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.FailTitle);
                 StartCoroutine(EndAnim());
             }
 
