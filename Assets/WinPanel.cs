@@ -28,11 +28,11 @@ public class WinPanel : MonoBehaviour
 
     [SerializeField] private EventReference goldTakeSound;
     [SerializeField] private EventReference panelEndSound;
+    [SerializeField] private EventReference badgeSound;
 
     void Start()
     {
       // StartCoroutine(GoldCountWin());
-        PanelEndSound();
     }
 
     public IEnumerator GoldCountWin()
@@ -40,7 +40,9 @@ public class WinPanel : MonoBehaviour
        // _panelEnd.transform.position = planchVector;
         _panelEnd.SetActive(true);
         _spritePlanche.SetActive(true);
-           yield return new WaitForSeconds(0.5f);
+        PanelEndSound();
+        
+        yield return new WaitForSeconds(0.5f);
         print(_gc._currentGoldCount);
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
@@ -59,6 +61,7 @@ public class WinPanel : MonoBehaviour
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
                 _badge.SetActive(true);
+                BadgeSound();
                 yield return new WaitForSeconds(0.15f);
                 _badgePart.Play();
                 yield return new WaitForSeconds(0.2f);
@@ -117,6 +120,11 @@ public class WinPanel : MonoBehaviour
     private void PanelEndSound()
     {
         RuntimeManager.PlayOneShot(panelEndSound, transform.position);
+    }
+
+    private void BadgeSound()
+    {
+        RuntimeManager.PlayOneShot(badgeSound, transform.position);
     }
     #endregion
 }
