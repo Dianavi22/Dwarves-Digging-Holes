@@ -79,11 +79,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventReference submitEvent;
     [SerializeField] EventReference navigateEvent;
 
+
     [Header("Other")]
     [SerializeField] private PlatformSpawner blockSpawner;
     [SerializeField] ParticleSystem _gameOverPart;
     [SerializeField] IntroGame _introGame;
     [SerializeField] GameObject _cam;
+
+    [SerializeField] private EventReference piercingTonesSound;
+    [SerializeField] private int repetitions = 3;
+    [SerializeField] private float interval = 0.5f;
+    [SerializeField] private EventReference metalExplosionSound;
 
     private Score _score;
     private GoldChariot _goldChariot;
@@ -321,12 +327,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _textGameOverCondition.text = StringManager.Instance.GetSentence(deathMessage);
         _gameOverPart.gameObject.SetActive(true);
+        PiercingTonesSound();
         isGameOver = true;
         _goldChariot.StopParticle();
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
         EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(3.5f);
         _goldChariot.HideGfx(isGoldChariotDestroyed);
+        MetalExplosionSound();
         yield return new WaitForSeconds(2f);
         _GameOverCanvas.SetActive(true);
         RuntimeManager.StudioSystem.setParameterByName("LowPassMenu", 1);
@@ -342,6 +350,24 @@ public class GameManager : MonoBehaviour
     {
         RuntimeManager.PlayOneShot(showPanelTutoSound, transform.position);
     }
+    private void PiercingTonesSound()
+    {
+        StartCoroutine(PlaySoundWithDelay());
+    }
+    private IEnumerator PlaySoundWithDelay()
+    {
+        for (int i = 0; i < repetitions; i++)
+        {
+            RuntimeManager.PlayOneShot(piercingTonesSound, transform.position);
+            yield return new WaitForSeconds(interval);
+        }
+    }
+    private void MetalExplosionSound()
+    {
+        RuntimeManager.PlayOneShot(metalExplosionSound, transform.position);
+    }
+
+
     #endregion
 
     /// <summary>
