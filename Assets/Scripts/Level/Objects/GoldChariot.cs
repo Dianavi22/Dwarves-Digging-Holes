@@ -93,10 +93,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    TakeNugget();
-        //}
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TakeNugget();
+        }
 
         //if (Input.GetKeyDown(KeyCode.P))
         //{
