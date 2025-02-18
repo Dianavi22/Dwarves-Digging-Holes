@@ -86,25 +86,25 @@ public class WinPanel : MonoBehaviour
     {
         if (_currentInt < 11)
         {
-            _phrase.text = "De quoi payer qu'une chambre à l'auberge !";
+            _phrase.text = "Enough to pay for just a room at the inn!";
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
-            _phrase.text = "Au moins vous pourrrez payer votre loyer, mais sans chauffer votre chaumière";
+            _phrase.text = "At least you’ll be able to pay your rent, but without heating your cottage.";
 
         }
         else if (_currentInt >= 21 && _currentInt < 31)
         {
-            _phrase.text = "Tournée générale et avec un banquet s'il vous plait !";
+            _phrase.text = "A round for everyone, and a banquet too, please!";
 
         }
         else if (_currentInt >= 31 && _currentInt < 41)
         {
-            _phrase.text = "Attention à ne pas rendre les dragons jaloux ;)";
+            _phrase.text = "Careful not to make the dragons jealous!";
         }
         else
         {
-            _phrase.text = "Si on rachetait la forêt des elfs sylvains ?";
+            _phrase.text = "What if we bought the Sylvan Elves' forest?";
         }
     }
 }
