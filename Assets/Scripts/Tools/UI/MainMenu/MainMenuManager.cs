@@ -112,7 +112,7 @@ public class MainMenuManager : MonoBehaviour
         FallButtons();
         yield return new WaitForSeconds(1f);
         ActiveButtons();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         MainMusicSound();
     }
 
