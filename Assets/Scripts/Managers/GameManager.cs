@@ -188,6 +188,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        GameOST.Instance.StartMusic();
         isGameStarted = true;
         _scoreText.SetActive(true);
         _exitText.SetActive(true);

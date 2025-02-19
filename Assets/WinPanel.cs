@@ -38,6 +38,7 @@ public class WinPanel : MonoBehaviour
 
     public IEnumerator GoldCountWin()
     {
+        GameOST.Instance.PauseAndSetMusicTime(2, 32);
         _panelEnd.SetActive(true);
         _spritePlanche.SetActive(true);
         PanelEndSound();
@@ -72,6 +73,7 @@ public class WinPanel : MonoBehaviour
                 yield return new WaitForSeconds(0.08f);
                 _buttonNext.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(_buttonNext);
+                GameOST.Instance.ResumeMusic();
 
             }
             yield return new WaitForSeconds(0.08f);
