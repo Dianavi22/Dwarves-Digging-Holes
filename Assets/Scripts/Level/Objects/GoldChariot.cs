@@ -46,7 +46,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     List<MoreGold> _goldStepList = new();
     private List<Sequence> _nearDeathExperienceSequence = new();
     [SerializeField] private Animator _takeGoldAnim;
-    [SerializeField] private Collider _hitBox;
 
     private Rigidbody _rb;
 

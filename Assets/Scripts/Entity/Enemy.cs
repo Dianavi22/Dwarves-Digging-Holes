@@ -28,8 +28,6 @@ public class Enemy : Entity
     public Vector3 GetDestinationPosition => _goldChariot.transform.position;
     private bool _isTouchChariot;
     [HideInInspector] public bool canSteal = true;
-
-    [HideInInspector] public bool isDead = false;
     public bool IsTouchingChariot
     {
         get => _isTouchChariot;
@@ -68,7 +66,7 @@ public class Enemy : Entity
 
     public IEnumerator HitChariot()
     {
-        if (isDead) yield break;
+        if (IsDead) yield break;
 
         canSteal = false;
         _goldChariot.oneLostPart.Play();
@@ -82,7 +80,7 @@ public class Enemy : Entity
 
     public IEnumerator DestroyByLava()
     {
-        isDead = true;
+        IsDead = true;
         IsTouchingChariot = false;
         for (int i = 0; i < _colliders.Count; i++)
         {
@@ -126,7 +124,7 @@ public class Enemy : Entity
     } 
     override public void HandleDestroy()
     {
-        if (isDead) return;
+        if (IsDead) return;
 
         if (_tuto.isYeetEnemy)
         {
@@ -144,12 +142,12 @@ public class Enemy : Entity
 
     private IEnumerator PeriodicSoundLoop()
     {
-        while (!isDead)
+        while (!IsDead)
         {
             float randomDelay = Random.Range(3f, 7f);
             yield return new WaitForSeconds(randomDelay);
 
-            if (!isDead)
+            if (!IsDead)
             {
                 PeriodicSound();
             }
