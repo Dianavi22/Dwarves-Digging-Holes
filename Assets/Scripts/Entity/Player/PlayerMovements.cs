@@ -9,6 +9,7 @@ using FMODUnity;
 public class PlayerMovements : EntityMovement
 {
     [HideInInspector] public bool isGrabbingChariot;
+    [HideInInspector] public bool isCreatingPickaxe;
     
     [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
@@ -72,6 +73,8 @@ public class PlayerMovements : EntityMovement
             if (isInputActivated && isHoldingChariot)
                 return !_p.IsGrabbed && _p.GetFatigue().ReduceCartsFatigue(
                     GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
+
+            return !isCreatingPickaxe;
         }
 
         return !_p.IsGrabbed;
@@ -91,10 +94,10 @@ public class PlayerMovements : EntityMovement
         }
     }
 
-    private void FlipFacingDirection()
+    protected override void HandleFlip()
     {
-        if (GameManager.Instance.isGameOver) return;
-        transform.rotation = Quaternion.Euler(0, flip ? 0 : 180, 0);
+        if(isCreatingPickaxe) return;
+        base.HandleFlip();
     }
 
     private void FlipHoldObject()
@@ -139,7 +142,7 @@ public class PlayerMovements : EntityMovement
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!_p.CanDoAnything()) return;
+        if (!_p.CanDoAnything() || isCreatingPickaxe) return;
         
         if (_p.IsGrabbed)
         {

@@ -99,7 +99,7 @@ public class EntityMovement : MonoBehaviour
         isGrounded = hits.Count > 0;
     }
 
-    private void HandleFlip()
+    protected virtual void HandleFlip()
     {
         if (GameManager.Instance.isGameOver) return;
         if ((_moveInput.x < 0 && flip && canFlip) || (_moveInput.x > 0 && !flip && canFlip))
