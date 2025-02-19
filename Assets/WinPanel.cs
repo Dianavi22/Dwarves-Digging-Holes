@@ -59,10 +59,11 @@ public class WinPanel : MonoBehaviour
             {
                 EndSentence();
                 _goldBGPart.Play();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.15f);
+                BadgeSound();
+                yield return new WaitForSeconds(0.85f);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                 _badge.SetActive(true);
-                BadgeSound();
                 yield return new WaitForSeconds(0.15f);
                 _badgePart.Play();
                 yield return new WaitForSeconds(0.2f);

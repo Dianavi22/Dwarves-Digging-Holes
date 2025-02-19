@@ -44,13 +44,17 @@ public class Player : Entity
         _model = model;
     }
 
-    public override void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    public override bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        base.HandleCarriedState(currentPlayer, isGrabbed);
+        bool canBeCarried = base.HandleCarriedState(currentPlayer, isGrabbed);
+        if (!canBeCarried) return false;
+
         ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
 
         GetAnimator().SetBool("isGrabbed", isGrabbed);
         currentPlayer.GetAnimator().SetBool("isGrabbing", isGrabbed);
+
+        return canBeCarried;
     }
 
     public bool CanDoAnything()

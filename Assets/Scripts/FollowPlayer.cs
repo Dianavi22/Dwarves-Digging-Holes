@@ -13,7 +13,7 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         if(playerToFollow) {
-            transform.position = new(playerToFollow.position.x, playerToFollow.position.y, distanceFromPlayer);
+            transform.position = new(playerToFollow.position.x, playerToFollow.position.y + 0.25f, distanceFromPlayer);
         }
         
     }

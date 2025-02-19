@@ -16,8 +16,11 @@ public abstract class Entity : MonoBehaviour, IGrabbable
 
     [HideInInspector] public bool CanMoveAfterGrab = true;
 
-    public virtual void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    [HideInInspector] public bool IsDead = false;
+
+    public virtual bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+        if (IsDead) return false;
         IsGrabbed = isGrabbed;
         if (isGrabbed)
         {
@@ -28,6 +31,7 @@ public abstract class Entity : MonoBehaviour, IGrabbable
         {
             StartCoroutine(DefineCanMoveAfterGrab());
         }
+        return true;
     }
 
     private IEnumerator DefineCanMoveAfterGrab()
@@ -42,6 +46,9 @@ public abstract class Entity : MonoBehaviour, IGrabbable
 
     public virtual void HandleDestroy()
     {
+        if (IsDead) return;
+
+        IsDead = true;
         Destroy(gameObject);
     }
 
