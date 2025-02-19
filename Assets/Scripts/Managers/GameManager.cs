@@ -232,6 +232,10 @@ public class GameManager : MonoBehaviour
         if (!isInMainMenu)
         {
             nbPickaxeUI.text = NbPickaxe.ToString();
+            if (int.Parse(nbPickaxeUI.text) > int.Parse(_nbMaxPickaxeUI.text))
+            {
+                NbPickaxe = int.Parse(_nbMaxPickaxeUI.text);
+            }
         }
     }
 
