@@ -15,6 +15,7 @@ public class Ending : MonoBehaviour
     [SerializeField] TypeSentence _ts;
     [SerializeField] GameObject _gfxLadder;
     [SerializeField] GameObject _bubbleEnd;
+    [SerializeField] GameObject _endingPanel;
     [SerializeField] TheEndObj _theEnd;
     [SerializeField] private GameObject _pointDirectionGoldWinPart;
 
@@ -55,6 +56,7 @@ public class Ending : MonoBehaviour
     {
         if (!_isEnding && null == GamePadsController.Instance.PlayerList.Find(p => p.HasCompletedLevel == false))
         {
+            _endingPanel.SetActive(false);
             _isEnding = true;
             GameManager.Instance.isEnding = true;
             if (GameManager.Instance.isChariotWin)

@@ -38,13 +38,11 @@ public class WinPanel : MonoBehaviour
 
     public IEnumerator GoldCountWin()
     {
-       // _panelEnd.transform.position = planchVector;
         _panelEnd.SetActive(true);
         _spritePlanche.SetActive(true);
         PanelEndSound();
         
         yield return new WaitForSeconds(0.5f);
-        print(_gc._currentGoldCount);
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
         {
@@ -63,7 +61,6 @@ public class WinPanel : MonoBehaviour
                 _goldBGPart.Play();
                 yield return new WaitForSeconds(1);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
-               // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
                 _badge.SetActive(true);
                 BadgeSound();
                 yield return new WaitForSeconds(0.15f);
