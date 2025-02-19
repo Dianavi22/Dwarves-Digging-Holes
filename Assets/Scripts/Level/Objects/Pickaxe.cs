@@ -13,12 +13,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     public ParticleSystem _hitGoldParts;
     [SerializeField] ParticleSystem _hitPickaxe;
     [SerializeField] ParticleSystem _spawnPickaxePart;
+    [SerializeField] ParticleSystem _pickaxePart;
     private bool _isPartPlayed = true;
     private bool _isDying = false;
     private Player holdingPlayer;
     public bool isInTuto;
+    [SerializeField] GameObject _GFX;
     [SerializeField] FollowTarget _tutoTarget;
-    [SerializeField] GameObject _pickaxePart;
     private bool _isShowTuto = false;
     private bool _isCarried = false;
 
@@ -172,20 +173,16 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     public GameObject GetGameObject() => gameObject;
     #endregion
 
-    private void OnDestroy()
-    {
-        GameManager.Instance.NbPickaxe--;
-        throwOnDestroy?.Invoke();
-    }
-
     private IEnumerator BreakPickaxe()
     {
         _isDying = true;
+        _GFX.SetActive(false);
+        GameManager.Instance.NbPickaxe--;
+        throwOnDestroy?.Invoke();
         Destroy(myTarget.gameObject);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
-        GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
+        _pickaxePart.Play();
         yield return new WaitForSeconds(3f);
-        Destroy(myBreakPart);
         Destroy(gameObject);
     }
     private IEnumerator TutoInGame()
