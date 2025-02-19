@@ -854,6 +854,14 @@ PrefabInstance:
       value: 3.5500557
       objectReference: {fileID: 0}
     - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1980946663}
@@ -861,6 +869,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1980946663}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 571982182}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: UpdateButtons
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: SizeButtonWin, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086534016455318755, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1122319418579146924, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1150,6 +1178,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6363883477962220990, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679294116825181876, guid: 458bcc1f3bcacec49855ee67f58acbc6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -12561,7 +12593,7 @@ PrefabInstance:
       objectReference: {fileID: 1555380425}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _button.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _backbuttonSettings
@@ -12582,11 +12614,11 @@ PrefabInstance:
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _button.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 125992430}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _button.Array.data[3]
       value: 
-      objectReference: {fileID: 125992430}
+      objectReference: {fileID: 0}
     - target: {fileID: 7177857267881942841, guid: 3019f282f0a6c9640b0e618cdad92671, type: 3}
       propertyPath: _stateMenuEvent.Array.size
       value: 2

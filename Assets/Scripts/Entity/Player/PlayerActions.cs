@@ -20,6 +20,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private LayerMask layerHitBaseAction;
     [SerializeField] private Transform slotInventoriaObject;
     [SerializeField] ParticleSystem _yeetPart; 
+    [SerializeField] ParticleSystem _pickaxeSpritePart; 
+    [SerializeField] ParticleSystem _chariotSpritePart;
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
     //[SerializeField] private ParticleSystem _fatiguePart;
@@ -169,12 +171,15 @@ public class PlayerActions : MonoBehaviour
     {
         if (!_p.CanDoAnything()) return;
         _p.GetAnimator().SetTrigger("tauntLeft");
+        _pickaxeSpritePart.Play();
     }
     
     public void OnTauntRight(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
         _p.GetAnimator().SetTrigger("tauntRight");
+        _chariotSpritePart.Play();
+
     }
 
     public void OnPassTuto(InputAction.CallbackContext context)
