@@ -335,6 +335,7 @@ MonoBehaviour:
   holdBy: {fileID: 0}
   Joint: {fileID: 0}
   CanMoveAfterGrab: 1
+  IsDead: 0
   playerCamera: {fileID: 0}
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
   HasCompletedLevel: 0
@@ -354,6 +355,7 @@ MonoBehaviour:
   isGrounded: 0
   Stats: {fileID: 0}
   isGrabbingChariot: 0
+  isCreatingPickaxe: 0
   _deadZoneSpace: {x: 0.5, y: 0.5}
   _DashPart: {fileID: 7987159605250185502}
   _hurtPart: {fileID: 7641500938896082713}
@@ -383,11 +385,11 @@ MonoBehaviour:
     Path: event:/SFX/Dwarf/Landing
   hoooSound:
     Guid:
-      Data1: -943310225
-      Data2: 1211581118
-      Data3: 2065447053
-      Data4: 2041225850
-    Path: event:/SFX/Dwarf/HOOO
+      Data1: 1754086093
+      Data2: 1139565454
+      Data3: 1929655689
+      Data4: -1398470543
+    Path: event:/SFX/Dwarf/Hooo
   disappointedgSound:
     Guid:
       Data1: -571087443
