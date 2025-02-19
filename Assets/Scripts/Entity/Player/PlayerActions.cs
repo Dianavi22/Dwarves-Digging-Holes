@@ -127,7 +127,7 @@ public class PlayerActions : MonoBehaviour
         if (IsHoldingObject && _p.IsGrabbed)
         {
             _yeetPart.Play();
-            print("Handle");
+            print("Handle - " + gameObject.name);
         }
 
         if (!_p.CanDoAnything()) return;
@@ -329,18 +329,33 @@ public class PlayerActions : MonoBehaviour
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
             if (transform.position.y > chariot.transform.position.y + 0.75f) return;
-
-            heldObject = chariot.gameObject;
-            chariot.HandleCarriedState(_p, true);
-            _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
+            if (chariot.HandleCarriedState(_p, true))
+            {
+                heldObject = chariot.gameObject;
+                _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
+            }
         }
         else PickupObject(Utils.Component.GetInParent<IGrabbable>(mostImportant).GetGameObject());
     }
     public void PickupObject(GameObject _object)
     {
+        if (!SetObjectInHand(_object, true)) return;
+
         heldObject = _object;
-        SetObjectInHand(heldObject, true);
         heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+        if (GameManager.Instance.isInMainMenu) return;
+
+        //Tuto
+        if (heldObject.TryGetComponent<Pickaxe>(out _) && _tuto.startTuto)
+        {
+            _tuto.isBreakRock = true;
+        }
+
+        if (heldObject.TryGetComponent<Enemy>(out _) && _tuto.isTakeEnemy)
+        {
+            _tuto.isYeetEnemy = true;
+        }
     }
 
     // <summary>
@@ -349,13 +364,9 @@ public class PlayerActions : MonoBehaviour
     // <param name="obj"></param>
     // <param name="state"></param>
     // <param name="forced"></param>
-    private void SetObjectInHand(GameObject obj, bool isGrabbed, bool forced = false)
+    private bool SetObjectInHand(GameObject obj, bool isGrabbed, bool forced = false)
     {
-        // if (obj.TryGetComponent<Renderer>(out var objRenderer))
-        // {
-        //     objRenderer.enabled = !isGrabbed;
-        // }
-
+        bool hasPickupObject = false;
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = isGrabbed;
@@ -384,7 +395,7 @@ public class PlayerActions : MonoBehaviour
         if (obj.TryGetComponent<IGrabbable>(out var grabbable))
         {
             LayerHandler(obj);
-            grabbable.HandleCarriedState(_p, isGrabbed);
+            hasPickupObject = grabbable.HandleCarriedState(_p, isGrabbed);
         }
 
         RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
@@ -395,19 +406,7 @@ public class PlayerActions : MonoBehaviour
         else
             obj.transform.SetParent(isGrabbed ? slotInventoriaObject : null);
 
-        if (GameManager.Instance.isInMainMenu) return;
-
-        //Tuto
-        if (heldObject.TryGetComponent<Pickaxe>(out _) && _tuto.startTuto)
-        {
-            _tuto.isBreakRock = true;
-        }
-
-        if (heldObject.TryGetComponent<Enemy>(out _) && _tuto.isTakeEnemy)
-        {
-            _tuto.isYeetEnemy = true;
-        }
-
+        return hasPickupObject;
     }
 
     private void LayerHandler(GameObject obj)
@@ -455,18 +454,21 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsHoldingObject || GameManager.Instance.isGameOver) return;
 
+        bool canThrowObject = false;
+
         if (heldObject.TryGetComponent<GoldChariot>(out var chariot))
         {
             _p.EmptyFixedJoin();
-            chariot.HandleCarriedState(_p, false);
+            canThrowObject = chariot.HandleCarriedState(_p, false);
         }
         else
         {
-            SetObjectInHand(heldObject, false, forced);
+            canThrowObject = SetObjectInHand(heldObject, false, forced);
             DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
 
-        EmptyHands();
+        //if (canThrowObject)
+            EmptyHands();
     }
     #endregion
 

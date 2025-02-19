@@ -70,7 +70,7 @@ public class EnemyMovements : EntityMovement
 
         _angryEnemy.transform.rotation = Quaternion.Euler(-90, 0, transform.rotation.y == -180 ? 180 : 0);
 
-        if (_e.IsGrabbed && !_e.isDead)
+        if (_e.IsGrabbed && !_e.IsDead)
         {
             if (!_angryEnemy.isPlaying)
             {

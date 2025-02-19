@@ -125,8 +125,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     #endregion
 
     #region IGrabbable
-    public void HandleCarriedState(Player currentPlayer, bool isCarried)
+    public bool HandleCarriedState(Player currentPlayer, bool isCarried)
     {
+        if (_isDying) return false;
         holdingPlayer = isCarried ? currentPlayer : null;
         PlayerActions actions = currentPlayer.GetActions();
         currentPlayer.GetAnimator().SetBool("hasPickaxe", isCarried);
@@ -157,11 +158,13 @@ public class Pickaxe : MonoBehaviour, IGrabbable
                 StartCoroutine(TutoInGame());
             }
         }
-    }
 
+        return true;
+    }
 
     public void HandleDestroy()
     {
+        if (_isDying) return;
         StartCoroutine(BreakPickaxe());
     }
 
@@ -179,10 +182,10 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         _isDying = true;
         Destroy(myTarget.gameObject);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
-        Destroy(gameObject);
         GameObject myBreakPart = Instantiate(_pickaxePart, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(3f);
         Destroy(myBreakPart);
+        Destroy(gameObject);
     }
     private IEnumerator TutoInGame()
     {
