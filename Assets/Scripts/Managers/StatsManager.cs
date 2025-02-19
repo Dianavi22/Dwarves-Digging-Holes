@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -16,6 +17,8 @@ public class StatsManager : MonoBehaviour
 
     public bool GameStopped { get; private set; } = false;
     public static StatsManager Instance { get; private set; } // Singleton instance
+
+    public Dictionary<Player, RenderTexture> renderTextures = new();
 
     #region Initialization
 
@@ -36,6 +39,8 @@ public class StatsManager : MonoBehaviour
         _statNames = GetAllStatNames();
         InitializePlayerStatistics();
         RestoreRenderTexture();
+
+        InvokeRepeating(nameof(StartScreenshots), 0, 5);
     }
 
     private void InitializePlayerStatistics()
@@ -43,6 +48,7 @@ public class StatsManager : MonoBehaviour
         foreach (Player player in GamePadsController.Instance.PlayerList)
         {
             _playerStatistics[player] = CreateStatDictionary();
+            renderTextures[player] = new RenderTexture(256, 256, 24);
         }
     }
 
@@ -96,18 +102,32 @@ public class StatsManager : MonoBehaviour
                 StatNameToText statText = _statisticsText.FirstOrDefault(st => st.Key.ToString() == statName);
                 if (statText != null)
                 {
-                    // Camera
-                    Camera playerCamera = topPlayerData.Keys.FirstOrDefault().playerCamera;
-                    
-                    playerCamera.enabled = true;
-                    playerCamera.targetTexture = statText.renderTexture;
-                    TakeScreenshot(playerCamera, statText.renderTexture);
-                    playerCamera.enabled = false;
-
+                    WriteRenderTexture(renderTextures[topPlayerData.Keys.FirstOrDefault()], statText.renderTexture);
 
                     statText.Value.text = topPlayerData.Values.FirstOrDefault().ToString();
                 }
             }
+        }
+    }
+
+    private void StartScreenshots() {
+        if(GameManager.Instance.isGameOver || GameManager.Instance.isInMainMenu || GameManager.Instance.isEnding) {
+            return;
+        }
+
+        foreach (KeyValuePair<Player, RenderTexture> kvp in renderTextures)
+        {
+            Player player = kvp.Key;
+            RenderTexture renderTexture = kvp.Value;
+
+            if(player.IsDead) continue;
+
+            // Assuming you have a method to get the player's camera
+            Camera playerCamera = player.playerCamera;
+
+            playerCamera.enabled = true;
+            TakeScreenshot(playerCamera, renderTexture);
+            playerCamera.enabled = false;
         }
     }
 
@@ -126,20 +146,35 @@ public class StatsManager : MonoBehaviour
         return Enum.GetNames(typeof(StatsName)).ToList();
     }
 
-    private void RestoreRenderTexture() {
+    private void RestoreRenderTexture(bool baseTexture = false) {
+        if(baseTexture) {
+            foreach (KeyValuePair<Player, RenderTexture> kvp in renderTextures)
+            {
+                Graphics.Blit(_image, kvp.Value);
+            }
+            return;
+        }
+        
         foreach (StatNameToText item in _statisticsText)
         {
              Graphics.Blit(_image, item.renderTexture);
         }
     }
 
-    private void TakeScreenshot(Camera targetCamera, RenderTexture renderTexture)
+    public void TakeScreenshot(Camera targetCamera, RenderTexture renderTexture)
     {
+        // Ensure the camera is enabled
+        bool wasCameraEnabled = targetCamera.enabled;
+        targetCamera.enabled = true;
+
         // Save the current RenderTexture
         RenderTexture currentRT = RenderTexture.active;
 
         // Set the active RenderTexture to the one used by the camera
         RenderTexture.active = renderTexture;
+
+        // Set the camera's target texture
+        targetCamera.targetTexture = renderTexture;
 
         // Render the camera's view
         targetCamera.Render();
@@ -151,9 +186,19 @@ public class StatsManager : MonoBehaviour
         screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         screenshot.Apply();
 
-
         // Restore the active RenderTexture
         RenderTexture.active = currentRT;
+
+        // Restore the camera's target texture
+        targetCamera.targetTexture = null;
+
+        // Restore the camera's enabled state
+        targetCamera.enabled = wasCameraEnabled;
+    }
+
+    public void WriteRenderTexture(RenderTexture source, RenderTexture destination)
+    {
+        Graphics.Blit(source, destination);
     }
 
     #endregion

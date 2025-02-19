@@ -84,6 +84,7 @@ public class PlayerMovements : EntityMovement
     {
         if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && _isDashing)
         {
+            enemy.holdBy = _p;
             enemy.HandleDestroy();
         }
 
