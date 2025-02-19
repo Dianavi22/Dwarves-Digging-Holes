@@ -106,6 +106,13 @@ public class PlayerHealth : MonoBehaviour
         if(_p.IsDead) return;
         DeathSound();
 
+        if (_p.IsGrabbed)
+        {
+            StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
+            _p.HandleCarriedState(_p.holdBy, false);
+        }
+        StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
+
         _p.IsDead = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
@@ -119,14 +126,6 @@ public class PlayerHealth : MonoBehaviour
         _p.GetRigidbody().velocity = Vector3.zero;
 
         _p.EmptyFixedJoin();
-
-
-        StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
-        if (_p.holdBy != null)
-        {
-            StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
-            _p.holdBy = null;
-        }
 
         DOVirtual.DelayedCall(2f, () =>
         {
