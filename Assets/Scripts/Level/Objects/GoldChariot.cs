@@ -98,10 +98,10 @@ public class GoldChariot : MonoBehaviour, IGrabbable
             TakeNugget();
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            LostGoldByGoblin();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    LostGoldByGoblin();
+        //}
 
         if (!_dustPart.isPlaying && _rb.velocity != Vector3.zero)
         {
@@ -121,7 +121,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         }
 
 
-        if (_currentGoldCount > 0)
+        if (_currentGoldCount > 0 && !GameManager.Instance.isChariotWin && !GameManager.Instance.isEnding && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
             try
             {

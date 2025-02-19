@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
         _isTutoActive = PlayerPrefs.GetInt("TutoActive") == 1;
         if (debugMode) Debug.LogWarning("GAME MANAGER DEBUG MODE");
 
@@ -304,7 +305,6 @@ public class GameManager : MonoBehaviour
         //_gameOverPart.gameObject.SetActive(true);
         isGameOver = true;
         _goldChariot.StopParticle();
-        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(5.5f, 0.2f);
         EventManager.Instance.enabled = false;
         yield return new WaitForSeconds(2f);
         bool newBest = _score.CheckBestScore();

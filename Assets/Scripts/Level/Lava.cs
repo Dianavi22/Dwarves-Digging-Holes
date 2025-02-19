@@ -26,16 +26,20 @@ public class Lava : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Utils.Component.TryGetInParent<IGrabbable>(other, out var grabbable))
+        if( !GameManager.Instance.isChariotWin && !GameManager.Instance.isEnding && !GameManager.Instance.isGameOver && !GameManager.Instance.isEnding)
         {
-            PlayLavaBurntSound();
-            grabbable.HandleDestroy();
-        }
+            if (Utils.Component.TryGetInParent<IGrabbable>(other, out var grabbable))
+            {
+                PlayLavaBurntSound();
+                grabbable.HandleDestroy();
+            }
 
-        if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
-        {
-            StartCoroutine(rock.DestroyRockByLava());
+            if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
+            {
+                StartCoroutine(rock.DestroyRockByLava());
+            }
         }
+      
     }
     private void FixedUpdate()
     {

@@ -11,6 +11,7 @@ public class WinPanel : MonoBehaviour
     [SerializeField] GoldChariot _gc;
     [SerializeField] TMP_Text _goldCountText;
     [SerializeField] ParticleSystem _goldPart;
+    [SerializeField] ParticleSystem _goldBGPart;
     [SerializeField] ParticleSystem _badgePart;
     [SerializeField] TMP_Text _phrase;
     [SerializeField] Animator _animator;
@@ -54,9 +55,12 @@ public class WinPanel : MonoBehaviour
             
             _animator.SetTrigger("Boing");
             _goldPart.Play();
+            
+            _goldBGPart.Play();
             if (_currentInt == _gc._currentGoldCount)
             {
                 EndSentence();
+                _goldBGPart.Play();
                 yield return new WaitForSeconds(1);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
@@ -89,24 +93,32 @@ public class WinPanel : MonoBehaviour
 
     public void EndSentence()
     {
+
+        var emission = _goldBGPart.emission; 
         if (_currentInt < 11)
         {
+            emission.rateOverTime = 5f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.LittleGold);
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
+            emission.rateOverTime = 30f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.AverageGold);
         }
         else if (_currentInt >= 21 && _currentInt < 31)
         {
+            emission.rateOverTime = 50f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GreatGold);
         }
         else if (_currentInt >= 31 && _currentInt < 41)
         {
+            emission.rateOverTime = 70f;
+
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.ExtraGold);
         }
         else
         {
+            emission.rateOverTime = 100f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GoldMountain);
         }
     }
