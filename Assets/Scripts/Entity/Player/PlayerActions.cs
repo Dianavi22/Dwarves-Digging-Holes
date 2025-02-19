@@ -80,7 +80,7 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
-        else if (IsBaseActionActivated && !IsHoldingObject && heldObject == null && buildingPickaxe == null)
+        else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
             if (hitColliders.Any() && GameManager.Instance.CanCreatePickaxe)
@@ -468,7 +468,7 @@ public class PlayerActions : MonoBehaviour
         }
 
         //if (canThrowObject)
-            EmptyHands();
+        EmptyHands();
     }
     #endregion
 

@@ -30,8 +30,9 @@ public class Ending : MonoBehaviour
 
     private void Start()
     {
+        float delay = 27f / GameManager.Instance.Difficulty.ScrollingSpeed;
         _theEnd = FindAnyObjectByType<TheEndObj>();
-        Invoke("SpawnLadder", 60f);
+        Invoke("SpawnLadder", delay);
 
     }
     private void OnTriggerEnter(Collider other)

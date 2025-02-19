@@ -151,6 +151,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
         else
         {
+            throwOnDestroy = null;
             actions.StopAnimation();
             actions.IsBaseActionActivated = false;
             if (!isInTuto)
