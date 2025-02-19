@@ -38,13 +38,11 @@ public class WinPanel : MonoBehaviour
 
     public IEnumerator GoldCountWin()
     {
-       // _panelEnd.transform.position = planchVector;
         _panelEnd.SetActive(true);
         _spritePlanche.SetActive(true);
         PanelEndSound();
         
         yield return new WaitForSeconds(0.5f);
-        print(_gc._currentGoldCount);
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
         {
@@ -65,7 +63,6 @@ public class WinPanel : MonoBehaviour
                 BadgeSound();
                 yield return new WaitForSeconds(0.85f);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
-               // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
                 _badge.SetActive(true);
                 yield return new WaitForSeconds(0.15f);
                 _badgePart.Play();
@@ -86,7 +83,7 @@ public class WinPanel : MonoBehaviour
         _levelComplete.SetActive(true);
         _panelEnd.SetActive(false);
         _spritePlanche.SetActive(false);
-
+        _badge.SetActive(false);
         _buttonNext.SetActive(false);
         GameManager.Instance.SetStatsParent();
         EventSystem.current.SetSelectedGameObject(_retryButton);
