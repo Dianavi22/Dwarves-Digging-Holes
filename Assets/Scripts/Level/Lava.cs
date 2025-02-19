@@ -21,7 +21,6 @@ public class Lava : MonoBehaviour
     private void Start()
     {
         _lavaCollider.enabled = false;
-        PlayLavaSound();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -5,11 +5,25 @@ using FMODUnity;
 
 public class GameOST : MonoBehaviour
 {
+    public static GameOST Instance { get; private set; }
+
     [SerializeField] private EventReference ostSound;
     private EventInstance _ostEventInstance;
     private bool _isPlaying = false;
     private Coroutine _fadeCoroutine;
     private float _fadeDuration = 2f;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -17,7 +31,7 @@ public class GameOST : MonoBehaviour
         _ostEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform));
     }
 
-    public void StartMusic()
+    public void StartMusic() //Call in Lava script
     {
         if (!_isPlaying)
         {
@@ -58,7 +72,7 @@ public class GameOST : MonoBehaviour
 
     public void ResumeMusic()
     {
-        if (!_isPlaying)
+        if (!_isPlaying && _ostEventInstance.isValid())
         {
             _ostEventInstance.setPaused(false);
             _isPlaying = true;
@@ -92,14 +106,34 @@ public class GameOST : MonoBehaviour
             int milliseconds = Mathf.RoundToInt((minutes * 60 + seconds) * 1000);
             _ostEventInstance.setTimelinePosition(milliseconds);
         }
+        else
+        {
+            Debug.LogWarning("GameOST: Impossible de modifier la position de la musique, EventInstance invalide.");
+        }
     }
 
     public void PauseAndSetMusicTime(float minutes, float seconds)
     {
         if (_isPlaying)
         {
-            PauseMusic();
-            SetMusicTime(minutes, seconds);
+            if (_fadeCoroutine != null)
+                StopCoroutine(_fadeCoroutine);
+
+            _fadeCoroutine = StartCoroutine(FadeVolume(1f, 0f, _fadeDuration, () =>
+            {
+                _ostEventInstance.setPaused(true);
+                _isPlaying = false;
+                SetMusicTime(minutes, seconds); 
+            }));
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_ostEventInstance.isValid())
+        {
+            _ostEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            _ostEventInstance.release();
         }
     }
 }
