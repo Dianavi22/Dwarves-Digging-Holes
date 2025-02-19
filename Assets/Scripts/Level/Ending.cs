@@ -11,7 +11,9 @@ public class Ending : MonoBehaviour
     [SerializeField] private List<Transform> m_InterrestPoint = new();
 
     [SerializeField] TMP_Text _bubbletext;
+    [SerializeField] ParticleSystem _spawnLadderPart;
     [SerializeField] TypeSentence _ts;
+    [SerializeField] GameObject _gfxLadder;
     [SerializeField] GameObject _bubbleEnd;
     [SerializeField] TheEndObj _theEnd;
     [SerializeField] private GameObject _pointDirectionGoldWinPart;
@@ -28,6 +30,7 @@ public class Ending : MonoBehaviour
     private void Start()
     {
         _theEnd = FindAnyObjectByType<TheEndObj>();
+        Invoke("SpawnLadder", 60f);
 
     }
     private void OnTriggerEnter(Collider other)
@@ -39,6 +42,13 @@ public class Ending : MonoBehaviour
             EventManager.Instance.enabled = false;
             StartCoroutine(MovePlayerToEndPosition(player));
         }
+    }
+
+    private void SpawnLadder()
+    {
+        this.GetComponent<Collider>().enabled = true;
+        _gfxLadder.SetActive(true);
+        _spawnLadderPart.Play();
     }
 
     private void Update()
