@@ -19,8 +19,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Transform _scale;
     [SerializeField] private LayerMask layerHitBaseAction;
     [SerializeField] private Transform slotInventoriaObject;
-    [SerializeField] ParticleSystem _yeetPart; 
-    [SerializeField] ParticleSystem _pickaxeSpritePart; 
+    [SerializeField] ParticleSystem _yeetPart;
+    [SerializeField] ParticleSystem _pickaxeSpritePart;
     [SerializeField] ParticleSystem _chariotSpritePart;
     [SerializeField] private EventReference pickupSound;
     [SerializeField] private EventReference throwSound;
@@ -29,7 +29,6 @@ public class PlayerActions : MonoBehaviour
     private Tuto _tuto;
     [HideInInspector] public GameObject heldObject;
     public bool IsHoldingObject => heldObject != null;
-    private Tween rotationTween;
 
     [HideInInspector] public bool IsBaseActionActivated = false;
     private float _lastCheckBaseAction;
@@ -63,8 +62,8 @@ public class PlayerActions : MonoBehaviour
     private void Start()
     {
         _lastCheckBaseAction = Time.time;
-        if(GameManager.Instance.isInMainMenu) return;
-        
+        if (GameManager.Instance.isInMainMenu) return;
+
         _tuto = TargetManager.Instance.GetGameObject<Tuto>();
     }
 
@@ -81,7 +80,7 @@ public class PlayerActions : MonoBehaviour
                 _lastCheckBaseAction = Time.time;
             }
         }
-        else if (IsBaseActionActivated && !IsHoldingObject && buildingPickaxe == null)
+        else if (IsBaseActionActivated && !IsHoldingObject && heldObject == null && buildingPickaxe == null)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange, LayerMask.GetMask("Forge"));
             if (hitColliders.Any() && GameManager.Instance.CanCreatePickaxe)
@@ -89,6 +88,7 @@ public class PlayerActions : MonoBehaviour
                 Forge forge = hitColliders[0].GetComponent<Forge>();
 
                 buildingPickaxe ??= DOTween.Sequence()
+                    .AppendCallback(() => _p.GetPlayerMovements().isCreatingPickaxe = true)
                     .AppendCallback(() => StopCoroutine(loadingCoroutuine))
                     .AppendCallback(() =>
                         {
@@ -101,14 +101,15 @@ public class PlayerActions : MonoBehaviour
                         })
                     .AppendInterval(2f)
                     //.Append(gameObject.transform.DOLocalRotate(new Vector3(-180, 0, 0), 0.5f)
-                        //.SetAutoKill(false))
+                    //.SetAutoKill(false))
                     //.AppendInterval(1f) // Wait for 1 second
                     //.Append(gameObject.transform.DOLocalRotate(Vector3.zero, 0.5f))
-                    .AppendCallback(() => 
+                    .AppendCallback(() =>
                     {
-                        forge.BuildPickaxe(); 
-                        isForging = false;})
-                    .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true));});
+                        forge.BuildPickaxe();
+                        isForging = false;
+                    })
+                    .OnKill(() => { if (loadingCoroutuine != null) StopCoroutine(loadingCoroutuine); gameObject.transform.DOLocalRotate(Vector3.zero, 0f); loadingCoroutuine = StartCoroutine(forge.LoadPickaxe(true)); if (forgeSoundCoroutine != null) { StopCoroutine(forgeSoundCoroutine); forgeSoundCoroutine = null; } isForging = false; _p.GetPlayerMovements().isCreatingPickaxe = false;});
             }
         }
 
@@ -128,7 +129,7 @@ public class PlayerActions : MonoBehaviour
             _yeetPart.Play();
             print("Handle");
         }
-        
+
         if (!_p.CanDoAnything()) return;
 
         if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
@@ -156,7 +157,7 @@ public class PlayerActions : MonoBehaviour
     public void OnTaunt(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
-        
+
         _p.GetAnimator().SetTrigger("taunt");
 
         /*if (context.phase == InputActionPhase.Started && !_p.IsGrabbed)
@@ -166,14 +167,14 @@ public class PlayerActions : MonoBehaviour
             StartCoroutine(Taunt());
         }*/
     }
-    
+
     public void OnTauntLeft(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
         _p.GetAnimator().SetTrigger("tauntLeft");
         _pickaxeSpritePart.Play();
     }
-    
+
     public void OnTauntRight(InputAction.CallbackContext context)
     {
         if (!_p.CanDoAnything()) return;
@@ -211,7 +212,7 @@ public class PlayerActions : MonoBehaviour
         if (context.performed) // the key has been pressed
         {
             IsBaseActionActivated = true;
-            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _)) 
+            if (IsHoldingObject && heldObject.TryGetComponent<Pickaxe>(out _))
             {
                 StartAnimation();
             }
@@ -228,13 +229,6 @@ public class PlayerActions : MonoBehaviour
 
             StopAnimation();
         }
-
-        if (forgeSoundCoroutine != null)
-        {
-            StopCoroutine(forgeSoundCoroutine);
-            forgeSoundCoroutine = null;
-        }
-        isForging = false; // Assure que la boucle de son s'arrête
 
     }
     #endregion
@@ -334,8 +328,8 @@ public class PlayerActions : MonoBehaviour
         }
         else if (Utils.Component.TryGetInParent<GoldChariot>(mostImportant, out var chariot))
         {
-            if(transform.position.y > chariot.transform.position.y + 0.75f) return;
-            
+            if (transform.position.y > chariot.transform.position.y + 0.75f) return;
+
             heldObject = chariot.gameObject;
             chariot.HandleCarriedState(_p, true);
             _p.CreateFixedJoin(chariot.GetComponent<Rigidbody>());
@@ -487,12 +481,12 @@ public class PlayerActions : MonoBehaviour
 
     #region Sound forgeEvent
     private void SwingSound()
-    {  
+    {
         RuntimeManager.PlayOneShot(swingSound, transform.position);
     }
 
     private void ForgeSound()
-    {  
+    {
         RuntimeManager.PlayOneShot(forgeSound, transform.position);
     }
 
