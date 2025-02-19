@@ -61,9 +61,9 @@ public class WinPanel : MonoBehaviour
             {
                 EndSentence();
                 _goldBGPart.Play();
-                yield return new WaitForSeconds(0.9f);
-                BadgeSound();
                 yield return new WaitForSeconds(0.1f);
+                BadgeSound();
+                yield return new WaitForSeconds(0.9f);
                 _shakyCame.ShakyCameCustom(0.1f, 0.1f);
                // _badge.transform.position = new Vector3(10.7910004f, 5.86800003f, -13.0530005f);
                 _badge.SetActive(true);
