@@ -16,7 +16,7 @@ public abstract class Entity : MonoBehaviour, IGrabbable
 
     [HideInInspector] public bool CanMoveAfterGrab = true;
 
-    public virtual void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    public virtual bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         IsGrabbed = isGrabbed;
         if (isGrabbed)
@@ -28,6 +28,7 @@ public abstract class Entity : MonoBehaviour, IGrabbable
         {
             StartCoroutine(DefineCanMoveAfterGrab());
         }
+        return true;
     }
 
     private IEnumerator DefineCanMoveAfterGrab()

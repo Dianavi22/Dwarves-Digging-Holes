@@ -106,7 +106,10 @@ public class Enemy : Entity
         Destroy(this.gameObject);
     }
 
-    public override void HandleCarriedState(Player player, bool grabbed) {
+    public override bool HandleCarriedState(Player player, bool grabbed) {
+
+        bool canBeCarried = base.HandleCarriedState(player, grabbed);
+        if (!canBeCarried) return false;
 
         if (_tuto.isTakeEnemy) _tuto.isYeetEnemy = true;
 
@@ -117,10 +120,9 @@ public class Enemy : Entity
         {
             IsTouchingChariot = false;
         }
-        
-        base.HandleCarriedState(player, grabbed);
-        
         _rb.mass = grabbed ? 1f : 5f;
+
+        return canBeCarried;
     } 
     override public void HandleDestroy()
     {
