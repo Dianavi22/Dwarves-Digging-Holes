@@ -85,7 +85,7 @@ public class WinPanel : MonoBehaviour
         _levelComplete.SetActive(true);
         _panelEnd.SetActive(false);
         _spritePlanche.SetActive(false);
-
+        _badge.SetActive(false);
         _buttonNext.SetActive(false);
         GameManager.Instance.SetStatsParent();
         EventSystem.current.SetSelectedGameObject(_retryButton);
