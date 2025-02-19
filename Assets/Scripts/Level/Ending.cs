@@ -53,7 +53,7 @@ public class Ending : MonoBehaviour
                 _theEnd._levelCompleteText2.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.SuccessTitle);
                 StartCoroutine(_theEnd.wp.GoldCountWin());
             }
-            else
+            else if (GameManager.Instance.isChariotWin)
             {
                 _theEnd._levelCompleteText.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.FailDesc);
                 _theEnd._levelCompleteText2.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.FailTitle);

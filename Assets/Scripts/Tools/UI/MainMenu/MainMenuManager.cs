@@ -58,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         StartCoroutine(StartCanvas());
         _toggle.isOn = PlayerPrefs.GetInt("TutoActive") == 1;
         _countButton = _button.Count-1;
@@ -111,8 +112,8 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         FallButtons();
         yield return new WaitForSeconds(1f);
-        ActiveButtons();
         yield return new WaitForSeconds(4f);
+        ActiveButtons();
         MainMusicSound();
     }
 

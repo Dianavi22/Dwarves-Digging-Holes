@@ -12,4 +12,5 @@ public class ChariotWin : MonoBehaviour
             GameManager.Instance.isChariotWin = true;
         }
     }
+
 }
