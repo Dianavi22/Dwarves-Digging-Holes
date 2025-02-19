@@ -13,13 +13,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private EventReference resurgenceSound;
     [SerializeField] private EventReference deathSound;
 
-
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
     private RespawnPoint _respawnPoint;
     private Player _p;
-
-    public bool IsAlive { private set; get; }
 
     private void Awake()
     {
@@ -28,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        IsAlive = true;
+        _p.IsDead = false;
         if (GameManager.Instance.isInMainMenu)
         { 
             this.enabled = false;
@@ -50,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
             _HurtPart.transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
 
-        if (!IsAlive && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
+        if (_p.IsDead && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
         {
             TriggerRespawnSequence();
         }
@@ -59,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
             _imageRespawn.isRespawn = false;
         }
 
-        if (!IsAlive)
+        if (_p.IsDead)
         {
             _imageRespawn.isRespawn = true;
         }
@@ -68,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
             _imageRespawn.isRespawn = false;
         }
 
-        if (!IsAlive && _isReadyToSpawn)
+        if (_p.IsDead && _isReadyToSpawn)
         {
             _imageRespawn.isImpossibleRespawn = true;
         }
@@ -106,10 +103,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void DeathPlayer()
     {
-        if(!IsAlive) return;
+        if(_p.IsDead) return;
         DeathSound();
 
-        IsAlive = false;
+        _p.IsDead = true;
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
@@ -140,7 +137,7 @@ public class PlayerHealth : MonoBehaviour
     private void PlayerRespawn()
     {
         transform.SetPositionAndRotation(_respawnPoint.transform.position, Quaternion.identity);
-        IsAlive = true;
+        _p.IsDead = false;
         _p.GetRigidbody().useGravity = true;
         _p.GetModelRef().gameObject.SetActive(true);
         Invoke(nameof(Invincibility), 0.1f);
