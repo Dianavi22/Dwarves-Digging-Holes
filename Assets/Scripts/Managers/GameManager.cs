@@ -322,7 +322,7 @@ public class GameManager : MonoBehaviour
             SkipTuto();
         }
         
-        if (isGameOver) yield break;
+        if (isGameOver || isEnding) yield break;
 
         StatsManager.Instance.EndGame();
         yield return new WaitForSeconds(1f);
