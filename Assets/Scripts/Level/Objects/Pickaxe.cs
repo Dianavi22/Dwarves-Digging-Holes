@@ -7,6 +7,7 @@ using FMOD.Studio;
 public class Pickaxe : MonoBehaviour, IGrabbable
 {
     [SerializeField] private EventReference mineSoundEvent;
+    [SerializeField] private EventReference pickaxeThrowSound;
 
     [SerializeField] ParticleSystem _hitRockParts;
     public ParticleSystem _hitGoldParts;
@@ -26,6 +27,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
     private bool isFirstTime = true;
 
     private Action throwOnDestroy;
+    
     private void Start()
     {
         StartCoroutine(CdParticule());
@@ -195,7 +197,7 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         }
     }
 
-    #region Sound
+    #region Sound 
     private void MineSound()
     {
         EventInstance miningSoundInstance = RuntimeManager.CreateInstance(mineSoundEvent);
@@ -203,6 +205,9 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         miningSoundInstance.start();
         miningSoundInstance.release();
     }
-
+    private void PickaxeThrowSound()
+    {
+        RuntimeManager.PlayOneShot(pickaxeThrowSound, transform.position);
+    }
     #endregion
 }
