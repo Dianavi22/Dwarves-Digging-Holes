@@ -7,7 +7,7 @@ public class Beer : MonoBehaviour, IGrabbable
     public bool breakable = false;
     public Action throwOnDestroy;
 
-    public void HandleCarriedState(Player _, bool isGrabbed)
+    public bool HandleCarriedState(Player _, bool isGrabbed)
     {
         breakable = isGrabbed;
         if (!isGrabbed)
@@ -17,6 +17,8 @@ public class Beer : MonoBehaviour, IGrabbable
                 breakable = true;
             });
         }
+
+        return true;
     }
 
     void BreakBeer()

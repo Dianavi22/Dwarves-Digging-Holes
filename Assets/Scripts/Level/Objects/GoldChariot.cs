@@ -75,8 +75,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         var velocity = _dustPart.velocityOverLifetime;
         velocity.x = -GameManager.Instance.CurrentScrollingSpeed;
         UpdateText();
-
-       
     }
 
     public void StartAnimation()
@@ -110,7 +108,6 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         if(_rb.velocity == Vector3.zero)
         {
             _dustPart.Stop();
-
         }
 
 
@@ -284,7 +281,7 @@ public class GoldChariot : MonoBehaviour, IGrabbable
     #endregion
 
     #region IGrabbable
-    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    public bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
         Tuto tuto = TargetManager.Instance.GetGameObject<Tuto>();
         if (tuto.isPushChariot)
@@ -294,6 +291,8 @@ public class GoldChariot : MonoBehaviour, IGrabbable
         currentPlayer.GetMovement().canFlip = !isGrabbed;
         currentPlayer.GetAnimator().SetBool("isGrabbing", isGrabbed);
         currentPlayer.GetPlayerMovements().isGrabbingChariot = isGrabbed;
+
+        return true;
     }
 
     public void HandleDestroy()

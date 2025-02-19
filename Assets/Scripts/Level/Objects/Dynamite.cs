@@ -16,9 +16,10 @@ public class Dynamite : MonoBehaviour, IGrabbable
         return gameObject;
     }
 
-    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    public bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        PlayerActions actions = currentPlayer.GetActions();
+        //PlayerActions actions = currentPlayer.GetActions();
+        return true;
     }
 
     public void HandleDestroy()
