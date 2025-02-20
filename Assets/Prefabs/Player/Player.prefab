@@ -337,6 +337,7 @@ MonoBehaviour:
   CanMoveAfterGrab: 1
   IsDead: 0
   playerCamera: {fileID: 0}
+  playerIndex: 0
   playerCameraPrefab: {fileID: 2648266832376077331, guid: e1ae6965ef814584483eb8885a267a41, type: 3}
   HasCompletedLevel: 0
 --- !u!114 &6831975214807127632
@@ -736,6 +737,13 @@ MonoBehaviour:
       Data3: -292364100
       Data4: -1302113805
     Path: event:/SFX/Dwarf/Dead
+  angrySound:
+    Guid:
+      Data1: 1887738310
+      Data2: 1272399268
+      Data3: -1084819582
+      Data4: -1915810840
+    Path: event:/SFX/Dwarf/Angry
 --- !u!114 &7467916203998543311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,11 +790,11 @@ MonoBehaviour:
   currentMiningFatigue: 0
   fatigueWarningSound:
     Guid:
-      Data1: -571087443
-      Data2: 1175417357
-      Data3: -1456154689
-      Data4: 1791352170
-    Path: event:/SFX/Dwarf/Disappointed
+      Data1: 546153469
+      Data2: 1315356214
+      Data3: 1759240617
+      Data4: -654454004
+    Path: event:/SFX/Dwarf/Tired
 --- !u!1001 &294029102934848206
 PrefabInstance:
   m_ObjectHideFlags: 0
