@@ -8,7 +8,7 @@ public class GamePadsController : MonoBehaviour
 {
     [Header("Player Instance")]
     [SerializeField] private Player m_PlayerPrefab;
-    [SerializeField] private List<PlayerModels> m_PlayerModels = new();
+    public List<PlayerModels> m_PlayerModels = new List<PlayerModels>();
 
     [Header("UI")]
     [SerializeField] private GameObject m_MainCanvas;
@@ -58,7 +58,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiateDebugPlayer(int playerNumber)
     {
-        var player = InstantiatePlayer(m_PlayerModels[playerNumber]);
+        Player player = InstantiatePlayer(playerNumber);
 
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
@@ -66,7 +66,7 @@ public class GamePadsController : MonoBehaviour
 
     private void InstantiatePlayerUI(string controlScheme, InputDevice device, int index)
     {
-        var player = InstantiatePlayer(m_PlayerModels[index]);
+        Player player = InstantiatePlayer(index);
 
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme(controlScheme, device);
@@ -78,9 +78,10 @@ public class GamePadsController : MonoBehaviour
         }
     }
 
-    private Player InstantiatePlayer(PlayerModels model) 
+    private Player InstantiatePlayer(int index)
     {
         Player player = Instantiate(m_PlayerPrefab, transform.parent);
+        player.playerIndex = index;
 
         // * Instantiate PlayerHeadFatigueBar UI
         if (!GameManager.Instance.isInMainMenu)
@@ -90,7 +91,7 @@ public class GamePadsController : MonoBehaviour
             fatigueUI.Initialize(player);
         }
 
-        var a = Instantiate(model, player.transform);
+        PlayerModels a = Instantiate(m_PlayerModels[index], player.transform);
         player.SetModelRef(a);
 
         //var renders = player.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();

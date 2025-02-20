@@ -11,6 +11,7 @@ public class Player : Entity
     private PlayerModels _model;
 
     public Camera playerCamera;
+    public int playerIndex;
 
     [SerializeField] private GameObject playerCameraPrefab;
 
@@ -36,7 +37,17 @@ public class Player : Entity
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
     public Animator GetAnimator() => _model.GetAnimator();
-    public PlayerModels GetModelRef() => _model;
+    public PlayerModels GetModelRef()
+    {
+        if (!_model)
+        {
+            print("INSTANTIATE NEW PLAYER MODEL - DEBUG CRASH");
+            _model = Instantiate(GamePadsController.Instance.m_PlayerModels[playerIndex], transform);
+        }
+        
+        return _model;
+    }
+
     public PlayerMovements GetPlayerMovements() => playerMovements;
 
     public void SetModelRef(PlayerModels model)

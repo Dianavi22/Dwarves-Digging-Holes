@@ -47,10 +47,11 @@ public class PlayerHealth : MonoBehaviour
             _HurtPart.transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
 
-        if (_p.IsDead && _isReadyToSpawn && _respawnPoint.IsReadyToRespawn)
+        if (_p.IsDead && _isReadyToSpawn)
         {
-            TriggerRespawnSequence();
+            if (_respawnPoint.CheckRespawnSequence(_p)) TriggerRespawnSequence();
         }
+        
         else
         {
             _imageRespawn.isRespawn = false;
@@ -84,6 +85,7 @@ public class PlayerHealth : MonoBehaviour
             .Append(_respawnPoint.circle.transform.DOScale(2f, 0.33f).SetEase(Ease.OutQuad))
             .Append(_respawnPoint.circle.transform.DOScale(0f, 0.33f).SetEase(Ease.InQuad));
     }
+    
     public void Stun()
     {
         if (_isHit) return;
@@ -114,6 +116,7 @@ public class PlayerHealth : MonoBehaviour
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
 
         _p.IsDead = true;
+        _respawnPoint.AddToRespawnQueue(_p);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
         _DestroyPlayer.Play();
         _isReadyToSpawn = false;
