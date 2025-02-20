@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private RotateImage _imageRespawn;
     [SerializeField] private EventReference resurgenceSound;
     [SerializeField] private EventReference deathSound;
+    [SerializeField] private EventReference angrySound;
 
     private bool _isHit = false;
     private bool _isReadyToSpawn = true;
@@ -90,6 +91,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_isHit) return;
 
+        AngrySound();
         _HurtPart.Play();
         _isHit = true;
         _p.GetMovement().enabled = false;
@@ -155,6 +157,12 @@ public class PlayerHealth : MonoBehaviour
 
 
     #region Sounds
+
+    private void AngrySound()
+    {
+        RuntimeManager.PlayOneShot(angrySound, transform.position);
+    }
+
     private void ResurgenceSound()
     {
         RuntimeManager.PlayOneShot(resurgenceSound, transform.position);
