@@ -137,8 +137,6 @@ public class Pickaxe : MonoBehaviour, IGrabbable
         {
             throwOnDestroy = () =>
             {
-                holdingPlayer = null;
-                actions.EmptyHands();
                 actions.StopAnimation();
                 currentPlayer.GetAnimator().SetBool("hasPickaxe", false);
                 actions.IsBaseActionActivated = false;

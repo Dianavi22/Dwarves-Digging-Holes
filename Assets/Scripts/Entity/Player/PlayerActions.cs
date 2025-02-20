@@ -41,8 +41,6 @@ public class PlayerActions : MonoBehaviour
 
     private Player _p;
 
-    private bool canPickup = false;
-
     private Dictionary<int, int> previousLayer = new();
 
     private bool _isFirstCanPickup = true;
@@ -116,7 +114,6 @@ public class PlayerActions : MonoBehaviour
         if (_isFirstCanPickup && GameManager.Instance.isInMainMenu || GameManager.Instance.passTuto || _tuto.startTuto)
         {
             _isFirstCanPickup = false;
-            canPickup = true;
         }
     }
 
@@ -132,7 +129,7 @@ public class PlayerActions : MonoBehaviour
 
         if (!_p.CanDoAnything()) return;
 
-        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed && canPickup)
+        if (context.phase == InputActionPhase.Started && !_p.IsGrabbed)
         {
             if (IsHoldingObject)
             {
@@ -141,7 +138,7 @@ public class PlayerActions : MonoBehaviour
                 _p.GetActions().CancelInvoke();
                 ThrowObject();
             }
-            else if (canPickup)
+            else
                 TryPickUpObject();
         }
 
@@ -307,7 +304,7 @@ public class PlayerActions : MonoBehaviour
     public void TryPickUpObject()
     {
         // Can't pickup item if the player already has one
-        if (IsHoldingObject) return;
+        if (IsHoldingObject || _p.IsDead) return;
 
         // Detect object arround the player
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickupRange);
@@ -399,7 +396,6 @@ public class PlayerActions : MonoBehaviour
         }
 
         RuntimeManager.PlayOneShot(isGrabbed ? pickupSound : throwSound, transform.position);
-        //canPickup = forced;
 
         if (obj.TryGetComponent<Pickaxe>(out var pickaxe))
             obj.transform.SetParent(isGrabbed ? _p.GetModelRef().GetPickaxeSlot() : null);
@@ -464,7 +460,6 @@ public class PlayerActions : MonoBehaviour
         else
         {
             canThrowObject = SetObjectInHand(heldObject, false, forced);
-            DOVirtual.DelayedCall(1f, () => canPickup = true);
         }
 
         //if (canThrowObject)
