@@ -30,6 +30,7 @@ public class WinPanel : MonoBehaviour
     [SerializeField] private EventReference goldTakeSound;
     [SerializeField] private EventReference panelEndSound;
     [SerializeField] private EventReference badgeSound;
+    [SerializeField] private EventReference victorySound;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class WinPanel : MonoBehaviour
         PanelEndSound();
         
         yield return new WaitForSeconds(0.5f);
+        VictorySound();
         _currentInt = 0;
         for (int i = 0; i < _gc._currentGoldCount; i++)
         {
@@ -137,6 +139,11 @@ public class WinPanel : MonoBehaviour
     private void BadgeSound()
     {
         RuntimeManager.PlayOneShot(badgeSound, transform.position);
+    }
+
+    private void VictorySound()
+    {
+        RuntimeManager.PlayOneShot(victorySound, transform.position);
     }
     #endregion
 }
