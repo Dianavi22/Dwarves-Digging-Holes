@@ -113,9 +113,11 @@ public class PlayerHealth : MonoBehaviour
         if (_p.IsGrabbed)
         {
             StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
-            _p.HandleCarriedState(_p.holdBy, false);
+            //_p.HandleCarriedState(_p.holdBy, false);
         }
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
+
+        _p.GetActions().ForceDetach();
 
         _p.IsDead = true;
         _respawnPoint.AddToRespawnQueue(_p);
@@ -125,7 +127,6 @@ public class PlayerHealth : MonoBehaviour
         _p.GetModelRef().gameObject.SetActive(false);
 
         _p.GetMovement().enabled = false;
-        _p.GetActions().ForceDetach();
         _p.GetActions().enabled = false;
         _p.GetRigidbody().useGravity = false;
         _p.GetRigidbody().velocity = Vector3.zero;
