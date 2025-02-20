@@ -20,7 +20,8 @@ public abstract class Entity : MonoBehaviour, IGrabbable
 
     public virtual bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
-        if (IsDead) return false;
+        if (IsDead && !IsGrabbed) return false;
+
         IsGrabbed = isGrabbed;
         if (isGrabbed)
         {
