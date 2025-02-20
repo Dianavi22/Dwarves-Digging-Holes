@@ -50,7 +50,7 @@ public class Enemy : Entity
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && !IsDead)
         {
             IsTouchingChariot = true;
         }
@@ -98,6 +98,8 @@ public class Enemy : Entity
         _rb.isKinematic = true;
         _gfx.SetActive(false);
         _destroyGobPart.Play();
+
+        movements.enabled = false;
 
         DeadSound();
         yield return new WaitForSeconds(2);
