@@ -9,6 +9,7 @@ public class ChariotWin : MonoBehaviour
     {
         if (other.CompareTag("GoldChariot"))
         {
+            print("HERE");
             GameManager.Instance.isChariotWin = true;
         }
     }
