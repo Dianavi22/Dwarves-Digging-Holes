@@ -113,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
         if (_p.IsGrabbed)
         {
             StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
-            _p.HandleCarriedState(_p.holdBy, false);
+            //_p.HandleCarriedState(_p.holdBy, false);
         }
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
 
