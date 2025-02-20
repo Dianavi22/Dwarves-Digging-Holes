@@ -111,7 +111,6 @@ public class MainMenuManager : MonoBehaviour
         _rockIntro.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         FallButtons();
-        yield return new WaitForSeconds(1f);
         yield return new WaitForSeconds(4f);
         ActiveButtons();
         MainMusicSound();
