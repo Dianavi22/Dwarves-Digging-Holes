@@ -26,6 +26,8 @@ public class WinPanel : MonoBehaviour
     [SerializeField] Vector3 planchVector = new Vector3(10f, 5.5f, -11.1000004f);
     [SerializeField] int Test;
     [SerializeField] int _currentInt;
+    [SerializeField] List<Sprite> _sprites;
+    [SerializeField]  SpriteRenderer _sprite;
 
     [SerializeField] private EventReference goldTakeSound;
     [SerializeField] private EventReference panelEndSound;
@@ -101,26 +103,34 @@ public class WinPanel : MonoBehaviour
         {
             emission.rateOverTime = 5f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.LittleGold);
+            _sprite.sprite = _sprites[0];
         }
         else if (_currentInt >= 11 && _currentInt < 21)
         {
             emission.rateOverTime = 30f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.AverageGold);
+            _sprite.sprite = _sprites[1];
+
         }
         else if (_currentInt >= 21 && _currentInt < 31)
         {
             emission.rateOverTime = 50f;
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GreatGold);
+            _sprite.sprite = _sprites[2];
+
         }
         else if (_currentInt >= 31 && _currentInt < 41)
         {
             emission.rateOverTime = 70f;
+            _sprite.sprite = _sprites[3];
 
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.ExtraGold);
         }
         else
         {
             emission.rateOverTime = 100f;
+            _sprite.sprite = _sprites[4];
+
             _phrase.text = StringManager.Instance.GetLevelCompleteSentence(LevelCompleteMessage.GoldMountain);
         }
     }
