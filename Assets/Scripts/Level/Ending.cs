@@ -39,7 +39,6 @@ public class Ending : MonoBehaviour
     {
         if (Utils.Component.TryGetInParent<Player>(other, out var player))
         {
-            _theEnd.isDwarfUp = true;
             GameManager.Instance.SetScrollingSpeed(0);
             EventManager.Instance.enabled = false;
             StartCoroutine(MovePlayerToEndPosition(player));
@@ -48,6 +47,9 @@ public class Ending : MonoBehaviour
 
     private void SpawnLadder()
     {
+        _theEnd.isDwarfUp = true;
+        print("  _theEnd.isDwarfUp " + _theEnd.isDwarfUp);
+
         this.GetComponent<Collider>().enabled = true;
         _gfxLadder.SetActive(true);
         _spawnLadderPart.Play();
