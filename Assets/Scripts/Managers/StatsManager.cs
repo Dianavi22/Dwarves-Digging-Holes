@@ -40,7 +40,7 @@ public class StatsManager : MonoBehaviour
         InitializePlayerStatistics();
         RestoreRenderTexture();
 
-        InvokeRepeating(nameof(StartScreenshots), 0, 5);
+        Invoke(nameof(StartScreenshots), 5);
     }
 
     private void InitializePlayerStatistics()
@@ -124,10 +124,8 @@ public class StatsManager : MonoBehaviour
 
             // Assuming you have a method to get the player's camera
             Camera playerCamera = player.playerCamera;
-
-            playerCamera.enabled = true;
             TakeScreenshot(playerCamera, renderTexture);
-            playerCamera.enabled = false;
+            Destroy(playerCamera);
         }
     }
 
@@ -163,9 +161,6 @@ public class StatsManager : MonoBehaviour
 
     public void TakeScreenshot(Camera targetCamera, RenderTexture renderTexture)
     {
-        // Ensure the camera is enabled
-        bool wasCameraEnabled = targetCamera.enabled;
-        targetCamera.enabled = true;
 
         // Save the current RenderTexture
         RenderTexture currentRT = RenderTexture.active;
@@ -191,9 +186,6 @@ public class StatsManager : MonoBehaviour
 
         // Restore the camera's target texture
         targetCamera.targetTexture = null;
-
-        // Restore the camera's enabled state
-        targetCamera.enabled = wasCameraEnabled;
     }
 
     public void WriteRenderTexture(RenderTexture source, RenderTexture destination)
