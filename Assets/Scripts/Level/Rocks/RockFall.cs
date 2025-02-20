@@ -93,6 +93,7 @@ public class RockFall : MonoBehaviour
     {
         _isDestroyed = true;
         _gfx.SetActive(false);
+        this.GetComponent<Collider>().isTrigger = true;
         this.GetComponent<Collider>().enabled = false;
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
         _breakPart.Play();
