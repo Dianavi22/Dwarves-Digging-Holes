@@ -82,7 +82,7 @@ public class PlayerMovements : EntityMovement
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy) && _isDashing)
+        if (_isDashing && Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy))
         {
             enemy.holdBy = _p;
             enemy.HandleDestroy();
@@ -167,7 +167,7 @@ public class PlayerMovements : EntityMovement
     }
     public void OnDash(InputAction.CallbackContext _)
     {
-       if(!_DashPart.isPlaying) _DashPart.Play();
+        if(!_DashPart.isPlaying) _DashPart.Play();
         if (!_p.CanDoAnything()) return;
 
         if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
@@ -210,7 +210,6 @@ public class PlayerMovements : EntityMovement
         _isOnChariot = false;
     }
 
-
     #region Sound
 
     private void DashSound(Vector3 position)
@@ -238,5 +237,4 @@ public class PlayerMovements : EntityMovement
     }
 
     #endregion
-
 }
