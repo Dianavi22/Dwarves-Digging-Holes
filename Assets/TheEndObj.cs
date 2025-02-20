@@ -17,6 +17,7 @@ public class TheEndObj : MonoBehaviour
     public TMP_Text _levelCompleteText;
     public TMP_Text _levelCompleteText2;
     public WinPanel wp;
+    public Collision deathCollision;
     public bool isDwarfUp = false;
 
     public ShakyCame _sc;
