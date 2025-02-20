@@ -115,6 +115,8 @@ public class PlayerHealth : MonoBehaviour
         }
         StatsManager.Instance.IncrementStatistic(_p, StatsName.MostDeath, 1);
 
+        _p.GetActions().ForceDetach();
+
         _p.IsDead = true;
         _respawnPoint.AddToRespawnQueue(_p);
         TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.2f, 0.2f);
@@ -123,7 +125,6 @@ public class PlayerHealth : MonoBehaviour
         _p.GetModelRef().gameObject.SetActive(false);
 
         _p.GetMovement().enabled = false;
-        _p.GetActions().ForceDetach();
         _p.GetActions().enabled = false;
         _p.GetRigidbody().useGravity = false;
         _p.GetRigidbody().velocity = Vector3.zero;
