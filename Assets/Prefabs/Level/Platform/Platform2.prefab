@@ -498,6 +498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3918773983181391644}
+  - component: {fileID: 6592858349907778485}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -522,6 +523,19 @@ Transform:
   - {fileID: 1331144964353074315}
   m_Father: {fileID: 6873135925888749329}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6592858349907778485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378642572946324651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fece746da74e8654699f62d81f4c000f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 5482772503970123305}
 --- !u!1 &6478524819290687988
 GameObject:
   m_ObjectHideFlags: 0
