@@ -110,7 +110,8 @@ public class PlayerHealth : MonoBehaviour
         if(_p.IsDead) return;
         DeathSound();
 
-        if (_p.IsGrabbed)
+
+        if (_p.holdBy != null)
         {
             StatsManager.Instance.IncrementStatistic(_p.holdBy, StatsName.PlayerKill, 1);
             //_p.HandleCarriedState(_p.holdBy, false);

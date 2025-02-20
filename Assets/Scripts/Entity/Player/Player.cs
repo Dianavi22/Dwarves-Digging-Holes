@@ -57,6 +57,10 @@ public class Player : Entity
 
     public override bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
     {
+        if(currentPlayer == null) return false;
+        
+        Debug.Log(currentPlayer);
+
         bool canBeCarried = base.HandleCarriedState(currentPlayer, isGrabbed);
         if (!canBeCarried) return false;
 

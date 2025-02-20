@@ -18,6 +18,8 @@ public class Lava : MonoBehaviour
     private bool _isCoolDown = true;
     private EventInstance _lavaEventInstance;
     private bool _isStartLava;
+    private GameObject preventDoubleCall = null;
+
     private void Start()
     {
         _lavaCollider.enabled = false;
@@ -29,8 +31,13 @@ public class Lava : MonoBehaviour
         {
             if (Utils.Component.TryGetInParent<IGrabbable>(other, out var grabbable))
             {
+                if(preventDoubleCall == grabbable.GetGameObject()) return;
+
+                preventDoubleCall = grabbable.GetGameObject();
                 PlayLavaBurntSound();
                 grabbable.HandleDestroy();
+
+                Invoke(nameof(ResetPreventDoubleCall), 0.5f);
             }
 
             if (Utils.Component.TryGetInParent<Rock>(other, out var rock))
@@ -72,6 +79,11 @@ public class Lava : MonoBehaviour
             yield return new WaitForSeconds(1f);
             TargetManager.Instance.GetGameObject<StudioEventEmitter>().gameObject.SetActive(true);
         }
+    }
+
+    private void ResetPreventDoubleCall()
+    {
+        preventDoubleCall = null;
     }
 
     #region Sound

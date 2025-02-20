@@ -12,7 +12,6 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     [HideInInspector] public FixedJoint Joint;
     public bool HasJoint => Joint != null;
 
-    private Tween recoveryTween;
 
     [HideInInspector] public bool CanMoveAfterGrab = true;
 
@@ -25,16 +24,24 @@ public abstract class Entity : MonoBehaviour, IGrabbable
         IsGrabbed = isGrabbed;
         if (isGrabbed)
         {
+            StopCoroutine(DefineCanMoveAfterGrab());
+            StopCoroutine(ResetHoldBy());
+
             holdBy = currentPlayer;
             CanMoveAfterGrab = false;
         }
         else
         {
             StartCoroutine(DefineCanMoveAfterGrab());
+            StartCoroutine(ResetHoldBy());
         }
         return true;
     }
 
+    private IEnumerator ResetHoldBy() {
+        yield return new WaitForSeconds(2f);
+        holdBy = null;
+    }
     private IEnumerator DefineCanMoveAfterGrab()
     {
         yield return new WaitForFixedUpdate();
@@ -48,6 +55,8 @@ public abstract class Entity : MonoBehaviour, IGrabbable
     public virtual void HandleDestroy()
     {
         if (IsDead) return;
+        StopCoroutine(DefineCanMoveAfterGrab());
+        StopCoroutine(ResetHoldBy());
 
         IsDead = true;
         Destroy(gameObject);
