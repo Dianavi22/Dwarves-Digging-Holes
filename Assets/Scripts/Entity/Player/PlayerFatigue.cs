@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using FMODUnity;
+using FMOD.Studio; 
 
 [System.Serializable]
 public class FatigueChangedEvent : UnityEvent<float, float> { }
@@ -8,28 +10,34 @@ public class PlayerFatigue : MonoBehaviour
 {
     [HideInInspector] public FatigueChangedEvent onCartsFatigueChanged;
     [HideInInspector] public FatigueChangedEvent onMiningFatigueChanged;
+    [HideInInspector] public float currentCartsFatigue;
+    [HideInInspector] public float currentMiningFatigue;
 
-    public float maxCartsFatigue = 60;
-    public float maxMiningFatigue = 60;
+    private PlayerFatigueData _miningData;
+    private PlayerFatigueData _pushCartData;
 
-    public float regenSpeedCartsFatigue = 0.05f;
-    public float regenSpeedMiningFatigue = 0.05f;
+    private float regenDelayCartsFatigue;
+    private float regenDelayMiningFatigue;
 
-    public float reduceSpeedCartsFatigue = 0.05f;
-    public float reduceSpeedMiningFatigue = 0.5f;
+    public float MaxMiningFatigue => _miningData.MaxFatigue;
+    public float MaxPushCartFatigue => _pushCartData.MaxFatigue;
 
-    public float currentCartsFatigue;
-    public float currentMiningFatigue;
-    private float regenDelayCartsFatigue = 0f;
-    private float regenDelayMiningFatigue = 0f;
+    [SerializeField] private EventReference fatigueWarningSound;
+    private float miningFatigueSoundTimer = 0f;
+    private float cartsFatigueSoundTimer = 0f;
+    private const float fatigueSoundCooldown = 2.5f; 
 
-    [SerializeField] private float regenDelayCartsFatigueMax = 2f;
-    [SerializeField] private float regenDelayMiningFatiMax = 2f;
 
-    void Start()
+    public void DefineStats(PlayerFatigueData miningData, PlayerFatigueData pushCartData)
     {
-        currentCartsFatigue = maxCartsFatigue;
-        currentMiningFatigue = maxMiningFatigue;  
+        _miningData = miningData;
+        _pushCartData = pushCartData;
+
+        currentCartsFatigue = MaxPushCartFatigue;
+        currentMiningFatigue = MaxMiningFatigue;
+
+        ResetDelayRegenCartsFatigue();
+        ResetDelayRegenMiningFatigue();
 
         InvokeOnCartsFatigueChanged();
         InvokeOnMiningFatigueChanged();
@@ -37,27 +45,35 @@ public class PlayerFatigue : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.isInMainMenu) return;
+        
         RegenCartsFatigueOverTime();
         RegenMiningFatigueOverTime();
 
-        //ReduceCartsFatigueOverTime();
-        //ReduceMiningFatigueOverTime();
-        //ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue);
-        //InvokeOnMiningFatigueChanged();
+        PlayFatigueWarningSound();
     }
 
     private void InvokeOnCartsFatigueChanged()
     {
-        onCartsFatigueChanged.Invoke(currentCartsFatigue, maxCartsFatigue);
+        onCartsFatigueChanged.Invoke(currentCartsFatigue, MaxPushCartFatigue);
     }
     private void InvokeOnMiningFatigueChanged()
     {
-        onMiningFatigueChanged.Invoke(currentMiningFatigue, maxMiningFatigue);
+        onMiningFatigueChanged.Invoke(currentMiningFatigue, MaxMiningFatigue);
     }
 
-    // * Regeneration fatigue over time
+    private void ResetDelayRegenCartsFatigue()
+    {
+        regenDelayCartsFatigue = _pushCartData.RegenDelay;
+    }
 
-    private void RegenerationFatigueOverTime(ref float currentFatigue, float maxFatigue, float regenSpeed)
+    private void ResetDelayRegenMiningFatigue()
+    {
+        regenDelayMiningFatigue = _miningData.RegenDelay;
+    }
+
+    #region Regenerate fatigue over time
+    private void RegenFatigueOverTime(ref float currentFatigue, float maxFatigue, float regenSpeed)
     {
         if (currentFatigue < maxFatigue)
         {
@@ -73,7 +89,7 @@ public class PlayerFatigue : MonoBehaviour
         }
         else
         {
-            RegenerationFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, regenSpeedCartsFatigue);
+            RegenFatigueOverTime(ref currentCartsFatigue, MaxPushCartFatigue, _pushCartData.RegenByFrame);
             InvokeOnCartsFatigueChanged();
         }
     }
@@ -86,66 +102,13 @@ public class PlayerFatigue : MonoBehaviour
         }
         else
         {
-            RegenerationFatigueOverTime(ref currentMiningFatigue, maxMiningFatigue, regenSpeedMiningFatigue);
+            RegenFatigueOverTime(ref currentMiningFatigue, MaxMiningFatigue, _miningData.RegenByFrame);
             InvokeOnMiningFatigueChanged();
         }
     }
+    #endregion
 
-    private void ResetDelayRegenCartsFatigue()
-    {
-        regenDelayCartsFatigue = regenDelayCartsFatigueMax;
-    }
-
-    private void ResetDelayRegenMiningFatigue()
-    {
-        regenDelayMiningFatigue = regenDelayMiningFatiMax;
-    }
-
-
-    // * Reduce Fatigue OverTime
-
-    private bool ReduceFatigueOverTime(ref float currentFatigue, float maxFatigue, float reductionRatePerSecond)
-    {
-        if (currentFatigue > 0)
-        {
-            currentFatigue = Mathf.Clamp(currentFatigue - reductionRatePerSecond * Time.deltaTime, 0, maxFatigue);
-            Debug.Log("ReduceFatigueOverTime activé");
-
-            return true;
-        }
-        Debug.Log("ReduceFatigueOverTime désactiver");
-        return false;
-    }
-
-    public bool ReduceCartsFatigueOverTime()
-    {
-        if (ReduceFatigueOverTime(ref currentCartsFatigue, maxCartsFatigue, reduceSpeedCartsFatigue))
-        {
-            InvokeOnCartsFatigueChanged();
-            ResetDelayRegenCartsFatigue();
-            Debug.Log("ReduceCartsFatigueOverTime activé");
-            return true;
-        }
-        Debug.Log("ReduceCartsFatigueOverTime désactivé");
-        return false;
-    }
-
-    public bool ReduceMiningFatigueOverTime()
-    {
-        if (ReduceFatigueOverTime(ref currentMiningFatigue, maxMiningFatigue, reduceSpeedMiningFatigue))
-        {
-            RegenMiningFatigueOverTime();
-            ResetDelayRegenMiningFatigue();
-            Debug.Log("ReduceFatigueOverTime activé");
-            return true;
-        }
-        Debug.Log("ReduceFatigueOverTime désactivé");
-        return false;
-    }
-
-
-    // * Increases fatigue instantly
-
+    #region Increases fatigue instantly
     private bool IncreaseFatigue(ref float currentFatigue, float maxFatigue, float amount)
     {
         currentFatigue = Mathf.Min(currentFatigue + amount, maxFatigue);
@@ -154,7 +117,7 @@ public class PlayerFatigue : MonoBehaviour
 
     public bool IncreaseCartsFatigue(float amount)
     {
-        if (IncreaseFatigue(ref currentCartsFatigue, maxCartsFatigue, amount))
+        if (IncreaseFatigue(ref currentCartsFatigue, MaxPushCartFatigue, amount))
         {
             InvokeOnCartsFatigueChanged();
             return true;
@@ -165,19 +128,19 @@ public class PlayerFatigue : MonoBehaviour
     public bool IncreaseMiningFatigue(float amount)
     {
 
-        if (IncreaseFatigue(ref currentMiningFatigue, maxMiningFatigue, amount))
+        if (IncreaseFatigue(ref currentMiningFatigue, MaxMiningFatigue, amount))
         {
             InvokeOnMiningFatigueChanged();
             return true;
         }
         return false;
     }
+    #endregion
 
-
-    // * Reduces fatigue instantly
-
+    #region Reduces fatigue instantly
     private bool ReduceFatigue(ref float currentFatigue, float amount)
     {
+        if (GameManager.Instance.isInMainMenu) return true;
         if (amount <= currentFatigue)
         {
             currentFatigue -= amount;
@@ -207,4 +170,22 @@ public class PlayerFatigue : MonoBehaviour
         }
         return false;
     }
+    #endregion
+
+    #region Sounds Fatigue
+    private void PlayFatigueWarningSound()
+    {
+        if (currentMiningFatigue / MaxMiningFatigue <= 0.05f && Time.time >= miningFatigueSoundTimer)
+        {
+            RuntimeManager.PlayOneShot(fatigueWarningSound, transform.position);
+            miningFatigueSoundTimer = Time.time + fatigueSoundCooldown;
+        }
+
+        if (currentCartsFatigue / MaxPushCartFatigue <= 0.01f && Time.time >= cartsFatigueSoundTimer)
+        {
+            RuntimeManager.PlayOneShot(fatigueWarningSound, transform.position);
+            cartsFatigueSoundTimer = Time.time + fatigueSoundCooldown;
+        }
+    }
+    #endregion
 }

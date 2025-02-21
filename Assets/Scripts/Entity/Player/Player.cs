@@ -1,64 +1,85 @@
-using DG.Tweening;
 using UnityEngine;
 
-/**
- * @todo Need to better instanciate this for better performance
- * For now - each child will do the Awake. Better if can use SerializeField only once where each child can have reference to
- */
-public class Player : MonoBehaviour, IGrabbable
+public class Player : Entity
 {
-    private PlayerMovements movements;
     private PlayerActions actions;
     private PlayerHealth health;
     private PlayerFatigue fatigue;
+    private PlayerMovements playerMovements;
     private UserInput input;
-    private Rigidbody rb;
 
-    private FixedJoint _joint;
+    private PlayerModels _model;
 
-    public bool HasJoint => _joint != null;
-    [HideInInspector] public bool IsCarried = false;
+    public Camera playerCamera;
+    public int playerIndex;
 
-    private void Awake()
+    [SerializeField] private GameObject playerCameraPrefab;
+
+    private Animator _animator;
+    //[HideInInspector] public bool IsCarried = false;
+
+    [HideInInspector] public bool HasCompletedLevel = false;
+
+    protected override void Awake()
     {
-        movements = GetComponent<PlayerMovements>();
+        base.Awake();
         actions = GetComponent<PlayerActions>();
         health = GetComponent<PlayerHealth>();
         fatigue = GetComponent<PlayerFatigue>();
+        playerMovements = GetComponent<PlayerMovements>();
         input = GetComponent<UserInput>();
-        rb = GetComponent<Rigidbody>();
+        playerCamera = Instantiate(playerCameraPrefab).GetComponent<Camera>();
+        playerCamera.gameObject.GetComponent<FollowPlayer>().playerToFollow = transform;
     }
 
-    public PlayerMovements GetMovement() => movements;
     public PlayerActions GetActions() => actions;
     public PlayerHealth GetHealth() => health;
     public PlayerFatigue GetFatigue() => fatigue;
     public UserInput GetInput() => input;
-    public Rigidbody GetRigidbody() => rb;
-
-    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    public Animator GetAnimator() => _model.GetAnimator();
+    public PlayerModels GetModelRef()
     {
-        movements.forceDetachFunction = currentPlayer.GetActions().ForceDetach;
-
-        IsCarried = isGrabbed;
-    }
-
-    public void CreatePlayerFixedJoin(Rigidbody obj)
-    {
-        if (_joint != null)
+        if (!_model)
         {
-            Debug.Log(_joint);
-            return;
+            print("INSTANTIATE NEW PLAYER MODEL - DEBUG CRASH");
+            _model = Instantiate(GamePadsController.Instance.m_PlayerModels[playerIndex], transform);
         }
-        rb.mass = 20f;
-        _joint = gameObject.AddComponent<FixedJoint>();
-        _joint.connectedBody = obj;
+        
+        return _model;
     }
 
-    public void EmptyPlayerFixedJoin()
+    public PlayerMovements GetPlayerMovements() => playerMovements;
+
+    public void SetModelRef(PlayerModels model)
     {
-        rb.mass = 1f;
-        Destroy(_joint);
-        _joint = null;
+        _model = model;
+    }
+
+    public override bool HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    {
+        if(currentPlayer == null) return false;
+        
+        Debug.Log(currentPlayer);
+
+        bool canBeCarried = base.HandleCarriedState(currentPlayer, isGrabbed);
+        if (!canBeCarried) return false;
+
+        ((PlayerMovements) movements).forceDetachFunction = currentPlayer.GetActions().ForceDetach;
+
+        GetAnimator().SetBool("isGrabbed", isGrabbed);
+        currentPlayer.GetAnimator().SetBool("isGrabbing", isGrabbed);
+
+        return canBeCarried;
+    }
+
+    public bool CanDoAnything()
+    {
+        if (GameManager.Instance.isInMainMenu) return true;
+        return !GameManager.Instance.isGameOver && !UIPauseManager.Instance.isPaused;
+    }
+
+    public override void HandleDestroy()
+    {
+        health.DeathPlayer();
     }
 }

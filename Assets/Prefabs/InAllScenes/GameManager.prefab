@@ -1,0 +1,329 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7294959219649338377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3157124828940171517}
+  - component: {fileID: 6258936125424772713}
+  - component: {fileID: 433335503891712005}
+  - component: {fileID: 7177857267881942841}
+  - component: {fileID: 2752945893467999895}
+  - component: {fileID: 4901307179824296338}
+  - component: {fileID: 582048765061509571}
+  - component: {fileID: 2775746880329335668}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3157124828940171517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.725832, y: 7.929781, z: 0.8129078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6258936125424772713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a65b60a82fdc2439fc70ee7543fb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerPrefab: {fileID: 3588309023502915711, guid: 80135ad08be638f47846446a4b7cb803, type: 3}
+  m_PlayerModels: []
+  m_MainCanvas: {fileID: 0}
+  m_HeadFatigueBarUI: {fileID: 1914617011401074097, guid: b171c037d540c0b469e380df48f8030f, type: 3}
+  IsDebugMode: 0
+  m_DebugPlayerCount: 1
+--- !u!114 &433335503891712005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a52c105375faad4191dd8f6bffa88eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 0
+  isDisableEventManager: 0
+  isGameStarted: 0
+  isGameOver: 0
+  isInMainMenu: 0
+  passTuto: 0
+  m_DifficultyList:
+  - {fileID: 11400000, guid: a9a9e7dde25826345a6a019acb28086a, type: 2}
+  - {fileID: 11400000, guid: d0387f9645456e844ba5a01a4a5ba047, type: 2}
+  _GameOverCanvas: {fileID: 0}
+  levelCompleteCanvas: {fileID: 0}
+  levelCompleteCanvaUI: {fileID: 0}
+  _retryButton: {fileID: 0}
+  _textGameOverCondition: {fileID: 0}
+  _skipTuto: {fileID: 0}
+  _scoreText: {fileID: 0}
+  _exitText: {fileID: 0}
+  _circleTransition: {fileID: 0}
+  _backButton: {fileID: 0}
+  _backbuttonLevelComplete: {fileID: 0}
+  _gameOverCanva: {fileID: 0}
+  _playerStats: []
+  _buttons: []
+  submitEvent:
+    Guid:
+      Data1: 1023626430
+      Data2: 1306001614
+      Data3: 1594038424
+      Data4: 798773606
+    Path: event:/UI/Menu/Selecting an element
+  navigateEvent:
+    Guid:
+      Data1: -862295779
+      Data2: 1126071768
+      Data3: -1960964732
+      Data4: -1384339287
+    Path: event:/UI/Menu/Hovering over a button
+  blockSpawner: {fileID: 0}
+  _gameOverPart: {fileID: 0}
+  _introGame: {fileID: 0}
+  _cam: {fileID: 0}
+  piercingTonesSound:
+    Guid:
+      Data1: -1248158817
+      Data2: 1262636781
+      Data3: 1835153287
+      Data4: 779116267
+    Path: event:/SFX/End of the game/PiercingTones
+  repetitions: 10
+  interval: 0.25
+  metalExplosionSound:
+    Guid:
+      Data1: 513479523
+      Data2: 1228380150
+      Data3: -989133901
+      Data4: 1857439235
+    Path: event:/SFX/End of the game/MetalExplosion
+  _PickaxeUI: {fileID: 0}
+  nbPickaxeUI: {fileID: 0}
+  _nbMaxPickaxeUI: {fileID: 0}
+  showPanelTutoSound:
+    Guid:
+      Data1: 770069103
+      Data2: 1186286508
+      Data3: -2055786860
+      Data4: 1241785256
+    Path: event:/SFX/Start of the game/ShowPanelTuto
+  isEnding: 0
+  isChariotWin: 0
+--- !u!114 &7177857267881942841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2576845893c5642a7bc67b0f0bead9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PauseCanvas: {fileID: 0}
+  isPaused: 0
+  _resumeButton: {fileID: 0}
+  _rebindJump: {fileID: 0}
+  _backbuttonSettings: {fileID: 0}
+  _inputCanvas: {fileID: 0}
+  _settingsCanvas: {fileID: 0}
+  _stateMenuEvent: []
+  _circleTransition: {fileID: 0}
+  _controlsPanel: {fileID: 0}
+  _controlsPanelButton: {fileID: 0}
+  scaleButton: 0
+  _button: []
+--- !u!114 &2752945893467999895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059ec4859d2bb254299a5dc056e50301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldChariot: {fileID: 0}
+  respawnPoint: {fileID: 0}
+  shakyCame: {fileID: 0}
+  typeSentence: {fileID: 0}
+  score: {fileID: 0}
+  lava: {fileID: 0}
+  tuto: {fileID: 0}
+  postProcessVolume: {fileID: 0}
+  gameOST: {fileID: 0}
+--- !u!114 &4901307179824296338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4134aa9030bac42a921d9028bc50e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _goblinDeathCondition: We're ruined...
+  _lavaDeathCondition: Okay, we need an lava resistant chariot
+  _pickaxeIssue: PICKAXE ISSUE!!
+  _pickaxeIssueDescription: Pickaxes aren't what they used to be, elf work!
+  _taxDay: TAX DAY!!
+  _taxDayDescription: All this gold... you make even the gods jealous!
+  _approachingLava: RUN!! LAVAAA
+  _approachingLavaDescription: Your legs may be short, but you can still cover 7.5m!
+  _goblinWave: GOBLIN WAVE!!
+  _goblinWaveDescription: After not seeing their buddies come back, they show up
+    in a gang!
+  _noForge: NO FORGE
+  _noForgeDescription: I knew I should have taken the warranty on this forge
+  _congratsTitle: You Win
+  _congratsDescription: Congratulation !
+  _missingChariotTitle: Too bad
+  _missingChariotDescription: Next time, take the golds before you escape
+  _endingCountingGoldDescription_1: Enough to pay for just a room at the inn!
+  _endingCountingGoldDescription_2: "At least you\u2019ll be able to pay your rent,
+    but without heating your cottage."
+  _endingCountingGoldDescription_3: A round for everyone, and a banquet too, please!
+  _endingCountingGoldDescription_4: Be careful to not make dragons jealous!
+  _endingCountingGoldDescription_5: What if we bought the Sylvan Elves' forest?
+--- !u!114 &582048765061509571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe0a5ce517e407458faab5f7aa5e18c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eventText: {fileID: 0}
+  _littleText: {fileID: 0}
+  _ts: {fileID: 0}
+  _showTextPart: {fileID: 0}
+  _pickaxesModels: []
+  _pickaxesPart: []
+  eventPickaxeSound:
+    Guid:
+      Data1: 177134674
+      Data2: 1264349227
+      Data3: 1001151885
+      Data4: -47436773
+    Path: event:/SFX/Event/EventPickaxeSound
+  EventPickaxeBreak:
+    Guid:
+      Data1: -2146907142
+      Data2: 1150207948
+      Data3: 769914544
+      Data4: -2042043953
+    Path: event:/SFX/Event/break
+  _lavaPartUI: {fileID: 0}
+  _lavaRain: {fileID: 0}
+  eventGoldChariotSound:
+    Guid:
+      Data1: 1579771952
+      Data2: 1220363471
+      Data3: 1536033168
+      Data4: 149518522
+    Path: event:/SFX/Event/eventGoldChariotSound
+  _goldChariotPart: {fileID: 0}
+  _goldChariotUIPart: {fileID: 0}
+  lavaGettingCloseSound:
+    Guid:
+      Data1: -476605908
+      Data2: 1181553227
+      Data3: -1874405983
+      Data4: 1169521208
+    Path: event:/SFX/Event/lavaGettingCloseSound
+  lightningSound:
+    Guid:
+      Data1: -688889768
+      Data2: 1250317371
+      Data3: 1015532185
+      Data4: -673077240
+    Path: event:/SFX/Event/lightning
+  _goblinWave: {fileID: 0}
+  goblinWaveSound:
+    Guid:
+      Data1: -1952691828
+      Data2: 1137612979
+      Data3: -1777529925
+      Data4: 729406100
+    Path: event:/SFX/Event/goblinWaveSound
+  noForgeSound:
+    Guid:
+      Data1: -1278412869
+      Data2: 1274511681
+      Data3: -827111808
+      Data4: -612969900
+    Path: event:/SFX/Event/noForgeSound
+  _forgeBrokenPart: {fileID: 0}
+  _deleteForgePanelEventPart: {fileID: 0}
+  _panelNoForgePart: {fileID: 0}
+  _goblinWaveSpawnPart: {fileID: 0}
+  _forgePanelAnimator: {fileID: 0}
+  _littleTextAnim: {fileID: 0}
+  rocksHealth: 0
+  rocksWithGoldHealth: 0
+  isForgeEvent: 0
+  _bubbleForgeBroken: {fileID: 0}
+  _forgePanel: {fileID: 0}
+--- !u!114 &2775746880329335668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294959219649338377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697e28cae49433440834fbac6a88846a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statisticsText:
+  - Key: 0
+    Value: {fileID: 0}
+    renderTexture: {fileID: 0}
+  - Key: 1
+    Value: {fileID: 0}
+    renderTexture: {fileID: 0}
+  - Key: 2
+    Value: {fileID: 0}
+    renderTexture: {fileID: 0}
+  - Key: 3
+    Value: {fileID: 0}
+    renderTexture: {fileID: 0}
+  _image: {fileID: 0}

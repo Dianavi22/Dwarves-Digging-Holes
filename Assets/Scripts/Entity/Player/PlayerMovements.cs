@@ -2,173 +2,239 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using System;
+using Unity.VisualScripting;
+using UnityEngine.PlayerLoop;
+using FMODUnity;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : EntityMovement
 {
-    [Header("Values")]
-    [SerializeField] private float _speed;
-    [SerializeField] private float _dashForce;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float fallMultiplier;
-    [SerializeField] private float lowJumpMultiplier;
-    [SerializeField] private Vector2 _deadZoneSpace = new (0.5f, 0.5f);
+    [HideInInspector] public bool isGrabbingChariot;
+    [HideInInspector] public bool isCreatingPickaxe;
+    
+    [SerializeField] private Vector2 _deadZoneSpace = new(0.5f, 0.5f);
 
-    [SerializeField] private Transform _leftRay;
-    [SerializeField] private Transform _rightRay;
-
+    [Header("Particle effect")]
     [SerializeField] ParticleSystem _DashPart;
+    [SerializeField] ParticleSystem _hurtPart;
+    [SerializeField] ParticleSystem _groundedPart;
+    [SerializeField] ParticleSystem _movePart;
+    [SerializeField] ParticleSystem _tearsPart;
 
-    private float _horizontal = 0f;
-    private float _vertical = 0f;
+    [SerializeField] private EventReference dashSound;
+    [SerializeField] private EventReference jumpSound;
+    [SerializeField] private EventReference landingSound;
+    [SerializeField] private EventReference hoooSound; 
+    [SerializeField] private EventReference disappointedgSound; 
+    
+    
     private bool _isDashingCooldown = false;
     private bool _isDashing = false;
-    private bool _jumpButtonHeld = false;
-    private Vector3 playerVelocity;
-
-    public bool flip = false;
-
-    public bool flip_vertical = false;
-    public bool _isGrounded = false;
-    public float gravityScale = 1f;
+    private bool flip_vertical = false;
+    [SerializeField] Rigidbody _rb;
+    [SerializeField] private Transform headAimTarget;
 
     public Action forceDetachFunction;
 
-    private readonly float gravityValue = -9.81f;
+    Player _p => (Player)GetBase;
 
-    private Player _p;
 
-    private void Awake()
+    void Awake()
     {
-        _p = GetComponent<Player>();
+        GetBase = GetComponent<Player>();
     }
 
-    void Update()
+    protected new void Update()
     {
-        // Move
-        if (!_isDashing)
+        if (_p.IsGrabbed && !_tearsPart.isPlaying)
         {
-            //bool canMoveChariot = _p.HasJoint && Utils.TryGetParentComponent<GoldChariot>(_p.GetActions().heldObject, out _);
-
-            // || (canMoveChariot && _p.GetFatigue().ReduceCartsFatigue(GameManager.Instance.Difficulty.PlayerPushFatigue * Time.deltaTime))
-            float xVelocity = _horizontal == 0 && !_isDashingCooldown && !_p.IsCarried
-                ? _p.GetRigidbody().velocity.x
-                : _horizontal * _speed;
-            _p.GetRigidbody().velocity = new Vector3(xVelocity, _p.GetRigidbody().velocity.y, 0f);
+            _tearsPart.Play();
+            HoooSound();
         }
 
-        // Flip
-        if (_horizontal > 0 && flip || _horizontal < 0 && !flip)
+        if (!_p.IsGrabbed)
         {
-            flip = !flip;
-            FlipFacingDirection();
+            _tearsPart.Stop();
         }
 
-        if ((_vertical != 0 && !flip_vertical) || (_vertical == 0 && flip_vertical))
+        base.Update();
+
+        if ((_moveInput.y != 0 && !flip_vertical) || (_moveInput.y == 0 && flip_vertical))
         {
             FlipHoldObject();
         }
+        _p.GetModelRef().m_headAimTarget.position = headAimTarget.position;
+    }
 
-        // Faster falling
-        if (_p.GetRigidbody().velocity.y < 1 && !_isDashing)
+    private bool PlayerCanMove(bool isInputActivated)
+    {
+        if (!GameManager.Instance.isGameOver)
         {
-            _p.GetRigidbody().velocity += (fallMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            bool isHoldingChariot = _p.HasJoint && Utils.Component.TryGetInParent<GoldChariot>(_p.GetActions().heldObject, out _);
+            if (isInputActivated && isHoldingChariot)
+                return !_p.IsGrabbed && _p.GetFatigue().ReduceCartsFatigue(
+                    GameManager.Instance.Difficulty.PushCartFatigue.ActionReducer * Time.deltaTime);
+
+            return !isCreatingPickaxe;
         }
 
-        // Shorter jump
-        else if (_p.GetRigidbody().velocity.y > 0 && !_jumpButtonHeld)
+        return !_p.IsGrabbed;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_isDashing && Utils.Component.TryGetInParent<Enemy>(collision.collider, out var enemy))
         {
-            // Apply low jump multiplier to reduce upward velocity when the jump button is released
-            _p.GetRigidbody().velocity += (lowJumpMultiplier - 1) * Physics.gravity.y * Time.deltaTime * Vector3.up;
+            enemy.holdBy = _p;
+            enemy.HandleDestroy();
         }
 
-        // Grounded
-        _isGrounded = Physics.Raycast(_leftRay.position, Vector3.down, 1f) || Physics.Raycast(_rightRay.position, Vector3.down, 1f);
-        if (!_isGrounded)
+        if (!collision.collider.CompareTag("GoldChariot") && !_groundedPart.isPlaying)
         {
-            playerVelocity.y = -2f;
-            playerVelocity.y += gravityValue * Time.deltaTime;
-            _p.GetRigidbody().AddForce(playerVelocity * Time.deltaTime);
+            _groundedPart.Play();
+            LandingSound(gameObject.transform.position);
         }
     }
 
-    private void FlipFacingDirection()
+    protected override void HandleFlip()
     {
-        if (GameManager.Instance.isGameOver) return;
-
-        transform.rotation = Quaternion.Euler(0, flip ? 0 : 180, 0);
+        if(isCreatingPickaxe) return;
+        base.HandleFlip();
     }
 
     private void FlipHoldObject()
     {
-        float targetYRotation = flip ? 0 : 180;
-        float targetZRotation = -Math.Sign(_vertical) * 35f;
+        float targetZRotation = -Math.Sign(_moveInput.y) * 35f;
 
-        _p.GetActions().StopAnimation();
-        _p.GetActions().CancelInvoke();
-        _p.GetActions().pivot.transform.DORotate(new Vector3(0, targetYRotation, targetZRotation), 0f);
-        _p.GetActions().vertical = _vertical;
-        flip_vertical = _vertical != 0;
+        if (_p.GetActions().pivot.transform.localEulerAngles.z == targetZRotation) return;
+
+        //_p.GetActions().StopAnimation();
+        //_p.GetActions().CancelInvoke();
+        _p.GetActions().pivot.transform.DOLocalRotate(new Vector3(0, 0, targetZRotation), 0f);
+        _p.GetActions().vertical = _moveInput.y;
+        flip_vertical = _moveInput.y != 0;
     }
 
     #region EVENTS
+    public void OnMove(InputAction.CallbackContext context)
+    {
+       // Debug.Log(CanDoAnything());
+        if (!_p.CanDoAnything()) return;
+
+        Vector2 vector = context.ReadValue<Vector2>();
+        float _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
+        float _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
+        if (_horizontal != 0 && !_movePart.isPlaying)
+        {
+            _movePart.Play();
+        }
+
+        if (_horizontal == 0)
+        {
+            _movePart.Stop();
+        }
+        CanMove = PlayerCanMove(Mathf.Abs(_horizontal) > 0);
+        //Debug.Log(CanMove);
+        Move(new Vector2(_horizontal, _vertical));
+
+        // Grab chariot moonwalk fix
+        float horizontal = (isGrabbingChariot && flip) ? _horizontal : _horizontal * -1f;
+        _p.GetAnimator().SetFloat("Run", horizontal);
+    }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (_p.IsCarried)
+        if (!_p.CanDoAnything() || isCreatingPickaxe) return;
+        
+        if (_p.IsGrabbed)
         {
             forceDetachFunction?.Invoke();
         }
-        // When jump is pressed
-        if (context.phase == InputActionPhase.Performed && _isGrounded)
+        switch (context.phase)
         {
-
-            if (_isGrounded && !_isDashing)
-            {
-                _jumpButtonHeld = true;
-                _p.GetRigidbody().AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-            }
-        }
-
-        // When jump button is released
-        if (context.phase == InputActionPhase.Canceled)
-        {
-            _jumpButtonHeld = false;
-        }
-        else if (context.phase == InputActionPhase.Started)
-        {
-            _jumpButtonHeld = true;
+            case InputActionPhase.Performed:
+                if (isGrounded && !_isDashing)
+                {
+                    IsPerformingJump = true;
+                    Jump();
+                    JumpSound(gameObject.transform.position);
+                    _movePart.Stop();
+                }
+                break;
+            case InputActionPhase.Canceled:
+                IsPerformingJump = false;
+                break;
         }
     }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Vector2 vector = context.ReadValue<Vector2>();
-        _horizontal = Mathf.Abs(vector.x) > _deadZoneSpace.x ? vector.x : 0;
-        _vertical = Mathf.Abs(vector.y) > _deadZoneSpace.y ? Mathf.RoundToInt(vector.y) : 0;
-    }
-
     public void OnDash(InputAction.CallbackContext _)
     {
-        if (_isDashing || _isDashingCooldown || _p.IsCarried) return;
+        if(!_DashPart.isPlaying) _DashPart.Play();
+        if (!_p.CanDoAnything()) return;
+
+        if (_isDashing || _isDashingCooldown || _p.IsGrabbed) return;
 
         _isDashing = true;
         _isDashingCooldown = true;
         _DashPart.Play();
-        Vector3 dashDirection = flip ? Vector3.left : Vector3.right;
-        _p.GetRigidbody().velocity = new Vector3(dashDirection.x * _dashForce, _p.GetRigidbody().velocity.y, 0f);
+        DashSound(gameObject.transform.position);
+
+        Dash();
 
         DOVirtual.DelayedCall(0.2f, () =>
         {
+            _DashPart.Stop();
             _isDashing = false;
-            Invoke(nameof(EndDashCoolDown), 0.75f);
+            Invoke(nameof(EndDashCoolDown), 0.8f);
             _DashPart.Stop();
         });
     }
     #endregion
-    
+
     // Fin du cooldown du dash
     void EndDashCoolDown()
     {
         _isDashingCooldown = false;
     }
+
+    private bool _isOnChariot = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<HitGoldByChariot>(out var hgbc) && !_isOnChariot)
+        {
+            _isOnChariot = true;
+            hgbc.HitByPlayer(other.transform.position);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        _isOnChariot = false;
+    }
+
+    #region Sound
+
+    private void DashSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(dashSound, position);
+    }
+
+    private void JumpSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(jumpSound, position);
+    }
+
+    private void LandingSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(landingSound, position);
+    }
+
+    private void DisappointedSound(Vector3 position)
+    {
+        RuntimeManager.PlayOneShot(disappointedgSound, position);
+    }
+    private void HoooSound()
+    {
+        RuntimeManager.PlayOneShot(hoooSound, transform.position);
+    }
+
+    #endregion
 }

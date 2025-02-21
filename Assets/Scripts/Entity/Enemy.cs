@@ -1,148 +1,202 @@
 using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using Utils;
+using FMOD.Studio;
+using FMODUnity;
 
-public class Enemy : MonoBehaviour, IGrabbable
+public class Enemy : Entity
 {
-    [SerializeField] float movementSpeed = 5f;
-    [SerializeField] float lifePoint = 3f;
-    [SerializeField] float jumpForce = 0.5f;
+    public Animator _animator;
+    
+    [Header("Sound effect")]
+    [SerializeField] private EventReference goblinLaughSound;
+    [SerializeField] private EventReference goblinStealingSound;
+    [SerializeField] private EventReference goblinDeadSound;
+    [SerializeField] private EventReference goblinPeriodicSound;
 
-    [SerializeField] GameObject raycastDetectHitWall;
+    [Header("Particle effect")]
+    [SerializeField] ParticleSystem _destroyGobPart;
+    [SerializeField] GameObject _gfx;
 
-    private Vector3 mvtVelocity;
-    private Rigidbody _rb;
-    private bool flip = false;
+    [SerializeField] List<Collider> _colliders;
 
-    // The Physics Gravity is changed, so we set a new one for the enemy
-    private readonly float gravityValue = -9.81f;
+    private Tuto _tuto;
 
     private GoldChariot _goldChariot;
+    public Vector3 GetDestinationPosition => _goldChariot.transform.position;
     private bool _isTouchChariot;
-    private bool IsTouchingChariot 
-    { 
+    [HideInInspector] public bool canSteal = true;
+    public bool IsTouchingChariot
+    {
         get => _isTouchChariot;
         set
         {
             if (_isTouchChariot == value) return;
-
-            if (value)
-                _goldChariot.NbGoblin++;
-            else
-                _goldChariot.NbGoblin--;
+            if (value) _goldChariot.NbGoblin++;
+            else _goldChariot.NbGoblin--;
             _isTouchChariot = value;
         }
     }
-    private bool _InCD = false;
 
-    // if the entity can change his focus from the primary target (like by targeting the player if one damaged him)
-    public bool hasFocus = true;
-    public bool isGrabbed;
-
-    public void HandleCarriedState(Player currentPlayer, bool isGrabbed)
+    private void Start()
     {
-        this.isGrabbed = isGrabbed;
-        if (isGrabbed)
-        {
-            hasFocus = false;
-        } else
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, 0));
-        }
-    }
-
-    void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>(Target.GoldChariot);
-    }
-
-    void Update()
-    {
-        // Can jump part
-        bool hitWall = Physics.Raycast(raycastDetectHitWall.transform.position, transform.forward, 1.5f);
-
-        // Grounded
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-        if (hitWall && isGrounded)
-        {
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-        else
-        {
-            mvtVelocity.y = -2f;
-            mvtVelocity.y += gravityValue * Time.deltaTime;
-            _rb.AddForce(mvtVelocity * Time.deltaTime);
-        }
-
-        Vector3 goldChariotPosition = _goldChariot.transform.position;
-        float direction = Mathf.Sign(goldChariotPosition.x - transform.position.x);
-
-        if (direction == -1f && flip || direction == 1f && !flip)
-        {
-            flip = !flip;
-            FlipFacingDirection();
-        }
-
-        float offset = 1f;
-        if (goldChariotPosition.x - offset < transform.position.x && goldChariotPosition.x + offset > transform.position.x)
-            direction = 0f;
-
-        // to make sure the enemy isn't stuck in a wall while jumping we stop its movement
-        if (!hitWall && hasFocus) _rb.velocity = new Vector3(movementSpeed * direction, _rb.velocity.y, 0f);
-
-        // TODO faire condition isGrabbed
-        if (!hasFocus && !isGrabbed) hasFocus = isGrounded;
-        
-        //lost Gold function
-        if (IsTouchingChariot && !_InCD && !isGrabbed)
-        {
-            StartCoroutine(HitChariot());
-        }
-
-        if (isGrabbed)
-        {
-            IsTouchingChariot = false;
-            _rb.mass = 1f;
-        }
-        else 
-        {
-            _rb.mass = 10f;
-        }
-    }
-    private void FlipFacingDirection()
-    {
-        transform.Rotate(0f, 180f, 0f);
-    }
-
-    private IEnumerator HitChariot()
-    {
-        _InCD = true;
-        _goldChariot.GoldCount -= 1;
-        yield return new WaitForSeconds(1);
-        _InCD = false;
+        _goldChariot = TargetManager.Instance.GetGameObject<GoldChariot>();
+        _tuto = TargetManager.Instance.GetGameObject<Tuto>();
+        StartCoroutine(PlayGoblinLaughWithDelay());
+        StartCoroutine(PeriodicSoundLoop());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.name);
-        if (_goldChariot.gameObject.Equals(collision.gameObject))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && !IsDead)
         {
-            Debug.Log("---- GoldChariot collision");
             IsTouchingChariot = true;
         }
     }
-    
+
     private void OnCollisionExit(Collision collision)
     {
-        if (_goldChariot.gameObject.Equals(collision.gameObject))
+        if (Utils.Component.TryGetInParent<GoldChariot>(collision.gameObject, out _) && IsTouchingChariot)
         {
-            Debug.Log("---- Quitting");
             IsTouchingChariot = false;
         }
     }
 
-    private void OnDrawGizmos()
+    public IEnumerator HitChariot()
     {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -1.1f, 0));
+        if (IsDead) yield break;
+
+        canSteal = false;
+        _goldChariot.oneLostPart.Play();
+            
+        StealingSound();
+        LaughSound();
+
+        yield return new WaitForSeconds(1);
+        canSteal = true;
     }
+
+    public IEnumerator DestroyByLava()
+    {
+        IsDead = true;
+        IsTouchingChariot = false;
+        for (int i = 0; i < _colliders.Count; i++)
+        {
+            _colliders[i].enabled = false;
+        }
+
+        if (holdBy != null)
+        {
+            StatsManager.Instance.IncrementStatistic(holdBy, StatsName.GoblinKill, 1);
+            holdBy = null;
+        };
+
+        _rb.velocity = Vector3.zero;
+        TargetManager.Instance.GetGameObject<ShakyCame>().ShakyCameCustom(0.3f, 0.3f);
+        _rb.isKinematic = true;
+        _gfx.SetActive(false);
+        _destroyGobPart.Play();
+
+        movements.enabled = false;
+
+        DeadSound();
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
+    }
+
+    public override bool HandleCarriedState(Player player, bool grabbed) {
+
+        bool canBeCarried = base.HandleCarriedState(player, grabbed);
+        if (!canBeCarried) return false;
+
+        if (_tuto.isTakeEnemy) _tuto.isYeetEnemy = true;
+
+        _animator.SetBool("isGrabbed", grabbed);
+        player.GetAnimator().SetBool("isGrabbing", grabbed);
+
+        if (grabbed) 
+        {
+            IsTouchingChariot = false;
+        }
+        _rb.mass = grabbed ? 1f : 5f;
+
+        return canBeCarried;
+    } 
+    override public void HandleDestroy()
+    {
+        if (IsDead) return;
+
+        if (_tuto.isYeetEnemy)
+        {
+            _tuto.isYeetEnemy = false;
+            _tuto.StopTuto();
+        }
+        if(_tuto.isTakeEnemy)
+        {
+            _tuto.StopTuto();
+            GameManager.Instance.SkipTuto();
+        }
+        
+        StartCoroutine(DestroyByLava());
+    }
+
+    private IEnumerator PeriodicSoundLoop()
+    {
+        while (!IsDead)
+        {
+            float randomDelay = Random.Range(3f, 7f);
+            yield return new WaitForSeconds(randomDelay);
+
+            if (!IsDead)
+            {
+                PeriodicSound();
+            }
+        }
+    }
+    private IEnumerator PlayGoblinLaughWithDelay()
+    {
+        float randomDelay = Random.Range(0f, 2f);
+        yield return new WaitForSeconds(randomDelay);
+
+        LaughSound();
+    }
+
+    #region Sounds
+    private void LaughSound()
+    {  
+        EventInstance laughInstance = RuntimeManager.CreateInstance(goblinLaughSound);
+        RuntimeManager.AttachInstanceToGameObject(laughInstance, transform, GetRigidbody());
+        laughInstance.start();
+        laughInstance.release();
+    }
+
+    private void PeriodicSound()
+    {  
+        EventInstance periodicInstance = RuntimeManager.CreateInstance(goblinPeriodicSound);
+        RuntimeManager.AttachInstanceToGameObject(periodicInstance, transform, GetRigidbody());
+        periodicInstance.start();
+        periodicInstance.release();
+    }
+
+    private void StealingSound()
+    {  
+        EventInstance stealingInstance = RuntimeManager.CreateInstance(goblinStealingSound);
+        RuntimeManager.AttachInstanceToGameObject(stealingInstance, transform, GetRigidbody());
+        stealingInstance.start();
+        stealingInstance.release();
+    }
+
+    private void DeadSound()
+    {  
+        EventInstance deadInstance = RuntimeManager.CreateInstance(goblinDeadSound);
+        RuntimeManager.AttachInstanceToGameObject(deadInstance, transform, GetRigidbody());
+        deadInstance.start();
+        deadInstance.release();
+    }
+
+    #endregion
 }
+
+

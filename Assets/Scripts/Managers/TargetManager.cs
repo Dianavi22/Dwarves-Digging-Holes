@@ -1,51 +1,55 @@
-using JetBrains.Annotations;
-using System.Collections;
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum Target
-{
-    GoldChariot,
-    BeerChariot,
-    RespawnPoint
-}
+using UnityEngine.Rendering.PostProcessing;
 
 public class TargetManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject player;
-    [SerializeField] private GameObject goldChariot;
-    [SerializeField] private GameObject respawnPoint;
+    // Add global reference from the editor
+    [SerializeField] private GoldChariot goldChariot;
+    [SerializeField] private RespawnPoint respawnPoint;
+    [SerializeField] private ShakyCame shakyCame;
+    [SerializeField] private TypeSentence typeSentence;
+    [SerializeField] private Score score;
+    [SerializeField] private Lava lava;
+    [SerializeField] private Tuto tuto;
+    [SerializeField] private PostProcessVolume postProcessVolume;
+    [SerializeField] private StudioEventEmitter gameOST;
 
     public static TargetManager Instance; // A static reference to the TargetManager instance
-
     void Awake()
     {
         if (Instance == null) // If there is no instance already
-        {
             Instance = this;
-        }
         else if (Instance != this) // If there is already an instance and it's not `this` instance
-        {
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
-        }
     }
 
-    public T GetGameObject<T>(Target target)
+    // Then add the new reference into this list
+    private List<MonoBehaviour> GetTargetList()
     {
-        GameObject go = GetGameObject(target);
-        if (go.TryGetComponent(out T targetInstance))
-            return targetInstance;
-        return default;
-    }
-
-    public GameObject GetGameObject(Target target)
-    {
-        return target switch
+        List<MonoBehaviour> list = new()
         {
-            //Target.Player => player,
-            Target.GoldChariot => goldChariot,
-            Target.RespawnPoint => respawnPoint,
-            _ => null,
+            goldChariot,
+            respawnPoint,
+            shakyCame,
+            typeSentence,
+            score,
+            lava,
+            tuto,
+            postProcessVolume,
+            gameOST
         };
+        return list;
+    }
+
+    public T GetGameObject<T>() where T : MonoBehaviour
+    {
+        foreach (MonoBehaviour target in GetTargetList())
+        {
+            if (target != null && target.GetType() == typeof(T))
+                return target as T;
+        }
+        return default;
     }
 }

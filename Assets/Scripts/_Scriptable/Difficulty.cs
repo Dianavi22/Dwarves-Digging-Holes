@@ -4,17 +4,21 @@ using UnityEngine;
 public class Difficulty : ScriptableObject
 {
     [Header("General")]
+    public string DifficultyName;
     public float ScrollingSpeed;
+    public EntityMovementData GoblinStats;
+    public int PlateformObjective;
 
     [Header("Player")]
-    public float PlayerMiningFatigue;
-    public float PlayerPushFatigue;
+    public EntityMovementData PlayerStats;
+
+    public PlayerFatigueData MiningFatigue;
+    public PlayerFatigueData PushCartFatigue;
 
     [Header("GoldChariot")]
     public int NbStartingGold;
 
     [Header("Pickaxe")]
     public float MiningSpeed;
-    public int PickaxeDurability;
     public int MaxNumberPickaxe;
 }
